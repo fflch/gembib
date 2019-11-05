@@ -8,6 +8,6 @@ class Sugestoes2Controller extends Controller
 {
     public function index()
     {
-    	return 'Treinando fluxo';
+    	return view('sugestoes2');
     }
 }
