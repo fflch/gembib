@@ -11,7 +11,4 @@
 |
 */
 
-Route::get('/sugestoes1', 'Sugestoes1Controller@index');
 
-
-Route::get('/sugestoes2', 'Sugestoes2Controller@index');
