@@ -8,23 +8,18 @@ return [
     'login_url' => 'login',
     'menu' => [
         [
-            'text' => 'Fazer sugestões',
-            'url'  => '/item1',
+            'text' => 'Fazer Sugestão',
+            'url'  => '/suggestions/create',
         ],
         [
-            'text' => 'Consultar',
-            'url'  => '/item2',
+            'text' => 'Processar Sugestão',
+            'url'  => '/suggestions/processar_sugestao',
             'can'  => '',
         ],
         [
-            'text' => 'Aquisição',
+            'text' => 'Processar Aquisição',
             'url'  => '/item3',
-            'can'  => 'admin',
-        ],
-        [
-            'text' => 'Processamento técnico',
-            'url'  => '/item3',
-            'can'  => 'admin',
+            'can'  => '',
         ],
     ]
 ];

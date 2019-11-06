@@ -12,3 +12,9 @@
 */
 
 Route::get('/', 'IndexController@index');
+
+Route::get('/suggestions/create','SuggestionController@create');
+Route::get('/suggestions/processar_sugestao','SuggestionController@processar_sugestao');
+
+
+
