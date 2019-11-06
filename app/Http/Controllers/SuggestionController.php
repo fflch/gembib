@@ -40,7 +40,7 @@ class SuggestionController extends Controller
         $suggestion->status = $request->status;
 
         /*Salvar o motivo*/
-        //???????
+        $suggestion->motivo = $request->motivo;
 
         $suggestion->save();
         return redirect('/');        
