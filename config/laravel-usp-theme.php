@@ -13,7 +13,7 @@ return [
         ],
         [
             'text' => 'Processar Sugestão',
-            'url'  => '/suggestions/processar_sugestao',
+            'url'  => '/suggestions/processar_sugestao/1',
             'can'  => '',
         ],
         [

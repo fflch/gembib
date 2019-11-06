@@ -2,20 +2,16 @@
 
 @section('content')
 
-<form>
-
-  <div class="form-group">
-
-  <form method="POST" action="/create">
-
-    <div>
+<form method="POST" action="/suggestions">
+    @csrf
+    <div class="form-group">
       <label for="titulo">Título:</label>
-      <input type="text" id="titulo" class="col-sm-3" >
+      <input type="text" id="titulo" class="col-sm-3" name="titulo">
     </div>
     
     <div>
       <label for="autor">Autor:</label>
-      <input type="text" class="col-sm-3" id="autor">
+      <input type="text" class="col-sm-3" id="autor" name="autor"> 
     </div>
 
     <div>
@@ -24,18 +20,8 @@
     </div>
 
     <div>
-      <label for="ano">Ano:</label>
-      <input type="text" class="col-sm-3" id="ano">
-    </div>
-
-    <div>
       <button type="submit" class="btn btn-success"> Enviar </button> 
     </div>
-
-
-    </form>
-
-  </div>
 
 </form>
 @endsection

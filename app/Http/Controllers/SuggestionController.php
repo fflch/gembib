@@ -7,86 +7,43 @@ use Illuminate\Http\Request;
 
 class SuggestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /* Etapa 1 - Sugestão */
     public function create()
     {
         return view('suggestions/create');
     }
 
-    public function processar_sugestao()
-    {
-        return view('suggestions/processar_sugestao');
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        /* pegar itens que estão chegando e salvar no banco de dados */
+        $suggestion = new Suggestion;
+        $suggestion->titulo = $request->titulo;
+        $suggestion->autor = "Marx";
+        $suggestion->editora = "Bla";
+
+        $suggestion->status = "Sugestão";
+        $suggestion->save();
+        return redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Suggestion  $suggestion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Suggestion $suggestion)
+
+    /* Etapa 2 - Processar Sugestão */
+    public function processar_sugestao(Suggestion $suggestion)
     {
-        //
+        return view('suggestions/processar_sugestao',compact('suggestion'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Suggestion  $suggestion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Suggestion $suggestion)
+    public function store_processar_sugestao(Request $request, Suggestion $suggestion)
     {
-        //
+        /* Alterar status */
+        $suggestion->status = $request->status;
+
+        /*Salvar o motivo*/
+        //???????
+
+        $suggestion->save();
+        return redirect('/');        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Suggestion  $suggestion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Suggestion $suggestion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Suggestion  $suggestion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Suggestion $suggestion)
-    {
-        //
-    }
 }
