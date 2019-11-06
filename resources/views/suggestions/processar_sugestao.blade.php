@@ -5,8 +5,8 @@
 <div>
   <b>Processamento do livro:</b> {{ $suggestion->titulo }} <br>
   <b>Status:</b> {{ $suggestion->status }} <br>
-  <b>Autor:</b> <br>
-  <b>Editora:</b> <br>
+  <b>Autor:</b> {{ $suggestion->autor }}<br>
+  <b>Editora:</b> {{ $suggestion->editora }}<br>
 </div>
 <br>
 
@@ -21,8 +21,8 @@
     </div>
 
  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Motivo caso for negado:</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <label for="motivo">Motivo caso for negado:</label>
+    <textarea class="form-control" id="motivo" rows="3" name="motivo"></textarea>
   </div>
     <button type="submit" class="btn btn-success">Enviar</button>
   </div>
