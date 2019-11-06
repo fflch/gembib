@@ -19,8 +19,8 @@ class SuggestionController extends Controller
         /* pegar itens que estão chegando e salvar no banco de dados */
         $suggestion = new Suggestion;
         $suggestion->titulo = $request->titulo;
-        $suggestion->autor = "Marx";
-        $suggestion->editora = "Bla";
+        $suggestion->autor = $request->autor;
+        $suggestion->editora = $request->editora;
 
         $suggestion->status = "Sugestão";
         $suggestion->save();
