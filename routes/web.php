@@ -18,9 +18,7 @@ Route::post('/suggestions','SuggestionController@store');
 Route::get('/suggestions','SuggestionController@index');
 
 Route::get('/suggestions/processar_sugestao/{suggestion}','SuggestionController@processar_sugestao');
-
-
 Route::post('/suggestions/store_processar_sugestao/{suggestion}','SuggestionController@store_processar_sugestao');
 
-
-
+Route::get('/suggestions/processar_aquisicao/{acquisition}','SuggestionController@processar_aquisicao');
+Route::post('/suggestions/store_processar_aquisicao/{acquisition}','SuggestionController@store_processar_aquisicao');
