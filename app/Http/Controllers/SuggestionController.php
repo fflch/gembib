@@ -9,6 +9,13 @@ class SuggestionController extends Controller
 {
 
     /* Etapa 1 - Sugestão */
+    public function index()
+    {
+        // select * from suggestion where status="Sugestão"
+        $suggestions = Suggestion::where('status',"Sugestão")->get();
+        return view('suggestions/index',compact('suggestions'));
+    }
+
     public function create()
     {
         return view('suggestions/create');
@@ -43,7 +50,7 @@ class SuggestionController extends Controller
         $suggestion->motivo = $request->motivo;
 
         $suggestion->save();
-        return redirect('/');        
+        return redirect('/suggestions');        
     }
 
 }

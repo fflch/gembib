@@ -6,13 +6,13 @@ desde a sugestão até a catalogação.
 Status:
  
  - Sugestão
- - Negado (motivo)
- - Em processo de aquisição
- - Adquirido por Doação/Compra
- - Em tombamento
- - Enviado para STL
- - Entrada no STL e Processamento Técnico
- - Processado
+   - Negado (motivo)
+   - Em processo de aquisição
+     - Adquirir: outras campos e o tipo (doação ou compra)
+     - Em tombamento
+     - Enviado para STL
+     - Entrada no STL e Processamento Técnico
+     - Processado
 
 Ações/Campos:
 
