@@ -18,9 +18,8 @@ Route::post('/suggestions','SuggestionController@store');
 Route::get('/suggestions','SuggestionController@index');
 
 Route::get('/suggestions/processar_sugestao/{suggestion}','SuggestionController@processar_sugestao');
-
-
 Route::post('/suggestions/store_processar_sugestao/{suggestion}','SuggestionController@store_processar_sugestao');
 
-
+//Rota para mostrar as sugestões em processo de aquisição
+Route::get('/suggestions/lista_aquisicao/','SuggestionController@lista_aquisicao');
 
