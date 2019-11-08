@@ -53,4 +53,12 @@ class SuggestionController extends Controller
         return redirect('/suggestions');        
     }
 
+    //Processar Aquisição
+    public function lista_aquisicao()
+    {
+        $suggestions = Suggestion::where('status',"Em processo de aquisição")->get();
+        return view('suggestions/lista_aquisicao',compact('suggestions'));
+    }
+
+
 }
