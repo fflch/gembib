@@ -18,7 +18,7 @@ return [
         ],
         [
             'text' => 'Processar Aquisição',
-            'url'  => '/',
+            'url'  => '/suggestions/lista_aquisicao',
             'can'  => '',
         ],
     ]

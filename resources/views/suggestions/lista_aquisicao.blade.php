@@ -19,7 +19,7 @@
           <td>{{ $suggestion->autor }}</td>
           <td>{{ $suggestion->editora }}</td>
           <td>{{ $suggestion->status }}</td>
-          <td><a href="/suggestions/processar_sugestao/{{$suggestion->id}}">processar</a></td>
+          <td><a href="#">processar</a></td>
         </tr>
         @endforeach
 
@@ -27,4 +27,3 @@
     </table>
 
 @endsection
-

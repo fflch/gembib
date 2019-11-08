@@ -53,7 +53,6 @@ class SuggestionController extends Controller
         return redirect('/suggestions');        
     }
 
-
     /* Etapa 3 - Processar aquisição */
     public function processar_aquisicao(Suggestion $acquisition)
     {
@@ -118,6 +117,12 @@ class SuggestionController extends Controller
     }
 
 
+    //Processar Aquisição
+    public function lista_aquisicao()
+    {
+        $suggestions = Suggestion::where('status',"Em processo de aquisição")->get();
+        return view('suggestions/lista_aquisicao',compact('suggestions'));
+    }
 
 
 }
