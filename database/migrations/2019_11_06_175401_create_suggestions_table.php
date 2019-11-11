@@ -16,13 +16,55 @@ class CreateSuggestionsTable extends Migration
         Schema::create('suggestions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-			$table->string('autor',2048);
-			$table->string('titulo',2048);
-			$table->string('editora',2048)->nullable();
+			$table->string('autor', 2048);
+			$table->string('titulo');
+			$table->string('editora', 2048)->nullable();
 
 			/* quando uma sugestão for negada, colocamos o motivo*/
-			$table->string('motivo',2048)->nullable();
-			$table->string('status',2048);
+			$table->string('motivo', 2048)->nullable();
+            $table->string('status');
+
+            // Campos da tela de aquisição
+            $table->text('tombo')->nullable();
+            $table->text('tombo_antigo')->nullable();
+            $table->text('cod_impressao')->nullable();
+            $table->text('ordem_relatorio')->nullable();
+            $table->text('tipo_aquisicao')->nullable();
+            $table->text('tipo_material')->nullable();
+            $table->text('subcategoria')->nullable();
+            $table->text('capes')->nullable();
+            $table->text('id_material')->nullable();
+            $table->text('id_sugestao')->nullable();
+            $table->text('UsuarioS')->nullable();
+            $table->text('UsuarioA')->nullable();
+            $table->text('link')->nullable();
+            $table->text('edicao')->nullable();
+            $table->text('volume')->nullable();
+            $table->text('parte')->nullable();
+            $table->text('fasciculo')->nullable();
+            $table->text('local')->nullable();
+            $table->text('ano')->nullable();
+            $table->text('colecao')->nullable();
+            $table->text('isbn')->nullable();
+            $table->text('dpto')->nullable();
+            $table->text('pedido_por')->nullable();
+            $table->text('finalidade')->nullable();
+            $table->text('data_pedido')->nullable();
+            $table->text('prioridade')->nullable();
+            $table->text('moeda')->nullable();
+            $table->text('preco')->nullable();
+            $table->text('procedencia')->nullable();
+            $table->text('observacao')->nullable();
+            $table->text('verba')->nullable();
+            $table->text('processo')->nullable();
+            $table->text('fornecedor')->nullable();
+            $table->text('nota_fiscal')->nullable();
+            $table->text('pasta')->nullable();
+            $table->text('moeda_nf')->nullable();
+            $table->text('preco_nf')->nullable();
+            $table->text('data_nf')->nullable();
+            $table->text('escala')->nullable();
+
         });
     }
 
