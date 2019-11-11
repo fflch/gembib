@@ -79,20 +79,20 @@ class SuggestionController extends Controller
         $acquisition->id_sugestao = $request->id_sugestao;
         $acquisition->UsuarioS = $request->UsuarioS;
         $acquisition->UsuarioA = $request->UsuarioA;
-        $suggestion->titulo = $request->titulo;
-        $suggestion->autor = $request->autor;
+        $acquisition->titulo = $request->titulo;
+        $acquisition->autor = $request->autor;
         $acquisition->link = $request->link;
         $acquisition->edicao = $request->edicao;
         $acquisition->volume = $request->volume;
         $acquisition->parte = $request->parte;
         $acquisition->fasciculo = $request->fasciculo;
         $acquisition->local = $request->local;
-        $suggestion->editora = $request->editora;
+        $acquisition->editora = $request->editora;
         $acquisition->ano = $request->ano;
         $acquisition->colecao = $request->colecao;
         $acquisition->isbn = $request->isbn;
         $acquisition->escala = $request->escala;
-        $acquisition->departamento = $request->departamento;
+        $acquisition->dpto = $request->dpto;
         $acquisition->pedido_por = $request->pedido_por;
         $acquisition->finalidade = $request->finalidade;
         $acquisition->data_pedido = $request->data_pedido;
@@ -110,7 +110,6 @@ class SuggestionController extends Controller
         $acquisition->moeda_nf = $request->moeda_nf;
         $acquisition->preco_nf = $request->preco_nf;
         $acquisition->data_nf = $request->data_nf;
-
 
         $acquisition->save();
         return redirect('/');        

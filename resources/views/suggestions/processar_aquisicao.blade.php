@@ -5,6 +5,7 @@
 
 <div>
   <b>Id:</b> {{ $acquisition->id }}<br>
+  <b>Editora:</b> {{ $acquisition->editora }}<br>
 </div>
 <br>
 
@@ -34,31 +35,43 @@
     <div class="form-group">
         <label for="tipo_aquisicao">Tipo de aquisição:</label>
         <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
-          <option>Aquisicao1</option>
-          <option>Aquisicao2</option>
+        <option>Selecionar tipo de aquisição</option>
+          <option>Compra</option>
+          <option>Doação</option>
+          <option>Multa</option>
+          <option>Reposição</option>
+          <option>Retombamento</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="tipo_material">Tipo de material:</label>
         <select class="form-control" id="tipo_material" name="tipo_material">
-          <option>Material1</option>
-          <option>Material2</option>
+        <option>Selecionar tipo de material</option>
+          <option>Livro</option>
+          <option>Material especial</option>
+          <option>Memorial</option>
+          <option>Multimeios</option>
+          <option>Outros tipos</option>
+          <option>Periódicos</option>
+          <option>Tese</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="subcategoria">Subcategoria:</label>
         <select class="form-control" id="subcategoria" name="subcategoria">
-          <option>Subcategoria1</option>
-          <option>Subcategoria2</option>
+        <option>Selecionar subcategoria</option>
+          <option>Mestrado</option>
+          <option>Doutorado</option>
+          <option>Livre docência</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="capes">Capes:</label>
         <select class="form-control" id="capes" name="capes">
-          <option>Capes1</option>
+          <option>Falta...</option>
           <option>Capes2</option>
         </select>
     </div>
@@ -155,10 +168,20 @@
     <br><h3>OUTRAS INFORMAÇÕES</h3><br>
 
     <div class="form-group">
-        <label for="departamento">Departamento:</label>
-        <select class="form-control" id="departamento" name="departamento">
-          <option>Dpto1</option>
-          <option>Dpto2</option>
+        <label for="dpto">Departamento:</label>
+        <select class="form-control" id="dpto" name="dpto">
+          <option>Selecionar departamento</option>
+          <option>Antropologia</option>
+          <option>Ciência Politica</option>
+          <option>Filosofia</option>
+          <option>Geografia</option>
+          <option>História</option>
+          <option>Letras Clássicas e Vernáculas </option>
+          <option>Letras Modernas</option>
+          <option>Letras Orientais</option>
+          <option>Linguística</option>
+          <option>Sociologia</option>
+          <option>Teoria Literária e Literatura Comparada</option>
         </select>
     </div>
 
@@ -179,25 +202,33 @@
 
     <div class="form-group">
         <label for="prioridade">Prioridade:</label>
-        <select class="form-control" id="prioridade" name="prioridade" value="">
-          <option>Prioridade1</option>
-          <option>Prioridade2</option>
+        <select class="form-control" id="prioridade" name="prioridade">
+        <option>Selecionar prioridade</option>
+          <option>Baixa</option>
+          <option>Média</option>
+          <option>Alta</option>
+          <option>Critica</option>
+          <option>Coleção Didática</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="status">Status:</label>
         <select class="form-control" id="status" name="status">
-          <option>Status1</option>
-          <option>Status2</option>
+        <option>Selecionar status</option>
+          <option>Em cotação</option>
+          <option>Em licitação</option>
+          <option>Em processo de aquisição</option>
+          <option>Esgotado</option>
+          <option>Para seleção</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="moeda">Moeda:</label>
         <select class="form-control" id="moeda" name="moeda">
-          <option>Moeda1</option>
-          <option>Moeda2</option>
+          <option>Real</option>
+          <option>Dólar</option>
         </select>
     </div>
 
@@ -210,8 +241,8 @@
     <div class="form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
-          <option>Procedencia1</option>
-          <option>Procedencia2</option>
+          <option>Nacional</option>
+          <option>Internacional</option>
         </select>
     </div>
 
@@ -225,8 +256,13 @@
     <div class="form-group">
         <label for="verba">Verba:</label>
         <select class="form-control" id="verba" name="verba">
-          <option>Verba1</option>
-          <option>Verba2</option>
+        <option>Selecionar verba</option>
+          <option>CAPES</option>
+          <option>RUSP</option>
+          <option>CNPQ</option>
+          <option>FAPESP</option>
+          <option>FAPLIVROS</option>
+          <option>PROAP</option>
         </select>
     </div>
 
@@ -253,8 +289,8 @@
     <div class="form-group">
         <label for="moeda_nf">Moeda:</label>
         <select class="form-control" id="moeda_nf" name="moeda_nf">
-          <option>Moeda1</option>
-          <option>Moeda2</option>
+          <option>REAL</option>
+          <option>DÓLAR</option>
         </select>
     </div>
 
