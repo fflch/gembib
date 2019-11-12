@@ -21,5 +21,10 @@ return [
             'url'  => '/suggestions/lista_aquisicao',
             'can'  => '',
         ],
+        [
+            'text' => 'Consulta',
+            'url'  => '/suggestions/consulta',
+            'can'  => '',
+        ],
     ]
 ];

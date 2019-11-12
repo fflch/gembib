@@ -26,5 +26,7 @@ Route::post('/suggestions/store_processar_aquisicao/{acquisition}','SuggestionCo
 
 //Rota para mostrar as sugestões em processo de aquisição
 Route::get('/suggestions/lista_aquisicao/','SuggestionController@lista_aquisicao');
+//Rota para mostrar a lista com o status das sugestões
+Route::get('/suggestions/consulta/','SuggestionController@consulta');
 
 

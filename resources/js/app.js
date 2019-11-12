@@ -1,1 +1,3 @@
+$('.minhaclasse').text();
+
 require('./bootstrap');
