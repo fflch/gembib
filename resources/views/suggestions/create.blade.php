@@ -5,23 +5,26 @@
 <form method="POST" action="/suggestions">
     @csrf
     <div class="form-group">
-      <label for="titulo">Título:</label>
-      <input type="text" id="titulo" class="col-sm-3" name="titulo">
-    </div>
-    
-    <div>
-      <label for="autor">Autor:</label>
-      <input type="text" class="col-sm-3" id="autor" name="autor"> 
-    </div>
 
-    <div>
-      <label for="editora">Editora:</label>
-      <input type="text" class="col-sm-3" id="editora">
-    </div>
+      <div>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" class="form-control" name="titulo">
+      </div>
+      <br>
+      <div>
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" class="form-control" name="autor"> 
+      </div>
+      <br>
+      <div>
+        <label for="editora">Editora:</label>
+        <input type="text" id="editora" class="form-control" name='editora'>
+      </div>
+      <br>
+      <div>
+        <button type="submit" class="btn btn-success"> Enviar </button> 
+      </div>
 
-    <div>
-      <button type="submit" class="btn btn-success"> Enviar </button> 
-    </div>
-
+  </div>
 </form>
 @endsection

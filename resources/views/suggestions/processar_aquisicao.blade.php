@@ -2,34 +2,27 @@
 
 @section('content')
 
-
-<div>
-  <b>Id:</b> {{ $acquisition->id }}<br>
-  <b>Editora:</b> {{ $acquisition->editora }}<br>
-</div>
-<br>
-
 <form method="POST" action="/suggestions/store_processar_aquisicao/{{$acquisition->id}}">
     @csrf
 
     <div class="form-group">
       <label for="tombo">Tombo:</label>
-      <input type="text" id="tombo" name="tombo">
+      <input type="text" id="tombo" class="form-control" name="tombo">
     </div>
 
     <div class="form-group">
       <label for="tombo_antigo">Tombo antigo:</label>
-      <input type="text" id="tombo_antigo" name="tombo_antigo">
+      <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
     </div>
 
     <div class="form-group">
       <label for="cod_impressao">Código de impressão:</label>
-      <input type="text" id="cod_impressao" name="cod_impressao">
+      <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
     </div>
 
     <div class="form-group">
       <label for="ordem_relatorio">Ordem no relatório:</label>
-      <input type="text" id="ordem_relatorio" name="ordem_relatorio">
+      <input type="text" id="ordem_relatorio" class="form-control" name="ordem_relatorio">
     </div>
 
     <div class="form-group">
@@ -60,7 +53,7 @@
 
     <div class="form-group">
         <label for="subcategoria">Subcategoria:</label>
-        <select class="form-control" id="subcategoria" name="subcategoria">
+        <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
         <option>Selecionar subcategoria</option>
           <option>Mestrado</option>
           <option>Doutorado</option>
@@ -70,7 +63,7 @@
 
     <div class="form-group">
         <label for="capes">Capes:</label>
-        <select class="form-control" id="capes" name="capes">
+        <select class="form-control" id="capes" class="form-control" name="capes">
           <option>Falta...</option>
           <option>Capes2</option>
         </select>
@@ -80,89 +73,89 @@
 
     <div class="form-group">
       <label for="id_material">id_material:</label>
-      <input type="text" id="id_material" name="id_material">
+      <input type="text" id="id_material" class="form-control" name="id_material">
     </div>
 
     <div class="form-group">
       <label for="id_sugestao">id_sugestao:</label>
-      <input type="text" id="id_sugestao" name="id_sugestao">
+      <input type="text" id="id_sugestao" class="form-control" name="id_sugestao">
     </div>
 
     <div class="form-group">
       <label for="UsuarioS">UsuarioS:</label>
-      <input type="text" id="UsuarioS" name="UsuarioS">
+      <input type="text" id="UsuarioS" class="form-control" name="UsuarioS">
     </div>
 
     <div class="form-group">
       <label for="UsuarioA">UsuarioA:</label>
-      <input type="text" id="UsuarioA" name="UsuarioA">
+      <input type="text" id="UsuarioA" class="form-control" name="UsuarioA">
     </div>
 
     <br><h3>LIVRO</h3><br>
 
     <div class="form-group">
       <label for="autor">Autor:</label>
-      <input type="text" id="autor" name="autor" value="{{ $acquisition->autor }}">
+      <input type="text" id="autor" class="form-control" name="autor" value="{{ $acquisition->autor }}">
     </div>
 
     <div class="form-group">
       <label for="titulo">Título:</label>
-      <input type="text" id="titulo" name="titulo" value="{{ $acquisition->titulo }}">
+      <input type="text" id="titulo" class="form-control" name="titulo" value="{{ $acquisition->titulo }}">
     </div>
 
     <div class="form-group">
       <label for="link">Link:</label>
-      <input type="text" id="link" name="link">
+      <input type="text" id="link" class="form-control"  name="link">
     </div>
 
     <div class="form-group">
       <label for="edicao">Edição:</label>
-      <input type="text" id="edicao" name="edicao">
+      <input type="text" id="edicao" class="form-control" name="edicao">
     </div>
     
     <div class="form-group">
       <label for="volume">Volume:</label>
-      <input type="text" id="volume" name="volume">
+      <input type="text" id="volume" class="form-control" name="volume">
     
     </div>
     <div class="form-group">
       <label for="parte">Parte:</label>
-      <input type="text" id="parte" name="parte">
+      <input type="text" id="parte" class="form-control" name="parte">
     </div>
 
     <div class="form-group">
       <label for="fasciculo">Fascículo:</label>
-      <input type="text" id="fasciculo" name="fasciculo">
+      <input type="text" id="fasciculo" class="form-control" name="fasciculo">
     </div>
 
     <div class="form-group">
       <label for="local">Local:</label>
-      <input type="text" id="local" name="local">
+      <input type="text" id="local" class="form-control" name="local">
     </div>
 
     <div class="form-group">
       <label for="editora">Editora:</label>
-      <input type="text" id="editora" name="editora" value="{{ $acquisition->editora }}">
+      <input type="text" id="editora" class="form-control" name="editora" value="{{ $acquisition->editora }}">
     </div>
 
     <div class="form-group">
       <label for="ano">Ano:</label>
-      <input type="text" id="ano" name="ano">
+      <input type="text" id="ano" class="form-control" name="ano">
     </div>
 
     <div class="form-group">
       <label for="colecao">Coleção:</label>
-      <input type="text" id="colecao" name="colecao">
+      <input type="text" id="colecao" class="form-control" name="colecao">
     </div>
 
     <div class="form-group">
       <label for="isbn">ISBN:</label>
-      <input type="text" id="isbn" name="isbn">
+      <input type="text" id="isbn" class="form-control" name="isbn">
     </div>
 
     <div class="form-group">
       <label for="escala">Escala:</label>
-      <input type="text" id="escala" name="escala">
+      <input type="text" id="escala" class="form-control" name="escala">
     </div>
 
     <br><h3>OUTRAS INFORMAÇÕES</h3><br>
@@ -187,17 +180,17 @@
 
     <div class="form-group">
       <label for="pedido_por">Pedido por:</label>
-      <input type="text" id="pedido_por" name="pedido_por">
+      <input type="text" id="pedido_por" class="form-control" name="pedido_por">
     </div>
 
     <div class="form-group">
       <label for="finalidade">Finalidade:</label>
-      <input type="text" id="finalidade" name="finalidade">
+      <input type="text" id="finalidade" class="form-control" name="finalidade">
     </div>
 
     <div class="form-group">
       <label for="data_pedido">Data do pedido:</label>
-      <input type="text" id="data_pedido" name="data_pedido">
+      <input type="text" id="data_pedido" class="form-control" name="data_pedido">
     </div>
 
     <div class="form-group">
@@ -235,7 +228,7 @@
 
     <div class="form-group">
       <label for="preco">Preço:</label>
-      <input type="text" id="preco" name="preco">
+      <input type="text" id="preco" class="form-control" name="preco">
     </div>
 
     <div class="form-group">
@@ -268,22 +261,22 @@
 
     <div class="form-group">
       <label for="processo">Processo:</label>
-      <input type="text" id="processo" name="processo">
+      <input type="text" id="processo" class="form-control" name="processo">
     </div>
 
     <div class="form-group">
       <label for="fornecedor">Fornecedor:</label>
-      <input type="text" id="fornecedor" name="fornecedor">
+      <input type="text" id="fornecedor" class="form-control" name="fornecedor">
     </div>
 
     <div class="form-group">
       <label for="nota_fiscal">Nota fiscal:</label>
-      <input type="text" id="nota_fiscal" name="nota_fiscal">
+      <input type="text" id="nota_fiscal" class="form-control" name="nota_fiscal">
     </div>
 
     <div class="form-group">
       <label for="pasta">Pasta:</label>
-      <input type="text" id="pasta" name="pasta">
+      <input type="text" id="pasta" class="form-control" name="pasta">
     </div>
 
     <div class="form-group">
@@ -296,12 +289,12 @@
 
     <div class="form-group">
       <label for="preco_nf">Preço:</label>
-      <input type="text" id="preco_nf" name="preco_nf">
+      <input type="text" id="preco_nf" class="form-control" name="preco_nf">
     </div>
 
     <div class="form-group">
       <label for="">Data:</label>
-      <input type="text" id="data_nf" name="data_nf">
+      <input type="text" id="data_nf" class="form-control" name="data_nf">
     </div>
 
 
