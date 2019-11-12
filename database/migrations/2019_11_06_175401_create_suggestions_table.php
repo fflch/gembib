@@ -49,10 +49,10 @@ class CreateSuggestionsTable extends Migration
             $table->text('dpto')->nullable();
             $table->text('pedido_por')->nullable();
             $table->text('finalidade')->nullable();
-            $table->text('data_pedido')->nullable();
+            $table->date('data_pedido')->nullable();
             $table->text('prioridade')->nullable();
             $table->text('moeda')->nullable();
-            $table->text('preco')->nullable();
+            $table->float('preco')->nullable();
             $table->text('procedencia')->nullable();
             $table->text('observacao')->nullable();
             $table->text('verba')->nullable();
@@ -61,8 +61,8 @@ class CreateSuggestionsTable extends Migration
             $table->text('nota_fiscal')->nullable();
             $table->text('pasta')->nullable();
             $table->text('moeda_nf')->nullable();
-            $table->text('preco_nf')->nullable();
-            $table->text('data_nf')->nullable();
+            $table->float('preco_nf')->nullable();
+            $table->date('data_nf')->nullable();
             $table->text('escala')->nullable();
 
         });
