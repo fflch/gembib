@@ -1,6 +1,7 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@include('flash')
 
 <form method="POST" action="/suggestions">
     @csrf

@@ -1,6 +1,7 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@include('flash')
 
 <div>
   <b>Processamento do livro:</b> {{ $suggestion->titulo }} <br>

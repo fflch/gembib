@@ -1,6 +1,7 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@include('flash')
 
     <table class="table table-striped">
       <thead>
@@ -19,7 +20,7 @@
           <td>{{ $suggestion->autor }}</td>
           <td>{{ $suggestion->editora }}</td>
           <td>{{ $suggestion->status }}</td>
-          <td><a href="#">processar</a></td>
+          <td><a href="/suggestions/processar_aquisicao/{{ $suggestion->id }}">processar</a></td>
         </tr>
         @endforeach
 

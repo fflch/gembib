@@ -1,23 +1,26 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@include('flash')
 
 <form method="POST" action="/suggestions/store_processar_aquisicao/{{$acquisition->id}}">
     @csrf
 
-    <div class="form-group">
-      <label for="tombo">Tombo:</label>
-      <input type="text" id="tombo" class="form-control" name="tombo">
-    </div>
+    <div class="row">
+        <div class="col-sm form-group">
+          <label for="tombo">Tombo:</label>
+          <input type="text" id="tombo" class="form-control" name="tombo">
+        </div>
 
-    <div class="form-group">
-      <label for="tombo_antigo">Tombo antigo:</label>
-      <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
-    </div>
+        <div class="col-sm form-group">
+          <label for="tombo_antigo">Tombo antigo:</label>
+          <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
+        </div>
 
-    <div class="form-group">
-      <label for="cod_impressao">Código de impressão:</label>
-      <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
+        <div class="col-sm form-group">
+          <label for="cod_impressao">Código de impressão:</label>
+          <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
+        </div>
     </div>
 
     <div class="form-group">
@@ -64,8 +67,9 @@
     <div class="form-group">
         <label for="capes">Capes:</label>
         <select class="form-control" id="capes" class="form-control" name="capes">
-          <option>Falta...</option>
-          <option>Capes2</option>
+          @foreach($areas as $area)
+            <option>{{$area->nome}}</option>
+          @endforeach
         </select>
     </div>
 

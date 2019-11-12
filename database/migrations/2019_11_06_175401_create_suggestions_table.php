@@ -16,12 +16,12 @@ class CreateSuggestionsTable extends Migration
         Schema::create('suggestions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-			$table->string('autor', 2048);
-			$table->string('titulo');
-			$table->string('editora', 2048)->nullable();
+			$table->text('autor');
+			$table->text('titulo');
+			$table->text('editora');
 
 			/* quando uma sugestão for negada, colocamos o motivo*/
-			$table->string('motivo', 2048)->nullable();
+			$table->text('motivo')->nullable();
             $table->string('status');
 
             // Campos da tela de aquisição

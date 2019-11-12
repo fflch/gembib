@@ -1,6 +1,7 @@
 @extends('laravel-usp-theme::master')
 
 @section('content')
+@include('flash')
 
     <table class="table table-striped">
       <thead>

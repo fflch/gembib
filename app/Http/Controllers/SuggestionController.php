@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Suggestion;
+use App\Area;
 use Illuminate\Http\Request;
 
 class SuggestionController extends Controller
@@ -23,6 +24,12 @@ class SuggestionController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'titulo'  => 'required',
+            'autor'   => 'required',
+            'editora' => 'required',
+        ]);
+
         /* pegar itens que estão chegando e salvar no banco de dados */
         $suggestion = new Suggestion;
         $suggestion->titulo = $request->titulo;
@@ -31,6 +38,9 @@ class SuggestionController extends Controller
 
         $suggestion->status = "Sugestão";
         $suggestion->save();
+
+        $request->session()->flash('alert-info', 'Sugestão enviada com sucesso');
+
         return redirect('/');
     }
 
@@ -43,26 +53,32 @@ class SuggestionController extends Controller
 
     public function store_processar_sugestao(Request $request, Suggestion $suggestion)
     {
+        
+        if($request->status == 'Negado') {
+            $request->validate([
+                'motivo'  => 'required',
+            ]);
+            $suggestion->motivo = $request->motivo;
+        }
         /* Alterar status */
         $suggestion->status = $request->status;
-
-        /*Salvar o motivo*/
-        $suggestion->motivo = $request->motivo;
-
         $suggestion->save();
+
+        $request->session()->flash('alert-info',"Sugestão processada, novo status: {$suggestion->status}");
+
         return redirect('/suggestions');        
     }
 
     /* Etapa 3 - Processar aquisição */
     public function processar_aquisicao(Suggestion $acquisition)
     {
-        return view('suggestions/processar_aquisicao',compact('acquisition'));
+        $areas = Area::all();
+        return view('suggestions/processar_aquisicao',compact('acquisition','areas'));
     }
 
     public function store_processar_aquisicao(Request $request, Suggestion $acquisition)
     {
         /* Alterar status */
-        $acquisition = new Suggestion;
         $acquisition->status = "Em tombamento";
 
         /*Salvar*/
