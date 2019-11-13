@@ -13,6 +13,12 @@
 
 Route::get('/', 'IndexController@index');
 
+/* login */
+Route::get('login', 'Auth\LoginController@redirectToProvider');
+Route::get('callback', 'Auth\LoginController@handleProviderCallback');
+Route::post('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('/suggestions/create','SuggestionController@create');
 Route::post('/suggestions','SuggestionController@store');
 Route::get('/suggestions','SuggestionController@index');

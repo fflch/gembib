@@ -14,17 +14,20 @@ class SuggestionController extends Controller
     public function index()
     {
         // select * from suggestion where status="Sugestão"
+        $this->authorize('admin');
         $suggestions = Suggestion::where('status',"Sugestão")->get();
         return view('suggestions/index',compact('suggestions'));
     }
 
     public function create()
     {
+        $this->authorize('admin');
         return view('suggestions/create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('admin');
         $request->validate([
             'titulo'  => 'required',
             'autor'   => 'required',
@@ -49,12 +52,13 @@ class SuggestionController extends Controller
     /* Etapa 2 - Processar Sugestão */
     public function processar_sugestao(Suggestion $suggestion)
     {
+        $this->authorize('admin');
         return view('suggestions/processar_sugestao',compact('suggestion'));
     }
 
     public function store_processar_sugestao(Request $request, Suggestion $suggestion)
     {
-        
+        $this->authorize('admin');
         if($request->status == 'Negado') {
             $request->validate([
                 'motivo'  => 'required',
@@ -67,12 +71,13 @@ class SuggestionController extends Controller
 
         $request->session()->flash('alert-info',"Sugestão processada, novo status: {$suggestion->status}");
 
-        return redirect('/suggestions');        
+        return redirect('/suggestions');
     }
 
     /* Etapa 3 - Processar aquisição */
     public function processar_aquisicao(Suggestion $acquisition)
     {
+        $this->authorize('admin');
         $areas = Area::all();
         return view('suggestions/processar_aquisicao',compact('acquisition','areas'));
     }
@@ -80,6 +85,7 @@ class SuggestionController extends Controller
     public function store_processar_aquisicao(Request $request, Suggestion $acquisition)
     {
         /* Validação de campos */
+        $this->authorize('admin');
         $request->validate([
             'titulo'           => 'required',
             'autor'            => 'required',
@@ -160,7 +166,7 @@ class SuggestionController extends Controller
         $acquisition->pedido_por = $request->pedido_por;
         $acquisition->finalidade = $request->finalidade;
 
-        //$acquisition->data_pedido =Carbon::createFromFormat('d/m/Y',$request->$data_pedido); 
+        //$acquisition->data_pedido =Carbon::createFromFormat('d/m/Y',$request->$data_pedido);
         $acquisition->data_pedido = $request->data_pedido;
 
         $acquisition->prioridade = $request->prioridade;
@@ -176,28 +182,28 @@ class SuggestionController extends Controller
         $acquisition->pasta = $request->pasta;
         $acquisition->moeda_nf = $request->moeda_nf;
         $acquisition->preco_nf = $request->preco_nf;
-        
+
         //$acquisition->data_nf = Carbon::createFromFormat('d/m/Y',$request->$data_nf);
         $acquisition->data_nf = $request->data_nf;
 
         $acquisition->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$suggestion->status}");
-        return redirect('/');        
+        return redirect('/');
     }
 
 
     //Processar Aquisição
     public function lista_aquisicao()
     {
+        $this->authorize('admin');
         $suggestions = Suggestion::where('status',"Em processo de aquisição")->get();
         return view('suggestions/lista_aquisicao',compact('suggestions'));
     }
 
     public function consulta()
     {
-        return view('suggestions/consulta');
+        $suggestions = Suggestion::all();
+        return view('suggestions/consulta',compact('suggestions'));
     }
-
-
 }

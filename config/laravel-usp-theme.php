@@ -10,21 +10,21 @@ return [
         [
             'text' => 'Fazer Sugestão',
             'url'  => '/suggestions/create',
+            'can'  => 'logado'
         ],
         [
             'text' => 'Processar Sugestão',
             'url'  => '/suggestions',
-            'can'  => '',
+            'can'  => 'sai',
         ],
         [
             'text' => 'Processar Aquisição',
             'url'  => '/suggestions/lista_aquisicao',
-            'can'  => '',
+            'can'  => 'sai',
         ],
         [
             'text' => 'Consulta',
             'url'  => '/suggestions/consulta',
-            'can'  => '',
         ],
     ]
 ];
