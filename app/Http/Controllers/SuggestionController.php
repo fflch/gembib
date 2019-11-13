@@ -79,6 +79,53 @@ class SuggestionController extends Controller
 
     public function store_processar_aquisicao(Request $request, Suggestion $acquisition)
     {
+        /* Validação de campos */
+        $request->validate([
+            'titulo'           => 'required',
+            'autor'            => 'required',
+            'editora'          => 'required',
+            'tombo'            => 'required',
+            /* 'tombo_antigo'     => 'required', */
+            'cod_impressao'    => 'required',
+            'ordem_relatorio'  => 'required',
+            'tipo_aquisicao'   => 'required',
+            'tipo_material'    => 'required',
+            'subcategoria'     => 'required',
+            'capes'            => 'required',
+            'id_material'      => 'required',
+            'id_sugestao'      => 'required',
+            /* 'UsuarioS'         => 'required', */
+            /* 'UsuarioA'         => 'required', */
+            /* 'link'             => 'required', */
+            'edicao'           => 'required',
+            'volume'           => 'required',
+            /* 'parte'            => 'required', */
+            /* 'fasciculo'        => 'required', */
+            'local'            => 'required',
+            'ano'              => 'required',
+            /* 'colecao'          => 'required', */
+            'isbn'             => 'required',
+            'escala'           => 'required',
+            'dpto'             => 'required',
+            'pedido_por'       => 'required',
+            'finalidade'       => 'required',
+            'data_pedido'      => 'required',
+            'prioridade'       => 'required',
+            'status'           => 'required',
+            'moeda'            => 'required',
+            'preco'            => 'required',
+            'procedencia'      => 'required',
+            'observacao'       => 'required',
+            'verba'            => 'required',
+            'processo'         => 'required',
+            'fornecedor'       => 'required',
+            'nota_fiscal'      => 'required',
+            'pasta'            => 'required',
+            'moeda_nf'         => 'required',
+            'preco_nf'         => 'required',
+            'data_nf'          => 'required',
+        ]);
+
         /* Alterar status */
         $acquisition->status = "Em tombamento";
 
@@ -112,7 +159,10 @@ class SuggestionController extends Controller
         $acquisition->dpto = $request->dpto;
         $acquisition->pedido_por = $request->pedido_por;
         $acquisition->finalidade = $request->finalidade;
-        $acquisition->data_pedido =Carbon::createFromFormat('d/m/Y',$request->$data_pedido); 
+
+        //$acquisition->data_pedido =Carbon::createFromFormat('d/m/Y',$request->$data_pedido); 
+        $acquisition->data_pedido = $request->data_pedido;
+
         $acquisition->prioridade = $request->prioridade;
         $acquisition->status = $request->status;
         $acquisition->moeda = $request->moeda;
@@ -126,9 +176,13 @@ class SuggestionController extends Controller
         $acquisition->pasta = $request->pasta;
         $acquisition->moeda_nf = $request->moeda_nf;
         $acquisition->preco_nf = $request->preco_nf;
-        $acquisition->data_nf = Carbon::createFromFormat('d/m/Y',$request->$data_nf);
+        
+        //$acquisition->data_nf = Carbon::createFromFormat('d/m/Y',$request->$data_nf);
+        $acquisition->data_nf = $request->data_nf;
 
         $acquisition->save();
+
+        $request->session()->flash('alert-info',"Aquisição processada, novo status: {$suggestion->status}");
         return redirect('/');        
     }
 
