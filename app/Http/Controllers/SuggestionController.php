@@ -14,20 +14,20 @@ class SuggestionController extends Controller
     public function index()
     {
         // select * from suggestion where status="Sugestão"
-        $this->authorize('admin');
+        $this->authorize('logado');
         $suggestions = Suggestion::where('status',"Sugestão")->get();
         return view('suggestions/index',compact('suggestions'));
     }
 
     public function create()
     {
-        $this->authorize('admin');
+        $this->authorize('logado');
         return view('suggestions/create');
     }
 
     public function store(Request $request)
     {
-        $this->authorize('admin');
+        $this->authorize('logado');
         $request->validate([
             'titulo'  => 'required',
             'autor'   => 'required',
@@ -52,13 +52,13 @@ class SuggestionController extends Controller
     /* Etapa 2 - Processar Sugestão */
     public function processar_sugestao(Suggestion $suggestion)
     {
-        $this->authorize('admin');
+        $this->authorize('stl');
         return view('suggestions/processar_sugestao',compact('suggestion'));
     }
 
     public function store_processar_sugestao(Request $request, Suggestion $suggestion)
     {
-        $this->authorize('admin');
+        $this->authorize('stl');
         if($request->status == 'Negado') {
             $request->validate([
                 'motivo'  => 'required',
@@ -77,7 +77,7 @@ class SuggestionController extends Controller
     /* Etapa 3 - Processar aquisição */
     public function processar_aquisicao(Suggestion $acquisition)
     {
-        $this->authorize('admin');
+        $this->authorize('sai');
         $areas = Area::all();
         return view('suggestions/processar_aquisicao',compact('acquisition','areas'));
     }
@@ -85,7 +85,7 @@ class SuggestionController extends Controller
     public function store_processar_aquisicao(Request $request, Suggestion $acquisition)
     {
         /* Validação de campos */
-        $this->authorize('admin');
+        $this->authorize('sai');
         $request->validate([
             'titulo'           => 'required',
             'autor'            => 'required',
@@ -188,7 +188,7 @@ class SuggestionController extends Controller
 
         $acquisition->save();
 
-        $request->session()->flash('alert-info',"Aquisição processada, novo status: {$suggestion->status}");
+        $request->session()->flash('alert-info',"Aquisição processada, novo status: {$acquisition->status}");
         return redirect('/');
     }
 
@@ -196,7 +196,7 @@ class SuggestionController extends Controller
     //Processar Aquisição
     public function lista_aquisicao()
     {
-        $this->authorize('admin');
+        $this->authorize('sai');
         $suggestions = Suggestion::where('status',"Em processo de aquisição")->get();
         return view('suggestions/lista_aquisicao',compact('suggestions'));
     }
