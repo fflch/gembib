@@ -25,6 +25,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('logado', function ($user) {
+            return true;
+        });
+
+        /* Setor de aqusição */
+        Gate::define('sai', function ($user) {
+            return $user->codpes=='5385361';
+        });
+
+        /* Setor de processamento técnico */
+        Gate::define('stl', function ($user) {
+            return $user->codpes=='5385361';
+        });
     }
 }
