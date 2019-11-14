@@ -72,7 +72,7 @@
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
             @foreach($areas as $area)
-              <option>{{$area->nome}}</option>
+              <option>{{$area->codigo}} - {{$area->nome}}</option>
             @endforeach
           </select>
       </div>
@@ -209,7 +209,7 @@
 
       <div class="col-sm form-group">
         <label for="data_pedido">Data do pedido:</label>
-        <input type="text" id="data_pedido" class="form-control" name="data_pedido">
+        <input type="text" id="data_pedido" class="datepicker" name="data_pedido">
       </div>
 
       <div class="col-sm form-group">
