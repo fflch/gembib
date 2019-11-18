@@ -1,7 +1,8 @@
 @extends('laravel-usp-theme::master')
-
 @section('content')
 @include('flash')
+
+<!--mudar nome para TOMBAMENTO-->
 
 <form method="POST" action="/suggestions/store_processar_aquisicao/{{$acquisition->id}}">
     @csrf
@@ -51,12 +52,13 @@
             <option>Memorial</option>
             <option>Multimeios</option>
             <option>Outros tipos</option>
+            <option>Mapas</option>
             <option>Periódicos</option>
             <option>Tese</option>
           </select>
       </div>
     </div>
-
+<!--- O campo subcategoria só aparece se escolher “tese” em tipo de material;-->
     <div class="row">
       <div class="col-sm form-group">
           <label for="subcategoria">Subcategoria:</label>
@@ -209,8 +211,9 @@
 
       <div class="col-sm form-group">
         <label for="data_pedido">Data do pedido:</label>
-        <input type="text" id="data_pedido" class="datepicker" name="data_pedido">
-      </div>
+        <input type="text" id="data_pedido" class="form-control" name="data_pedido">
+      </div> 
+
 
       <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
@@ -266,7 +269,7 @@
         <textarea class="form-control" id="observacao" rows="3" name="observacao"></textarea>
     </div>
 
-    <br><h3>INFORMAÇÕES FINANCEIRAS????</h3><br>
+    <br><h3>Informações adicionais</h3><br>
 
     <div class="row">
       <div class="col-sm form-group">
@@ -279,6 +282,8 @@
             <option>FAPESP</option>
             <option>FAPLIVROS</option>
             <option>PROAP</option>
+            <option>Outros</option>
+            <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
       </div>
 
@@ -297,11 +302,6 @@
       <div class="col-sm form-group">
         <label for="nota_fiscal">Nota fiscal:</label>
         <input type="text" id="nota_fiscal" class="form-control" name="nota_fiscal">
-      </div>
-
-      <div class="col-sm  form-group">
-        <label for="pasta">Pasta:</label>
-        <input type="text" id="pasta" class="form-control" name="pasta">
       </div>
 
       <div class="col-sm  form-group">

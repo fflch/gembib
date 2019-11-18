@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Suggestion;
 use App\Area;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SuggestionController extends Controller
@@ -166,9 +165,7 @@ class SuggestionController extends Controller
         $acquisition->pedido_por = $request->pedido_por;
         $acquisition->finalidade = $request->finalidade;
 
-        //$acquisition->data_pedido =Carbon::createFromFormat('d/m/Y',$request->$data_pedido);
-        $acquisition->data_pedido = $request->data_pedido;
-
+        $acquisition->data_pedido = $request->$data_pedido;        
         $acquisition->prioridade = $request->prioridade;
         $acquisition->status = $request->status;
         $acquisition->moeda = $request->moeda;
@@ -183,9 +180,8 @@ class SuggestionController extends Controller
         $acquisition->moeda_nf = $request->moeda_nf;
         $acquisition->preco_nf = $request->preco_nf;
 
-        //$acquisition->data_nf = Carbon::createFromFormat('d/m/Y',$request->$data_nf);
-        $acquisition->data_nf = $request->data_nf;
-
+        $acquisition->data_nf = $request->$data_nf;
+        
         $acquisition->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$acquisition->status}");

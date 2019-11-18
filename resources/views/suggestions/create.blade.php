@@ -23,6 +23,17 @@
       </div>
       <br>
       <div>
+        <label for="Ano">Ano de publicação:</label>
+        <input type="text" id="Ano" class="form-control" name='Ano'>
+      </div>
+      <br>
+      <br>
+      <div>
+        <label for="informacoes">Outras informações:</label>
+        <textarea class="form-control" id="informacoes" rows="3" name="informacoes"></textarea>
+      </div>
+      <br>
+      <div>
         <button type="submit" class="btn btn-success"> Enviar </button> 
       </div>
 
