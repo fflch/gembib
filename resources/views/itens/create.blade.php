@@ -3,7 +3,7 @@
 @section('content')
 @include('flash')
 
-<form method="POST" action="/suggestions">
+<form method="POST" action="/itens">
     @csrf
     <div class="form-group">
 

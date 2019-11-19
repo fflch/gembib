@@ -19,20 +19,20 @@ Route::get('callback', 'Auth\LoginController@handleProviderCallback');
 Route::post('/logout', 'Auth\LoginController@logout');
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/suggestions/create','SuggestionController@create');
-Route::post('/suggestions','SuggestionController@store');
-Route::get('/suggestions','SuggestionController@index');
+Route::get('/itens/create','ItemController@create');
+Route::post('/itens','ItemController@store');
+Route::get('/itens','ItemController@index');
 
-Route::get('/suggestions/processar_sugestao/{suggestion}','SuggestionController@processar_sugestao');
-Route::post('/suggestions/store_processar_sugestao/{suggestion}','SuggestionController@store_processar_sugestao');
+Route::get('/itens/processar_sugestao/{item}','ItemController@processar_sugestao');
+Route::post('/itens/store_processar_sugestao/{item}','ItemController@store_processar_sugestao');
 
 
-Route::get('/suggestions/processar_aquisicao/{acquisition}','SuggestionController@processar_aquisicao');
-Route::post('/suggestions/store_processar_aquisicao/{acquisition}','SuggestionController@store_processar_aquisicao');
+Route::get('/itens/processar_aquisicao/{acquisition}','ItemController@processar_aquisicao');
+Route::post('/itens/store_processar_aquisicao/{acquisition}','ItemController@store_processar_aquisicao');
 
 //Rota para mostrar as sugestões em processo de aquisição
-Route::get('/suggestions/lista_aquisicao/','SuggestionController@lista_aquisicao');
+Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
 //Rota para mostrar a lista com o status das sugestões
-Route::get('/suggestions/consulta/','SuggestionController@consulta');
+Route::get('/itens/consulta/','ItemController@consulta');
 
 

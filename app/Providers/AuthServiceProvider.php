@@ -31,12 +31,14 @@ class AuthServiceProvider extends ServiceProvider
 
         /* Setor de aqusição */
         Gate::define('sai', function ($user) {
-            return $user->codpes=='11284280';
+            //return $user->codpes=='11284280';
+            return true;
         });
 
         /* Setor de processamento técnico */
         Gate::define('stl', function ($user) {
-            return $user->codpes=='11284280';
+            //return $user->codpes=='11284280';
+            return true;
         });
     }
 }
