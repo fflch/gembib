@@ -26,5 +26,9 @@ return [
             'text' => 'Consulta',
             'url'  => '/itens/consulta',
         ],
+        [
+            'text' => 'Inserção direta',
+            'url'  => '/itens/inserçao',
+        ],
     ]
 ];
