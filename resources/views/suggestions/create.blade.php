@@ -23,6 +23,11 @@
       </div>
       <br>
       <div>
+        <label for="ano">Ano de publicação:</label>
+        <input type="text" id="ano" class="form-control" name='ano'>
+      </div>
+      <br>
+      <div>
         <button type="submit" class="btn btn-success"> Enviar </button> 
       </div>
 
