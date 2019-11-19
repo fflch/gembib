@@ -1,3 +1,3 @@
-$('.minhaclasse').text();
+$('.datepicker').datepicker();
 
 require('./bootstrap');
