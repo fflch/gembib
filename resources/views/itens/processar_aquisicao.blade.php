@@ -4,7 +4,7 @@
 
 <!--mudar nome para TOMBAMENTO-->
 
-<form method="POST" action="/suggestions/store_processar_aquisicao/{{$acquisition->id}}">
+<form method="POST" action="/itens/store_processar_aquisicao/{{$acquisition->id}}">
     @csrf
 
     <div class="row">

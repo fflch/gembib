@@ -9,22 +9,22 @@ return [
     'menu' => [
         [
             'text' => 'Fazer Sugestão',
-            'url'  => '/suggestions/create',
+            'url'  => '/itens/create',
             'can'  => 'logado'
         ],
         [
             'text' => 'Processar Sugestão',
-            'url'  => '/suggestions',
+            'url'  => '/itens',
             'can'  => 'sai',
         ],
         [
             'text' => 'Processar Aquisição',
-            'url'  => '/suggestions/lista_aquisicao',
+            'url'  => '/itens/lista_aquisicao',
             'can'  => 'sai',
         ],
         [
             'text' => 'Consulta',
-            'url'  => '/suggestions/consulta',
+            'url'  => '/itens/consulta',
         ],
     ]
 ];

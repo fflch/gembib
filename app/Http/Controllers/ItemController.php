@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Suggestion;
+use App\Item;
 use App\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class SuggestionController extends Controller
+class ItemController extends Controller
 {
 
     /* Etapa 1 - Sugestão */
     public function index()
     {
-        // select * from suggestion where status="Sugestão"
+        // select * from item where status="Sugestão"
         $this->authorize('logado');
-        $suggestions = Suggestion::where('status',"Sugestão")->get();
-        return view('suggestions/index',compact('suggestions'));
+        $itens = item::where('status',"Sugestão")->get();
+        return view('itens/index',compact('itens'));
     }
 
     public function create()
     {
         $this->authorize('logado');
-        return view('suggestions/create');
+        return view('itens/create');
     }
 
     public function store(Request $request)
@@ -34,14 +35,15 @@ class SuggestionController extends Controller
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
-        $suggestion = new Suggestion;
-        $suggestion->titulo = $request->titulo;
-        $suggestion->autor = $request->autor;
-        $suggestion->editora = $request->editora;
-        $suggestion->ano = $request->ano;
+        $item = new Item;
+        $item->titulo = $request->titulo;
+        $item->autor = $request->autor;
+        $item->editora = $request->editora;
+        $item->ano = $request->ano;
+        $item->sugerido_por_id = Auth::id();
 
-        $suggestion->status = "Sugestão";
-        $suggestion->save();
+        $item->status = "Sugestão";
+        $item->save();
 
         $request->session()->flash('alert-info', 'Sugestão enviada com sucesso');
 
@@ -50,39 +52,39 @@ class SuggestionController extends Controller
 
 
     /* Etapa 2 - Processar Sugestão */
-    public function processar_sugestao(Suggestion $suggestion)
+    public function processar_sugestao(Item $item)
     {
         $this->authorize('stl');
-        return view('suggestions/processar_sugestao',compact('suggestion'));
+        return view('itens/processar_sugestao',compact('item'));
     }
 
-    public function store_processar_sugestao(Request $request, Suggestion $suggestion)
+    public function store_processar_sugestao(Request $request, Item $item)
     {
         $this->authorize('stl');
         if($request->status == 'Negado') {
             $request->validate([
                 'motivo'  => 'required',
             ]);
-            $suggestion->motivo = $request->motivo;
+            $item->motivo = $request->motivo;
         }
         /* Alterar status */
-        $suggestion->status = $request->status;
-        $suggestion->save();
+        $item->status = $request->status;
+        $item->save();
 
-        $request->session()->flash('alert-info',"Sugestão processada, novo status: {$suggestion->status}");
+        $request->session()->flash('alert-info',"Sugestão processada, novo status: {$item->status}");
 
-        return redirect('/suggestions');
+        return redirect('/itens');
     }
 
     /* Etapa 3 - Processar aquisição */
-    public function processar_aquisicao(Suggestion $acquisition)
+    public function processar_aquisicao(item $acquisition)
     {
         $this->authorize('sai');
         $areas = Area::all();
-        return view('suggestions/processar_aquisicao',compact('acquisition','areas'));
+        return view('itens/processar_aquisicao',compact('acquisition','areas'));
     }
 
-    public function store_processar_aquisicao(Request $request, Suggestion $acquisition)
+    public function store_processar_aquisicao(Request $request, item $acquisition)
     {
         /* Validação de campos */
         $this->authorize('sai');
@@ -194,13 +196,13 @@ class SuggestionController extends Controller
     public function lista_aquisicao()
     {
         $this->authorize('sai');
-        $suggestions = Suggestion::where('status',"Em processo de aquisição")->get();
-        return view('suggestions/lista_aquisicao',compact('suggestions'));
+        $itens = item::where('status',"Em processo de aquisição")->get();
+        return view('itens/lista_aquisicao',compact('itens'));
     }
 
     public function consulta()
     {
-        $suggestions = Suggestion::all();
-        return view('suggestions/consulta',compact('suggestions'));
+        $itens = item::all();
+        return view('itens/consulta',compact('itens'));
     }
 }

@@ -15,12 +15,12 @@
       </tr>
     </thead>
   <tbody>
-      @foreach($suggestions as $suggestion)
+      @foreach($itens as $item)
       <tr>
-        <th>{{ $suggestion->titulo }}</th>
-        <td>{{ $suggestion->autor }}</td>
-        <td>{{ $suggestion->editora }}</td>
-        <td>{{ $suggestion->status }}</td>
+        <th>{{ $item->titulo }}</th>
+        <td>{{ $item->autor }}</td>
+        <td>{{ $item->editora }}</td>
+        <td>{{ $item->status }}</td>
       </tr>
         @endforeach
 

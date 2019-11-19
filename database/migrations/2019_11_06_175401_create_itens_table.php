@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuggestionsTable extends Migration
+class CreateItensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateSuggestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('suggestions', function (Blueprint $table) {
+        Schema::create('itens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+
+            // Campos da fase de sugestão
+            $table->text('titulo');
+            $table->unsignedBigInteger('sugerido_por_id');
+            $table->foreign('sugerido_por_id')->references('id')->on('users');
 			$table->text('autor')->nullable();
-			$table->text('titulo');
             $table->text('editora')->nullable();
             $table->text('ano')->nullable();
+            $table->text('informacoes')->nullable();
 
 			/* quando uma sugestão for negada, colocamos o motivo*/
 			$table->text('motivo')->nullable();
@@ -76,6 +81,6 @@ class CreateSuggestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suggestions');
+        Schema::dropIfExists('itens');
     }
 }
