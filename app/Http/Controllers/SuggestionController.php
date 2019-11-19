@@ -29,8 +29,8 @@ class SuggestionController extends Controller
         $this->authorize('logado');
         $request->validate([
             'titulo'  => 'required',
-            'autor'   => 'required',
-            'editora' => 'required',
+            /* 'autor'   => 'required', */
+            /* 'editora' => 'required', */
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
@@ -38,6 +38,7 @@ class SuggestionController extends Controller
         $suggestion->titulo = $request->titulo;
         $suggestion->autor = $request->autor;
         $suggestion->editora = $request->editora;
+        $suggestion->ano = $request->ano;
 
         $suggestion->status = "Sugestão";
         $suggestion->save();
@@ -97,8 +98,8 @@ class SuggestionController extends Controller
             'tipo_material'    => 'required',
             'subcategoria'     => 'required',
             'capes'            => 'required',
-            'id_material'      => 'required',
-            'id_sugestao'      => 'required',
+            /* 'id_material'      => 'required', */
+            /* 'id_sugestao'      => 'required', */
             /* 'UsuarioS'         => 'required', */
             /* 'UsuarioA'         => 'required', */
             /* 'link'             => 'required', */
@@ -125,9 +126,9 @@ class SuggestionController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            'pasta'            => 'required',
-            'moeda_nf'         => 'required',
-            'preco_nf'         => 'required',
+            /* 'pasta'            => 'required', */
+            /* 'moeda_nf'         => 'required', */
+            /* 'preco_nf'         => 'required', */
             'data_nf'          => 'required',
         ]);
 
@@ -144,8 +145,8 @@ class SuggestionController extends Controller
         $acquisition->tipo_material = $request->tipo_material;
         $acquisition->subcategoria = $request->subcategoria;
         $acquisition->capes = $request->capes;
-        $acquisition->id_material = $request->id_material;
-        $acquisition->id_sugestao = $request->id_sugestao;
+        /* $acquisition->id_material = $request->id_material; */
+        /* $acquisition->id_sugestao = $request->id_sugestao; */
         $acquisition->UsuarioS = $request->UsuarioS;
         $acquisition->UsuarioA = $request->UsuarioA;
         $acquisition->titulo = $request->titulo;
@@ -176,9 +177,9 @@ class SuggestionController extends Controller
         $acquisition->processo = $request->processo;
         $acquisition->fornecedor = $request->fornecedor;
         $acquisition->nota_fiscal = $request->nota_fiscal;
-        $acquisition->pasta = $request->pasta;
-        $acquisition->moeda_nf = $request->moeda_nf;
-        $acquisition->preco_nf = $request->preco_nf;
+        /* $acquisition->pasta = $request->pasta; */
+        /* $acquisition->moeda_nf = $request->moeda_nf; */
+        /* $acquisition->preco_nf = $request->preco_nf; */
 
         $acquisition->data_nf = $request->$data_nf;
         
