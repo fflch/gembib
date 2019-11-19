@@ -28,7 +28,8 @@ return [
         ],
         [
             'text' => 'Inserção direta',
-            'url'  => '/itens/inserçao',
+            'url'  => '/itens/insercao_direta',
+            'can'  => 'sai',
         ],
     ]
 ];

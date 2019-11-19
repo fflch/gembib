@@ -27,12 +27,18 @@ Route::get('/itens/processar_sugestao/{item}','ItemController@processar_sugestao
 Route::post('/itens/store_processar_sugestao/{item}','ItemController@store_processar_sugestao');
 
 
-Route::get('/itens/processar_aquisicao/{acquisition}','ItemController@processar_aquisicao');
-Route::post('/itens/store_processar_aquisicao/{acquisition}','ItemController@store_processar_aquisicao');
+Route::get('/itens/processar_tombamento/{tombamento}','ItemController@processar_tombamento');
+Route::post('/itens/store_processar_tombamento/{tombamento}','ItemController@store_processar_tombamento');
 
 //Rota para mostrar as sugestões em processo de aquisição
 Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
 //Rota para mostrar a lista com o status das sugestões
 Route::get('/itens/consulta/','ItemController@consulta');
+
+//Rota para inserção direta
+Route::get('/itens/insercao_direta/','ItemController@insercao_direta');
+Route::post('/itens/store_insercao_direta/','ItemController@store_insercao_direta');
+
+
 
 

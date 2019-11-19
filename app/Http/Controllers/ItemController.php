@@ -77,14 +77,14 @@ class ItemController extends Controller
     }
 
     /* Etapa 3 - Processar aquisição */
-    public function processar_aquisicao(item $acquisition)
+    public function processar_tombamento(item $tombamento)
     {
         $this->authorize('sai');
         $areas = Area::all();
-        return view('itens/processar_aquisicao',compact('acquisition','areas'));
+        return view('itens/processar_tombamento',compact('tombamento','areas'));
     }
 
-    public function store_processar_aquisicao(Request $request, item $acquisition)
+    public function store_processar_tombamento(Request $request, item $tombamento)
     {
         /* Validação de campos */
         $this->authorize('sai');
@@ -96,7 +96,7 @@ class ItemController extends Controller
             /* 'tombo_antigo'     => 'required', */
             'cod_impressao'    => 'required',
             'ordem_relatorio'  => 'required',
-            'tipo_aquisicao'   => 'required',
+            'tipo_tombamento'   => 'required',
             'tipo_material'    => 'required',
             'subcategoria'     => 'required',
             'capes'            => 'required',
@@ -135,59 +135,59 @@ class ItemController extends Controller
         ]);
 
         /* Alterar status */
-        $acquisition->status = "Em tombamento";
+        $tombamento->status = "Em tombamento";
 
         /*Salvar*/
-        $acquisition->motivo = $request->motivo;
-        $acquisition->tombo = $request->tombo;
-        $acquisition->tombo_antigo = $request->tombo_antigo;
-        $acquisition->cod_impressao = $request->cod_impressao;
-        $acquisition->ordem_relatorio = $request->ordem_relatorio;
-        $acquisition->tipo_aquisicao = $request->tipo_aquisicao;
-        $acquisition->tipo_material = $request->tipo_material;
-        $acquisition->subcategoria = $request->subcategoria;
-        $acquisition->capes = $request->capes;
-        /* $acquisition->id_material = $request->id_material; */
-        /* $acquisition->id_sugestao = $request->id_sugestao; */
-        $acquisition->UsuarioS = $request->UsuarioS;
-        $acquisition->UsuarioA = $request->UsuarioA;
-        $acquisition->titulo = $request->titulo;
-        $acquisition->autor = $request->autor;
-        $acquisition->link = $request->link;
-        $acquisition->edicao = $request->edicao;
-        $acquisition->volume = $request->volume;
-        $acquisition->parte = $request->parte;
-        $acquisition->fasciculo = $request->fasciculo;
-        $acquisition->local = $request->local;
-        $acquisition->editora = $request->editora;
-        $acquisition->ano = $request->ano;
-        $acquisition->colecao = $request->colecao;
-        $acquisition->isbn = $request->isbn;
-        $acquisition->escala = $request->escala;
-        $acquisition->dpto = $request->dpto;
-        $acquisition->pedido_por = $request->pedido_por;
-        $acquisition->finalidade = $request->finalidade;
+        $tombamento->motivo = $request->motivo;
+        $tombamento->tombo = $request->tombo;
+        $tombamento->tombo_antigo = $request->tombo_antigo;
+        $tombamento->cod_impressao = $request->cod_impressao;
+        $tombamento->ordem_relatorio = $request->ordem_relatorio;
+        $tombamento->tipo_tombamento = $request->tipo_tombamento;
+        $tombamento->tipo_material = $request->tipo_material;
+        $tombamento->subcategoria = $request->subcategoria;
+        $tombamento->capes = $request->capes;
+        /* $tombamento->id_material = $request->id_material; */
+        /* $tombamento->id_sugestao = $request->id_sugestao; */
+        $tombamento->UsuarioS = $request->UsuarioS;
+        $tombamento->UsuarioA = $request->UsuarioA;
+        $tombamento->titulo = $request->titulo;
+        $tombamento->autor = $request->autor;
+        $tombamento->link = $request->link;
+        $tombamento->edicao = $request->edicao;
+        $tombamento->volume = $request->volume;
+        $tombamento->parte = $request->parte;
+        $tombamento->fasciculo = $request->fasciculo;
+        $tombamento->local = $request->local;
+        $tombamento->editora = $request->editora;
+        $tombamento->ano = $request->ano;
+        $tombamento->colecao = $request->colecao;
+        $tombamento->isbn = $request->isbn;
+        $tombamento->escala = $request->escala;
+        $tombamento->dpto = $request->dpto;
+        $tombamento->pedido_por = $request->pedido_por;
+        $tombamento->finalidade = $request->finalidade;
 
-        $acquisition->data_pedido = $request->$data_pedido;        
-        $acquisition->prioridade = $request->prioridade;
-        $acquisition->status = $request->status;
-        $acquisition->moeda = $request->moeda;
-        $acquisition->preco = $request->preco;
-        $acquisition->procedencia = $request->procedencia;
-        $acquisition->observacao = $request->observacao;
-        $acquisition->verba = $request->verba;
-        $acquisition->processo = $request->processo;
-        $acquisition->fornecedor = $request->fornecedor;
-        $acquisition->nota_fiscal = $request->nota_fiscal;
-        /* $acquisition->pasta = $request->pasta; */
-        /* $acquisition->moeda_nf = $request->moeda_nf; */
-        /* $acquisition->preco_nf = $request->preco_nf; */
+        $tombamento->data_pedido = $request->$data_pedido;        
+        $tombamento->prioridade = $request->prioridade;
+        $tombamento->status = $request->status;
+        $tombamento->moeda = $request->moeda;
+        $tombamento->preco = $request->preco;
+        $tombamento->procedencia = $request->procedencia;
+        $tombamento->observacao = $request->observacao;
+        $tombamento->verba = $request->verba;
+        $tombamento->processo = $request->processo;
+        $tombamento->fornecedor = $request->fornecedor;
+        $tombamento->nota_fiscal = $request->nota_fiscal;
+        /* $tombamento->pasta = $request->pasta; */
+        /* $tombamento->moeda_nf = $request->moeda_nf; */
+        /* $tombamento->preco_nf = $request->preco_nf; */
 
-        $acquisition->data_nf = $request->$data_nf;
+        $tombamento->data_nf = $request->$data_nf;
         
-        $acquisition->save();
+        $tombamento->save();
 
-        $request->session()->flash('alert-info',"Aquisição processada, novo status: {$acquisition->status}");
+        $request->session()->flash('alert-info',"Aquisição processada, novo status: {$tombamento->status}");
         return redirect('/');
     }
 
@@ -204,5 +204,15 @@ class ItemController extends Controller
     {
         $itens = item::all();
         return view('itens/consulta',compact('itens'));
+    }
+
+    public function insercao_direta()
+    {
+        return view('itens/insercao_direta');
+    }
+
+    public function store_insercao_direta(Request $request, item $tombamento)
+    {
+        
     }
 }

@@ -20,7 +20,7 @@
           <td>{{ $item->autor }}</td>
           <td>{{ $item->editora }}</td>
           <td>{{ $item->status }}</td>
-          <td><a href="/itens/processar_aquisicao/{{ $item->id }}">processar</a></td>
+          <td><a href="/itens/processar_tombamento/{{ $item->id }}">processar</a></td>
         </tr>
         @endforeach
 
