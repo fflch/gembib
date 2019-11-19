@@ -2,6 +2,8 @@
 
 @section('content')
 @include('flash')
+<!--mostrar o usuário que fez a sugestão; -->
+<!--dar feedback e ter a info do e-mail para saber quem fez a sugestão (para perguntar se errou nos dados, informar que foi negado etc.); -->
 
 <div>
   <b>Processamento do livro:</b> {{ $suggestion->titulo }} <br>

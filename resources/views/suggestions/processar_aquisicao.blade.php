@@ -1,7 +1,8 @@
 @extends('laravel-usp-theme::master')
-
 @section('content')
 @include('flash')
+
+<!--mudar nome para TOMBAMENTO-->
 
 <form method="POST" action="/suggestions/store_processar_aquisicao/{{$acquisition->id}}">
     @csrf
@@ -45,10 +46,16 @@
             <option>Multimeios</option>
             <option>Obra Rara</option>
             <option>Outros tipos</option>
+            <option>Mapas</option>
             <option>Periódicos</option>
             <option>Tese</option>
           </select>
       </div>
+
+    </div>
+<!--- O campo subcategoria só aparece se escolher “tese” em tipo de material;-->
+    <div class="row">
+
       <div class="col-sm form-group">
           <label for="subcategoria">Subcategoria:</label>
           <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
@@ -165,10 +172,12 @@
         <input type="text" id="finalidade" class="form-control" name="finalidade">
       </div>
       <div class="col-sm form-group">
-        <label for="data_pedido">Data da sugestão:</label>
-        <input type="text" id="data_pedido" class="datepicker" name="data_pedido">
+
+        <label for="data_pedido">Data do pedido:</label>
+        <input type="text" id="data_pedido" class="form-control" name="data_pedido">
       </div>
     </div>
+
 
     <div class="row">
       <div class="col-sm form-group">
@@ -220,6 +229,8 @@
             <option>FAPESP</option>
             <option>FAPLIVROS</option>
             <option>PROAP</option>
+            <option>Outros</option>
+            <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
       </div>
       <div class="col-sm form-group">
@@ -238,15 +249,18 @@
         <input type="text" id="nota_fiscal" class="form-control" name="nota_fiscal">
       </div>
       <div class="col-sm  form-group">
-          <label for="moeda">Moeda:</label>
-          <select class="form-control" id="moeda" name="moeda">
-            <option>Real</option>
-            <option>Dólar</option>
+
+          <label for="moeda_nf">Moeda:</label>
+          <select class="form-control" id="moeda_nf" name="moeda_nf">
+            <option>REAL</option>
+            <option>DÓLAR</option>
           </select>
+
       </div>
       <div class="col-sm  form-group">
         <label for="preco">Preço:</label>
         <input type="text" id="preco" class="form-control" name="preco">
+
       </div>
     </div>
 
