@@ -27,6 +27,7 @@ Instruções para a instalação do projeto:
 	cp .env.example .env
 	php artisan key:generate
 	php artisan vendor:publish --provider="Uspdev\UspTheme\ServiceProvider" --tag=assets --force
+  php artisan migrate
 	php artisan serve
 	
 
