@@ -196,7 +196,12 @@ class ItemController extends Controller
     public function lista_aquisicao()
     {
         $this->authorize('sai');
-        $itens = item::where('status',"Em processo de aquisição")->get();
+        $itens = item::where('status',"Em processo de aquisição")
+                        ->orWhere('status',"Inserido pelo usuário")
+                        ->get();
+        //$itens = item::where('status', "Em processo de aquisição")->get();// anterior
+     
+
         return view('itens/lista_aquisicao',compact('itens'));
     }
 
@@ -205,4 +210,44 @@ class ItemController extends Controller
         $itens = item::all();
         return view('itens/consulta',compact('itens'));
     }
+
+
+    // Inserção direta
+    public function createInsercao()
+    {
+        $this->authorize('logado');
+        return view('itens/insercao');
+    }
+
+    public function storeInsercao(Request $request)
+    {
+        $this->authorize('logado');
+        $request->validate([
+            'titulo'  => 'required',
+            /* 'autor'   => 'required', */
+            /* 'editora' => 'required', */
+        ]);
+
+        /* pegar itens que estão chegando e salvar no banco de dados */
+        $item = new Item;
+        $item->titulo = $request->titulo;
+        $item->autor = $request->autor;
+        $item->editora = $request->editora;
+        $item->ano = $request->ano;
+        $item->sugerido_por_id = Auth::id();
+
+        $item->status = "Inserido pelo usuário";
+        $item->save();
+
+        $request->session()->flash('alert-info', 'Inserção direta enviada com sucesso');
+
+        return redirect('/');
+        
+    }
+
+
+
+
+
+
 }
