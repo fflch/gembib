@@ -16,6 +16,21 @@ function mostraCampo(obj) {
 <!--fim da Função para abrir campo após seleção de outras verbas-->
 
 
+<!--Função para abrir campo para a opção outras em prioridade-->
+<script type="text/javascript">
+function mostraCampoPrioridade(obj) {
+    var select = document.getElementById('prioridade');
+    var txt = document.getElementById("Outra");
+    txt.style.visibility = (select.value == 'Outra') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo após seleção de outras verbas-->
+
+
+
+
 
 
 <!--mudar nome para TOMBAMENTO-->
@@ -198,14 +213,20 @@ function mostraCampo(obj) {
     <div class="row">
       <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
-          <select class="form-control" id="prioridade" name="prioridade">
+          <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
           <option>Selecionar prioridade</option>
             <option>Baixa</option>
             <option>Média</option>
             <option>Alta</option>
             <option>Critica</option>
             <option>Coleção Didática</option>
+            <option>Outra</option>
           </select>
+
+          <!--Função para abrir campo após seleção de outras verbas-->
+          <input type="text" class="form-control" name="Outra" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
+          <!--fim da Função para abrir campo após seleção de outras verbas-->
+
       </div>
       <div class="col-sm form-group">
           <label for="status">Status:</label>
