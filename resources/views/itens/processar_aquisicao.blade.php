@@ -2,6 +2,22 @@
 @section('content')
 @include('flash')
 
+
+<!--Função para abrir campo após seleção de outras verbas-->
+<script type="text/javascript">
+function mostraCampo(obj) {
+    var select = document.getElementById('verba');
+    var txt = document.getElementById("Outros");
+    txt.style.visibility = (select.value == 'Outros') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo após seleção de outras verbas-->
+
+
+
+
 <!--mudar nome para TOMBAMENTO-->
 
 <form method="POST" action="/itens/store_processar_aquisicao/{{$acquisition->id}}">
@@ -221,7 +237,7 @@
     <div class="row">
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
-          <select class="form-control" id="verba" name="verba">
+          <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
           <option>Selecionar verba</option>
             <option>CAPES</option>
             <option>RUSP</option>
@@ -232,6 +248,11 @@
             <option>Outros</option>
             <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
+
+          <!--Função para abrir campo após seleção de outras verbas-->
+          <input type="text" class="form-control" name="Outros" id="Outros" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <!--fim da Função para abrir campo após seleção de outras verbas-->
+
       </div>
       <div class="col-sm form-group">
         <label for="processo">Processo:</label>
