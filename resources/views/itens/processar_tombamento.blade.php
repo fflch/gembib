@@ -41,14 +41,14 @@
           <option>Selecionar tipo de material</option>
             <option>Livro</option>
             <option>Mapas</option>
-            <option>Material especial</option>
-            <option>Memorial</option>
+            <!--<option>Material especial</option>-->
+            <!--<option>Memorial</option>-->
             <option>Multimeios</option>
-            <option>Obra Rara</option>
-            <option>Outros tipos</option>
-            <option>Mapas</option>
+            <option>Obra rara</option>
             <option>Periódicos</option>
-            <option>Tese</option>
+            <option>CD/DVD</option>
+            <option>Teses</option>
+            <option>Outros tipos</option>
           </select>
       </div>
 
