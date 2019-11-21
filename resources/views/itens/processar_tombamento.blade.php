@@ -2,8 +2,6 @@
 @section('content')
 @include('flash')
 
-<!--mudar nome para TOMBAMENTO-->
-
 <form method="POST" action="/itens/store_processar_tombamento/{{$tombamento->id}}">
     @csrf
 
@@ -35,14 +33,13 @@
             <option>Retombamento</option>
           </select>
       </div>
+
       <div class="col-sm form-group">
           <label for="tipo_material">Tipo de material:</label>
           <select class="form-control" id="tipo_material" name="tipo_material">
           <option>Selecionar tipo de material</option>
             <option>Livro</option>
             <option>Mapas</option>
-            <!--<option>Material especial</option>-->
-            <!--<option>Memorial</option>-->
             <option>Multimeios</option>
             <option>Obra rara</option>
             <option>Periódicos</option>
@@ -139,11 +136,13 @@
         <label for="isbn">ISBN:</label>
         <input type="text" id="isbn" class="form-control" name="isbn">
       </div>
-      <div class="col-sm form-group">
+
+      <!--Este campo só aparece caso a opção em "Tipo de materiais" for "Mapas"-->
+    <div class="col-sm form-group">
         <label for="escala">Escala:</label>
         <input type="text" id="escala" class="form-control" name="escala">
       </div>
-      <div class="col-sm form-group">
+    <div class="col-sm form-group">
           <label for="dpto">Departamento:</label>
           <select class="form-control" id="dpto" name="dpto">
             <option>Selecionar departamento</option>
@@ -184,11 +183,12 @@
           <label for="prioridade">Prioridade:</label>
           <select class="form-control" id="prioridade" name="prioridade">
           <option>Selecionar prioridade</option>
-            <option>Baixa</option>
+            <!--<option>Baixa</option>
             <option>Média</option>
             <option>Alta</option>
-            <option>Critica</option>
+            <option>Critica</option>-->
             <option>Coleção Didática</option>
+            <option>Outra</option>
           </select>
       </div>
       <div class="col-sm form-group">

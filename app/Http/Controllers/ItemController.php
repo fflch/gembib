@@ -206,7 +206,7 @@ class ItemController extends Controller
         return view('itens/consulta',compact('itens'));
     }
 
-    public function insercao_direta()
+    public function insercao_direta(item $tombamento)
     {
         return view('itens/insercao_direta');
     }
