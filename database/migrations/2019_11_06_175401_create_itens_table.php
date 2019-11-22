@@ -39,8 +39,6 @@ class CreateItensTable extends Migration
             $table->text('tipo_material')->nullable();
             $table->text('subcategoria')->nullable();
             $table->text('capes')->nullable();
-            /* $table->text('id_material')->nullable(); */
-            /* $table->text('id_sugestao')->nullable(); */
             $table->text('UsuarioS')->nullable();
             $table->text('UsuarioA')->nullable();
             $table->text('link')->nullable();
@@ -49,7 +47,6 @@ class CreateItensTable extends Migration
             $table->text('parte')->nullable();
             $table->text('fasciculo')->nullable();
             $table->text('local')->nullable();
-            /* $table->text('ano')->nullable(); */
             $table->text('colecao')->nullable();
             $table->text('isbn')->nullable();
             $table->text('dpto')->nullable();
@@ -65,7 +62,6 @@ class CreateItensTable extends Migration
             $table->text('processo')->nullable();
             $table->text('fornecedor')->nullable();
             $table->text('nota_fiscal')->nullable();
-            /* $table->text('pasta')->nullable(); */
             /* $table->text('moeda_nf')->nullable(); */
             /* $table->float('preco_nf')->nullable(); */
             $table->date('data_nf')->nullable();

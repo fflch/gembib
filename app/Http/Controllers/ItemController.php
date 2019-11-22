@@ -93,25 +93,15 @@ class ItemController extends Controller
             'autor'            => 'required',
             'editora'          => 'required',
             'tombo'            => 'required',
-            /* 'tombo_antigo'     => 'required', */
             'cod_impressao'    => 'required',
             'ordem_relatorio'  => 'required',
             'tipo_aquisicao'   => 'required',
             'tipo_material'    => 'required',
-            'subcategoria'     => 'required',
             'capes'            => 'required',
-            /* 'id_material'      => 'required', */
-            /* 'id_sugestao'      => 'required', */
-            /* 'UsuarioS'         => 'required', */
-            /* 'UsuarioA'         => 'required', */
-            /* 'link'             => 'required', */
             'edicao'           => 'required',
             'volume'           => 'required',
-            /* 'parte'            => 'required', */
-            /* 'fasciculo'        => 'required', */
             'local'            => 'required',
             'ano'              => 'required',
-            /* 'colecao'          => 'required', */
             'isbn'             => 'required',
             'escala'           => 'required',
             'dpto'             => 'required',
@@ -128,9 +118,6 @@ class ItemController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            /* 'pasta'            => 'required', */
-            /* 'moeda_nf'         => 'required', */
-            /* 'preco_nf'         => 'required', */
             'data_nf'          => 'required',
         ]);
 
@@ -147,8 +134,6 @@ class ItemController extends Controller
         $acquisition->tipo_material = $request->tipo_material;
         $acquisition->subcategoria = $request->subcategoria;
         $acquisition->capes = $request->capes;
-        /* $acquisition->id_material = $request->id_material; */
-        /* $acquisition->id_sugestao = $request->id_sugestao; */
         $acquisition->UsuarioS = $request->UsuarioS;
         $acquisition->UsuarioA = $request->UsuarioA;
         $acquisition->titulo = $request->titulo;
@@ -179,10 +164,6 @@ class ItemController extends Controller
         $acquisition->processo = $request->processo;
         $acquisition->fornecedor = $request->fornecedor;
         $acquisition->nota_fiscal = $request->nota_fiscal;
-        /* $acquisition->pasta = $request->pasta; */
-        /* $acquisition->moeda_nf = $request->moeda_nf; */
-        /* $acquisition->preco_nf = $request->preco_nf; */
-
         $acquisition->data_nf = $request->$data_nf;
         
         $acquisition->save();
@@ -200,7 +181,6 @@ class ItemController extends Controller
                         ->orWhere('status',"Inserido pelo usuário")
                         ->get();
         //$itens = item::where('status', "Em processo de aquisição")->get();// anterior
-     
 
         return view('itens/lista_aquisicao',compact('itens'));
     }
@@ -223,9 +203,13 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         $request->validate([
-            'titulo'  => 'required',
-            /* 'autor'   => 'required', */
-            /* 'editora' => 'required', */
+            'tombo'            => 'required',
+            'titulo'           => 'required',
+            'autor'            => 'required',
+            'cod_impressao'    => 'required',
+            'tipo_aquisicao'   => 'required',
+            'tipo_material'    => 'required',
+            'editora'          => 'required',
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
@@ -235,6 +219,32 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
+
+        $item->tombo = $request->tombo;
+        $item->tombo_antigo = $request->tombo_antigo;
+        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_material = $request->tipo_material;
+        $item->parte = $request->parte;
+        $item->volume = $request->volume;
+        $item->fasciculo = $request->fasciculo;
+        $item->local = $request->local;
+        $item->colecao = $request->colecao;
+        $item->isbn = $request->isbn;
+        $item->link = $request->link;
+        $item->edicao = $request->edicao;
+        $item->dpto = $request->dpto;
+        $item->prioridade = $request->prioridade;
+        $item->procedencia = $request->procedencia;
+        $item->verba = $request->verba;
+        $item->processo = $request->processo;
+        $item->fornecedor = $request->fornecedor;
+        $item->moeda = $request->moeda;
+        $item->preco = $request->preco;
+        $item->nota_fiscal = $request->nota_fiscal;
+        // formatar: $item->data_nf = $request->$data_nf;
+        $item->cod_impressao = $request->cod_impressao;
+        $item->observacao = $request->observacao;
+
 
         $item->status = "Inserido pelo usuário";
         $item->save();

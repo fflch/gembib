@@ -26,11 +26,7 @@ function mostraCampoPrioridade(obj) {
         : "hidden";  
   }
 </script>
-<!--fim da Função para abrir campo após seleção de outras verbas-->
-
-
-
-
+<!--fim da Função para abrir campo para a opção outras em prioridade-->
 
 
 <!--mudar nome para TOMBAMENTO-->
@@ -292,8 +288,8 @@ function mostraCampoPrioridade(obj) {
       </div>
       <div class="col-sm  form-group">
 
-          <label for="moeda_nf">Moeda:</label>
-          <select class="form-control" id="moeda_nf" name="moeda_nf">
+          <label for="moeda">Moeda:</label>
+          <select class="form-control" id="moeda" name="moeda">
             <option>REAL</option>
             <option>DÓLAR</option>
           </select>
@@ -302,7 +298,6 @@ function mostraCampoPrioridade(obj) {
       <div class="col-sm  form-group">
         <label for="preco">Preço:</label>
         <input type="text" id="preco" class="form-control" name="preco">
-
       </div>
     </div>
 
