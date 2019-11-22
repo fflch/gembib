@@ -10,6 +10,7 @@
   <b>Status:</b> {{ $item->status }} <br>
   <b>Autor:</b> {{ $item->autor }}<br>
   <b>Editora:</b> {{ $item->editora }}<br>
+
 </div>
 <br>
 

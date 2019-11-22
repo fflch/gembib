@@ -10,6 +10,7 @@
           <th scope="col">Autor</th>
           <th scope="col">Editora</th>
           <th scope="col">Status</th>
+          <th scope="col">Sugestão feita por</th>
           <th scope="col">Processar</th>
         </tr>
       </thead>
@@ -20,6 +21,7 @@
           <td>{{ $item->autor }}</td>
           <td>{{ $item->editora }}</td>
           <td>{{ $item->status }}</td>
+          <td>{{ Auth::user()->name }}</td>
           <td><a href="/itens/processar_sugestao/{{$item->id}}">processar</a></td>
         </tr>
         @endforeach
