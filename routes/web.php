@@ -40,5 +40,15 @@ Route::get('/itens/insercao_direta/','ItemController@insercao_direta');
 Route::post('/itens/store_insercao_direta/','ItemController@store_insercao_direta');
 
 
+//Rota para disparar um email
+Route::get('/itens/disparar_email', function(){
+	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário 
+		$m->from('gabsreisg@gmail.com', 'Gabriela');//email gembib
+		$m->subject('Sugestão enviada!');
+		$m->to('gabrielareisg@hotmail.com');//email do usuário que fez a sugestão
+	});
+});
+
+
 
 

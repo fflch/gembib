@@ -23,6 +23,7 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         return view('itens/create');
+        $user = new User;
     }
 
     public function store(Request $request)
@@ -198,6 +199,8 @@ class ItemController extends Controller
         $this->authorize('sai');
         $itens = item::where('status',"Em processo de aquisição")->get();
         return view('itens/lista_aquisicao',compact('itens'));
+        //$users = User::select ();
+        //return view('itens/lista_aquisicao',compact('users'));
     }
 
     public function consulta()

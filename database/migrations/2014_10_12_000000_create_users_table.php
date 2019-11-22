@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            //$table->string('sugestao');
+            $table->string('sugestao');//gravar sugestão que o usuário fez
         });
     }
 
