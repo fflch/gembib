@@ -39,7 +39,7 @@ function mostraCampoStatus(obj) {
         </select>
 
         <!--Função para abrir campo após seleção de outro status-->
-        <input type="text" class="form-control" name="Outro" id="Outro" style="visibility: hidden;" placeholder="Informe outro status" >
+        <input type="text" class="form-control" name="outroStatus" id="Outro" style="visibility: hidden;" placeholder="Informe outro status" >
         <!--fim da Função para abrir campo após seleção de outro status-->
 
     </div>

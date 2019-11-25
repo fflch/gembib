@@ -69,6 +69,14 @@ class ItemController extends Controller
         }
         /* Alterar status */
         $item->status = $request->status;
+
+        /*Outros status*/
+        $outroStatus = $request->outroStatus;
+        if($request->status == 'Outro'){
+            $item->status = $outroStatus;
+        }
+        /*fim outros status*/
+
         $item->save();
 
         $request->session()->flash('alert-info',"Sugestão processada, novo status: {$item->status}");
