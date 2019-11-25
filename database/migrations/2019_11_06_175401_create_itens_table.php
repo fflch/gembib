@@ -62,8 +62,6 @@ class CreateItensTable extends Migration
             $table->text('processo')->nullable();
             $table->text('fornecedor')->nullable();
             $table->text('nota_fiscal')->nullable();
-            /* $table->text('moeda_nf')->nullable(); */
-            /* $table->float('preco_nf')->nullable(); */
             $table->date('data_nf')->nullable();
             $table->text('escala')->nullable();
 

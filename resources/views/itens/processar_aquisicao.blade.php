@@ -263,7 +263,6 @@ function mostraCampoPrioridade(obj) {
             <option>FAPLIVROS</option>
             <option>PROAP</option>
             <option>Outros</option>
-            <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
 
           <!--Função para abrir campo após seleção de outras verbas-->

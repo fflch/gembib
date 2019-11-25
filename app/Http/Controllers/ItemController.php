@@ -177,11 +177,11 @@ class ItemController extends Controller
     public function lista_aquisicao()
     {
         $this->authorize('sai');
-        $itens = item::where('status',"Em processo de aquisição")
+/*         $itens = item::where('status',"Em processo de aquisição")
                         ->orWhere('status',"Inserido pelo usuário")
                         ->get();
-        //$itens = item::where('status', "Em processo de aquisição")->get();// anterior
-
+                        Código criado para listar livros na inserção direta */
+        $itens = item::where('status', "Em processo de aquisição")->get();
         return view('itens/lista_aquisicao',compact('itens'));
     }
 
