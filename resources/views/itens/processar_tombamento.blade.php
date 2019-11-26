@@ -39,7 +39,7 @@
           <select class="form-control" id="tipo_material" name="tipo_material">
           <option>Selecionar tipo de material</option>
             <option>Livro</option>
-            <option>Mapas</option>
+            <option value="mapa">Mapas</option>
             <option>Multimeios</option>
             <option>Obra rara</option>
             <option>Periódicos</option>

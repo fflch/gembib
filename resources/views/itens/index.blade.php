@@ -21,7 +21,7 @@
           <td>{{ $item->autor }}</td>
           <td>{{ $item->editora }}</td>
           <td>{{ $item->status }}</td>
-          <td>{{ Auth::user()->name }}</td>
+          <td><a href="/itens/disparar_email">{{ Auth::user()->email }}</td><!--mostrar email do usuário que fez cada sugestão-->
           <td><a href="/itens/processar_sugestao/{{$item->id}}">processar</a></td>
         </tr>
         @endforeach
