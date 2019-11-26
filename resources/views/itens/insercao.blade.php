@@ -28,6 +28,17 @@ function mostraCampo(obj) {
 </script>
 <!--fim da Função para abrir campo após seleção de outras verbas-->
 
+<!--mostrar campo quando selecionado "Outros tipos" em "Tipo de material"-->
+<script type="text/javascript">
+function mostraCampoOutrosTipos(obj) {
+    var select = document.getElementById('tipo_material');
+    var txt = document.getElementById("outros_tipos");
+    txt.style.visibility = (select.value == 'Outros tipos') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+
 
 <form method="POST" action="/itens/storeInsercao">
     @csrf
@@ -58,7 +69,7 @@ function mostraCampo(obj) {
 
       <div class="col-sm form-group">
           <label for="tipo_material">Tipo de material:</label>
-          <select class="form-control" id="tipo_material" name="tipo_material">
+          <select class="form-control" id="tipo_material" name="tipo_material" onchange="mostraCampoOutrosTipos(this);">
           <option></option>
             <option>Livro</option>
             <option>Mapas</option>
@@ -66,11 +77,16 @@ function mostraCampo(obj) {
             <option>Memorial</option>
             <option>Multimeios</option>
             <option>Obra Rara</option>
-            <option>Outros tipos</option>
             <option>Mapas</option>
             <option>Periódicos</option>
             <option>Tese</option>
+            <option>Outros tipos</option>
           </select>
+
+          <!--Abrir textbox após seleção de "Outros tipos" em "Tipos de materiais"-->
+        <input type="text" class="form-control" name="outrosTipos" id="outros_tipos" style="visibility: hidden;" placeholder="Informe um outro tipo de material" >
+        <!--fim javascript para abrir campo após seleção de "Outros materiais"-->
+
       </div>
       <div class="col-sm form-group">
         <label for="titulo">Título:</label>

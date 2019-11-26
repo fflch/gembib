@@ -141,6 +141,7 @@ class ItemController extends Controller
         $tombamento->ordem_relatorio = $request->ordem_relatorio;
         $tombamento->tipo_tombamento = $request->tipo_tombamento;
         $tombamento->tipo_material = $request->tipo_material;
+        //$tombamento->outros_tipos = $request->outros_tipos;//
         $tombamento->subcategoria = $request->subcategoria;
         $tombamento->capes = $request->capes;
         /* $tombamento->id_material = $request->id_material; */
