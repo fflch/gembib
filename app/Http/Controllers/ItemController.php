@@ -68,6 +68,7 @@ class ItemController extends Controller
             ]);
             $item->motivo = $request->motivo;
         }
+
         /* Alterar status */
         $item->status = $request->status;
 
@@ -79,9 +80,7 @@ class ItemController extends Controller
         /*fim outros status*/
 
         $item->save();
-
         $request->session()->flash('alert-info',"Sugestão processada, novo status: {$item->status}");
-
         return redirect('/itens');
     }
 
@@ -98,13 +97,13 @@ class ItemController extends Controller
         /* Validação de campos */
         $this->authorize('sai');
         $request->validate([
-            'titulo'           => 'required',
+             'titulo'          => 'required',
             'autor'            => 'required',
             'editora'          => 'required',
             'tombo'            => 'required',
             'cod_impressao'    => 'required',
             'ordem_relatorio'  => 'required',
-            'tipo_tombamento'   => 'required',
+            'tipo_tombamento'  => 'required',
             'tipo_material'    => 'required',
             'capes'            => 'required',
             'edicao'           => 'required',
@@ -116,7 +115,7 @@ class ItemController extends Controller
             'dpto'             => 'required',
             'pedido_por'       => 'required',
             'finalidade'       => 'required',
-            'data_pedido'      => 'required',
+            /* 'data_pedido'      => 'required', */
             'prioridade'       => 'required',
             'status'           => 'required',
             'moeda'            => 'required',
@@ -127,7 +126,7 @@ class ItemController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            'data_nf'          => 'required',
+            /* 'data_nf'          => 'required',  */
         ]);
 
         /* Alterar status */
@@ -143,8 +142,6 @@ class ItemController extends Controller
         $tombamento->tipo_material = $request->tipo_material;
         $tombamento->subcategoria = $request->subcategoria;
         $tombamento->capes = $request->capes;
-        /* $tombamento->id_material = $request->id_material; */
-        /* $tombamento->id_sugestao = $request->id_sugestao; */
         $tombamento->UsuarioS = $request->UsuarioS;
         $tombamento->UsuarioA = $request->UsuarioA;
         $tombamento->titulo = $request->titulo;
@@ -163,8 +160,7 @@ class ItemController extends Controller
         $tombamento->dpto = $request->dpto;
         $tombamento->pedido_por = $request->pedido_por;
         $tombamento->finalidade = $request->finalidade;
-
-        $tombamento->data_pedido = $request->$data_pedido;        
+        // formatar: $tombamento->data_pedido = $request->$data_pedido;        
         $tombamento->prioridade = $request->prioridade;
         $tombamento->status = $request->status;
         $tombamento->moeda = $request->moeda;
@@ -175,11 +171,8 @@ class ItemController extends Controller
         $tombamento->processo = $request->processo;
         $tombamento->fornecedor = $request->fornecedor;
         $tombamento->nota_fiscal = $request->nota_fiscal;
-        /* $tombamento->pasta = $request->pasta; */
-        /* $tombamento->moeda_nf = $request->moeda_nf; */
-        /* $tombamento->preco_nf = $request->preco_nf; */
+        // formatar: $tombamento->data_nf = $request->$data_nf;
 
-        $tombamento->data_nf = $request->$data_nf;
         $tombamento->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$tombamento->status}");
@@ -234,7 +227,6 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
-
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
         $item->tipo_aquisicao = $request->tipo_aquisicao;
@@ -259,6 +251,20 @@ class ItemController extends Controller
         // formatar: $item->data_nf = $request->$data_nf;
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
+
+        /*Outra prioridade*/
+        $outraPrioridade = $request->outraPrioridade;
+        if($request->prioridade == 'Outra'){
+            $item->prioridade = $outraPrioridade;
+        }
+        /*fim outra prioridade*/
+
+        /*Outra verba*/
+        $outraVerba = $request->outraVerba;
+        if($request->verba == 'Outras'){
+            $item->verba = $outraVerba;
+        }
+        /*fim outra verba*/        
 
 
         $item->status = "Inserido pelo usuário";

@@ -37,8 +37,8 @@ Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
 Route::get('/itens/consulta/','ItemController@consulta');
 
 //Rota para inserção direta
-Route::get('/itens/insercao_direta/','ItemController@createInsercao');
-Route::post('/itens/store_insercao_direta/','ItemController@storeInsercao');
+Route::get('/itens/insercao/','ItemController@createInsercao');
+Route::post('/itens/storeInsercao/','ItemController@storeInsercao');
 
 
 Route::get('/itens/disparar_email', function(){
