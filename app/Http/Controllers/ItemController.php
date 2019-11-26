@@ -70,6 +70,14 @@ class ItemController extends Controller
         }
         /* Alterar status */
         $item->status = $request->status;
+
+        /*Outros status*/
+        $outroStatus = $request->outroStatus;
+        if($request->status == 'Outro'){
+            $item->status = $outroStatus;
+        }
+        /*fim outros status*/
+
         $item->save();
 
         $request->session()->flash('alert-info',"Sugestão processada, novo status: {$item->status}");
@@ -94,25 +102,15 @@ class ItemController extends Controller
             'autor'            => 'required',
             'editora'          => 'required',
             'tombo'            => 'required',
-            /* 'tombo_antigo'     => 'required', */
             'cod_impressao'    => 'required',
             'ordem_relatorio'  => 'required',
             'tipo_tombamento'   => 'required',
             'tipo_material'    => 'required',
-            'subcategoria'     => 'required',
             'capes'            => 'required',
-            /* 'id_material'      => 'required', */
-            /* 'id_sugestao'      => 'required', */
-            /* 'UsuarioS'         => 'required', */
-            /* 'UsuarioA'         => 'required', */
-            /* 'link'             => 'required', */
             'edicao'           => 'required',
             'volume'           => 'required',
-            /* 'parte'            => 'required', */
-            /* 'fasciculo'        => 'required', */
             'local'            => 'required',
             'ano'              => 'required',
-            /* 'colecao'          => 'required', */
             'isbn'             => 'required',
             'escala'           => 'required',
             'dpto'             => 'required',
@@ -129,9 +127,6 @@ class ItemController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            /* 'pasta'            => 'required', */
-            /* 'moeda_nf'         => 'required', */
-            /* 'preco_nf'         => 'required', */
             'data_nf'          => 'required',
         ]);
 
@@ -185,7 +180,6 @@ class ItemController extends Controller
         /* $tombamento->preco_nf = $request->preco_nf; */
 
         $tombamento->data_nf = $request->$data_nf;
-        
         $tombamento->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$tombamento->status}");
@@ -197,7 +191,11 @@ class ItemController extends Controller
     public function lista_aquisicao()
     {
         $this->authorize('sai');
-        $itens = item::where('status',"Em processo de aquisição")->get();
+/*         $itens = item::where('status',"Em processo de aquisição")
+                        ->orWhere('status',"Inserido pelo usuário")
+                        ->get();
+                        Código criado para listar livros na inserção direta */
+        $itens = item::where('status', "Em processo de aquisição")->get();
         return view('itens/lista_aquisicao',compact('itens'));
         //$users = User::select ();
         //return view('itens/lista_aquisicao',compact('users'));
@@ -209,13 +207,67 @@ class ItemController extends Controller
         return view('itens/consulta',compact('itens'));
     }
 
-    public function insercao_direta(item $tombamento)
+    // Inserção direta
+    public function createInsercao()
     {
-        return view('itens/insercao_direta');
+        $this->authorize('logado');
+        return view('itens/insercao');
     }
 
-    public function store_insercao_direta(Request $request, item $tombamento)
+    public function storeInsercao(Request $request)
     {
+        $this->authorize('logado');
+        $request->validate([
+            'tombo'            => 'required',
+            'titulo'           => 'required',
+            'autor'            => 'required',
+            'cod_impressao'    => 'required',
+            'tipo_aquisicao'   => 'required',
+            'tipo_material'    => 'required',
+            'editora'          => 'required',
+        ]);
+
+        /* pegar itens que estão chegando e salvar no banco de dados */
+        $item = new Item;
+        $item->titulo = $request->titulo;
+        $item->autor = $request->autor;
+        $item->editora = $request->editora;
+        $item->ano = $request->ano;
+        $item->sugerido_por_id = Auth::id();
+
+        $item->tombo = $request->tombo;
+        $item->tombo_antigo = $request->tombo_antigo;
+        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_material = $request->tipo_material;
+        $item->parte = $request->parte;
+        $item->volume = $request->volume;
+        $item->fasciculo = $request->fasciculo;
+        $item->local = $request->local;
+        $item->colecao = $request->colecao;
+        $item->isbn = $request->isbn;
+        $item->link = $request->link;
+        $item->edicao = $request->edicao;
+        $item->dpto = $request->dpto;
+        $item->prioridade = $request->prioridade;
+        $item->procedencia = $request->procedencia;
+        $item->verba = $request->verba;
+        $item->processo = $request->processo;
+        $item->fornecedor = $request->fornecedor;
+        $item->moeda = $request->moeda;
+        $item->preco = $request->preco;
+        $item->nota_fiscal = $request->nota_fiscal;
+        // formatar: $item->data_nf = $request->$data_nf;
+        $item->cod_impressao = $request->cod_impressao;
+        $item->observacao = $request->observacao;
+
+
+        $item->status = "Inserido pelo usuário";
+        $item->save();
+
+        $request->session()->flash('alert-info', 'Inserção direta enviada com sucesso');
+
+        return redirect('/');
         
     }
+
 }

@@ -2,6 +2,37 @@
 @section('content')
 @include('flash')
 
+
+
+
+<!--Função para abrir campo após seleção de outras verbas-->
+<script type="text/javascript">
+function mostraCampo(obj) {
+    var select = document.getElementById('verba');
+    var txt = document.getElementById("Outros");
+    txt.style.visibility = (select.value == 'Outros') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo após seleção de outras verbas-->
+
+
+<!--Função para abrir campo para a opção outras em prioridade-->
+<script type="text/javascript">
+function mostraCampoPrioridade(obj) {
+    var select = document.getElementById('prioridade');
+    var txt = document.getElementById("Outra");
+    txt.style.visibility = (select.value == 'Outra') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo para a opção outras em prioridade-->
+
+
+<!--mudar nome para TOMBAMENTO-->
+
 <form method="POST" action="/itens/store_processar_tombamento/{{$tombamento->id}}">
     @csrf
 
@@ -181,7 +212,7 @@
     <div class="row">
       <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
-          <select class="form-control" id="prioridade" name="prioridade">
+          <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
           <option>Selecionar prioridade</option>
             <!--<option>Baixa</option>
             <option>Média</option>
@@ -190,6 +221,11 @@
             <option>Coleção Didática</option>
             <option>Outra</option>
           </select>
+
+          <!--Função para abrir campo após seleção de outras verbas-->
+          <input type="text" class="form-control" name="Outra" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
+          <!--fim da Função para abrir campo após seleção de outras verbas-->
+
       </div>
       <div class="col-sm form-group">
           <label for="status">Status:</label>
@@ -221,7 +257,7 @@
     <div class="row">
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
-          <select class="form-control" id="verba" name="verba">
+          <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
           <option>Selecionar verba</option>
             <option>CAPES</option>
             <option>RUSP</option>
@@ -230,8 +266,12 @@
             <option>FAPLIVROS</option>
             <option>PROAP</option>
             <option>Outros</option>
-            <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
+
+          <!--Função para abrir campo após seleção de outras verbas-->
+          <input type="text" class="form-control" name="Outros" id="Outros" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <!--fim da Função para abrir campo após seleção de outras verbas-->
+
       </div>
       <div class="col-sm form-group">
         <label for="processo">Processo:</label>
@@ -250,8 +290,8 @@
       </div>
       <div class="col-sm  form-group">
 
-          <label for="moeda_nf">Moeda:</label>
-          <select class="form-control" id="moeda_nf" name="moeda_nf">
+          <label for="moeda">Moeda:</label>
+          <select class="form-control" id="moeda" name="moeda">
             <option>REAL</option>
             <option>DÓLAR</option>
           </select>
@@ -260,7 +300,6 @@
       <div class="col-sm  form-group">
         <label for="preco">Preço:</label>
         <input type="text" id="preco" class="form-control" name="preco">
-
       </div>
     </div>
 
