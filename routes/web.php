@@ -32,15 +32,15 @@ Route::post('/itens/store_processar_tombamento/{tombamento}','ItemController@sto
 
 //Rota para mostrar as sugestões em processo de aquisição
 Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
+
 //Rota para mostrar a lista com o status das sugestões
 Route::get('/itens/consulta/','ItemController@consulta');
 
 //Rota para inserção direta
-Route::get('/itens/insercao_direta/','ItemController@insercao_direta');
-Route::post('/itens/store_insercao_direta/','ItemController@store_insercao_direta');
+Route::get('/itens/insercao_direta/','ItemController@createInsercao');
+Route::post('/itens/store_insercao_direta/','ItemController@storeInsercao');
 
 
-//Rota para disparar um email
 Route::get('/itens/disparar_email', function(){
 	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário 
 		$m->from('gabsreisg@gmail.com', 'Gabriela');//email gembib
@@ -48,7 +48,5 @@ Route::get('/itens/disparar_email', function(){
 		$m->to('gabrielareisg@hotmail.com');//email do usuário que fez a sugestão
 	});
 });
-
-
 
 
