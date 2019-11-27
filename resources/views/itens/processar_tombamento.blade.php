@@ -3,8 +3,6 @@
 @include('flash')
 
 
-
-
 <!--Função para abrir campo após seleção de outras verbas-->
 <script type="text/javascript">
 function mostraCampo(obj) {
@@ -16,6 +14,9 @@ function mostraCampo(obj) {
   }
 </script>
 <!--fim da Função para abrir campo após seleção de outras verbas-->
+
+<!--Função para abrir o campo "Subcategoria" quando "Teses for selecionado em "Tipo de material"-->
+<!-- fim função mostrar campo subcategoria-->
 
 
 <!--Função para abrir campo para a opção outras em prioridade-->
@@ -64,10 +65,9 @@ function mostraCampoPrioridade(obj) {
             <option>Retombamento</option>
           </select>
       </div>
-
       <div class="col-sm form-group">
           <label for="tipo_material">Tipo de material:</label>
-          <select class="form-control" id="tipo_material" name="tipo_material">
+          <select class="form-control" id="tipo_material" onchange="optionCheck()" name="tipo_material">
           <option>Selecionar tipo de material</option>
             <option>Livro</option>
             <option value="mapa">Mapas</option>
@@ -75,25 +75,39 @@ function mostraCampoPrioridade(obj) {
             <option>Obra rara</option>
             <option>Periódicos</option>
             <option>CD/DVD</option>
-            <option>Teses</option>
+            <option value="teses">Teses</option>
             <option>Outros tipos</option>
           </select>
-      </div>
+        </div>
 
-    </div>
-<!--- O campo subcategoria só aparece se escolher “tese” em tipo de material;-->
+<div id="hiddenDiv" style="visibility:hidden;">
+
     <div class="row">
-
       <div class="col-sm form-group">
-          <label for="subcategoria">Subcategoria:</label>
-          <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
-          <option>Selecionar subcategoria</option>
-            <option>Mestrado</option>
-            <option>Doutorado</option>
-            <option>Livre docência</option>
-          </select>
+      <label for="subcategoria">Subcategoria:</label>
+      <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
+      <option>Selecionar subcategoria</option>
+        <option>Mestrado</option>
+        <option>Doutorado</option>
+        <option>Livre docência</option>
+    </select>
+        </div>
       </div>
     </div>
+
+</div>
+
+<script type="text/javascript">
+  function optionCheck(){
+      var option = document.getElementById("tipo_material").value;
+      if(option == "teses"){
+        document.getElementById("hiddenDiv").style.visibility ="visible";
+      }
+      if(option != "teses"){//se for diferente da opção "teses" o campo sumirá
+        document.getElementById("hiddenDiv").style.visibility ="hidden";
+      }
+    }
+</script>
 
     <div class="row">
       <div class="col-sm form-group">
