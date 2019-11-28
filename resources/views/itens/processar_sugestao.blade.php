@@ -5,7 +5,7 @@
 <!--mostrar o usuário que fez a sugestão; -->
 <!--dar feedback e ter a info do e-mail para saber quem fez a sugestão (para perguntar se errou nos dados, informar que foi negado etc.); -->
 
-<!--Função para abrir campo após seleção de outras verbas-->
+<!--Função para abrir campo após seleção de outros status-->
 <script type="text/javascript">
 function mostraCampoStatus(obj) {
     var select = document.getElementById('status');
@@ -15,7 +15,7 @@ function mostraCampoStatus(obj) {
         : "hidden";  
   }
 </script>
-<!--fim da Função para abrir campo após seleção de outras verbas-->
+<!--fim da Função para abrir campo após seleção de outros status-->
 
 <div>
   <b>Processamento do livro:</b> {{ $item->titulo }} <br>

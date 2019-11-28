@@ -53,9 +53,9 @@ function mostraCampoOutrosTipos(obj) {
           <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
         </div>
         <div class="col-sm form-group">
-          <label for="tipo_aquisicao">Tipo de aquisição:</label>
+          <label for="tipo_tombamento">Tipo de aquisição:</label>
           <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
-              <option></option>
+              <option value="">Selecionar tipo de aquisição</option>
               <option>Compra</option>
               <option>Doação</option>
               <option>Multa</option>
@@ -70,7 +70,7 @@ function mostraCampoOutrosTipos(obj) {
       <div class="col-sm form-group">
           <label for="tipo_material">Tipo de material:</label>
           <select class="form-control" id="tipo_material" name="tipo_material" onchange="mostraCampoOutrosTipos(this);">
-          <option></option>
+          <option value="">Selecionar tipo de material</option>
             <option>Livro</option>
             <option>Mapas</option>
             <option>Material especial</option>
@@ -152,7 +152,7 @@ function mostraCampoOutrosTipos(obj) {
         <div class="col-sm form-group">
             <label for="dpto">Departamento:</label>
             <select class="form-control" id="dpto" name="dpto">
-              <option></option>
+              <option value="">Selecionar departamento</option>
               <option>Antropologia</option>
               <option>Ciência Politica</option>
               <option>Filosofia</option>
@@ -169,7 +169,7 @@ function mostraCampoOutrosTipos(obj) {
         <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
           <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
-          <option></option>
+            <option value="">Selecionar prioridade</option>
             <option>Coleção Didática</option>
             <option>Outra</option>
           </select>
@@ -186,9 +186,14 @@ function mostraCampoOutrosTipos(obj) {
       <div class="col-sm form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
+          <option value="">Selecionar procedência</option>
           <option>Nacional</option>
           <option>Internacional</option>
         </select>
+      </div>
+      <div class="col-sm form-group">
+        <label for="finalidade">Finalidade:</label>
+        <input type="text" id="finalidade" class="form-control" name="finalidade">
       </div>
     </div>
 
@@ -198,7 +203,7 @@ function mostraCampoOutrosTipos(obj) {
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
           <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
-          <option></option>
+            <option value="">Selecionar tipo de verba</option>
             <option>CAPES</option>
             <option>RUSP</option>
             <option>CNPQ</option>
@@ -227,6 +232,7 @@ function mostraCampoOutrosTipos(obj) {
       <div class="col-sm  form-group">
           <label for="moeda">Moeda:</label>
           <select class="form-control" id="moeda" name="moeda">
+            <option value="">Selecionar moeda</option>
             <option>REAL</option>
             <option>DÓLAR</option>
           </select>

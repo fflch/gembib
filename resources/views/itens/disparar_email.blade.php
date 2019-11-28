@@ -2,6 +2,6 @@
 @section('content')
 @include('flash')
 
-
+return back()->with('Email enviado com sucesso!');
 
 @endsection

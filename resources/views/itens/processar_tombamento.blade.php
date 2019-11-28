@@ -7,20 +7,23 @@
 <script type="text/javascript">
 function mostraCampoPrioridade(obj) {
     var select = document.getElementById('prioridade');
-    var txt = document.getElementById("Outra");
-    txt.style.visibility = (select.value == 'Outra') 
+    var txt = document.getElementById("outraPrioridade");
+    txt.style.visibility = (select.value == 'Outras') 
         ? "visible"
         : "hidden";  
   }
 </script>
 <!--fim da Função para abrir campo para a opção outras em prioridade-->
 
+<!--Função para abrir o campo "Subcategoria" quando "Teses for selecionado em "Tipo de material"-->
+<!-- fim função mostrar campo subcategoria-->
+
 
 <!--Função para abrir campo após seleção de outras verbas-->
 <script type="text/javascript">
 function mostraCampo(obj) {
     var select = document.getElementById('verba');
-    var txt = document.getElementById("Outras");
+    var txt = document.getElementById("outraVerba");
     txt.style.visibility = (select.value == 'Outras') 
         ? "visible"
         : "hidden";  
@@ -28,6 +31,18 @@ function mostraCampo(obj) {
 </script>
 <!--fim da Função para abrir campo após seleção de outras verbas-->
 
+
+<!--Função para abrir campo após seleção de outros status-->
+<script type="text/javascript">
+function mostraCampoStatus(obj) {
+    var select = document.getElementById('status');
+    var txt = document.getElementById("Outro");
+    txt.style.visibility = (select.value == 'Outro') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo após seleção de outros status-->
 
 
 <!--mudar nome para TOMBAMENTO-->
@@ -44,18 +59,14 @@ function mostraCampo(obj) {
           <label for="tombo_antigo">Tombo antigo:</label>
           <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
         </div>
-        <div class="col-sm form-group">
-          <label for="ordem_relatorio">Ordem no relatório:</label>
-          <input type="text" id="ordem_relatorio" class="form-control" name="ordem_relatorio">
-        </div>
     </div>
 
 
     <div class="row">
       <div class="col-sm form-group">
-          <label for="tipo_aquisicao">Tipo de aquisição:</label>
+          <label for="tipo_tombamento">Tipo de aquisição:</label>
           <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
-          <option>Selecionar tipo de aquisição</option>
+            <option value="">Selecionar tipo de aquisição</option>
             <option>Compra</option>
             <option>Doação</option>
             <option>Multa</option>
@@ -63,36 +74,49 @@ function mostraCampo(obj) {
             <option>Retombamento</option>
           </select>
       </div>
-
       <div class="col-sm form-group">
           <label for="tipo_material">Tipo de material:</label>
-          <select class="form-control" id="tipo_material" name="tipo_material">
-          <option>Selecionar tipo de material</option>
+          <select class="form-control" id="tipo_material" onchange="optionCheck()" name="tipo_material">
+            <option value="">Selecionar tipo de material</option>
             <option>Livro</option>
             <option value="mapa">Mapas</option>
             <option>Multimeios</option>
             <option>Obra rara</option>
             <option>Periódicos</option>
             <option>CD/DVD</option>
-            <option>Teses</option>
+            <option value="teses">Teses</option>
             <option>Outros tipos</option>
           </select>
-      </div>
+        </div>
 
-    </div>
-<!--- O campo subcategoria só aparece se escolher “tese” em tipo de material;-->
+<div id="hiddenDiv" style="visibility:hidden;">
+
     <div class="row">
-
       <div class="col-sm form-group">
-          <label for="subcategoria">Subcategoria:</label>
-          <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
-          <option>Selecionar subcategoria</option>
-            <option>Mestrado</option>
-            <option>Doutorado</option>
-            <option>Livre docência</option>
-          </select>
+      <label for="subcategoria">Subcategoria:</label>
+      <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
+      <option value="">Selecionar subcategoria</option>
+        <option>Mestrado</option>
+        <option>Doutorado</option>
+        <option>Livre docência</option>
+    </select>
+        </div>
       </div>
     </div>
+
+</div>
+
+<script type="text/javascript">
+  function optionCheck(){
+      var option = document.getElementById("tipo_material").value;
+      if(option == "teses"){
+        document.getElementById("hiddenDiv").style.visibility ="visible";
+      }
+      if(option != "teses"){//se for diferente da opção "teses" o campo sumirá
+        document.getElementById("hiddenDiv").style.visibility ="hidden";
+      }
+    }
+</script>
 
     <div class="row">
       <div class="col-sm form-group">
@@ -151,7 +175,7 @@ function mostraCampo(obj) {
         <input type="text" id="editora" class="form-control" name="editora" value="{{ $tombamento->editora }}">
       </div>
       <div class="col-sm form-group">
-        <label for="ano">Ano:</label>
+        <label for="ano">Ano de publicação:</label>
         <input type="text" id="ano" class="form-control" name="ano" value="{{ $tombamento->ano }}">
       </div>
       <div class="col-sm form-group">
@@ -175,7 +199,7 @@ function mostraCampo(obj) {
     <div class="col-sm form-group">
           <label for="dpto">Departamento:</label>
           <select class="form-control" id="dpto" name="dpto">
-            <option>Selecionar departamento</option>
+            <option value="">Selecionar departamento</option>
             <option>Antropologia</option>
             <option>Ciência Politica</option>
             <option>Filosofia</option>
@@ -212,38 +236,41 @@ function mostraCampo(obj) {
       <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
           <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
-          <option></option>
+           <option value="">Selecionar prioridade</option>
             <option>Coleção Didática</option>
-            <option>Outra</option>
+            <option>Outras</option>
           </select>
           <!--Função para abrir campo após seleção de outras prioridades-->
-          <input type="text" class="form-control" name="outraPrioridade" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
+          <input type="text" class="form-control" name="outraPrioridade" id="outraPrioridade" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
           <!--fim da Função para abrir campo após seleção de outras prioridades-->
       </div>
-      <div class="col-sm form-group">
-          <label for="status">Status:</label>
-          <select class="form-control" id="status" name="status">
-          <option>Selecionar status</option>
-            <option>Em cotação</option>
-            <option>Em licitação</option>
-            <option>Em processo de aquisição</option>
-            <option>Esgotado</option>
-            <option>Para seleção</option>
-          </select>
-      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" onchange="mostraCampoStatus(this);">
+          <option value="">Mudar status</option>
+          <option>Em processo de aquisição</option>
+          <option>Negado</option>
+          <option>Esgotado</option>
+          <option>Em cotação</option>
+          <option>Em licitação</option>
+          <option>Outro</option>
+        </select>
+
+        <!--Função para abrir campo após seleção de outro status-->
+        <input type="text" class="form-control" name="outroStatus" id="Outro" style="visibility: hidden;" placeholder="Informe outro status" >
+        <!--fim da Função para abrir campo após seleção de outro status-->
+
+    </div>
       <div class="col-sm form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
+          <option value="">Selecionar procedência</option>
           <option>Nacional</option>
           <option>Internacional</option>
         </select>
       </div>
     </div>
 
-    <div class="form-group">
-        <label for="observacao">Observações:</label>
-        <textarea class="form-control" id="observacao" rows="3" name="observacao"></textarea>
-    </div>
 
     <br><h3>Informações adicionais</h3><br>
 
@@ -251,7 +278,7 @@ function mostraCampo(obj) {
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
           <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
-          <option></option>
+            <option value="">Selecionar tipo de verba</option>
             <option>CAPES</option>
             <option>RUSP</option>
             <option>CNPQ</option>
@@ -263,7 +290,7 @@ function mostraCampo(obj) {
           </select>
 
           <!--Função para abrir campo após seleção de outras verbas-->
-          <input type="text" class="form-control" name="outraVerba" id="Outras" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <input type="text" class="form-control" name="outraVerba" id="outraVerba" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
           <!--fim da Função para abrir campo após seleção de outras verbas-->
       </div>
       <div class="col-sm form-group">
@@ -285,6 +312,7 @@ function mostraCampo(obj) {
 
           <label for="moeda">Moeda:</label>
           <select class="form-control" id="moeda" name="moeda">
+            <option value="">Selecionar moeda</option>
             <option>REAL</option>
             <option>DÓLAR</option>
           </select>
@@ -305,6 +333,11 @@ function mostraCampo(obj) {
           <label for="cod_impressao">Código de impressão:</label>
           <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
       </div>
+    </div>
+
+    <div class="form-group">
+        <label for="observacao">Observações:</label>
+        <textarea class="form-control" id="observacao" rows="3" name="observacao"></textarea>
     </div>
     
     <div>

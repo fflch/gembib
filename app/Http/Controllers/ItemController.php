@@ -102,7 +102,7 @@ class ItemController extends Controller
             'editora'          => 'required',
             'tombo'            => 'required',
             'cod_impressao'    => 'required',
-            'ordem_relatorio'  => 'required',
+            /* 'ordem_relatorio'  => 'required', */
             'tipo_tombamento'  => 'required',
             'tipo_material'    => 'required',
             'capes'            => 'required',
@@ -137,7 +137,7 @@ class ItemController extends Controller
         $tombamento->tombo = $request->tombo;
         $tombamento->tombo_antigo = $request->tombo_antigo;
         $tombamento->cod_impressao = $request->cod_impressao;
-        $tombamento->ordem_relatorio = $request->ordem_relatorio;
+        //$tombamento->ordem_relatorio = $request->ordem_relatorio;
         $tombamento->tipo_tombamento = $request->tipo_tombamento;
         $tombamento->tipo_material = $request->tipo_material;
         //$tombamento->outros_tipos = $request->outros_tipos;//
@@ -173,6 +173,30 @@ class ItemController extends Controller
         $tombamento->fornecedor = $request->fornecedor;
         $tombamento->nota_fiscal = $request->nota_fiscal;
         // formatar: $tombamento->data_nf = $request->$data_nf;
+
+
+
+        /*Outra prioridadeTombamento*/
+        $outraPrioridade = $request->outraPrioridade;
+        if($request->prioridade == 'Outras'){
+            $tombamento->prioridade = $outraPrioridade;
+        }
+        /*fim outra prioridadeTombamento*/
+
+        /*Outra verbaTombamento*/
+        $outraVerba= $request->outraVerba;
+        if($request->verba == 'Outras'){
+            $tombamento->verba = $outraVerba;
+        }
+
+
+        /*Outros status*/
+        $outroStatus = $request->outroStatus;
+        if($request->status == 'Outro'){
+            $tombamento->status = $outroStatus;
+        }
+        /*fim outros status*/
+
 
         $tombamento->save();
 
@@ -216,9 +240,10 @@ class ItemController extends Controller
             'titulo'           => 'required',
             'autor'            => 'required',
             'cod_impressao'    => 'required',
-            'tipo_aquisicao'   => 'required',
+            'tipo_tombamento'   => 'required',
             'tipo_material'    => 'required',
             'editora'          => 'required',
+            'verba'          => 'required',
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
@@ -230,7 +255,7 @@ class ItemController extends Controller
         $item->sugerido_por_id = Auth::id();
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
-        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_tombamento = $request->tipo_tombamento;
         $item->tipo_material = $request->tipo_material;
         $item->parte = $request->parte;
         $item->volume = $request->volume;
