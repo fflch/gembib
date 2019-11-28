@@ -36,7 +36,8 @@ Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
 //Rota para mostrar a lista com o status das sugestões
 Route::get('/itens/consulta/','ItemController@consulta');
 
-//Rota para inserção direta
+//Rota para inserção
+Route::get('/itens/insercao/','ItemController@createInsercao');
 Route::get('/itens/insercao_direta/','ItemController@createInsercao');
 Route::post('/itens/storeInsercao/','ItemController@storeInsercao');
 
