@@ -4,20 +4,6 @@
 
 
 <!--Função para abrir campo após seleção de outras verbas-->
-<script type="text/javascript">
-function mostraCampo(obj) {
-    var select = document.getElementById('verba');
-    var txt = document.getElementById("Outros");
-    txt.style.visibility = (select.value == 'Outros') 
-        ? "visible"
-        : "hidden";  
-  }
-</script>
-<!--fim da Função para abrir campo após seleção de outras verbas-->
-
-<!--Função para abrir o campo "Subcategoria" quando "Teses for selecionado em "Tipo de material"-->
-<!-- fim função mostrar campo subcategoria-->
-
 
 <!--Função para abrir campo para a opção outras em prioridade-->
 <script type="text/javascript">
@@ -30,6 +16,23 @@ function mostraCampoPrioridade(obj) {
   }
 </script>
 <!--fim da Função para abrir campo para a opção outras em prioridade-->
+
+<!--Função para abrir o campo "Subcategoria" quando "Teses for selecionado em "Tipo de material"-->
+<!-- fim função mostrar campo subcategoria-->
+
+
+<!--Função para abrir campo após seleção de outras verbas-->
+<script type="text/javascript">
+function mostraCampo(obj) {
+    var select = document.getElementById('verba');
+    var txt = document.getElementById("Outras");
+    txt.style.visibility = (select.value == 'Outras') 
+        ? "visible"
+        : "hidden";  
+  }
+</script>
+<!--fim da Função para abrir campo após seleção de outras verbas-->
+
 
 
 <!--mudar nome para TOMBAMENTO-->
@@ -56,7 +59,7 @@ function mostraCampoPrioridade(obj) {
     <div class="row">
       <div class="col-sm form-group">
           <label for="tipo_aquisicao">Tipo de aquisição:</label>
-          <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
+          <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
           <option>Selecionar tipo de aquisição</option>
             <option>Compra</option>
             <option>Doação</option>
@@ -227,19 +230,13 @@ function mostraCampoPrioridade(obj) {
       <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
           <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
-          <option>Selecionar prioridade</option>
-            <!--<option>Baixa</option>
-            <option>Média</option>
-            <option>Alta</option>
-            <option>Critica</option>-->
+          <option></option>
             <option>Coleção Didática</option>
             <option>Outra</option>
           </select>
-
-          <!--Função para abrir campo após seleção de outras verbas-->
-          <input type="text" class="form-control" name="Outra" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
-          <!--fim da Função para abrir campo após seleção de outras verbas-->
-
+          <!--Função para abrir campo após seleção de outras prioridades-->
+          <input type="text" class="form-control" name="outraPrioridade" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
+          <!--fim da Função para abrir campo após seleção de outras prioridades-->
       </div>
       <div class="col-sm form-group">
           <label for="status">Status:</label>
@@ -272,20 +269,20 @@ function mostraCampoPrioridade(obj) {
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
           <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
-          <option>Selecionar verba</option>
+          <option></option>
             <option>CAPES</option>
             <option>RUSP</option>
             <option>CNPQ</option>
             <option>FAPESP</option>
             <option>FAPLIVROS</option>
             <option>PROAP</option>
-            <option>Outros</option>
+            <option>Outras</option>
+            <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
 
           <!--Função para abrir campo após seleção de outras verbas-->
-          <input type="text" class="form-control" name="Outros" id="Outros" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <input type="text" class="form-control" name="outraVerba" id="Outras" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
           <!--fim da Função para abrir campo após seleção de outras verbas-->
-
       </div>
       <div class="col-sm form-group">
         <label for="processo">Processo:</label>
