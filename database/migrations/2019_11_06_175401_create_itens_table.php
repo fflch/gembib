@@ -16,7 +16,6 @@ class CreateItensTable extends Migration
         Schema::create('itens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-
             // Campos da fase de sugestão
             $table->text('titulo');
             $table->unsignedBigInteger('sugerido_por_id');
@@ -25,11 +24,9 @@ class CreateItensTable extends Migration
             $table->text('editora')->nullable();
             $table->text('ano')->nullable();
             $table->text('informacoes')->nullable();
-
 			/* quando uma sugestão for negada, colocamos o motivo*/
 			$table->text('motivo')->nullable();
             $table->string('status');
-
             // Campos da tela de aquisição
             $table->text('tombo')->nullable();
             $table->text('tombo_antigo')->nullable();
@@ -65,7 +62,6 @@ class CreateItensTable extends Migration
             $table->text('nota_fiscal')->nullable();
             $table->date('data_nf')->nullable();
             $table->text('escala')->nullable();
-
         });
     }
 
