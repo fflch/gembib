@@ -78,7 +78,7 @@ function mostraCampoPrioridade(obj) {
             <option value="teses">Teses</option>
             <option>Outros tipos</option>
           </select>
-        </div>
+      
 
 <div id="hiddenDiv" style="visibility:hidden;">
 
