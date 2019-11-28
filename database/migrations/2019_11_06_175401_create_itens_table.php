@@ -37,6 +37,7 @@ class CreateItensTable extends Migration
             $table->text('ordem_relatorio')->nullable();
             $table->text('tipo_tombamento')->nullable();
             $table->text('tipo_material')->nullable();
+            //$table->text('outros_tipos')();//
             $table->text('subcategoria')->nullable();
             $table->text('capes')->nullable();
             $table->text('UsuarioS')->nullable();
