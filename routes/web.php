@@ -51,3 +51,6 @@ Route::get('/itens/disparar_email', function(){
 });
 
 
+//Rota para edição
+Route::get('/itens/edit/{item}','editController@editEdit');
+Route::post('/itens/updateEdit/{item}','editController@updateEdit');
