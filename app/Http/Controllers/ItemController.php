@@ -84,7 +84,7 @@ class ItemController extends Controller
         return redirect('/itens');
     }
 
-    /* Etapa 3 - Processar aquisição */
+    /* Etapa 3 - Processar tombamento */
     public function processar_tombamento(item $tombamento)
     {
         $this->authorize('sai');
@@ -98,34 +98,34 @@ class ItemController extends Controller
         $this->authorize('sai');
         $request->validate([
              'titulo'          => 'required',
-            'autor'            => 'required',
-            'editora'          => 'required',
-            'tombo'            => 'required',
-            'cod_impressao'    => 'required',
-            'ordem_relatorio'  => 'required',
-            'tipo_tombamento'  => 'required',
+            //'autor'            => 'required',
+            //'editora'          => 'required',
+            //'tombo'            => 'required',
+            //'cod_impressao'    => 'required',
+            //'ordem_relatorio'  => 'required',
+            //'tipo_tombamento'  => 'required',
             'tipo_material'    => 'required',
-            'capes'            => 'required',
-            'edicao'           => 'required',
-            'volume'           => 'required',
-            'local'            => 'required',
-            'ano'              => 'required',
-            'isbn'             => 'required',
-            'escala'           => 'required',
-            'dpto'             => 'required',
-            'pedido_por'       => 'required',
-            'finalidade'       => 'required',
+            //'capes'            => 'required',//
+            //'edicao'           => 'required',
+            //'volume'           => 'required',
+            //'local'            => 'required',
+            //'ano'              => 'required',
+            //'isbn'             => 'required',
+            //'escala'           => 'required',
+            //'dpto'             => 'required',
+            //'pedido_por'       => 'required',
+            //'finalidade'       => 'required',
             /* 'data_pedido'      => 'required', */
-            'prioridade'       => 'required',
-            'status'           => 'required',
-            'moeda'            => 'required',
-            'preco'            => 'required',
-            'procedencia'      => 'required',
-            'observacao'       => 'required',
-            'verba'            => 'required',
-            'processo'         => 'required',
-            'fornecedor'       => 'required',
-            'nota_fiscal'      => 'required',
+            //'prioridade'       => 'required',
+            //'status'           => 'required',
+            //'moeda'            => 'required',
+            //'preco'            => 'required',
+            //'procedencia'      => 'required',
+            //'observacao'       => 'required',
+            //'verba'            => 'required',
+            //'processo'         => 'required',
+            //'fornecedor'       => 'required',
+            //'nota_fiscal'      => 'required',
             /* 'data_nf'          => 'required',  */
         ]);
 
@@ -174,6 +174,19 @@ class ItemController extends Controller
         $tombamento->nota_fiscal = $request->nota_fiscal;
         // formatar: $tombamento->data_nf = $request->$data_nf;
 
+        //Salvar valor escolhido em Subcategoria - FUNCIONANDO 
+        $subcategoria = $request->subcategoria;
+        dd($subcategoria); die();
+        if($request->tipo_material == 'Teses'){
+            $item->tipo_material = $subcategoria;
+        }
+
+        $outroMaterial = $request->OutroMaterial;
+        dd($outroMaterial); die();
+        if($request->tipo_material == 'Outros tipos'){
+            $item->tipo_material = $outroMaterial;
+        }
+
         $tombamento->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$tombamento->status}");
@@ -212,13 +225,13 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         $request->validate([
-            'tombo'            => 'required',
-            'titulo'           => 'required',
-            'autor'            => 'required',
-            'cod_impressao'    => 'required',
-            'tipo_aquisicao'   => 'required',
-            'tipo_material'    => 'required',
-            'editora'          => 'required',
+            //'tombo'            => 'required',
+            //'titulo'           => 'required',
+            //'autor'            => 'required',
+            //'cod_impressao'    => 'required',
+            //'tipo_tombamento'   => 'required',
+            //'tipo_material'    => 'required',
+            //'editora'          => 'required',
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
@@ -230,8 +243,9 @@ class ItemController extends Controller
         $item->sugerido_por_id = Auth::id();
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
-        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_tombamento = $request->tipo_tombamento;
         $item->tipo_material = $request->tipo_material;
+        $item->outromaterial = $request->outromaterial;
         $item->parte = $request->parte;
         $item->volume = $request->volume;
         $item->fasciculo = $request->fasciculo;
@@ -265,8 +279,21 @@ class ItemController extends Controller
         if($request->verba == 'Outras'){
             $item->verba = $outraVerba;
         }
-        /*fim outra verba*/        
+        /*fim outra verba*/
 
+        //Salvar valor escolhido em Subcategoria - NÃO ESTÁ FUNCIONANDO
+        $subcategoria = $request->subcategoria;
+                if($request->tipo_material == 'Teses'){
+            $item->tipo_material = $subcategoria;
+        }
+
+        //Não está funcionando
+        $outroMaterial = $request->OutroMaterial;
+        
+        if($request->tipo_material == 'Outros tipos'){
+            $item->tipo_material = $outroMaterial;
+
+        }
 
         $item->status = "Inserido pelo usuário";
         $item->save();
