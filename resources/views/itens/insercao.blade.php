@@ -18,15 +18,20 @@ function mostraCampoPrioridade(obj) {
 <script type="text/javascript">
   function optionCheck(){
       var option = document.getElementById("tipo_material").value;
-      if(option == "types"){
-        document.getElementById("hiddenDiv2").style.visibility ="visible";
-      }else if(option != "types") {
-        document.getElementById("hiddenDiv2").style.visibility ="hidden";
-      }
-      if(option == "teses"){//se for igual "teses" o campo irá aparecer
+      if(option == "Teses"){//se for igual "teses" o campo irá aparecer
         document.getElementById("hiddenDiv").style.visibility ="visible";
-      }else if(option != "teses") {
+      }else if(option != "Teses") {
         document.getElementById("hiddenDiv").style.visibility ="hidden";
+      }
+      if(option == "Outros"){
+        document.getElementById("hiddenInput").style.visibility ="visible";
+      }else if(option != "Outros"){
+        document.getElementById("hiddenInput").style.visibility ="hidden";
+      }
+      if(option == "Mapas"){
+        document.getElementById("hiddenEscala").style.visibility ="visible";
+      }else if(option != "Mapas"){
+        document.getElementById("hiddenEscala").style.visibility ="hidden";
       }
     }
 </script>
@@ -79,21 +84,23 @@ function mostraCampo(obj) {
       <select class="form-control" id="tipo_material" name="tipo_material" onchange="optionCheck()">
       <option value=""></option>
         <option>Livro</option>
-        <option value="mapa">Mapas</option>
+        <option>Mapas</option>
         <option>Multimeios</option>
         <option>Obra rara</option>
         <option>Periódicos</option>
         <option>CD/DVD</option>
-        <option value="teses">Teses</option>
-        <option value="types">Outros tipos</option>
+        <option>Teses</option>
+        <option>Outros</option>
         </select> 
-<!--Abrir textbox após seleção de "Outros tipos" em "Tipos de materiais"-->
-    <input type="text" name="outrostipos" style="visibility:hidden;" class="form-control" id="hiddenDiv2" placeholder="Digite outro tipo de material">
-
+<!--Textbox após a seleção de "Outros tipos" em "Tipos de materiais"-->
+    <div class="col-sm form-group" id=hiddenInput style="visibility: hidden;">
+    <input type="text" id="outromaterial" name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
+  </div>
+    <!--Campo Subcategoria-->
     <div id="hiddenDiv" style="visibility:hidden;">
     <div class="row">
       <div class="col-sm form-group">
-      <label for="subcategoria">Subcategoria:</label>
+      <label for="subcategoria">Escolha a subcategoria da tese:</label>
       <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
       <option value="">Selecionar subcategoria</option>
         <option>Mestrado</option>
@@ -101,6 +108,13 @@ function mostraCampo(obj) {
         <option>Livre docência</option>
     </select>
         </div>
+      </div>
+    </div>
+    <!--Campo Escala-->
+    <div id="hiddenEscala" style="visibility: hidden;">
+      <div class="col-sm form-group">
+        <label for="escala">Escala do mapa:</label>
+        <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
       </div>
     </div>
 

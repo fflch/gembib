@@ -175,16 +175,19 @@ class ItemController extends Controller
         // formatar: $tombamento->data_nf = $request->$data_nf;
 
         //Salvar valor escolhido em Subcategoria - FUNCIONANDO 
-        $subcategoria = $request->subcategoria;
-        dd($subcategoria); die();
+        $subcategoria = $request->subcategoria;//name
         if($request->tipo_material == 'Teses'){
-            $item->tipo_material = $subcategoria;
+            $tombamento->subcategoria = $subcategoria;
         }
-
-        $outroMaterial = $request->OutroMaterial;
-        dd($outroMaterial); die();
-        if($request->tipo_material == 'Outros tipos'){
-            $item->tipo_material = $outroMaterial;
+        //Salvar valor digitado em Outros - FUNCIONANDO 
+        $outroMaterial = $request->outromaterial;        
+        if($request->tipo_material == 'Outros'){
+            $tombamento->tipo_material = $outroMaterial;
+        }
+        //Salvar valor digitado em Escala - FUNCIONANDO 
+        $valorescala = $request->escala;
+        if($request->tipo_material == 'Mapas'){
+            $tombamento->escala = $valorescala;
         }
 
         $tombamento->save();
@@ -245,7 +248,6 @@ class ItemController extends Controller
         $item->tombo_antigo = $request->tombo_antigo;
         $item->tipo_tombamento = $request->tipo_tombamento;
         $item->tipo_material = $request->tipo_material;
-        $item->outromaterial = $request->outromaterial;
         $item->parte = $request->parte;
         $item->volume = $request->volume;
         $item->fasciculo = $request->fasciculo;
@@ -281,19 +283,22 @@ class ItemController extends Controller
         }
         /*fim outra verba*/
 
-        //Salvar valor escolhido em Subcategoria - NÃO ESTÁ FUNCIONANDO
-        $subcategoria = $request->subcategoria;
-                if($request->tipo_material == 'Teses'){
-            $item->tipo_material = $subcategoria;
+        //Salvar valor escolhido em Subcategoria - N ESTÁ FUNCIONANDO
+        $subcategoria = $request->subcategoria;//name
+        if($request->tipo_material == 'Teses'){
+            $item->subcategoria = $subcategoria;
         }
-
-        //Não está funcionando
-        $outroMaterial = $request->OutroMaterial;
-        
-        if($request->tipo_material == 'Outros tipos'){
+        //Salvar valor digitado em Tipo de Material - FUNCIONANDO
+        $outroMaterial = $request->outromaterial;        
+        if($request->tipo_material == 'Outros'){
             $item->tipo_material = $outroMaterial;
-
         }
+        //Salvar valor digitado em Escala - FUNCIONANDO
+        $valorescala = $request->escala;
+        if($request->tipo_material == 'Mapas'){
+            $item->escala = $valorescala;
+        }
+
 
         $item->status = "Inserido pelo usuário";
         $item->save();
