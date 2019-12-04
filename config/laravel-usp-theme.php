@@ -18,7 +18,7 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Processar Aquisição',
+            'text' => 'Processar Tombamento',
             'url'  => '/itens/lista_aquisicao',
             'can'  => 'sai',
         ],
