@@ -49,7 +49,7 @@ class CreateItensTable extends Migration
             $table->text('dpto')->nullable();
             $table->text('pedido_por')->nullable();
             $table->text('finalidade')->nullable();
-            $table->date('data_pedido')->nullable();
+            $table->date('data_sugestao')->nullable();
             $table->text('prioridade')->nullable();
             $table->text('moeda')->nullable();
             $table->float('preco')->nullable();
@@ -59,7 +59,7 @@ class CreateItensTable extends Migration
             $table->text('processo')->nullable();
             $table->text('fornecedor')->nullable();
             $table->text('nota_fiscal')->nullable();
-            $table->date('data_nf')->nullable();
+            $table->date('data_tombamento')->nullable();
             $table->text('escala')->nullable();
         });
     }

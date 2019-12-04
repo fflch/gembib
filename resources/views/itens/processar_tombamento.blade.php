@@ -3,14 +3,12 @@
 @include('flash')
 
 
-<!--Função para abrir campo após seleção de outras verbas-->
-
 <!--Função para abrir campo para a opção outras em prioridade-->
 <script type="text/javascript">
 function mostraCampoPrioridade(obj) {
     var select = document.getElementById('prioridade');
-    var txt = document.getElementById("Outra");
-    txt.style.visibility = (select.value == 'Outra') 
+    var txt = document.getElementById("outraPrioridade");
+    txt.style.visibility = (select.value == 'Outras') 
         ? "visible"
         : "hidden";  
   }
@@ -44,7 +42,7 @@ function mostraCampoPrioridade(obj) {
 <script type="text/javascript">
 function mostraCampo(obj) {
     var select = document.getElementById('verba');
-    var txt = document.getElementById("Outras");
+    var txt = document.getElementById("outraVerba");
     txt.style.visibility = (select.value == 'Outras') 
         ? "visible"
         : "hidden";  
@@ -191,7 +189,7 @@ function mostraCampo(obj) {
       <div class="col-sm form-group">
           <label for="dpto">Departamento:</label>
           <select class="form-control" id="dpto" name="dpto">
-            <option>Selecionar departamento</option>
+            <option value="">Selecionar departamento</option>
             <option>Antropologia</option>
             <option>Ciência Politica</option>
             <option>Filosofia</option>
@@ -270,7 +268,7 @@ function mostraCampo(obj) {
       <div class="col-sm form-group">
           <label for="verba">Verba:</label>
           <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
-          <option></option>
+            <option value="">Selecionar tipo de verba</option>
             <option>CAPES</option>
             <option>RUSP</option>
             <option>CNPQ</option>
@@ -282,7 +280,7 @@ function mostraCampo(obj) {
           </select>
 
           <!--Função para abrir campo após seleção de outras verbas-->
-          <input type="text" class="form-control" name="outraVerba" id="Outras" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <input type="text" class="form-control" name="outraVerba" id="outraVerba" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
           <!--fim da Função para abrir campo após seleção de outras verbas-->
       </div>
       <div class="col-sm form-group">
@@ -304,6 +302,7 @@ function mostraCampo(obj) {
 
           <label for="moeda">Moeda:</label>
           <select class="form-control" id="moeda" name="moeda">
+            <option value="">Selecionar moeda</option>
             <option>REAL</option>
             <option>DÓLAR</option>
           </select>
@@ -317,13 +316,14 @@ function mostraCampo(obj) {
 
     <div class="row">
       <div class="col-sm form-group">
-        <label for="">Data:</label>
-        <input type="text" id="data_nf" class="form-control" name="data_nf">
-      </div>
-      <div class="col-sm form-group">
           <label for="cod_impressao">Código de impressão:</label>
           <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
       </div>
+    </div>
+
+    <div class="form-group">
+        <label for="observacao">Observações:</label>
+        <textarea class="form-control" id="observacao" rows="3" name="observacao"></textarea>
     </div>
     
     <div>

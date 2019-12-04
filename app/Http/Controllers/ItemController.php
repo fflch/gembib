@@ -6,6 +6,7 @@ use App\Item;
 use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ItemController extends Controller
 {
@@ -42,6 +43,7 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
+        $item->data_sugestao = Carbon::now(); // salva automaticamente com a data da inserção
 
         $item->status = "Sugestão";
         $item->save();
@@ -98,6 +100,35 @@ class ItemController extends Controller
         $this->authorize('sai');
         $request->validate([
              'titulo'          => 'required',
+<<<<<<< HEAD
+            'autor'            => 'required',
+            'editora'          => 'required',
+            'tombo'            => 'required',
+            'cod_impressao'    => 'required',
+            /* 'ordem_relatorio'  => 'required', */
+            'tipo_tombamento'  => 'required',
+            'tipo_material'    => 'required',
+            'capes'            => 'required',
+            'edicao'           => 'required',
+            'volume'           => 'required',
+            'local'            => 'required',
+            'ano'              => 'required',
+            'isbn'             => 'required',
+            'escala'           => 'required',
+            'dpto'             => 'required',
+            'pedido_por'       => 'required',
+            'finalidade'       => 'required',
+            'prioridade'       => 'required',
+            'status'           => 'required',
+            'moeda'            => 'required',
+            'preco'            => 'required',
+            'procedencia'      => 'required',
+            'observacao'       => 'required',
+            'verba'            => 'required',
+            'processo'         => 'required',
+            'fornecedor'       => 'required',
+            'nota_fiscal'      => 'required',
+=======
             //'autor'            => 'required',
             //'editora'          => 'required',
             //'tombo'            => 'required',
@@ -127,6 +158,7 @@ class ItemController extends Controller
             //'fornecedor'       => 'required',
             //'nota_fiscal'      => 'required',
             /* 'data_nf'          => 'required',  */
+>>>>>>> fflch/master
         ]);
 
         /* Alterar status */
@@ -137,7 +169,7 @@ class ItemController extends Controller
         $tombamento->tombo = $request->tombo;
         $tombamento->tombo_antigo = $request->tombo_antigo;
         $tombamento->cod_impressao = $request->cod_impressao;
-        $tombamento->ordem_relatorio = $request->ordem_relatorio;
+        //$tombamento->ordem_relatorio = $request->ordem_relatorio;
         $tombamento->tipo_tombamento = $request->tipo_tombamento;
         $tombamento->tipo_material = $request->tipo_material;
         //$tombamento->outros_tipos = $request->outros_tipos;//
@@ -161,7 +193,7 @@ class ItemController extends Controller
         $tombamento->dpto = $request->dpto;
         $tombamento->pedido_por = $request->pedido_por;
         $tombamento->finalidade = $request->finalidade;
-        // formatar: $tombamento->data_pedido = $request->$data_pedido;        
+        //$tombamento->data_sugestao = $request->$data_sugestao;        
         $tombamento->prioridade = $request->prioridade;
         $tombamento->status = $request->status;
         $tombamento->moeda = $request->moeda;
@@ -172,7 +204,31 @@ class ItemController extends Controller
         $tombamento->processo = $request->processo;
         $tombamento->fornecedor = $request->fornecedor;
         $tombamento->nota_fiscal = $request->nota_fiscal;
-        // formatar: $tombamento->data_nf = $request->$data_nf;
+        $tombamento->data_tombamento = Carbon::now(); // salva automaticamente com a data do tombamento
+
+
+
+        /*Outra prioridadeTombamento*/
+        $outraPrioridade = $request->outraPrioridade;
+        if($request->prioridade == 'Outras'){
+            $tombamento->prioridade = $outraPrioridade;
+        }
+        /*fim outra prioridadeTombamento*/
+
+        /*Outra verbaTombamento*/
+        $outraVerba= $request->outraVerba;
+        if($request->verba == 'Outras'){
+            $tombamento->verba = $outraVerba;
+        }
+
+
+        /*Outros status*/
+        $outroStatus = $request->outroStatus;
+        if($request->status == 'Outro'){
+            $tombamento->status = $outroStatus;
+        }
+        /*fim outros status*/
+
 
         //Salvar valor escolhido em Subcategoria - FUNCIONANDO 
         $subcategoria = $request->subcategoria;//name
@@ -265,7 +321,8 @@ class ItemController extends Controller
         $item->moeda = $request->moeda;
         $item->preco = $request->preco;
         $item->nota_fiscal = $request->nota_fiscal;
-        // formatar: $item->data_nf = $request->$data_nf;
+        $item->data_tombamento = Carbon::now(); // salva automaticamente com a data da inserção
+        $item->data_sugestao = Carbon::now();
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
 
@@ -303,7 +360,7 @@ class ItemController extends Controller
         $item->status = "Inserido pelo usuário";
         $item->save();
 
-        $request->session()->flash('alert-info', 'Inserção direta enviada com sucesso');
+        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$item->data_tombamento}");
 
         return redirect('/');
         
