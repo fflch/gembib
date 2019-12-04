@@ -15,6 +15,27 @@ function mostraCampoPrioridade(obj) {
 </script>
 <!--fim da Função para abrir campo para a opção outras em prioridade-->
 
+<script type="text/javascript">
+  function optionCheck(){
+      var option = document.getElementById("tipo_material").value;
+      if(option == "Teses"){//se for igual "teses" o campo irá aparecer
+        document.getElementById("hiddenDiv").style.visibility ="visible";
+      }else if(option != "Teses") {
+        document.getElementById("hiddenDiv").style.visibility ="hidden";
+      }
+      if(option == "Outros"){
+        document.getElementById("hiddenInput").style.visibility ="visible";
+      }else if(option != "Outros"){
+        document.getElementById("hiddenInput").style.visibility ="hidden";
+      }
+      if(option == "Mapas"){
+        document.getElementById("hiddenEscala").style.visibility ="visible";
+      }else if(option != "Mapas"){
+        document.getElementById("hiddenEscala").style.visibility ="hidden";
+      }
+    }
+</script>
+
 
 <!--Função para abrir campo após seleção de outras verbas-->
 <script type="text/javascript">
@@ -29,15 +50,6 @@ function mostraCampo(obj) {
 <!--fim da Função para abrir campo após seleção de outras verbas-->
 
 <!--mostrar campo quando selecionado "Outros tipos" em "Tipo de material"-->
-<script type="text/javascript">
-function mostraCampoOutrosTipos(obj) {
-    var select = document.getElementById('tipo_material');
-    var txt = document.getElementById("outros_tipos");
-    txt.style.visibility = (select.value == 'Outros tipos') 
-        ? "visible"
-        : "hidden";  
-  }
-</script>
 
 
 <form method="POST" action="/itens/storeInsercao">
@@ -53,8 +65,8 @@ function mostraCampoOutrosTipos(obj) {
           <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
         </div>
         <div class="col-sm form-group">
-          <label for="tipo_aquisicao">Tipo de aquisição:</label>
-          <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
+          <label for="tipo_tom">Tipo de tombamento:</label>
+          <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
               <option></option>
               <option>Compra</option>
               <option>Doação</option>
@@ -65,29 +77,49 @@ function mostraCampoOutrosTipos(obj) {
         </div>
     </div>
 
+<div class="row">
+
+  <div class="col-sm form-group">
+      <label for="tipo_material">Tipo de material:</label>
+      <select class="form-control" id="tipo_material" name="tipo_material" onchange="optionCheck()">
+      <option value=""></option>
+        <option>Livro</option>
+        <option>Mapas</option>
+        <option>Multimeios</option>
+        <option>Obra rara</option>
+        <option>Periódicos</option>
+        <option>CD/DVD</option>
+        <option>Teses</option>
+        <option>Outros</option>
+        </select> 
+<!--Textbox após a seleção de "Outros tipos" em "Tipos de materiais"-->
+    <div class="col-sm form-group" id=hiddenInput style="visibility: hidden;">
+    <input type="text" id="outromaterial" name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
+  </div>
+    <!--Campo Subcategoria-->
+    <div id="hiddenDiv" style="visibility:hidden;">
     <div class="row">
-
       <div class="col-sm form-group">
-          <label for="tipo_material">Tipo de material:</label>
-          <select class="form-control" id="tipo_material" name="tipo_material" onchange="mostraCampoOutrosTipos(this);">
-          <option></option>
-            <option>Livro</option>
-            <option>Mapas</option>
-            <option>Material especial</option>
-            <option>Memorial</option>
-            <option>Multimeios</option>
-            <option>Obra Rara</option>
-            <option>Mapas</option>
-            <option>Periódicos</option>
-            <option>Tese</option>
-            <option>Outros tipos</option>
-          </select>
-
-          <!--Abrir textbox após seleção de "Outros tipos" em "Tipos de materiais"-->
-        <input type="text" class="form-control" name="outrosTipos" id="outros_tipos" style="visibility: hidden;" placeholder="Informe um outro tipo de material" >
-        <!--fim javascript para abrir campo após seleção de "Outros materiais"-->
-
+      <label for="subcategoria">Escolha a subcategoria da tese:</label>
+      <select class="form-control" id="subcategoria" class="form-control" name="subcategoria">
+      <option value="">Selecionar subcategoria</option>
+        <option>Mestrado</option>
+        <option>Doutorado</option>
+        <option>Livre docência</option>
+    </select>
+        </div>
       </div>
+    </div>
+    <!--Campo Escala-->
+    <div id="hiddenEscala" style="visibility: hidden;">
+      <div class="col-sm form-group">
+        <label for="escala">Escala do mapa:</label>
+        <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
+      </div>
+    </div>
+
+ </div>
+
       <div class="col-sm form-group">
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" class="form-control" name="titulo">
@@ -178,8 +210,6 @@ function mostraCampoOutrosTipos(obj) {
           <!--fim da Função para abrir campo após seleção de outras prioridades-->
       </div>
     </div>
-
-
 
     <div class="row">
 
