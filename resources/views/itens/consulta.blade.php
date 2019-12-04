@@ -12,6 +12,7 @@
         <th scope="col">Autor</th>
         <th scope="col">Editora</th>
         <th scope="col">Status</th>
+        <th scope="col">Opções</th>
       </tr>
     </thead>
   <tbody>
@@ -21,6 +22,7 @@
         <td>{{ $item->autor }}</td>
         <td>{{ $item->editora }}</td>
         <td>{{ $item->status }}</td>
+        <td><a href="/itens/edit/{{ $item->id }}">Editar</a></td>   
       </tr>
         @endforeach
 
@@ -29,3 +31,7 @@
 
 
 @endsection
+
+
+
+

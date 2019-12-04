@@ -36,17 +36,21 @@ Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
 //Rota para mostrar a lista com o status das sugestões
 Route::get('/itens/consulta/','ItemController@consulta');
 
-//Rota para inserção direta
+//Rota para inserção
 Route::get('/itens/insercao_direta/','ItemController@createInsercao');
-Route::post('/itens/store_insercao_direta/','ItemController@storeInsercao');
+Route::post('/itens/storeInsercao/','ItemController@storeInsercao');
 
 
 Route::get('/itens/disparar_email', function(){
 	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário 
-		$m->from('gabsreisg@gmail.com', 'Gabriela');//email gembib
-		$m->subject('Sugestão enviada!');
-		$m->to('gabrielareisg@hotmail.com');//email do usuário que fez a sugestão
+		$user = Auth::user();
+		$m->from('gabsreisg@gmail.com', 'Gabriela');//o remetente deve ser o email gembib
+		$m->subject('Sugestão enviada!'); //assunto
+		$m->to($user->email);//email do usuário que fez a sugestão
 	});
 });
 
 
+//Rota para edição
+Route::get('/itens/edit/{item}','editController@editEdit');
+Route::post('/itens/updateEdit/{item}','editController@updateEdit');

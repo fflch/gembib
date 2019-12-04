@@ -18,7 +18,7 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Processar Aquisição',
+            'text' => 'Processar Tombamento',
             'url'  => '/itens/lista_aquisicao',
             'can'  => 'sai',
         ],
@@ -28,7 +28,7 @@ return [
         ],
         [
             'text' => 'Inserção direta',
-            'url'  => '/itens/insercao_direta',
+            'url'  => '/itens/insercao',
             'can'  => 'sai',
         ],
     ]

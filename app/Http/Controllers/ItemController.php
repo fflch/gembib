@@ -6,6 +6,7 @@ use App\Item;
 use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ItemController extends Controller
 {
@@ -42,6 +43,7 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
+        $item->data_sugestao = Carbon::now(); // salva automaticamente com a data da inserção
 
         $item->status = "Sugestão";
         $item->save();
@@ -68,6 +70,7 @@ class ItemController extends Controller
             ]);
             $item->motivo = $request->motivo;
         }
+
         /* Alterar status */
         $item->status = $request->status;
 
@@ -79,13 +82,11 @@ class ItemController extends Controller
         /*fim outros status*/
 
         $item->save();
-
         $request->session()->flash('alert-info',"Sugestão processada, novo status: {$item->status}");
-
         return redirect('/itens');
     }
 
-    /* Etapa 3 - Processar aquisição */
+    /* Etapa 3 - Processar tombamento */
     public function processar_tombamento(item $tombamento)
     {
         $this->authorize('sai');
@@ -98,13 +99,14 @@ class ItemController extends Controller
         /* Validação de campos */
         $this->authorize('sai');
         $request->validate([
-            'titulo'           => 'required',
+             'titulo'          => 'required',
+<<<<<<< HEAD
             'autor'            => 'required',
             'editora'          => 'required',
             'tombo'            => 'required',
             'cod_impressao'    => 'required',
-            'ordem_relatorio'  => 'required',
-            'tipo_tombamento'   => 'required',
+            /* 'ordem_relatorio'  => 'required', */
+            'tipo_tombamento'  => 'required',
             'tipo_material'    => 'required',
             'capes'            => 'required',
             'edicao'           => 'required',
@@ -116,7 +118,6 @@ class ItemController extends Controller
             'dpto'             => 'required',
             'pedido_por'       => 'required',
             'finalidade'       => 'required',
-            'data_pedido'      => 'required',
             'prioridade'       => 'required',
             'status'           => 'required',
             'moeda'            => 'required',
@@ -127,7 +128,37 @@ class ItemController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            'data_nf'          => 'required',
+=======
+            //'autor'            => 'required',
+            //'editora'          => 'required',
+            //'tombo'            => 'required',
+            //'cod_impressao'    => 'required',
+            //'ordem_relatorio'  => 'required',
+            //'tipo_tombamento'  => 'required',
+            'tipo_material'    => 'required',
+            //'capes'            => 'required',//
+            //'edicao'           => 'required',
+            //'volume'           => 'required',
+            //'local'            => 'required',
+            //'ano'              => 'required',
+            //'isbn'             => 'required',
+            //'escala'           => 'required',
+            //'dpto'             => 'required',
+            //'pedido_por'       => 'required',
+            //'finalidade'       => 'required',
+            /* 'data_pedido'      => 'required', */
+            //'prioridade'       => 'required',
+            //'status'           => 'required',
+            //'moeda'            => 'required',
+            //'preco'            => 'required',
+            //'procedencia'      => 'required',
+            //'observacao'       => 'required',
+            //'verba'            => 'required',
+            //'processo'         => 'required',
+            //'fornecedor'       => 'required',
+            //'nota_fiscal'      => 'required',
+            /* 'data_nf'          => 'required',  */
+>>>>>>> fflch/master
         ]);
 
         /* Alterar status */
@@ -138,13 +169,12 @@ class ItemController extends Controller
         $tombamento->tombo = $request->tombo;
         $tombamento->tombo_antigo = $request->tombo_antigo;
         $tombamento->cod_impressao = $request->cod_impressao;
-        $tombamento->ordem_relatorio = $request->ordem_relatorio;
+        //$tombamento->ordem_relatorio = $request->ordem_relatorio;
         $tombamento->tipo_tombamento = $request->tipo_tombamento;
         $tombamento->tipo_material = $request->tipo_material;
+        //$tombamento->outros_tipos = $request->outros_tipos;//
         $tombamento->subcategoria = $request->subcategoria;
         $tombamento->capes = $request->capes;
-        /* $tombamento->id_material = $request->id_material; */
-        /* $tombamento->id_sugestao = $request->id_sugestao; */
         $tombamento->UsuarioS = $request->UsuarioS;
         $tombamento->UsuarioA = $request->UsuarioA;
         $tombamento->titulo = $request->titulo;
@@ -163,8 +193,7 @@ class ItemController extends Controller
         $tombamento->dpto = $request->dpto;
         $tombamento->pedido_por = $request->pedido_por;
         $tombamento->finalidade = $request->finalidade;
-
-        $tombamento->data_pedido = $request->$data_pedido;        
+        //$tombamento->data_sugestao = $request->$data_sugestao;        
         $tombamento->prioridade = $request->prioridade;
         $tombamento->status = $request->status;
         $tombamento->moeda = $request->moeda;
@@ -175,11 +204,48 @@ class ItemController extends Controller
         $tombamento->processo = $request->processo;
         $tombamento->fornecedor = $request->fornecedor;
         $tombamento->nota_fiscal = $request->nota_fiscal;
-        /* $tombamento->pasta = $request->pasta; */
-        /* $tombamento->moeda_nf = $request->moeda_nf; */
-        /* $tombamento->preco_nf = $request->preco_nf; */
+        $tombamento->data_tombamento = Carbon::now(); // salva automaticamente com a data do tombamento
 
-        $tombamento->data_nf = $request->$data_nf;
+
+
+        /*Outra prioridadeTombamento*/
+        $outraPrioridade = $request->outraPrioridade;
+        if($request->prioridade == 'Outras'){
+            $tombamento->prioridade = $outraPrioridade;
+        }
+        /*fim outra prioridadeTombamento*/
+
+        /*Outra verbaTombamento*/
+        $outraVerba= $request->outraVerba;
+        if($request->verba == 'Outras'){
+            $tombamento->verba = $outraVerba;
+        }
+
+
+        /*Outros status*/
+        $outroStatus = $request->outroStatus;
+        if($request->status == 'Outro'){
+            $tombamento->status = $outroStatus;
+        }
+        /*fim outros status*/
+
+
+        //Salvar valor escolhido em Subcategoria - FUNCIONANDO 
+        $subcategoria = $request->subcategoria;//name
+        if($request->tipo_material == 'Teses'){
+            $tombamento->subcategoria = $subcategoria;
+        }
+        //Salvar valor digitado em Outros - FUNCIONANDO 
+        $outroMaterial = $request->outromaterial;        
+        if($request->tipo_material == 'Outros'){
+            $tombamento->tipo_material = $outroMaterial;
+        }
+        //Salvar valor digitado em Escala - FUNCIONANDO 
+        $valorescala = $request->escala;
+        if($request->tipo_material == 'Mapas'){
+            $tombamento->escala = $valorescala;
+        }
+
         $tombamento->save();
 
         $request->session()->flash('alert-info',"Aquisição processada, novo status: {$tombamento->status}");
@@ -218,13 +284,13 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         $request->validate([
-            'tombo'            => 'required',
-            'titulo'           => 'required',
-            'autor'            => 'required',
-            'cod_impressao'    => 'required',
-            'tipo_aquisicao'   => 'required',
-            'tipo_material'    => 'required',
-            'editora'          => 'required',
+            //'tombo'            => 'required',
+            //'titulo'           => 'required',
+            //'autor'            => 'required',
+            //'cod_impressao'    => 'required',
+            //'tipo_tombamento'   => 'required',
+            //'tipo_material'    => 'required',
+            //'editora'          => 'required',
         ]);
 
         /* pegar itens que estão chegando e salvar no banco de dados */
@@ -234,10 +300,9 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
-
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
-        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_tombamento = $request->tipo_tombamento;
         $item->tipo_material = $request->tipo_material;
         $item->parte = $request->parte;
         $item->volume = $request->volume;
@@ -256,15 +321,46 @@ class ItemController extends Controller
         $item->moeda = $request->moeda;
         $item->preco = $request->preco;
         $item->nota_fiscal = $request->nota_fiscal;
-        // formatar: $item->data_nf = $request->$data_nf;
+        $item->data_tombamento = Carbon::now(); // salva automaticamente com a data da inserção
+        $item->data_sugestao = Carbon::now();
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
+
+        /*Outra prioridade*/
+        $outraPrioridade = $request->outraPrioridade;
+        if($request->prioridade == 'Outra'){
+            $item->prioridade = $outraPrioridade;
+        }
+        /*fim outra prioridade*/
+
+        /*Outra verba*/
+        $outraVerba = $request->outraVerba;
+        if($request->verba == 'Outras'){
+            $item->verba = $outraVerba;
+        }
+        /*fim outra verba*/
+
+        //Salvar valor escolhido em Subcategoria - N ESTÁ FUNCIONANDO
+        $subcategoria = $request->subcategoria;//name
+        if($request->tipo_material == 'Teses'){
+            $item->subcategoria = $subcategoria;
+        }
+        //Salvar valor digitado em Tipo de Material - FUNCIONANDO
+        $outroMaterial = $request->outromaterial;        
+        if($request->tipo_material == 'Outros'){
+            $item->tipo_material = $outroMaterial;
+        }
+        //Salvar valor digitado em Escala - FUNCIONANDO
+        $valorescala = $request->escala;
+        if($request->tipo_material == 'Mapas'){
+            $item->escala = $valorescala;
+        }
 
 
         $item->status = "Inserido pelo usuário";
         $item->save();
 
-        $request->session()->flash('alert-info', 'Inserção direta enviada com sucesso');
+        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$item->data_tombamento}");
 
         return redirect('/');
         
