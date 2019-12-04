@@ -45,6 +45,8 @@ function mostraCampoStatus(obj) {
 <!--fim da Função para abrir campo após seleção de outros status-->
 
 
+<p><b>Sugestão enviada em:</b> {{ $tombamento->data_sugestao }}</p>
+
 <!--mudar nome para TOMBAMENTO-->
 
 <form method="POST" action="/itens/store_processar_tombamento/{{$tombamento->id}}">
@@ -224,11 +226,6 @@ function mostraCampoStatus(obj) {
         <label for="finalidade">Finalidade:</label>
         <input type="text" id="finalidade" class="form-control" name="finalidade">
       </div>
-      <div class="col-sm form-group">
-
-        <label for="data_pedido">Data do pedido:</label>
-        <input type="text" id="data_pedido" class="form-control" name="data_pedido">
-      </div>
     </div>
 
 
@@ -325,10 +322,6 @@ function mostraCampoStatus(obj) {
     </div>
 
     <div class="row">
-      <div class="col-sm form-group">
-        <label for="">Data:</label>
-        <input type="text" id="data_nf" class="form-control" name="data_nf">
-      </div>
       <div class="col-sm form-group">
           <label for="cod_impressao">Código de impressão:</label>
           <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">

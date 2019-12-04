@@ -249,10 +249,6 @@ function mostraCampoOutrosTipos(obj) {
 
     <div class="row">
       <div class="col-sm form-group">
-        <label for="">Data:</label>
-        <input type="text" id="data_nf" class="form-control" name="data_nf">
-      </div>
-      <div class="col-sm form-group">
           <label for="cod_impressao">Código de impressão:</label>
           <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
       </div>

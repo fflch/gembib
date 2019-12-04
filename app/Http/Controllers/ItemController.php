@@ -6,6 +6,7 @@ use App\Item;
 use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ItemController extends Controller
 {
@@ -42,6 +43,7 @@ class ItemController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->sugerido_por_id = Auth::id();
+        $item->data_sugestao = Carbon::now(); // salva automaticamente com a data da inserção
 
         $item->status = "Sugestão";
         $item->save();
@@ -115,7 +117,6 @@ class ItemController extends Controller
             'dpto'             => 'required',
             'pedido_por'       => 'required',
             'finalidade'       => 'required',
-            /* 'data_pedido'      => 'required', */
             'prioridade'       => 'required',
             'status'           => 'required',
             'moeda'            => 'required',
@@ -126,7 +127,6 @@ class ItemController extends Controller
             'processo'         => 'required',
             'fornecedor'       => 'required',
             'nota_fiscal'      => 'required',
-            /* 'data_nf'          => 'required',  */
         ]);
 
         /* Alterar status */
@@ -161,7 +161,7 @@ class ItemController extends Controller
         $tombamento->dpto = $request->dpto;
         $tombamento->pedido_por = $request->pedido_por;
         $tombamento->finalidade = $request->finalidade;
-        // formatar: $tombamento->data_pedido = $request->$data_pedido;        
+        //$tombamento->data_sugestao = $request->$data_sugestao;        
         $tombamento->prioridade = $request->prioridade;
         $tombamento->status = $request->status;
         $tombamento->moeda = $request->moeda;
@@ -172,7 +172,7 @@ class ItemController extends Controller
         $tombamento->processo = $request->processo;
         $tombamento->fornecedor = $request->fornecedor;
         $tombamento->nota_fiscal = $request->nota_fiscal;
-        // formatar: $tombamento->data_nf = $request->$data_nf;
+        $tombamento->data_tombamento = Carbon::now(); // salva automaticamente com a data do tombamento
 
 
 
@@ -274,7 +274,8 @@ class ItemController extends Controller
         $item->moeda = $request->moeda;
         $item->preco = $request->preco;
         $item->nota_fiscal = $request->nota_fiscal;
-        // formatar: $item->data_nf = $request->$data_nf;
+        $item->data_tombamento = Carbon::now(); // salva automaticamente com a data da inserção
+        $item->data_sugestao = Carbon::now();
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
 
@@ -296,7 +297,7 @@ class ItemController extends Controller
         $item->status = "Inserido pelo usuário";
         $item->save();
 
-        $request->session()->flash('alert-info', 'Inserção direta enviada com sucesso');
+        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$item->data_tombamento}");
 
         return redirect('/');
         

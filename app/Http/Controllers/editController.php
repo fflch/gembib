@@ -66,7 +66,7 @@ class editController extends Controller
         $item->moeda = $request->moeda;
         $item->preco = $request->preco;
         $item->nota_fiscal = $request->nota_fiscal;
-        // formatar: $item->data_nf = $request->$data_nf;
+        //$item->data_tombamento = $request->$data_tombamento; Retirado, pois não se edita a data do tombamento
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
 
