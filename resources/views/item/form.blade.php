@@ -1,60 +1,3 @@
-@extends('laravel-usp-theme::master')
-@section('content')
-@include('flash')
-
-
-<!--Função para abrir campo para a opção outras em prioridade-->
-<script type="text/javascript">
-function mostraCampoPrioridade(obj) {
-    var select = document.getElementById('prioridade');
-    var txt = document.getElementById("Outra");
-    txt.style.visibility = (select.value == 'Outra') 
-        ? "visible"
-        : "hidden";  
-  }
-</script>
-<!--fim da Função para abrir campo para a opção outras em prioridade-->
-
-<script type="text/javascript">
-  function optionCheck(){
-      var option = document.getElementById("tipo_material").value;
-      if(option == "Teses"){//se for igual "teses" o campo irá aparecer
-        document.getElementById("hiddenDiv").style.visibility ="visible";
-      }else if(option != "Teses") {
-        document.getElementById("hiddenDiv").style.visibility ="hidden";
-      }
-      if(option == "Outros"){
-        document.getElementById("hiddenInput").style.visibility ="visible";
-      }else if(option != "Outros"){
-        document.getElementById("hiddenInput").style.visibility ="hidden";
-      }
-      if(option == "Mapas"){
-        document.getElementById("hiddenEscala").style.visibility ="visible";
-      }else if(option != "Mapas"){
-        document.getElementById("hiddenEscala").style.visibility ="hidden";
-      }
-    }
-</script>
-
-
-<!--Função para abrir campo após seleção de outras verbas-->
-<script type="text/javascript">
-function mostraCampo(obj) {
-    var select = document.getElementById('verba');
-    var txt = document.getElementById("Outras");
-    txt.style.visibility = (select.value == 'Outras') 
-        ? "visible"
-        : "hidden";  
-  }
-</script>
-<!--fim da Função para abrir campo após seleção de outras verbas-->
-
-<!--mostrar campo quando selecionado "Outros tipos" em "Tipo de material"-->
-
-
-<form method="POST" action="/itens/storeInsercao">
-    @csrf
-
     <div class="row">
         <div class="col-sm form-group">
           <label for="tombo">Tombo:</label>
@@ -292,7 +235,3 @@ function mostraCampo(obj) {
     <div>
         <button type="submit" class="btn btn-success"> Enviar </button> 
     </div>
-
-</form>
-
-    @endsection

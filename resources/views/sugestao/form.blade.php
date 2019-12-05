@@ -3,7 +3,7 @@
 @section('content')
 @include('flash')
 
-<form method="POST" action="/itens">
+<form method="POST" action="/sugestao">
     @csrf
     <div class="form-group">
 
@@ -14,7 +14,7 @@
       <br>
       <div>
         <label for="autor">Autor:</label>
-        <input type="text" id="autor" class="form-control" name="autor"> 
+        <input type="text" id="autor" class="form-control" name="autor">
       </div>
       <br>
       <div>
@@ -35,7 +35,7 @@
       </div>
       <br>
       <div>
-        <button type="submit" class="btn btn-success"> Enviar </button> 
+        <button type="submit" class="btn btn-success"> Enviar </button>
       </div>
   </div>
 </form>

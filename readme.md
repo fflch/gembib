@@ -3,9 +3,12 @@
 Sistema que gerencia o fluxo de aquisição e processameto de livros
 desde a sugestão até a catalogação.
 
-Status:
+Fluxo:
  
- - Sugestão
+Sugestão -> Em Cotação -> Em Licitação -> Processar Tombamento
+         -> Negado -> Motivo Obrigatório
+
+
    - Negado (motivo)
    - Em processo de aquisição
      - Adquirir: outras campos e o tipo (doação ou compra)
