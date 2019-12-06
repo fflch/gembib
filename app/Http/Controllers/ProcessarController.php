@@ -31,4 +31,12 @@ class ProcessarController extends Controller
         $status = $this->status;
         return view('processar/form',compact('item','status'));
     }
+
+    public function processar(Request $request)
+    {   
+
+        $request->session()->flash('alert-info', "Sugestão processada com sucesso.");
+
+        return redirect('/');
+    }
 }

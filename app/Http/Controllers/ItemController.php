@@ -34,16 +34,15 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         $request->validate([
-            //'tombo'            => 'required',
-            //'titulo'           => 'required',
-            //'autor'            => 'required',
-            //'cod_impressao'    => 'required',
-            //'tipo_tombamento'   => 'required',
-            //'tipo_material'    => 'required',
-            //'editora'          => 'required',
+            'tombo'            => 'required',
+            'titulo'           => 'required',
+            'autor'            => 'required',
+            'cod_impressao'    => 'required',
+            'tipo_tombamento'   => 'required',
+            'tipo_material'    => 'required',
+            'editora'          => 'required',
         ]);
 
-        /* pegar itens que estão chegando e salvar no banco de dados */
         $item = new Item;
         $item->titulo = $request->titulo;
         $item->autor = $request->autor;
@@ -71,7 +70,7 @@ class ItemController extends Controller
         $item->moeda = $request->moeda;
         $item->preco = $request->preco;
         $item->nota_fiscal = $request->nota_fiscal;
-        $item->data_tombamento = Carbon::now(); // salva automaticamente com a data da inserção
+        $item->data_tombamento = Carbon::now();
         $item->data_sugestao = Carbon::now();
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
@@ -106,11 +105,13 @@ class ItemController extends Controller
             $item->escala = $valorescala;
         }
 
-
-        $item->status = "Inserido pelo usuário";
+        $item->status = "Tombado";
         $item->save();
 
-        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$item->data_tombamento}");
+        $data = Carbon::parse($item->data_tombamento);
+        $dataformatada = $data->format('d/m/Y');
+
+        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$dataformatada}. Novo status: {$item->status}");
 
         return redirect('/');
         

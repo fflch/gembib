@@ -1,17 +1,9 @@
 console.log("Esotu aqui");
 
-function mostraCampoPrioridade(obj) {
-    var select = document.getElementById('prioridade');
-    var txt = document.getElementById("Outra");
-    txt.style.visibility = (select.value == 'Outra') 
-        ? "visible"
-        : "hidden";  
-  }
-
 
   function optionCheck(){
       var option = document.getElementById("tipo_material").value;
-      if(option == "Teses"){//se for igual "teses" o campo irá aparecer
+      if(option == "Teses"){
         document.getElementById("hiddenDiv").style.visibility ="visible";
       }else if(option != "Teses") {
         document.getElementById("hiddenDiv").style.visibility ="hidden";
@@ -36,11 +28,4 @@ function mostraCampo(obj) {
         : "hidden";  
   }
 
-function mostraCampoStatus(obj) {
-    var select = document.getElementById('status');
-    var txt = document.getElementById("Outro");
-    txt.style.visibility = (select.value == 'Outro') 
-        ? "visible"
-        : "hidden";  
-  }
 

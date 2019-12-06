@@ -9,10 +9,9 @@
 @include('flash')
 
 
-
-
-<form method="POST" action="/itens/storeInsercao">
+<form method="POST" action="/item">
     @csrf
+    
 
     @include('item/form')
 

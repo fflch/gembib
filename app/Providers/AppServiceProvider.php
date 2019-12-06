@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        
         // força https na produção
         if (\App::environment('production')) {
             \URL::forceScheme('https');
