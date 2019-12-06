@@ -21,7 +21,6 @@
     </div>
 
 <div class="row">
-
   <div class="col-sm form-group">
       <label for="tipo_material">Tipo de material:</label>
       <select class="form-control" id="tipo_material" name="tipo_material" onchange="optionCheck()">
@@ -40,26 +39,29 @@
     <input type="text" id="outromaterial" name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
   </div>
     <!--Campo Subcategoria-->
-    <div id="hiddenDiv" style="visibility:hidden;">
+<div id="hiddenDiv" style="visibility:hidden;">
     <div class="row">
       <div class="col-sm form-group">
-          <label for="tipo_material">Tipo de material:</label>
-          <select class="form-control" id="tipo_material" name="tipo_material" onchange="mostraCampoOutrosTipos(this);">
-          <option value="">Selecionar tipo de material</option>
-            <option>Livro</option>
-            <option>Mapas</option>
-            <option>Material especial</option>
-            <option>Memorial</option>
-            <option>Multimeios</option>
-            <option>Obra Rara</option>
-            <option>Mapas</option>
-            <option>Periódicos</option>
-            <option>Tese</option>
-            <option>Outros tipos</option>
-          </select>
-
- </div>
-
+      <label for="subcategoria">Escolha a subcategoria da tese:</label>
+      <select class="form-control" id="subcategoria" class="form-control" name="subcategoria"> 
+      <option value="">Selecionar subcategoria</option>
+        <option>Mestrado</option>
+        <option>Doutorado</option>
+        <option>Livre docência</option>
+    </select>
+        </div>
+      </div>
+    </div>
+        <!--Campo Escala-->
+    <div id="hiddenEscala" style="visibility: hidden;">
+      <div class="row">
+      <div class="col-sm form-group">
+        <label for="escala">Escala do mapa:</label>
+        <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
+      </div>
+    </div>
+    </div>
+      </div>
       <div class="col-sm form-group">
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" class="form-control" name="titulo">
@@ -69,8 +71,7 @@
         <input type="text" id="autor" class="form-control" name="autor">
       </div>
     </div>
-  
-    <div class="row">
+      <div class="row">
       <div class="col-sm form-group">
         <label for="editora">Editora:</label>
         <input type="text" id="editora" class="form-control" name="editora">
@@ -83,9 +84,8 @@
         <label for="volume">Volume:</label>
         <input type="text" id="volume" class="form-control" name="volume">
       </div>
-    </div>
-
-    <div class="row">      
+      </div>
+      <div class="row">    
       <div class="col-sm form-group">
         <label for="parte">Parte:</label>
         <input type="text" id="parte" class="form-control" name="parte">
@@ -98,9 +98,8 @@
         <label for="local">Local:</label>
         <input type="text" id="local" class="form-control" name="local">
       </div>
-    </div>
-
-    <div class="row">
+      </div>
+      <div class="row">
       <div class="col-sm form-group">
           <label for="colecao">Coleção:</label>
           <input type="text" id="colecao" class="form-control" name="colecao">
@@ -113,14 +112,12 @@
         <label for="edicao">Edição:</label>
         <input type="text" id="edicao" class="form-control" name="edicao">
       </div>
-    </div>
-
-
-    <div class="row">
+      </div>
+      <div class="row">
       <div class="col-sm form-group">
           <label for="isbn">ISBN:</label>
           <input type="text" id="isbn" class="form-control" name="isbn">
-        </div>
+        </div>      
         <div class="col-sm form-group">
             <label for="dpto">Departamento:</label>
             <select class="form-control" id="dpto" name="dpto">
@@ -137,22 +134,16 @@
               <option>Sociologia</option>
               <option>Teoria Literária e Literatura Comparada</option>
             </select>
-        </div>
+        </div>      
         <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
-          <select class="form-control" id="prioridade" name="prioridade" onchange="mostraCampoPrioridade(this);">
+          <select class="form-control" id="prioridade" name="prioridade">
             <option value="">Selecionar prioridade</option>
             <option>Coleção Didática</option>
-            <option>Outra</option>
           </select>
-          <!--Função para abrir campo após seleção de outras prioridades-->
-          <input type="text" class="form-control" name="outraPrioridade" id="Outra" style="visibility: hidden;" placeholder="Informe outro tipo de prioridade">
-          <!--fim da Função para abrir campo após seleção de outras prioridades-->
       </div>
     </div>
-
-    <div class="row">
-
+      <div class="row">
       <div class="col-sm form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
@@ -165,7 +156,7 @@
         <label for="finalidade">Finalidade:</label>
         <input type="text" id="finalidade" class="form-control" name="finalidade">
       </div>
-    </div>
+    </div>    
 
     <br><h3>Informações adicionais</h3><br>
 
@@ -223,8 +214,6 @@
           <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
       </div>
     </div>
-
-
 
     <div class="form-group">
         <label for="observacao">Observações:</label>
