@@ -65,6 +65,7 @@ class ItemController extends Controller
         $item->dpto = $request->dpto;
         $item->prioridade = $request->prioridade;
         $item->procedencia = $request->procedencia;
+        $item->finalidade = $request->finalidade;
         $item->verba = $request->verba;
         $item->processo = $request->processo;
         $item->fornecedor = $request->fornecedor;

@@ -24,8 +24,8 @@
       <td scope="col">{{ \Carbon\Carbon::parse($item->data_sugestao)->format('d/m/Y')}}</td>
     </tr>
     <tr>
-      <th scope="col">Observações da sugestão:</th>
-      <td scope="row">{{ $item->informacoes ?? 'Sem observações' }}</td>
+      <th scope="col">Observação da sugestão:</th>
+      <td scope="row">{{ $item->informacoes ?? 'Sem informações' }}</td>
     </tr>
     <tr>
       <th scope="col">Autor:</th>

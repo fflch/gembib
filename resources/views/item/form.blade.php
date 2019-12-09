@@ -1,11 +1,19 @@
     <div class="row">
         <div class="col-sm form-group">
           <label for="tombo">Tombo:</label>
-          <input type="text" id="tombo" class="form-control" name="tombo">
+          <input type="text" id="tombo" class="form-control" name="tombo"
+          @if(isset($item))
+            value="{{ $item->tombo }}"
+          @endif
+          />
         </div>
         <div class="col-sm form-group">
           <label for="tombo_antigo">Tombo antigo:</label>
-          <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo">
+          <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo"
+          @if(isset($item))
+            value="{{ $item->tombo_antigo }}"
+          @endif
+          />
         </div>
         <div class="col-sm form-group">
           <label for="tipo_tombamento">Tipo de aquisição:</label>
@@ -78,55 +86,99 @@
       </div>
       <div class="col-sm form-group">
         <label for="autor">Autor:</label>
-        <input type="text" id="autor" class="form-control" name="autor">
+        <input type="text" id="autor" class="form-control" name="autor"
+          @if(isset($item))
+            value="{{ $item->autor }}"
+          @endif
+          />
       </div>
     </div>
       <div class="row">
       <div class="col-sm form-group">
         <label for="editora">Editora:</label>
-        <input type="text" id="editora" class="form-control" name="editora">
+        <input type="text" id="editora" class="form-control" name="editora"
+        @if(isset($item))
+            value="{{ $item->editora }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="ano">Ano de publicação:</label>
-        <input type="text" id="ano" class="form-control" name='ano'>
+        <input type="text" id="ano" class="form-control" name='ano'
+        @if(isset($item))
+            value="{{ $item->ano }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="volume">Volume:</label>
-        <input type="text" id="volume" class="form-control" name="volume">
+        <input type="text" id="volume" class="form-control" name="volume"
+        @if(isset($item))
+            value="{{ $item->volume }}"
+          @endif
+          />
       </div>
       </div>
       <div class="row">    
       <div class="col-sm form-group">
         <label for="parte">Parte:</label>
-        <input type="text" id="parte" class="form-control" name="parte">
+        <input type="text" id="parte" class="form-control" name="parte"
+        @if(isset($item))
+            value="{{ $item->parte }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="fasciculo">Fascículo:</label>
-        <input type="text" id="fasciculo" class="form-control" name="fasciculo">
+        <input type="text" id="fasciculo" class="form-control" name="fasciculo"
+        @if(isset($item))
+            value="{{ $item->fasciculo }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="local">Local:</label>
-        <input type="text" id="local" class="form-control" name="local">
+        <input type="text" id="local" class="form-control" name="local"
+        @if(isset($item))
+            value="{{ $item->local}}"
+          @endif
+          />
       </div>
       </div>
       <div class="row">
       <div class="col-sm form-group">
           <label for="colecao">Coleção:</label>
-          <input type="text" id="colecao" class="form-control" name="colecao">
+          <input type="text" id="colecao" class="form-control" name="colecao"
+          @if(isset($item))
+            value="{{ $item->colecao }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="link">Link:</label>
-        <input type="text" id="link" class="form-control"  name="link">
+        <input type="text" id="link" class="form-control"  name="link"
+        @if(isset($item))
+            value="{{ $item->link }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="edicao">Edição:</label>
-        <input type="text" id="edicao" class="form-control" name="edicao">
+        <input type="text" id="edicao" class="form-control" name="edicao"
+        @if(isset($item))
+            value="{{ $item->edicao }}"
+          @endif
+          />
       </div>
       </div>
       <div class="row">
       <div class="col-sm form-group">
           <label for="isbn">ISBN:</label>
-          <input type="text" id="isbn" class="form-control" name="isbn">
+          <input type="text" id="isbn" class="form-control" name="isbn"
+          @if(isset($item))
+            value="{{ $item->isbn }}"
+          @endif
+          />
         </div>      
         <div class="col-sm form-group">
             <label for="dpto">Departamento:</label>
@@ -172,7 +224,11 @@
       </div>
       <div class="col-sm form-group">
         <label for="finalidade">Finalidade:</label>
-        <input type="text" id="finalidade" class="form-control" name="finalidade">
+        <input type="text" id="finalidade" class="form-control" name="finalidade"
+        @if(isset($item))
+            value="{{ $item->finalidade }}"
+          @endif
+          />
       </div>
     </div>    
 
@@ -199,11 +255,19 @@
       </div>
       <div class="col-sm form-group">
         <label for="processo">Processo:</label>
-        <input type="text" id="processo" class="form-control" name="processo">
+        <input type="text" id="processo" class="form-control" name="processo"
+        @if(isset($item))
+            value="{{ $item->processo }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="fornecedor">Fornecedor:</label>
-        <input type="text" id="fornecedor" class="form-control" name="fornecedor">
+        <input type="text" id="fornecedor" class="form-control" name="fornecedor"
+        @if(isset($item))
+            value="{{ $item->fornecedor }}"
+          @endif
+          />
       </div>
     </div>
 
@@ -218,24 +282,40 @@
       </div>
       <div class="col-sm  form-group">
         <label for="preco">Preço:</label>
-        <input type="text" id="preco" class="form-control" name="preco">
+        <input type="text" id="preco" class="form-control" name="preco"
+        @if(isset($item))
+            value="{{ $item->preco }}"
+          @endif
+          />
       </div>
       <div class="col-sm form-group">
         <label for="nota_fiscal">Nota fiscal:</label>
-        <input type="text" id="nota_fiscal" class="form-control" name="nota_fiscal">
+        <input type="text" id="nota_fiscal" class="form-control" name="nota_fiscal"
+        @if(isset($item))
+            value="{{ $item->nota_fiscal }}"
+          @endif
+          />
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm form-group">
           <label for="cod_impressao">Código de impressão:</label>
-          <input type="text" id="cod_impressao" class="form-control" name="cod_impressao">
+          <input type="text" id="cod_impressao" class="form-control" name="cod_impressao"
+          @if(isset($item))
+            value="{{ $item->cod_impressao }}"
+          @endif
+          />
       </div>
     </div>
 
     <div class="form-group">
         <label for="observacao">Observações:</label>
-        <textarea class="form-control" id="observacao" rows="3" name="observacao"></textarea>
+        <textarea class="form-control" id="observacao" rows="3" name="observacao"
+      @if(isset($item))
+            value="{{ $item->observacao }}"
+          @endif
+          /></textarea>
     </div>
 
 
