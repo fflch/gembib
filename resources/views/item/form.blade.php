@@ -163,6 +163,14 @@
         </select>
       </div>
       <div class="col-sm form-group">
+          <label for="capes">Capes:</label>
+          <select class="form-control" id="capes" class="form-control" name="capes">
+            @foreach($areas as $area)
+              <option>{{$area->codigo}} - {{$area->nome}}</option>
+            @endforeach
+          </select>
+      </div>
+      <div class="col-sm form-group">
         <label for="finalidade">Finalidade:</label>
         <input type="text" id="finalidade" class="form-control" name="finalidade">
       </div>
