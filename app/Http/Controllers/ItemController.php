@@ -21,7 +21,8 @@ class ItemController extends Controller
     public function insercaoForm()
     {
         $this->authorize('logado');
-        return view('item/insercao');
+        $areas = Area::all();
+        return view('item/insercao', compact('areas'));
     }
 
     public function show(Request $request, Item $item)
@@ -110,7 +111,6 @@ class ItemController extends Controller
 
         $data = Carbon::parse($item->data_tombamento);
         $dataformatada = $data->format('d/m/Y');
-
         $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$dataformatada}. Novo status: {$item->status}");
 
         return redirect('/');
