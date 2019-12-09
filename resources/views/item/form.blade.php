@@ -24,8 +24,14 @@
   <div class="col-sm form-group">
       <label for="tipo_material">Tipo de material:</label>
       <select class="form-control" id="tipo_material" name="tipo_material" onchange="optionCheck()">
-      <option value=""></option>
-        <option>Livro</option>
+        <option value=""></option>
+        <option @if(isset($item)) 
+                    @if($item->tipo_material=="Livro")
+                        selected 
+                    @endif 
+                @endif
+        >Livro
+        </option>
         <option>Mapas</option>
         <option>Multimeios</option>
         <option>Obra rara</option>
@@ -44,7 +50,7 @@
       <div class="col-sm form-group">
       <label for="subcategoria">Escolha a subcategoria da tese:</label>
       <select class="form-control" id="subcategoria" class="form-control" name="subcategoria"> 
-      <option value="">Selecionar subcategoria</option>
+        <option value="">Selecionar subcategoria</option>
         <option>Mestrado</option>
         <option>Doutorado</option>
         <option>Livre docência</option>
@@ -64,7 +70,11 @@
       </div>
       <div class="col-sm form-group">
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" class="form-control" name="titulo">
+        <input type="text" id="titulo" class="form-control" name="titulo"
+          @if(isset($item))
+            value="{{ $item->titulo }}"
+          @endif
+        />
       </div>
       <div class="col-sm form-group">
         <label for="autor">Autor:</label>

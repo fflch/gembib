@@ -17,7 +17,7 @@
     </tr>
     <tr>
       <th scope="col">Sugerido por:</th>
-      <td scope="col">{{ $item->sugerido_por_id }}</td>
+      <td scope="col">{{ \Auth::user($item->sugerido_por_id)->name }}</td>
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
