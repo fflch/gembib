@@ -24,8 +24,8 @@
       <br>
       <div>
 
-        <label for="Ano">Ano de publicação:</label>
-        <input type="text" id="Ano" class="form-control" name='Ano'>
+        <label for="ano">Ano de publicação:</label>
+        <input type="text" id="ano" class="form-control" name='ano'>
       </div>
       <br>
       <br>
