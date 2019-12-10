@@ -34,7 +34,6 @@ class SugestaoController extends Controller
         $item->informacoes = $request->informacoes;
         $item->sugerido_por_id = Auth::id();
         $item->data_sugestao = Carbon::now();
-        //$item->data_sugestao = \Carbon\Carbon::parse(Carbon::now())->format('d/m/Y');Não pode gravar data nesse formato?
 
         $item->status = "Sugestão";
         $item->save();
