@@ -9,9 +9,9 @@ console.log("Esotu aqui");
         document.getElementById("hiddenDiv").style.visibility ="hidden";
       }
       if(option == "Outros"){
-        document.getElementById("hiddenInput").style.visibility ="visible";
+        document.getElementById("outromaterial").style.visibility ="visible";
       }else if(option != "Outros"){
-        document.getElementById("hiddenInput").style.visibility ="hidden";
+        document.getElementById("outromaterial").style.visibility ="hidden";
       }
       if(option == "Mapas"){
         document.getElementById("hiddenEscala").style.visibility ="visible";
