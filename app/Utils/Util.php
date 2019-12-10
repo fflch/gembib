@@ -63,6 +63,7 @@ class Util {
         $item->data_sugestao = Carbon::now();
         $item->cod_impressao = $request->cod_impressao;
         $item->observacao = $request->observacao;
+        $item->capes = $request->capes;
 
         /*Outra prioridade*/
         $outraPrioridade = $request->outraPrioridade;
