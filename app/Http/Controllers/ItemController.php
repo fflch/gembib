@@ -36,6 +36,7 @@ class ItemController extends Controller
     {
         $this->authorize('logado');
         $item = new Item;
+
         Util::gravarNoBanco($request, $item);
 
         $data = Carbon::parse($item->data_tombamento);
