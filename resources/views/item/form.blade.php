@@ -1,4 +1,4 @@
-    <div class="row">
+<div class="row">
         <div class="col-sm form-group">
           <label for="tombo">Tombo:</label>
           <input type="text" id="tombo" class="form-control" name="tombo"
@@ -27,56 +27,47 @@
           </select>
         </div>
     </div>
-
-<div class="row">
-  <div class="col-sm form-group">
-      <label for="tipo_material">Tipo de material:</label>
-      <select class="form-control" id="tipo_material" name="tipo_material" onchange="optionCheck()">
-        <option value=""></option>
-        <option @if(isset($item)) 
-                    @if($item->tipo_material=="Livro")
-                        selected 
-                    @endif 
-                @endif
+<div class="row" onchange="optionCheck()">
+    <label for="tipo_material">Tipo de material:</label>
+    <select class="form-control" id="tipo_material" name="tipo_material">
+          <option value=""></option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Livro")
+                  selected 
+                @endif 
+              @endif
         >Livro
-        </option>
-        <option>Mapas</option>
-        <option>Multimeios</option>
-        <option>Obra rara</option>
-        <option>Periódicos</option>
-        <option>CD/DVD</option>
-        <option>Teses</option>
-        <option>Outros</option>
-        </select> 
+          </option>
+          <option>Mapas</option>
+          <option>Multimeios</option>
+          <option>Obra rara</option>
+          <option>Periódicos</option>
+          <option>CD/DVD</option>
+          <option>Teses</option>
+          <option>Outros</option>
+    </select>
+ 
 <!--Textbox após a seleção de "Outros tipos" em "Tipos de materiais"-->
-    <div class="col-sm form-group" id=hiddenInput style="visibility: hidden;">
-    <input type="text" id="outromaterial" name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
+  <div class="form-group" style="visibility: hidden;">
+        <input type="text" id="outromaterial"  name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
   </div>
     <!--Campo Subcategoria-->
-<div id="hiddenDiv" style="visibility:hidden;">
-    <div class="row">
-      <div class="col-sm form-group">
-      <label for="subcategoria">Escolha a subcategoria da tese:</label>
-      <select class="form-control" id="subcategoria" class="form-control" name="subcategoria"> 
-        <option value="">Selecionar subcategoria</option>
-        <option>Mestrado</option>
-        <option>Doutorado</option>
-        <option>Livre docência</option>
-    </select>
-        </div>
-      </div>
-    </div>
+  <div class="form-group" id="hiddenDiv" style="visibility:hidden;">
+        <select class="form-control" id="subcategoria" name="subcategoria"> 
+            <option value="">Selecionar subcategoria</option>
+            <option>Mestrado</option>
+            <option>Doutorado</option>
+            <option>Livre docência</option>
+        </select>
+  </div>
         <!--Campo Escala-->
-    <div id="hiddenEscala" style="visibility: hidden;">
-      <div class="row">
-      <div class="col-sm form-group">
-        <label for="escala">Escala do mapa:</label>
-        <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
-      </div>
-    </div>
-    </div>
-      </div>
-      <div class="col-sm form-group">
+  <div id="hiddenEscala" style="visibility: hidden;">
+            <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
+  </div>
+ </div>
+ 
+<div class="row">
+<div class="col-sm form-group">
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" class="form-control" name="titulo"
           @if(isset($item))
@@ -84,7 +75,7 @@
           @endif
         />
       </div>
-      <div class="col-sm form-group">
+ <div class="col-sm form-group">
         <label for="autor">Autor:</label>
         <input type="text" id="autor" class="form-control" name="autor"
           @if(isset($item))
@@ -92,17 +83,17 @@
           @endif
           />
       </div>
-    </div>
-      <div class="row">
-      <div class="col-sm form-group">
-        <label for="editora">Editora:</label>
-        <input type="text" id="editora" class="form-control" name="editora"
-        @if(isset($item))
-            value="{{ $item->editora }}"
+<div class="col-sm form-group">
+      <label for="editora">Editora:</label>
+      <input type="text" id="editora" class="form-control" name="editora"
+          @if(isset($item))
+              value="{{ $item->editora }}"
           @endif
           />
-      </div>
-      <div class="col-sm form-group">
+</div>
+</div>
+<div class="row">
+  <div class="col-sm form-group">
         <label for="ano">Ano de publicação:</label>
         <input type="text" id="ano" class="form-control" name='ano'
         @if(isset($item))
@@ -117,9 +108,7 @@
             value="{{ $item->volume }}"
           @endif
           />
-      </div>
-      </div>
-      <div class="row">    
+      </div>   
       <div class="col-sm form-group">
         <label for="parte">Parte:</label>
         <input type="text" id="parte" class="form-control" name="parte"
@@ -128,6 +117,8 @@
           @endif
           />
       </div>
+</div>
+<div class="row">
       <div class="col-sm form-group">
         <label for="fasciculo">Fascículo:</label>
         <input type="text" id="fasciculo" class="form-control" name="fasciculo"
@@ -144,8 +135,6 @@
           @endif
           />
       </div>
-      </div>
-      <div class="row">
       <div class="col-sm form-group">
           <label for="colecao">Coleção:</label>
           <input type="text" id="colecao" class="form-control" name="colecao"
@@ -154,6 +143,8 @@
           @endif
           />
       </div>
+</div>
+      <div class="row">
       <div class="col-sm form-group">
         <label for="link">Link:</label>
         <input type="text" id="link" class="form-control"  name="link"
@@ -170,8 +161,6 @@
           @endif
           />
       </div>
-      </div>
-      <div class="row">
       <div class="col-sm form-group">
           <label for="isbn">ISBN:</label>
           <input type="text" id="isbn" class="form-control" name="isbn"
@@ -179,7 +168,9 @@
             value="{{ $item->isbn }}"
           @endif
           />
-        </div>      
+        </div>
+        </div>
+      <div class="row">      
         <div class="col-sm form-group">
             <label for="dpto">Departamento:</label>
             <select class="form-control" id="dpto" name="dpto">
@@ -203,9 +194,7 @@
             <option value="">Selecionar prioridade</option>
             <option>Coleção Didática</option>
           </select>
-      </div>
-    </div>
-      <div class="row">
+      </div>      
       <div class="col-sm form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
@@ -214,6 +203,8 @@
           <option>Internacional</option>
         </select>
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm form-group">
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
@@ -230,7 +221,8 @@
           @endif
           />
       </div>
-    </div>    
+    </div>
+        
 
     <br><h3>Informações adicionais</h3><br>
 
@@ -311,11 +303,8 @@
 
     <div class="form-group">
         <label for="observacao">Observações:</label>
-        <textarea class="form-control" id="observacao" rows="3" name="observacao"
-      @if(isset($item))
-            value="{{ $item->observacao }}"
-          @endif
-          /></textarea>
+        <textarea class="form-control" id="observacao" rows="3" name="observacao">@if(isset($item)){{ $item->observacao }}
+  @endif</textarea>
     </div>
 
 
