@@ -19,15 +19,41 @@
           <label for="tipo_tombamento">Tipo de aquisição:</label>
           <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
               <option value="">Selecionar tipo de aquisição</option>
-              <option>Compra</option>
-              <option>Doação</option>
-              <option>Multa</option>
-              <option>Reposição</option>
-              <option>Retombamento</option>
+              <option @if(isset($item))
+              @if($item->tipo_tombamento=="Compra")
+                selected
+                @endif
+              @endif
+              >Compra</option>
+              <option @if(isset($item))
+              @if($item->tipo_tombamento=="Doação")
+                selected
+                @endif
+              @endif
+              >Doação</option>
+              <option @if(isset($item))
+              @if($item->tipo_tombamento=="Multa")
+                selected
+                @endif
+              @endif
+              >Multa</option>
+              <option @if(isset($item))
+              @if($item->tipo_tombamento=="Reposição")
+                selected
+                @endif
+              @endif
+              >Reposição</option>
+              <option @if(isset($item))
+              @if($item->tipo_tombamento=="Retombamento")
+                selected
+                @endif
+              @endif
+              >Retombamento</option>
           </select>
         </div>
     </div>
-<div class="row" onchange="optionCheck()">
+<div class="row" onchange="optionCheck()" style="position: relative; ">
+  <div class="col-sm form-group">
     <label for="tipo_material">Tipo de material:</label>
     <select class="form-control" id="tipo_material" name="tipo_material">
           <option value=""></option>
@@ -36,24 +62,58 @@
                   selected 
                 @endif 
               @endif
-        >Livro
-          </option>
-          <option>Mapas</option>
-          <option>Multimeios</option>
-          <option>Obra rara</option>
-          <option>Periódicos</option>
-          <option>CD/DVD</option>
-          <option>Teses</option>
-          <option>Outros</option>
+        >Livro</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Mapas")
+                  selected 
+                @endif 
+              @endif
+          >Mapas</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Multimeios")
+                  selected 
+                @endif 
+              @endif
+          >Multimeios</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Obra rara")
+                  selected 
+                @endif 
+              @endif
+          >Obra rara</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Periódicos")
+                  selected 
+                @endif 
+              @endif
+          >Periódicos</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="CD/DVD")
+                  selected 
+                @endif 
+              @endif
+          >CD/DVD</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Teses")
+                  selected 
+                @endif 
+              @endif
+          >Teses</option>
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="Outros")
+                  selected 
+                @endif 
+              @endif
+          >Outros</option>
     </select>
- 
+ </div>
 <!--Textbox após a seleção de "Outros tipos" em "Tipos de materiais"-->
-  <div class="form-group" style="visibility: hidden;">
-        <input type="text" id="outromaterial"  name="outromaterial" class="form-control" placeholder="Digite outro tipo de material">
+  <div class="col-sm form-group" style="visibility: hidden; position: absolute;">
+        <input type="text" style="position: absolute; top: 60px; left: 120px;" id="outromaterial" name="outromaterial" placeholder="Digite outro tipo de material">
   </div>
     <!--Campo Subcategoria-->
-  <div class="form-group" id="hiddenDiv" style="visibility:hidden;">
-        <select class="form-control" id="subcategoria" name="subcategoria"> 
+  <div id="hiddenDiv" style="visibility:hidden; position: absolute;">
+        <select class="form-control" id="subcategoria" name="subcategoria" style="position: relative; top: 60px; left: 120px;"> 
             <option value="">Selecionar subcategoria</option>
             <option>Mestrado</option>
             <option>Doutorado</option>
@@ -61,12 +121,9 @@
         </select>
   </div>
         <!--Campo Escala-->
-  <div id="hiddenEscala" style="visibility: hidden;">
-            <input type="text" id="escala" class="form-control" name="escala" placeholder="Digite a escala do mapa">
+  <div class="col-sm form-group" id="hiddenEscala" style="visibility: hidden; position: absolute;">
+            <input type="text" style="position: absolute; top: 60px; left: 120px;" id="escala" name="escala" placeholder="Digite a escala do mapa">
   </div>
- </div>
- 
-<div class="row">
 <div class="col-sm form-group">
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" class="form-control" name="titulo"
@@ -83,6 +140,8 @@
           @endif
           />
       </div>
+      </div>
+      <div class="row">
 <div class="col-sm form-group">
       <label for="editora">Editora:</label>
       <input type="text" id="editora" class="form-control" name="editora"
@@ -91,9 +150,7 @@
           @endif
           />
 </div>
-</div>
-<div class="row">
-  <div class="col-sm form-group">
+<div class="col-sm form-group">
         <label for="ano">Ano de publicação:</label>
         <input type="text" id="ano" class="form-control" name='ano'
         @if(isset($item))
@@ -108,7 +165,9 @@
             value="{{ $item->volume }}"
           @endif
           />
-      </div>   
+      </div>
+      </div>
+      <div class="row">   
       <div class="col-sm form-group">
         <label for="parte">Parte:</label>
         <input type="text" id="parte" class="form-control" name="parte"
@@ -117,8 +176,6 @@
           @endif
           />
       </div>
-</div>
-<div class="row">
       <div class="col-sm form-group">
         <label for="fasciculo">Fascículo:</label>
         <input type="text" id="fasciculo" class="form-control" name="fasciculo"
@@ -135,6 +192,8 @@
           @endif
           />
       </div>
+    </div>
+<div class="row">
       <div class="col-sm form-group">
           <label for="colecao">Coleção:</label>
           <input type="text" id="colecao" class="form-control" name="colecao"
@@ -143,8 +202,6 @@
           @endif
           />
       </div>
-</div>
-      <div class="row">
       <div class="col-sm form-group">
         <label for="link">Link:</label>
         <input type="text" id="link" class="form-control"  name="link"
@@ -161,6 +218,8 @@
           @endif
           />
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm form-group">
           <label for="isbn">ISBN:</label>
           <input type="text" id="isbn" class="form-control" name="isbn"
@@ -169,42 +228,110 @@
           @endif
           />
         </div>
-        </div>
-      <div class="row">      
         <div class="col-sm form-group">
             <label for="dpto">Departamento:</label>
             <select class="form-control" id="dpto" name="dpto">
               <option value="">Selecionar departamento</option>
-              <option>Antropologia</option>
-              <option>Ciência Politica</option>
-              <option>Filosofia</option>
-              <option>Geografia</option>
-              <option>História</option>
-              <option>Letras Clássicas e Vernáculas </option>
-              <option>Letras Modernas</option>
-              <option>Letras Orientais</option>
-              <option>Linguística</option>
-              <option>Sociologia</option>
-              <option>Teoria Literária e Literatura Comparada</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Antropologia")
+                selected
+                @endif
+              @endif
+              >Antropologia</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Ciência Politica")
+                selected
+                @endif
+              @endif
+              >Ciência Politica</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Filosofia")
+                selected
+                @endif
+              @endif
+              >Filosofia</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Geografia")
+                selected
+                @endif
+              @endif
+              >Geografia</option>
+              <option @if(isset($item))
+              @if($item->dpto=="História")
+                selected
+                @endif
+              @endif
+              >História</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Letras Clássicas e Vernáculas")
+                selected
+                @endif
+              @endif
+              >Letras Clássicas e Vernáculas </option>
+              <option @if(isset($item))
+              @if($item->dpto=="Modernas")
+                selected
+                @endif
+              @endif
+              >Letras Modernas</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Letras Orientais")
+                selected
+                @endif
+              @endif
+              >Letras Orientais</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Linguística")
+                selected
+                @endif
+              @endif
+              >Linguística</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Sociologia")
+                selected
+                @endif
+              @endif
+              >Sociologia</option>
+              <option @if(isset($item))
+              @if($item->dpto=="Teoria Literária e Literatura Comparada")
+                selected
+                @endif
+              @endif
+              >Teoria Literária e Literatura Comparada</option>
             </select>
         </div>      
         <div class="col-sm form-group">
           <label for="prioridade">Prioridade:</label>
           <select class="form-control" id="prioridade" name="prioridade">
             <option value="">Selecionar prioridade</option>
-            <option>Coleção Didática</option>
+            <option @if(isset($item))
+              @if($item->prioridade=="Coleção Didática")
+                selected
+                @endif
+              @endif
+            >Coleção Didática</option>
           </select>
-      </div>      
+        </div>
+      </div>
+   <div class="row">      
       <div class="col-sm form-group">
         <label for="procedencia">Procedência:</label>
         <select class="form-control" id="procedencia" name="procedencia">
           <option value="">Selecionar procedência</option>
-          <option>Nacional</option>
-          <option>Internacional</option>
+          <option @if(isset($item))
+              @if($item->procedencia=="Nacional")
+                selected
+                @endif
+              @endif
+          >Nacional</option>
+          <option @if(isset($item))
+              @if($item->procedencia=="Internacional")
+                selected
+                @endif
+              @endif
+          >Internacional</option>
         </select>
       </div>
-    </div>
-    <div class="row">
       <div class="col-sm form-group">
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
@@ -222,27 +349,61 @@
           />
       </div>
     </div>
-        
 
     <br><h3>Informações adicionais</h3><br>
 
     <div class="row">
-      <div class="col-sm form-group">
+      <div class="col-sm form-group" style="position: relative;">
           <label for="verba">Verba:</label>
           <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
             <option value="">Selecionar tipo de verba</option>
-            <option>CAPES</option>
-            <option>RUSP</option>
-            <option>CNPQ</option>
-            <option>FAPESP</option>
-            <option>FAPLIVROS</option>
-            <option>PROAP</option>
-            <option>Outras</option>
+            <option @if(isset($item))
+              @if($item->verba=="CAPES")
+                selected
+                @endif
+              @endif
+            >CAPES</option>
+            <option @if(isset($item))
+              @if($item->verba=="RUSP")
+                selected
+                @endif
+              @endif
+            >RUSP</option>
+            <option @if(isset($item))
+              @if($item->verba=="CNPQ")
+                selected
+                @endif
+              @endif
+            >CNPQ</option>
+            <option @if(isset($item))
+              @if($item->verba=="FAPESP")
+                selected
+                @endif
+              @endif
+            >FAPESP</option>
+            <option @if(isset($item))
+              @if($item->verba=="FAPLIVROS")
+                selected
+                @endif
+              @endif
+            >FAPLIVROS</option>
+            <option @if(isset($item))
+              @if($item->verba=="PROAP")
+                selected
+                @endif
+              @endif
+            >PROAP</option>
+            <option @if(isset($item))
+              @if($item->verba=="Outras")
+                selected
+                @endif
+              @endif
+            >Outras</option>
             <!--No campo verba colocar opção “outros” e abrir um box para as informações;-->
           </select>
 
           <!--Função para abrir campo após seleção de outras verbas-->
-          <input type="text" class="form-control" name="outraVerba" id="Outras" style="visibility: hidden;" placeholder="Informe outro tipo de verba">
+          <input type="text" name="outraVerba" id="Outras" style="visibility: hidden; position: absolute; top: 60px; left: 120px;" placeholder="Informe outro tipo de verba">
           <!--fim da Função para abrir campo após seleção de outras verbas-->
       </div>
       <div class="col-sm form-group">
@@ -268,8 +429,18 @@
           <label for="moeda">Moeda:</label>
           <select class="form-control" id="moeda" name="moeda">
             <option value="">Selecionar moeda</option>
-            <option>REAL</option>
-            <option>DÓLAR</option>
+            <option @if(isset($item))
+              @if($item->moeda=="REAL")
+                selected
+                @endif
+              @endif
+            >REAL</option>
+            <option @if(isset($item))
+              @if($item->moeda=="DÓLAR")
+                selected
+                @endif
+              @endif
+            >DÓLAR</option>
           </select>
       </div>
       <div class="col-sm  form-group">
@@ -311,3 +482,4 @@
     <div>
         <button type="submit" class="btn btn-success"> Enviar </button> 
     </div>
+
