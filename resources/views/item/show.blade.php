@@ -70,7 +70,23 @@
     <tr>
       <th scope="col">Tipo de material:</th>
       <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
-    </tr>  
+    </tr> 
+    
+
+    @if(isset($item->escala))
+      <tr>
+        <th scope="col">Escala:</th>
+        <td scope="row">{{ $item->escala ?? 'Não cadastrado' }}</td>
+      </tr>
+    @elseif(isset($item->subcategoria))
+      <tr>
+        <th scope="col">Subcategoria:</th>
+        <td scope="row">{{ $item->subcategoria ?? 'Não cadastrado' }}</td>
+      </tr>
+    @else   
+    @endif
+
+
     <tr>
       <th scope="col">Departamento:</th>
       <td scope="row">{{ $item->dpto ?? 'Não cadastrado' }}</td>
