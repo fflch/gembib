@@ -4,9 +4,9 @@ console.log("Esotu aqui");
   function optionCheck(){
       var option = document.getElementById("tipo_material").value;
       if(option == "Teses"){
-        document.getElementById("hiddenDiv").style.visibility ="visible";
+        document.getElementById("subcategoria").style.visibility ="visible";
       }else if(option != "Teses") {
-        document.getElementById("hiddenDiv").style.visibility ="hidden";
+        document.getElementById("subcategoria").style.visibility ="hidden";
       }
       if(option == "Outros"){
         document.getElementById("outromaterial").style.visibility ="visible";
@@ -14,9 +14,9 @@ console.log("Esotu aqui");
         document.getElementById("outromaterial").style.visibility ="hidden";
       }
       if(option == "Mapas"){
-        document.getElementById("hiddenEscala").style.visibility ="visible";
+        document.getElementById("escala").style.visibility ="visible";
       }else if(option != "Mapas"){
-        document.getElementById("hiddenEscala").style.visibility ="hidden";
+        document.getElementById("escala").style.visibility ="hidden";
       }
     }
 
