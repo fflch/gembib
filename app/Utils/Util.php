@@ -106,9 +106,6 @@ class Util {
         $item->status = $request->status;
         if($item->status ?? $item->status = "Tombado");
 
-        // No caso de sugestão, essas informações estavam indo como null.
-        $item->informacoes = $request->informacoes;
-        if($item->informacoes ?? $item->informacoes = "Não há informações da sugestão, livro inserido de forma direta.");
         
         $item->save();
 
