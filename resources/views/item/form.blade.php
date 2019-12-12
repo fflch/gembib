@@ -336,7 +336,14 @@
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
             @foreach($areas as $area)
-              <option>{{$area->codigo}} - {{$area->nome}}</option>
+                <option value="{{$area->codigo}}" 
+                    @if(isset($item)) 
+                        @if($item->capes == $area->codigo)
+                            {{$area->codigo}} - {{$area->nome}}
+                            selected
+                        @endif
+                    @endif
+                >{{$area->codigo}} - {{$area->nome}}</option>
             @endforeach
           </select>
       </div>
