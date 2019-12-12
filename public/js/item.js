@@ -1,4 +1,4 @@
-console.log("Esotu aqui");
+console.log("Estou aqui");
 
 
   function optionCheck(){
@@ -17,6 +17,15 @@ console.log("Esotu aqui");
         document.getElementById("escala").style.visibility ="visible";
       }else if(option != "Mapas"){
         document.getElementById("escala").style.visibility ="hidden";
+      }
+    }
+
+  function optionNegado(){
+      var option = document.getElementById("status").value;
+      if(option == "Negado"){
+        document.getElementById("hiddenMotivo").style.visibility ="visible";
+      }else if(option != "Negado") {
+        document.getElementById("hiddenMotivo").style.visibility ="hidden";
       }
     }
 
