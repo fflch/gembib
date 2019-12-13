@@ -11,8 +11,6 @@ use Carbon\Carbon;
 class Util {
     public static function gravarNoBanco(Request $request, Item $item){
 
-
-
         if($request->status == 'Negado') {
             $request->validate([
                 'motivo'  => 'required',
@@ -29,8 +27,6 @@ class Util {
                 'editora'          => 'required',
             ]);
         }
-
-
 
         $item->titulo = $request->titulo;
         $item->autor = $request->autor;
