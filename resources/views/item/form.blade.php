@@ -16,35 +16,35 @@
           />
         </div>
         <div class="col-sm form-group">
-          <label for="tipo_tombamento">Tipo de aquisição:</label>
-          <select class="form-control" id="tipo_tombamento" name="tipo_tombamento">
+          <label for="tipo_aquisicao">Tipo de aquisição:</label>
+          <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
               <option value="">Selecionar tipo de aquisição</option>
               <option @if(isset($item))
-              @if($item->tipo_tombamento=="Compra")
+              @if($item->tipo_aquisicao=="Compra")
                 selected
                 @endif
               @endif
               >Compra</option>
               <option @if(isset($item))
-              @if($item->tipo_tombamento=="Doação")
+              @if($item->tipo_aquisicao=="Doação")
                 selected
                 @endif
               @endif
               >Doação</option>
               <option @if(isset($item))
-              @if($item->tipo_tombamento=="Multa")
+              @if($item->tipo_aquisicao=="Multa")
                 selected
                 @endif
               @endif
               >Multa</option>
               <option @if(isset($item))
-              @if($item->tipo_tombamento=="Reposição")
+              @if($item->tipo_aquisicao=="Reposição")
                 selected
                 @endif
               @endif
               >Reposição</option>
               <option @if(isset($item))
-              @if($item->tipo_tombamento=="Retombamento")
+              @if($item->tipo_aquisicao=="Retombamento")
                 selected
                 @endif
               @endif
@@ -65,7 +65,7 @@
         >Livro</option>
           <option @if(isset($item)) 
                 @if($item->tipo_material=="Mapas")
-                  selected 
+                  selected
                 @endif 
               @endif
           >Mapas</option>
