@@ -22,7 +22,7 @@ class Util {
                 'titulo'           => 'required',
                 'autor'            => 'required',
                 'cod_impressao'    => 'required',
-                'tipo_tombamento'   => 'required',
+                'tipo_aquisicao'   => 'required',
                 'tipo_material'    => 'required',
                 'editora'          => 'required',
             ]);
@@ -35,7 +35,7 @@ class Util {
         $item->sugerido_por_id = Auth::id();
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
-        $item->tipo_tombamento = $request->tipo_tombamento;
+        $item->tipo_aquisicao = $request->tipo_aquisicao;
         $item->tipo_material = $request->tipo_material;
         $item->parte = $request->parte;
         $item->volume = $request->volume;

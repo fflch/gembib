@@ -9,7 +9,7 @@
 @include('flash')
 
 <form method="POST" action="/processar/{{$item->id}}">
-    @csrf
+    @csrf    
     <div class="row">
     <div class="col-sm form-group" onchange="optionNegado()">
         <label for="status">Mudança de status</label>
@@ -19,12 +19,12 @@
           @endforeach
         </select>
     </div>
-</div>
 
-<div class="form-group" id="hiddenMotivo" style="visibility: hidden; position: absolute; top: 200px; width: 250px; height: 50px; right: 890px;">
-    <textarea class="form-control" id="motivo" rows="1" name="motivo" style="position: relative; resize: none;" placeholder="Digite o motivo"></textarea>
+<div class="col-sm form-group" id="hiddenMotivo" style="visibility: hidden;">
+    <label for="motivo">Digite o motivo:</label>
+    <textarea class="form-control" id="motivo" rows="1" name="motivo" placeholder="..."></textarea>
 </div>
-
+</div>
     @include('item/form')
 
 </form>
