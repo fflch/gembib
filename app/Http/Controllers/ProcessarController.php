@@ -19,17 +19,16 @@ class ProcessarController extends Controller
         "Tombado",
     ];
     
-    public function processarIndex()
+    public function processarIndex(Request $request)
     {
-        $this->authorize('stl');
+        $this->authorize('sai');
         $itens = item::all();
-        
         return view('processar/index',compact('itens'));
     }
 
     public function processarForm(Item $item)
     {
-        $this->authorize('stl');
+        $this->authorize('sai');
         $status = $this->status;
         $areas = Area::all();
         return view('processar/form',compact('item','status','areas'));
@@ -37,6 +36,7 @@ class ProcessarController extends Controller
 
     public function processar(Request $request, Item $item)
     {   
+        $this->authorize('sai');
         Util::gravarNoBanco($request, $item);
         $request->session()->flash('alert-info', "Sugestão processada com sucesso.");
 

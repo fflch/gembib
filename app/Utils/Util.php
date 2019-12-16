@@ -16,7 +16,7 @@ class Util {
                 'motivo'  => 'required',
             ]);
             $item->motivo = $request->motivo;
-        }else{
+        } else {
             $request->validate([
                 'tombo'            => 'required',
                 'titulo'           => 'required',
@@ -32,7 +32,6 @@ class Util {
         $item->autor = $request->autor;
         $item->editora = $request->editora;
         $item->ano = $request->ano;
-        $item->sugerido_por_id = Auth::id();
         $item->tombo = $request->tombo;
         $item->tombo_antigo = $request->tombo_antigo;
         $item->tipo_aquisicao = $request->tipo_aquisicao;

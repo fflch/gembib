@@ -29,16 +29,16 @@ class AuthServiceProvider extends ServiceProvider
             return true;
         });
 
-        /* Setor de aqusição */
+        /* Serviço de Aquisição e Intercâmbio  */
         Gate::define('sai', function ($user) {
-            //return $user->codpes=='11284280';
-            return true;
+            $sai = explode(',', trim(config('gembib.sai')));
+            return ( in_array($user->codpes, $sai) and $user->codpes );
         });
 
-        /* Setor de processamento técnico */
+        /* Serviço Técnico de Livros */
         Gate::define('stl', function ($user) {
-            //return $user->codpes=='11284280';
-            return true;
+            $stl = explode(',', trim(config('gembib.stl')));
+            return ( in_array($user->codpes, $stl) and $user->codpes );
         });
     }
 }

@@ -18,15 +18,20 @@ class CreateItensTable extends Migration
             $table->timestamps();
             // Campos da fase de sugestão
             $table->text('titulo');
-            $table->unsignedBigInteger('sugerido_por_id');
-            $table->foreign('sugerido_por_id')->references('id')->on('users');
 			$table->text('autor')->nullable();
             $table->text('editora')->nullable();
             $table->text('ano')->nullable();
             $table->text('informacoes')->nullable();
+
+            /* Para conseguir aproveitar os campos do sistema do Access,
+               não faremos foreign key para usuários*/
+            $table->string('sugerido_por')->nullable();
+            $table->string('insercao_por')->nullable();
+
 			/* quando uma sugestão for negada, colocamos o motivo*/
 			$table->text('motivo')->nullable();
             $table->string('status');
+
             // Campos da tela de aquisição
             $table->text('tombo')->nullable();
             $table->text('tombo_antigo')->nullable();
@@ -36,8 +41,6 @@ class CreateItensTable extends Migration
             $table->text('tipo_material')->nullable();
             $table->text('subcategoria')->nullable();
             $table->text('capes')->nullable();
-            $table->text('UsuarioS')->nullable();
-            $table->text('UsuarioA')->nullable();
             $table->text('link')->nullable();
             $table->text('edicao')->nullable();
             $table->text('volume')->nullable();

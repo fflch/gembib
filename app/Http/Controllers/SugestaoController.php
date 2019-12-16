@@ -32,7 +32,7 @@ class SugestaoController extends Controller
         $item->editora = $request->editora;
         $item->ano = $request->ano;
         $item->informacoes = $request->informacoes;
-        $item->sugerido_por_id = Auth::id();
+        $item->sugerido_por = Auth::user()->codpes;
         $item->data_sugestao = Carbon::now();
 
         $item->status = "Sugestão";

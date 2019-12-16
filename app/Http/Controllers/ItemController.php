@@ -21,27 +21,31 @@ class ItemController extends Controller
 
     public function insercaoForm()
     {
-        $this->authorize('logado');
+        $this->authorize('sai');
         $areas = Area::all();
         return view('item/insercao', compact('areas'));
     }
 
     public function show(Request $request, Item $item)
     {
-        $this->authorize('logado');
+        $this->authorize('sai');
         return view('item/show', compact('item'));
     }
 
     public function insercao(Request $request)
     {
-        $this->authorize('logado');
+        $this->authorize('sai');
         $item = new Item;
+        $item->adquirido_por = Auth::user()->codpes;
 
         Util::gravarNoBanco($request, $item);
 
         $data = Carbon::parse($item->data_tombamento);
         $dataformatada = $data->format('d/m/Y');
-        $request->session()->flash('alert-info', "Inserção direta enviada com sucesso em {$dataformatada}. Novo status: {$item->status}");
+
+        $request->session()->flash('alert-info', 
+            "Inserção direta enviada com sucesso em {$dataformatada}. 
+            Novo status: {$item->status}");
 
         return redirect('/');
         

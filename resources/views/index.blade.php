@@ -3,5 +3,5 @@
 @section('content')
 @include('flash')
 
-Sistema em construção 
+Sistema para Gestão de Material Bibliográfico
 @endsection('content')

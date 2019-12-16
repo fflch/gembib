@@ -10,14 +10,14 @@
     <tr>
       <th scope="col">Livro: </th>
       <td scope="col">{{ $item->titulo }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col"><b>Status:</b></th>
       <td scope="col">{{ $item->status }}</td>
     </tr>
     <tr>
       <th scope="col">Sugerido por:</th>
-      <td scope="col">{{ \Auth::user($item->sugerido_por_id)->name }}</td>
+      <td scope="col">{{ $item->sugerido_por }}</td>
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
@@ -30,11 +30,11 @@
     <tr>
       <th scope="col">Autor:</th>
       <td scope="row">{{ $item->autor }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col">Editora:</th>
       <td scope="row">{{ $item->editora }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col">Edição:</th>
       <td scope="row">{{ $item->edicao ?? 'Não cadastrado' }}</td>
@@ -42,11 +42,11 @@
     <tr>
       <th scope="col">Ano de publicação:</th>
       <td scope="row">{{ $item->ano ?? 'Não cadastrado' }}</td>
-    </tr> 
+    </tr>
     <tr>
       <th scope="col">Volume:</th>
       <td scope="row">{{ $item->volume ?? 'Não cadastrado' }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col">Parte:</th>
       <td scope="row">{{ $item->parte ?? 'Não cadastrado' }}</td>
@@ -54,7 +54,7 @@
     <tr>
       <th scope="col">Fascículo:</th>
       <td scope="row">{{ $item->fasciculo ?? 'Não cadastrado' }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col">Coleção:</th>
       <td scope="row">{{ $item->colecao ?? 'Não cadastrado' }}</td>
@@ -66,12 +66,12 @@
     <tr>
       <th scope="col">Link:</th>
       <td scope="row">{{ $item->link ?? 'Não cadastrado' }}</td>
-    </tr>   
+    </tr>
     <tr>
       <th scope="col">Tipo de material:</th>
       <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
-    </tr> 
-    
+    </tr>
+
 
     @if(isset($item->escala))
       <tr>
@@ -83,7 +83,7 @@
         <th scope="col">Subcategoria:</th>
         <td scope="row">{{ $item->subcategoria ?? 'Não cadastrado' }}</td>
       </tr>
-    @else   
+    @else
     @endif
 
 
@@ -98,7 +98,7 @@
     <tr>
       <th scope="col">ISBN:</th>
       <td scope="row">{{ $item->isbn ?? 'Não cadastrado' }}</td>
-    </tr>  
+    </tr>
     <tr>
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Não cadastrado' }}</td>
