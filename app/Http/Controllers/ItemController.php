@@ -11,33 +11,13 @@ use App\Utils\Util;
 
 class ItemController extends Controller
 {
-    private $status = [
-        "Sugestão",
-        "Negado",
-        "Em cotação",
-        "Em licitação",
-        "Esgotado",
-        "Tombado",
-    ];
-
-    private $tipo_material = [
-        "Livro",
-        "Mapas",
-        "Material Especial",
-        "Memorial",  
-        "Multimeios",
-        "Obra rara",
-        "Periódico",
-        "CD/DVD",
-        "Tese",
-        "Outros Tipos"
-    ];
+    private $status = Util::status;
 
     public function insercaoForm()
     {
         $this->authorize('sai');
         $areas = Area::all();
-        $tipo_material = $this->tipo_material;
+        $tipo_material = Util::tipo_material;
         return view('item/insercao', compact('areas','tipo_material'));
     }
 

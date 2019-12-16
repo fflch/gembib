@@ -11,17 +11,10 @@ use App\Utils\Util;
 
 class ProcessarController extends Controller
 {
-    private $status = [
-        "Sugestão",
-        "Negado",
-        "Em cotação",
-        "Em licitação",
-        "Tombado",
-    ];
+    private $status = Util::status;
     
     public function processarIndex(Request $request)
     {
-
         $this->authorize('sai');
         $status = $this->status;
 
@@ -45,7 +38,8 @@ class ProcessarController extends Controller
         $this->authorize('sai');
         $status = $this->status;
         $areas = Area::all();
-        return view('processar/form',compact('item','status','areas'));
+        $tipo_material = Util::tipo_material;
+        return view('processar/form',compact('item','status','areas','tipo_material'));
     }
 
     public function processar(Request $request, Item $item)

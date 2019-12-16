@@ -49,6 +49,12 @@
                 @endif
               @endif
               >Retombamento</option>
+              <option @if(isset($item))
+              @if($item->tipo_aquisicao=="Permuta")
+                selected
+                @endif
+              @endif
+              >Permuta</option>
           </select>
         </div>
     </div>
@@ -79,7 +85,7 @@
             <option value="">Selecionar subcategoria</option>
             <option>Mestrado</option>
             <option>Doutorado</option>
-            <option>Livre docência</option>
+            <option>Livre-docência</option>
         </select>
   </div>
         <!--Campo Escala-->
@@ -281,17 +287,17 @@
         <select class="form-control" id="procedencia" name="procedencia">
           <option value="">Selecionar procedência</option>
           <option @if(isset($item))
-              @if($item->procedencia=="Nacional")
+              @if($item->procedencia=="NACIONAL")
                 selected
                 @endif
               @endif
-          >Nacional</option>
+          >NACIONAL</option>
           <option @if(isset($item))
-              @if($item->procedencia=="Internacional")
+              @if($item->procedencia=="INTERNACIONAL")
                 selected
                 @endif
               @endif
-          >Internacional</option>
+          >INTERNACIONAL</option>
         </select>
       </div>
       <div class="col-sm form-group">

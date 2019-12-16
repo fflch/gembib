@@ -9,6 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class Util {
+
+    const status = [
+        "Sugestão",
+        "Comprado",
+        "Negado",
+        "Cotação",
+        "Em Licitação",
+        "Esgotado",
+        "Tombado",
+    ];
+
+    const tipo_material = [
+        "Livro",
+        "Mapas",
+        "Material Especial",
+        "Memorial",  
+        "Multimeios",
+        "Obra rara",
+        "Periódico",
+        "CD/DVD",
+        "Tese",
+        "Outros Tipos"
+    ];
+
     public static function gravarNoBanco(Request $request, Item $item){
 
         if($request->status == 'Negado') {

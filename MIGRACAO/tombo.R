@@ -1,4 +1,5 @@
-setwd("~/gembib/MIGRACAO/")
+library(stringr)
+setwd("~/repos/gembib/MIGRACAO/")
 
 material = read.csv("./TbMaterial.csv")
 sugestao = read.csv("TbSugestao.csv")
@@ -23,6 +24,37 @@ data = merge(data, verba, by.x="idTipodeVerba", by.y="idTipodeVerba", all.x=TRUE
 
 # substituir subcategoria
 data = merge(data, subcat, by.x="tbTipodeMaterialSubcategoria", by.y="idTipodeMaterialSubcategoria", all.x=TRUE)
+
+# corrigindo coluna departamento
+data$Departamento = as.character(data$Departamento)
+for(i in 1:nrow(data)) {
+  data$Departamento[i] = strsplit(data$Departamento[i], "Departamento de ")[[1]][2]
+}
+
+# corrigindo coluna moeda
+data$Moeda = as.character(data$Moeda)
+for(i in 1:nrow(data)) {
+  if(startsWith(data$Moeda[i],"R")){
+    data$Moeda[i] = "REAL"
+  } else {
+    data$Moeda[i] = "DÓLAR"
+  }
+}
+
+# corrigindo data_sugestao
+data$Data.do.Pedido = as.character(data$Data.do.Pedido)
+for(i in 1:nrow(data)) {
+  temp <- as.Date(data$Data.do.Pedido[i], format = "%d/%m/%Y")
+  data$Data.do.Pedido[i] = format(temp, "%Y-%m-%d 00:00:00");
+}
+
+# Corrigindo status
+data$Status = as.character(data$Status)
+for(i in 1:nrow(data)) {
+  if(is.na(data$Status[i]) || data$Status[i] == "") data$Status[i] = "Tombado" 
+}
+
+# TODO: fazer replace: FAPLIVROS VI
 
 final = data.frame(
   "sugerido_por" = data$Usuario, 
@@ -58,7 +90,11 @@ final = data.frame(
   "finalidade" = data$Finalidade,
   "procedencia" = data$Procedência,
   "data_sugestao" = data$Data.do.Pedido,
+  "created_at" = data$Data.do.Pedido,
+  "updated_at" = data$Data.do.Pedido,
   "prioridade" = data$Prioridade,
   "status" = data$Status,
-  "observacao" = data$Observação,
-  "ordem_relatorio" = data$ordem_relatorio)
+  "observacao" = data$Observação
+)
+
+write.csv(final, "~/itens.csv", row.names = FALSE, na="")
