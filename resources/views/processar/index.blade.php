@@ -16,8 +16,7 @@
     </form>
     <br>
 
-
-
+    {{ $itens->appends(request()->query())->links() }}
     <table class="table table-striped">
       <thead>
         <tr>

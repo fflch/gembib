@@ -35,7 +35,7 @@ class ProcessarController extends Controller
             $query->where('status','=',$request->status);
         } 
 
-        $itens = $query->get();
+        $itens = $query->paginate(10);
 
         return view('processar/index',compact('itens','status'));
     }
