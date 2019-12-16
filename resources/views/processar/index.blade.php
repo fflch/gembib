@@ -3,6 +3,21 @@
 @section('content')
 @include('flash')
 
+    <form method="GET" >
+
+      <select name="status">
+      <option value="" selected>Selecionar o status</option>
+        @foreach($status as $i)
+          <option>{{$i}}</option>
+        @endforeach
+      </select>
+      <input type="text" name="busca">
+      <button type="submit" class="btn btn-success">buscar</button>
+    </form>
+    <br>
+
+
+
     <table class="table table-striped">
       <thead>
         <tr>

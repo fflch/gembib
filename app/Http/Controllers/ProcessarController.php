@@ -19,12 +19,24 @@ class ProcessarController extends Controller
         "Tombado",
     ];
     
-    public function processarIndex()
+    public function processarIndex(Request $request)
     {
         $this->authorize('stl');
-        $itens = item::all();
-        
-        return view('processar/index',compact('itens'));
+        $status = $this->status;
+
+        $query = Item::orderBy('titulo', 'desc');
+
+        if (isset($request->busca) && !empty($request->busca)) {
+            $query->where('titulo','LIKE', '%' . $request->busca . '%');
+        } 
+
+        if (isset($request->status) && !empty($request->status)) {
+            $query->where('status','=',$request->status);
+        } 
+
+        $itens = $query->get();
+
+        return view('processar/index',compact('itens','status'));
     }
 
     public function processarForm(Item $item)
