@@ -57,54 +57,16 @@
     <label for="tipo_material">Tipo de material:</label>
     <select class="form-control" id="tipo_material" name="tipo_material">
           <option value=""></option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Livro")
-                  selected 
-                @endif 
-              @endif
-        >Livro</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Mapas")
-                  selected
-                @endif 
-              @endif
-          >Mapas</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Multimeios")
-                  selected 
-                @endif 
-              @endif
-          >Multimeios</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Obra rara")
-                  selected 
-                @endif 
-              @endif
-          >Obra rara</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Periódicos")
-                  selected 
-                @endif 
-              @endif
-          >Periódicos</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="CD/DVD")
-                  selected 
-                @endif 
-              @endif
-          >CD/DVD</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Teses")
-                  selected 
-                @endif 
-              @endif
-          >Teses</option>
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="Outros")
-                  selected 
-                @endif 
-              @endif
-          >Outros</option>
+    
+          @foreach($tipo_material as $tipo)
+              <option @if(isset($item)) 
+                    @if($item->tipo_material=="{{$tipo}}")
+                      selected 
+                    @endif 
+                  @endif
+            >{{$tipo}}</option>
+          @endforeach
+
     </select>
  </div>
 <!--Textbox após a seleção de "Outros tipos" em "Tipos de materiais"-->

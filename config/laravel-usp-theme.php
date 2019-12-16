@@ -8,17 +8,17 @@ return [
     'login_url' => '/login',
     'menu' => [
         [
-            'text' => 'Fazer Sugestão',
+            'text' => 'Sugestão',
             'url'  => '/sugestao',
             'can'  => 'logado'
         ],
         [
-            'text' => 'Inserção direta',
+            'text' => 'Inserção',
             'url'  => '/item',
             'can'  => 'sai',
         ],
         [
-            'text' => 'Processar',
+            'text' => 'Análise',
             'url'  => '/processar',
             'can'  => 'sai',
         ],

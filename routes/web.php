@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')->name('home');
 
 /* rotas para login e logout */
 Route::get('login', 'Auth\LoginController@redirectToProvider');

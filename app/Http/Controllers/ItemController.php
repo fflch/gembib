@@ -16,14 +16,29 @@ class ItemController extends Controller
         "Negado",
         "Em cotação",
         "Em licitação",
+        "Esgotado",
         "Tombado",
+    ];
+
+    private $tipo_material = [
+        "Livro",
+        "Mapas",
+        "Material Especial",
+        "Memorial",  
+        "Multimeios",
+        "Obra rara",
+        "Periódico",
+        "CD/DVD",
+        "Tese",
+        "Outros Tipos"
     ];
 
     public function insercaoForm()
     {
         $this->authorize('sai');
         $areas = Area::all();
-        return view('item/insercao', compact('areas'));
+        $tipo_material = $this->tipo_material;
+        return view('item/insercao', compact('areas','tipo_material'));
     }
 
     public function show(Request $request, Item $item)

@@ -3,14 +3,14 @@ console.log("Estou aqui");
 
   function optionCheck(){
       var option = document.getElementById("tipo_material").value;
-      if(option == "Teses"){
+      if(option == "Tese"){
         document.getElementById("subcategoria").style.visibility ="visible";
-      }else if(option != "Teses") {
+      }else if(option != "Tese") {
         document.getElementById("subcategoria").style.visibility ="hidden";
       }
-      if(option == "Outros"){
+      if(option == "Outros Tipos"){
         document.getElementById("outromaterial").style.visibility ="visible";
-      }else if(option != "Outros"){
+      }else if(option != "Outros Tipos"){
         document.getElementById("outromaterial").style.visibility ="hidden";
       }
       if(option == "Mapas"){
