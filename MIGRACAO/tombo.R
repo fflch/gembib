@@ -1,9 +1,11 @@
-material = read.csv("~/Downloads/tombo/TbMaterial.csv")
-sugestao = read.csv("~/Downloads/tombo/TbSugestao.csv")
-tipo_material = read.csv("~/Downloads/tombo/tbTipodeMaterial.csv")
-verba = read.csv("~/Downloads/tombo/tbVerba.csv")
-usuarios = read.csv("~/Downloads/tombo/tblUsuários.csv")
-subcat = read.csv("~/Downloads/tombo/tbTipodeMaterialSubcategoria.csv")
+setwd("~/gembib/MIGRACAO/")
+
+material = read.csv("./TbMaterial.csv")
+sugestao = read.csv("TbSugestao.csv")
+tipo_material = read.csv("tbTipodeMaterial.csv")
+verba = read.csv("tbVerba.csv")
+usuarios = read.csv("tblUsuários.csv")
+subcat = read.csv("tbTipodeMaterialSubcategoria.csv")
 
 data = material
 
@@ -25,4 +27,38 @@ data = merge(data, subcat, by.x="tbTipodeMaterialSubcategoria", by.y="idTipodeMa
 final = data.frame(
   "sugerido_por" = data$Usuario, 
   "insercao_por" = data$Usuario,
-  "tipo_material" = data$Tipo_de_material)
+  "tipo_material" = data$Tipo_de_material,
+  "subcategoria" = data$Subcategoria,
+  "capes" = data$numero_capes,
+  "verba" = data$NomedaVerba,
+  "tombo" = data$Tombo,
+  "tombo_antigo" = data$Tombo.Antigo,
+  "cod_impressao" = data$código.de.impressão,
+  "processo" = data$Processo,
+  "fornecedor" = data$Fornecedor,
+  "nota_fiscal" = data$Nota.Fiscal,
+  "tipo_aquisicao"= data$tipo.de.aquisição,
+  "moeda" = data$Moeda,
+  "preco" = data$Preço,
+  "autor" = data$Autor,
+  "titulo" = data$Título,
+  "edicao" = data$Edição,
+  "volume" = data$Volume,
+  "parte" = data$Parte,
+  "fasciculo" = data$fascículo,
+  "local" = data$Local,
+  "editora" = data$Editora,
+  "ano" = data$ano,
+  "colecao" = data$Coleção,
+  "isbn"  = data$ISBN,
+  "escala" = data$Escala,
+  "link" = data$Link,
+  "dpto" = data$Departamento,
+  "pedido_por" = data$Pedido.por,
+  "finalidade" = data$Finalidade,
+  "procedencia" = data$Procedência,
+  "data_sugestao" = data$Data.do.Pedido,
+  "prioridade" = data$Prioridade,
+  "status" = data$Status,
+  "observacao" = data$Observação,
+  "ordem_relatorio" = data$ordem_relatorio)
