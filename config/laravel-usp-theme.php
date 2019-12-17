@@ -13,7 +13,7 @@ return [
             'can'  => 'logado'
         ],
         [
-            'text' => 'Inserção',
+            'text' => 'Tombamento',
             'url'  => '/item',
             'can'  => 'sai',
         ],
