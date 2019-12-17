@@ -7,7 +7,6 @@ mysqlimport \
     --user=master \
     --password=master \
     --compress \
-    --delete \
     --fields-terminated-by=, \
     --fields-optionally-enclosed-by='"' \
     --fields-escaped-by='' \

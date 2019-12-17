@@ -303,6 +303,7 @@
       <div class="col-sm form-group">
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
+            <option value="">Selecione</option>
             @foreach($areas as $area)
                 <option value="{{$area->codigo}}" 
                     @if(isset($item)) 

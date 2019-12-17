@@ -110,8 +110,8 @@
       <td scope="row">{{ $item->tombo ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
-      <th scope="col">Tipo de tombamento:</th>
-      <td scope="row">{{ $item->tipo_tombamento ?? 'Não cadastrado' }}</td>
+      <th scope="col">Tipo de aquisição:</th>
+      <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Tombo antigo:</th>

@@ -14,6 +14,7 @@ class EtiquetaController extends Controller
         $this->authorize('logado');
         return view('etiquetas');
     }
+
     public function show(Request $request){
 
         $request->validate([
