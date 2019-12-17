@@ -16,7 +16,7 @@
         @endforeach
       </select>
       
-      <b>Buscar pelo tombo:</b>
+      <b>Buscar pelo título, autor, tombo ou código de impressão:</b>
       <input type="text" name="busca">
       <button type="submit" class="btn btn-success">buscar</button>
     </form>
