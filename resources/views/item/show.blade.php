@@ -72,6 +72,12 @@
       <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
     </tr>
 
+    <tr>
+      <th scope="col">Pedido por:</th>
+      <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
+    </tr>
+
+
 
     @if(isset($item->escala))
       <tr>
