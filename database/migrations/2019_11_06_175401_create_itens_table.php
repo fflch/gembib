@@ -33,7 +33,7 @@ class CreateItensTable extends Migration
             $table->string('status');
 
             // Campos da tela de aquisição
-            $table->text('tombo')->nullable();
+            $table->bigInteger('tombo')->nullable();
             $table->text('tombo_antigo')->nullable();
             $table->text('cod_impressao')->nullable();
             $table->text('tipo_aquisicao')->nullable();

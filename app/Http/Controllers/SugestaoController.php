@@ -14,7 +14,6 @@ class SugestaoController extends Controller
     {
         $this->authorize('logado');
         return view('sugestao/form');
-        $user = new User;
     }
 
     public function sugestao(Request $request)

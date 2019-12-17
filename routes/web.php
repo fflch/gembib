@@ -36,7 +36,8 @@ Route::post('/processar/{item}','ProcessarController@processar');
 Route::get('/item/{item}','ItemController@show');
 
 /* Equiquetas */
-Route::get('/etiquetas','EtiquetaController@show');
+Route::get('/etiquetas','EtiquetaController@form');
+Route::post('/etiquetas','EtiquetaController@show');
 
 
 

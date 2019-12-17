@@ -66,7 +66,7 @@
     
           @foreach($tipo_material as $tipo)
               <option @if(isset($item)) 
-                    @if($item->tipo_material=="{{$tipo}}")
+                    @if($item->tipo_material=="$tipo")
                       selected 
                     @endif 
                   @endif

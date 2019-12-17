@@ -1,7 +1,20 @@
 #!/bin/bash
 
-mysqlimport --ignore-lines=1 \
---columns=sugerido_por,\
+mysqlimport \
+    --ignore-lines=1 \
+    --lines-terminated-by="\r\n" \
+    --local \
+    --user=master \
+    --password=master \
+    --compress \
+    --delete \
+    --fields-terminated-by=, \
+    --fields-optionally-enclosed-by='"' \
+    --fields-escaped-by='' \
+    --lines-terminated-by='\n' \
+    --lock-tables \
+    --verbose \
+    --columns=sugerido_por,\
 insercao_por,\
 tipo_material,\
 subcategoria,\
@@ -39,6 +52,4 @@ updated_at,\
 prioridade,\
 status,\
 observacao \
---fields-terminated-by=, \
-fields-optionally-enclosed-by='\"' \
---local -u master -p gembib /home/thiago/itens.csv
+    gembib /home/thiago/itens.csv

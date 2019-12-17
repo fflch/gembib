@@ -18,10 +18,10 @@ class ProcessarController extends Controller
         $this->authorize('sai');
         $status = $this->status;
 
-        $query = Item::orderBy('titulo', 'desc');
+        $query = Item::orderBy('created_at', 'desc');
 
         if (isset($request->busca) && !empty($request->busca)) {
-            $query->where('titulo','LIKE', '%' . $request->busca . '%');
+            $query->where('tombo','LIKE', '%' . $request->busca . '%');
         } 
 
         if (isset($request->status) && !empty($request->status)) {

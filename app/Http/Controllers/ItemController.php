@@ -31,7 +31,7 @@ class ItemController extends Controller
     {
         $this->authorize('sai');
         $item = new Item;
-        $item->adquirido_por = Auth::user()->codpes;
+        $item->insercao_por = Auth::user()->codpes;
 
         Util::gravarNoBanco($request, $item);
 

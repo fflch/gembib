@@ -42,7 +42,7 @@ class Util {
             $item->motivo = $request->motivo;
         } else {
             $request->validate([
-                'tombo'            => 'required',
+                'tombo'            => 'required|integer',
                 'titulo'           => 'required',
                 'autor'            => 'required',
                 'cod_impressao'    => 'required',

@@ -1,4 +1,4 @@
-library(stringr)
+
 setwd("~/repos/gembib/MIGRACAO/")
 
 material = read.csv("./TbMaterial.csv")
@@ -98,3 +98,4 @@ final = data.frame(
 )
 
 write.csv(final, "~/itens.csv", row.names = FALSE, na="")
+
