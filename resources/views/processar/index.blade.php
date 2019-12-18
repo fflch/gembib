@@ -5,6 +5,7 @@
 
     <div>
         <a href="/etiquetas" class="btn btn-success">Etiquetas</a>
+        <a href="/relatorios" class="btn btn-success">Relatórios</a>
     </div>
     <br>
 
