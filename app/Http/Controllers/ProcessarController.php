@@ -49,7 +49,15 @@ class ProcessarController extends Controller
         $status = $this->status;
         $areas = Area::all();
         $tipo_material = Util::tipo_material;
-        return view('processar/form',compact('item','status','areas','tipo_material'));
+
+        /* Pegando o próximo tompo disponível */
+        if(empty($item->tombo)) {
+            $proximo = Item::max('tombo');
+        } else {
+            $proximo = null;
+        }
+
+        return view('processar/form',compact('item','status','areas','tipo_material','proximo'));
     }
 
     public function processar(Request $request, Item $item)
@@ -58,6 +66,6 @@ class ProcessarController extends Controller
         Util::gravarNoBanco($request, $item);
         $request->session()->flash('alert-info', "Sugestão processada com sucesso.");
 
-        return redirect('/');
+        return redirect("/item/{$item->id}");
     }
 }

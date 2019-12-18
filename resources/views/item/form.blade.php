@@ -3,11 +3,14 @@
           <label for="tombo">Tombo:</label>
           <input type="text" id="tombo" class="form-control" name="tombo"
           @if(isset($item))
-            value="{{ $item->tombo }}"
+            value="{{ $item->tombo }}" />
+            @if(empty($item->tombo))
+                <small> Próximo tombo disponível no sistema: <b>{{$proximo}}</b> </small>
+            @endif
           @else 
-            value="{{ $proximo }}"
+            value="{{ $proximo }}" />
           @endif
-          />
+          
         </div>
         <div class="col-sm form-group">
           <label for="tombo_antigo">Tombo antigo:</label>

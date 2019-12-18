@@ -4,9 +4,10 @@
 @include('flash')
 
     <div>
-        <a href="/etiquetas" class="btn btn-success"> Gerar Etiquetas</a>
+        <a href="/etiquetas" class="btn btn-success">Etiquetas</a>
     </div>
     <br>
+
     <form method="GET" >
 
       <select name="status">
