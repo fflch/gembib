@@ -19,13 +19,21 @@ class ProcessarController extends Controller
         $status = $this->status;
 
         $query = Item::orderBy('created_at', 'desc');
-
+        
+        /* 
         if (isset($request->busca) && !empty($request->busca)) {
             $query->where('tombo','LIKE', '%' . $request->busca . '%');
-        } 
+        }*/
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where('status','=',$request->status);
+        } 
+
+        if (isset($request->busca) && !empty($request->busca)) {
+            $query->where('titulo','LIKE', '%' . $request->busca . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
         } 
 
         $itens = $query->paginate(10);
