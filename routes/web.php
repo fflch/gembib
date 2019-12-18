@@ -39,10 +39,13 @@ Route::get('/item/{item}','ItemController@show');
 Route::get('/etiquetas','EtiquetaController@form');
 Route::post('/etiquetas','EtiquetaController@show');
 
+
 Route::get('/relatorios','RelatorioController@form');
 Route::post('/relatorios','RelatorioController@show');
 
 
+/* Relatório */
+Route::get('/teste','TesteController@teste');
 
 /*
 
@@ -59,7 +62,7 @@ Route::get('/itens/consulta/','ItemController@consulta');
 
 
 Route::get('/itens/disparar_email', function(){
-	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário 
+	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário
 		$user = Auth::user();
 		$m->from('gabsreisg@gmail.com', 'Gabriela');//o remetente deve ser o email gembib
 		$m->subject('Sugestão enviada!'); //assunto
