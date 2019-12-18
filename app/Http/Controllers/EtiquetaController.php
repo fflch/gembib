@@ -16,13 +16,21 @@ class EtiquetaController extends Controller
     }
 
     public function show(Request $request){
+        if(isset($request->cod_impressao)){
+            $request->validate([
+                'cod_impressao'  => 'required'
+            ]);
+        $itens = Item::where('cod_impressao', [$request->cod_impressao])->get();
 
-        $request->validate([
+        }else{
+            $request->validate([
             'tombo_inicio'  => 'required|integer',
             'tombo_fim'   => 'required|integer|gte:tombo_inicio',
         ]);
 
         $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();
+
+        }
 
         $pimaco = new Pimaco('6180');
 
