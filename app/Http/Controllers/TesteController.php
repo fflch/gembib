@@ -17,13 +17,32 @@ class TesteController extends Controller
         $imagem = './images/logo.png';
         
         $html = "
-<img src='{$imagem}'/>
-<h1>FFFLCH</h1>
+
+
+<table style='width:100%'>
+    <tr>
+        <td style='width:20%' style='text-align:left;'>
+            <img src='{$imagem}' width='230px'/>
+        </td>
+        <td style='width:80%'; style='text-align:center;'>
+            <p align='center'><b>SERVIÇO DE BIBLIOTECA E DOCUMENTAÇÃO</b><br>
+            FACULDADE DE FILOSOFIA, LETRAS E CIÊNCIAS HUMANAS - USP<br>
+            Av.: Prof. Lineu Prestes - travessa 12. n° 350 CEP: 05508-900 - Cidade Universitária - São Paulo - SP / Brasil<br>
+            Serviço de Aquisição e Intercâmbio (11)3091-4502 - saifflch@usp.br</p>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
 
 
 
 ";
 
+//<img src='{$imagem}' style='width:20%'/>
         $dompdf->loadHtml($html);
 
         // (Optional) Setup the paper size and orientation
