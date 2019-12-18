@@ -7,6 +7,7 @@ use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Rules\TomboRule;
 
 class Util {
 
@@ -18,6 +19,7 @@ class Util {
         "Em Licitação",
         "Esgotado",
         "Tombado",
+        "Inativo"
     ];
 
     const tipo_material = [
@@ -42,7 +44,7 @@ class Util {
             $item->motivo = $request->motivo;
         } else {
             $request->validate([
-                'tombo'            => 'required|integer',
+                'tombo' => ['required','integer', new TomboRule($item)],
                 'titulo'           => 'required',
                 'autor'            => 'required',
                 'cod_impressao'    => 'required',
@@ -76,7 +78,11 @@ class Util {
         $item->processo = $request->processo;
         $item->fornecedor = $request->fornecedor;
         $item->moeda = $request->moeda;
-        $item->preco = $request->preco;
+        if(!empty($request->preco)){
+            $item->preco = str_replace(',','.',$request->preco);
+        } else {
+            $item->preco = null;
+        }
         $item->nota_fiscal = $request->nota_fiscal;
         $item->data_tombamento = Carbon::now();
         $item->data_sugestao = Carbon::now();

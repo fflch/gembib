@@ -33,7 +33,7 @@
           <th scope="col">Editora</th>
           <th scope="col">Status</th>
           <th scope="col">Sugestão feita por</th>
-          <th scope="col">Processar</th>
+          <th scope="col">Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -45,7 +45,7 @@
           <td>{{ $item->editora }}</td>
           <td>{{ $item->status }}</td>
           <td>{{ $item->sugerido_por }}</td>
-          <td><a href="/processar/{{$item->id}}">processar</a></td>
+          <td><a href="/processar/{{$item->id}}">editar</a></td>
         </tr>
         @endforeach
 

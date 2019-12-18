@@ -30,12 +30,14 @@ class ProcessarController extends Controller
         } 
 
         if (isset($request->busca) && !empty($request->busca)) {
-            $query->where('titulo','LIKE', '%' . $request->busca . '%')
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->busca . '%')
                   ->orWhere('autor','LIKE', '%' . $request->busca . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
                   ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
+            });
         } 
-
+        
         $itens = $query->paginate(10);
 
         return view('processar/index',compact('itens','status'));

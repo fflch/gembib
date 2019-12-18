@@ -4,6 +4,8 @@
           <input type="text" id="tombo" class="form-control" name="tombo"
           @if(isset($item))
             value="{{ $item->tombo }}"
+          @else 
+            value="{{ $proximo }}"
           @endif
           />
         </div>
@@ -423,7 +425,7 @@
         <label for="preco">Preço:</label>
         <input type="text" id="preco" class="form-control" name="preco"
         @if(isset($item))
-            value="{{ $item->preco }}"
+            value="{!! str_replace('.', ',', $item->preco) !!}"
           @endif
           />
       </div>

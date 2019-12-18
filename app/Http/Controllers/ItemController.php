@@ -18,7 +18,11 @@ class ItemController extends Controller
         $this->authorize('sai');
         $areas = Area::all();
         $tipo_material = Util::tipo_material;
-        return view('item/insercao', compact('areas','tipo_material'));
+
+        /* Pegando o próximo tompo disponível */
+        $proximo = Item::max('tombo');
+
+        return view('item/insercao', compact('areas','tipo_material','proximo'));
     }
 
     public function show(Request $request, Item $item)
