@@ -39,13 +39,9 @@ Route::get('/item/{item}','ItemController@show');
 Route::get('/etiquetas','EtiquetaController@form');
 Route::post('/etiquetas','EtiquetaController@show');
 
-
+/* Relatório */
 Route::get('/relatorios','RelatorioController@form');
 Route::post('/relatorios','RelatorioController@show');
-
-
-/* Relatório */
-Route::get('/teste','TesteController@teste');
 
 /*
 
