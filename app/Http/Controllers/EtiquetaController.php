@@ -36,7 +36,7 @@ class EtiquetaController extends Controller
 
         foreach($itens as $item){
             $tag = new Tag();
-            $tag->setBorder(0.2);
+            $tag->setBorder(0);
             $tag->setSize(2);
 
             $barcode = new Barcode((string)$item->tombo, null);
@@ -44,7 +44,6 @@ class EtiquetaController extends Controller
             $barcode->setWidth(1);
 
             $tag->p("
-<b>SDB/ FFLCH / USP - Biblioteca Florestan Fernandes</b><br>
 <table style='width:100%'>
   <tr>
     <td style='width:60%'>" .
@@ -52,9 +51,11 @@ class EtiquetaController extends Controller
         "<b>Verba: </b>" . $item->verba . "<br>" .
         "<b>Aquisição: </b>" . $item->tipo_aquisicao . "<br>" .
         "<b>Processo: </b>" . $item->processo . "<br>" .
-        "<b>NF: </b>" . $item->nota_fiscal . "<br>" 
+        "<b>NF: </b>" . $item->nota_fiscal . "<br>" .
+        "<b>Preço: </b> R$ " . str_replace('.',',',$item->preco) . "<br>" .
+        "<b>Fornecedor: </b>" . $item->fornecedor . "<br>" 
     ."</span></td>
-    <td style='text-align:right;'>" . $barcode->render() . "</td>
+    <td style='text-align:right;'>" . $barcode->render() ."<br>SBD/FFLCH" ."</td>
   </tr>
 </table>
     ");
