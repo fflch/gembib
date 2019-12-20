@@ -12,22 +12,22 @@ use App\Utils\Util;
 class ProcessarController extends Controller
 {
     private $status = Util::status;
-    
+
     public function processarIndex(Request $request)
     {
         $this->authorize('sai');
         $status = $this->status;
 
         $query = Item::orderBy('created_at', 'desc');
-        
-        /* 
+
+        /*
         if (isset($request->busca) && !empty($request->busca)) {
             $query->where('tombo','LIKE', '%' . $request->busca . '%');
         }*/
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where('status','=',$request->status);
-        } 
+        }
 
         if (isset($request->busca) && !empty($request->busca)) {
             $query->where(function ($q) use (&$request) {
@@ -36,8 +36,8 @@ class ProcessarController extends Controller
                   ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
                   ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
             });
-        } 
-        
+        }
+
         $itens = $query->paginate(10);
 
         return view('processar/index',compact('itens','status'));
@@ -52,7 +52,7 @@ class ProcessarController extends Controller
 
         /* Pegando o próximo tompo disponível */
         if(empty($item->tombo)) {
-            $proximo = Item::max('tombo');
+            $proximo = Item::max('tombo') + 1;
         } else {
             $proximo = null;
         }
@@ -61,7 +61,7 @@ class ProcessarController extends Controller
     }
 
     public function processar(Request $request, Item $item)
-    {   
+    {
         $this->authorize('sai');
         Util::gravarNoBanco($request, $item);
         $request->session()->flash('alert-info', "Sugestão processada com sucesso.");

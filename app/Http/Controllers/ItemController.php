@@ -20,7 +20,7 @@ class ItemController extends Controller
         $tipo_material = Util::tipo_material;
 
         /* Pegando o próximo tompo disponível */
-        $proximo = Item::max('tombo');
+        $proximo = Item::max('tombo') + 1;
 
         return view('item/insercao', compact('areas','tipo_material','proximo'));
     }
@@ -42,12 +42,12 @@ class ItemController extends Controller
         $data = Carbon::parse($item->data_tombamento);
         $dataformatada = $data->format('d/m/Y');
 
-        $request->session()->flash('alert-info', 
-            "Inserção direta enviada com sucesso em {$dataformatada}. 
+        $request->session()->flash('alert-info',
+            "Inserção direta enviada com sucesso em {$dataformatada}.
             Novo status: {$item->status}");
 
         return redirect('/');
-        
+
     }
 
 }
