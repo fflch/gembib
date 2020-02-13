@@ -35,13 +35,17 @@ Route::post('/processar/{item}','ProcessarController@processar');
 /* show item */
 Route::get('/item/{item}','ItemController@show');
 
-/* Equiquetas */
+/* Etiquetas */
 Route::get('/etiquetas','EtiquetaController@form');
 Route::post('/etiquetas','EtiquetaController@show');
 
 /* Relatório */
 Route::get('/relatorios','RelatorioController@form');
 Route::post('/relatorios','RelatorioController@show');
+
+/* Estatísticas */
+Route::get('/estatisticas', 'EstatisticaController@form');
+Route::post('/estatisticas','EstatisticaController@show');
 
 /*
 
