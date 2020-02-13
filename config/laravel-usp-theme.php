@@ -22,5 +22,10 @@ return [
             'url'  => '/processar',
             'can'  => 'sai',
         ],
+        [
+            'text' => 'Estatística',
+            'url'  => '/estatisticas',
+            'can'  => 'sai',
+        ],
     ]
 ];
