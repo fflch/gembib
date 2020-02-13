@@ -9,12 +9,14 @@ use Proner\PhpPimaco\Pimaco;
 use Proner\PhpPimaco\Tags\Barcode;
 use App\Item;
 use Carbon\Carbon;
+use App\Utils\Util;
 
 class EstatisticaController extends Controller
 {
     public function form(){
         $this->authorize('sai');
-        return view('estatistica.form');
+        $tipo_material = Util::tipo_material;
+        return view('estatistica.form', compact('tipo_material'));
     }
 
 //Livros - compra - nacional  
@@ -46,6 +48,10 @@ class EstatisticaController extends Controller
 
         if($request->tipo_aquisicao != null) {
             $query = $query->where('tipo_aquisicao',$request->tipo_aquisicao);   
+        }
+
+        if($request->tipo_material != null) {
+            $query = $query->where('tipo_material',$request->tipo_material);   
         }
 
         $resultado = $query->count();
