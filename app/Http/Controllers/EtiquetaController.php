@@ -44,9 +44,9 @@ class EtiquetaController extends Controller
             $barcode->setWidth(1);
 
             $tag->p("
-<table style='width:100%'>
+<table style='width:100%; padding:10px; border: 1px solid #000'>
   <tr>
-    <td style='width:60%'>" .
+    <td style='width:60%;'>" .
         "<span style='font-size: 10px'><b>Tombo: </b>" . $item->tombo . "<br>" .
         "<b>Verba: </b>" . $item->verba . "<br>" .
         "<b>Aquisição: </b>" . $item->tipo_aquisicao . "<br>" .
@@ -55,7 +55,10 @@ class EtiquetaController extends Controller
         "<b>Preço: </b> R$ " . str_replace('.',',',$item->preco) . "<br>" .
         "<b>Fornecedor: </b>" . $item->fornecedor . "<br>" 
     ."</span></td>
-    <td style='text-align:right;'>" . $barcode->render() ."<br>SBD/FFLCH" ."</td>
+    <td style='text-align:center;'>"
+        . $item->tombo  
+        . $barcode->render() ."<br>SBD/FFLCH" .
+    "</td>
   </tr>
 </table>
     ");
