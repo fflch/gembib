@@ -47,16 +47,18 @@ class EtiquetaController extends Controller
             $limiteCaracteres = 10;
 
             $tag->p("
-        <table style='width:100%; padding:6px; border: 1px solid #000'>
+        <table style='width:100%; padding:2px; border: 0px solid #000'>
         <tr>
             <td style='width:60%;'>" .
-                "<span style='font-size: 10px'><b>Tombo: </b>" . $item->tombo . "<br>" .
-                "<b>Verba: </b>" . Util::limita_caracteres($item->verba , $limiteCaracteres) . "<br>" .
+                "<span style='font-size: 10px'>
+                <b>Verba: </b>" . Util::limita_caracteres($item->verba , $limiteCaracteres) . "<br>" .
                 "<b>Aquisição: </b>" . Util::limita_caracteres($item->tipo_aquisicao , $limiteCaracteres) . "<br>" .
                 "<b>Processo: </b>" . $item->processo . "<br>" .
                 "<b>NF: </b>" . $item->nota_fiscal . "<br>" .
                 "<b>Preço: </b> R$ " . number_format($item->preco, 2, ',', '') . "<br>" .
-                "<b>Fornecedor: </b>" . Util::limita_caracteres($item->fornecedor , $limiteCaracteres) . "<br>"  
+                "<b>Fornecedor: </b>" . Util::limita_caracteres($item->fornecedor , $limiteCaracteres) . "<br>" . 
+                "<b>Título: </b>" . Util::limita_caracteres($item->titulo , $limiteCaracteres) . "<br>" .
+                "<b>Autor: </b>" . Util::limita_caracteres($item->autor , $limiteCaracteres) . "<br>"   
             ."</span></td>
             <td style='text-align:center;'>"
                 . $item->tombo  
