@@ -47,7 +47,7 @@ class EtiquetaController extends Controller
 <table style='width:100%'>
   <tr>
     <td style='width:60%'>" .
-        "<span style='font-size: 10px'><b>Tombo: </b>" . $item->tombo . "<br>" .
+        "<span style='font-size: 08px'><b>Tombo: </b>" . $item->tombo . "<br>" .
         "<b>Verba: </b>" . $item->verba . "<br>" .
         "<b>Aquisição: </b>" . $item->tipo_aquisicao . "<br>" .
         "<b>Processo: </b>" . $item->processo . "<br>" .
