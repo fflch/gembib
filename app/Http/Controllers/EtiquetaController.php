@@ -7,6 +7,7 @@ use Proner\PhpPimaco\Tag;
 use Proner\PhpPimaco\Pimaco;
 use Proner\PhpPimaco\Tags\Barcode;
 use App\Item;
+use App\Utils\Util;
 
 class EtiquetaController extends Controller
 {
@@ -43,7 +44,10 @@ class EtiquetaController extends Controller
             $barcode->setAlign('right');
             $barcode->setWidth(1);
 
+            $limiteCaracteres = 10;
+
             $tag->p("
+<<<<<<< HEAD
 <table style='width:100%'>
   <tr>
     <td style='width:60%'>" .
@@ -65,3 +69,4 @@ class EtiquetaController extends Controller
         $pimaco->output();
     }
 }
+
