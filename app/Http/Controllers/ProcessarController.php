@@ -12,6 +12,7 @@ use App\Utils\Util;
 class ProcessarController extends Controller
 {
     private $status = Util::status;
+    private $alterar_status = Util::alterar_status;
 
     public function processarIndex(Request $request)
     {
@@ -26,7 +27,10 @@ class ProcessarController extends Controller
         }*/
 
         if (isset($request->status) && !empty($request->status)) {
-            $query->where('status','=',$request->status);
+            $query->where(function ($p) use (&$request) {
+            $p->where('status','=',$request->status)
+              ->orwhere('procedencia', '=',$request->status);
+            });
         }
 
         if (isset($request->busca) && !empty($request->busca)) {
@@ -46,7 +50,7 @@ class ProcessarController extends Controller
     public function processarForm(Item $item)
     {
         $this->authorize('sai');
-        $status = $this->status;
+        $alterar_status = $this->alterar_status;
         $areas = Area::all();
         $tipo_material = Util::tipo_material;
 
@@ -57,7 +61,7 @@ class ProcessarController extends Controller
             $proximo = null;
         }
 
-        return view('processar/form',compact('item','status','areas','tipo_material','proximo'));
+        return view('processar/form',compact('item','alterar_status','areas','tipo_material','proximo'));
     }
 
     public function processar(Request $request, Item $item)

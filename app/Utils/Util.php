@@ -19,6 +19,19 @@ class Util {
         "Em Licitação",
         "Esgotado",
         "Tombado",
+        "Inativo",
+        "INTERNACIONAL",
+        "NACIONAL"
+    ];
+
+    const alterar_status = [
+        "Sugestão",
+        "Comprado",
+        "Negado",
+        "Cotação",
+        "Em Licitação",
+        "Esgotado",
+        "Tombado",
         "Inativo"
     ];
 
