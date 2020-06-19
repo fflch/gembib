@@ -19,20 +19,12 @@ class Util {
         "Em Licitação",
         "Esgotado",
         "Tombado",
-        "Inativo",
-        "INTERNACIONAL",
-        "NACIONAL"
+        "Inativo"
     ];
 
-    const alterar_status = [
-        "Sugestão",
-        "Comprado",
-        "Negado",
-        "Cotação",
-        "Em Licitação",
-        "Esgotado",
-        "Tombado",
-        "Inativo"
+    const procedencia = [
+        "INTERNACIONAL",
+        "NACIONAL"
     ];
 
     const tipo_material = [
