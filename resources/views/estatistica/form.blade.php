@@ -18,12 +18,11 @@
   
 <div class="row">
   <div class="col-sm form-group">
-      <input type="text" name="inicio" required>
-      <input type="text" name="fim" required>
+      <input type="text" name="inicio" class="datepicker" required>
+      <input type="text" name="fim" class="datepicker" required>
   </div>
 </div>
-  <small> <b>Exemplo: 30/11/2019 </b></small>
-  <br><br>
+<br>
 
 <div class="row">
   <div class="col-sm form-group">
