@@ -15,7 +15,7 @@ use App\Exports\ExcelExport;
 class ProcessarController extends Controller
 {
     private $status = Util::status;
-    private $alterar_status = Util::alterar_status;
+    private $procedencia = Util::procedencia;
 
     private function search(){
         $request =  request();
@@ -23,8 +23,14 @@ class ProcessarController extends Controller
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where(function ($p) use (&$request) {
-            $p->where('status','=',$request->status)
-              ->orwhere('procedencia', '=',$request->status);
+            $p->where('status','=',$request->status);
+            });
+        }
+
+        if (isset($request->procedencia) && !empty ($request->procedencia)) {
+            $query->where(function ($s) use (&$request) {
+            $s->where('procedencia','=',$request->procedencia)
+              ->orwhere('procedencia','=',$request->procedencia);
             });
         }
 
@@ -44,24 +50,25 @@ class ProcessarController extends Controller
     {
         $this->authorize('sai');
         $status = $this->status;
+        $procedencia = $this->procedencia;
         $query = $this->search();
         $itens = $query->paginate(10);
-        return view('processar/index',compact('itens','status'));
+        return view('processar/index',compact('itens','status','procedencia'));
     }
 
     public function excel(Excel $excel){
         $query = $this->search();
-        $headings = ['titulo','autor'];
+        $headings = ['tombo','titulo','autor','editora','status','procedencia','sugerido_por'];
         $itens = $query->get($headings)->toArray();
         $export = new ExcelExport($itens,$headings);
-        return $excel->download($export, 'exemplo.xlsx');
+        return $excel->download($export, 'busca.xlsx');
           
     }
 
     public function processarForm(Item $item)
     {
         $this->authorize('sai');
-        $alterar_status = $this->alterar_status;
+        $status = $this->status;
         $areas = Area::all();
         $tipo_material = Util::tipo_material;
 
@@ -72,7 +79,7 @@ class ProcessarController extends Controller
             $proximo = null;
         }
 
-        return view('processar/form',compact('item','alterar_status','areas','tipo_material','proximo'));
+        return view('processar/form',compact('item','status','areas','tipo_material','proximo'));
     }
 
     public function processar(Request $request, Item $item)

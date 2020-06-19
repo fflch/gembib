@@ -18,6 +18,13 @@
           <option>{{$i}}</option>
         @endforeach
       </select>
+
+      <select name="procedencia">
+      <option value="" selected>Procedência</option>
+        @foreach($procedencia as $p)
+          <option>{{$p}}</option>
+        @endforeach
+      </select>
       
       <b>Buscar pelo título, autor, tombo ou código de impressão:</b>
       <input type="text" name="busca">
@@ -26,8 +33,8 @@
     <br>
 
     <div>
-    <a href="/excel?status={{ request()->status }}&busca={{ request()->busca }}"><i class="fas fa-file-excel"></i></a>  
-    Baixar resultado da busca em excel
+    <a href="/excel?status={{ request()->status }}&procedencia={{ request()->procedencia }}&busca={{ request()->busca }}">
+    <i class="fas fa-file-excel"></i>Exportar busca em excel</a>  
     </div>
     
     <br>

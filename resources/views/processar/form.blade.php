@@ -14,7 +14,7 @@
     <div class="col-sm form-group" onchange="optionNegado()">
         <label for="status">Mudança de status</label>
         <select class="form-control" id="status" name="status">
-          @foreach($alterar_status as $s)
+          @foreach($status as $s)
             <option>{{ $s }}</option>
           @endforeach
         </select>
