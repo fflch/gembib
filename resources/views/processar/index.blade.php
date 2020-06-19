@@ -24,6 +24,12 @@
       <button type="submit" class="btn btn-success">buscar</button>
     </form>
     <br>
+
+    <div>
+    <a href="/excel?status={{ request()->status }}&busca={{ request()->busca }}"><i class="fas fa-file-excel"></i></a>  
+    Baixar resultado da busca em excel
+    </div>
+    
     <br>
 
     {{ $itens->appends(request()->query())->links() }}

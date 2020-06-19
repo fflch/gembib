@@ -31,6 +31,7 @@ Route::post('/item','ItemController@insercao');
 Route::get('/processar','ProcessarController@processarIndex');
 Route::get('/processar/{item}','ProcessarController@processarForm');
 Route::post('/processar/{item}','ProcessarController@processar');
+Route::get('/excel','ProcessarController@excel');
 
 /* show item */
 Route::get('/item/{item}','ItemController@show');

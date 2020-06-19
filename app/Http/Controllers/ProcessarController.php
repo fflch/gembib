@@ -9,22 +9,17 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Utils\Util;
 
+use Maatwebsite\Excel\Excel;
+use App\Exports\ExcelExport;
+
 class ProcessarController extends Controller
 {
     private $status = Util::status;
     private $alterar_status = Util::alterar_status;
 
-    public function processarIndex(Request $request)
-    {
-        $this->authorize('sai');
-        $status = $this->status;
-
+    private function search(){
+        $request =  request();
         $query = Item::orderBy('created_at', 'desc');
-
-        /*
-        if (isset($request->busca) && !empty($request->busca)) {
-            $query->where('tombo','LIKE', '%' . $request->busca . '%');
-        }*/
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where(function ($p) use (&$request) {
@@ -42,9 +37,25 @@ class ProcessarController extends Controller
             });
         }
 
-        $itens = $query->paginate(10);
+        return $query;
+    }
 
+    public function processarIndex()
+    {
+        $this->authorize('sai');
+        $status = $this->status;
+        $query = $this->search();
+        $itens = $query->paginate(10);
         return view('processar/index',compact('itens','status'));
+    }
+
+    public function excel(Excel $excel){
+        $query = $this->search();
+        $headings = ['titulo','autor'];
+        $itens = $query->get($headings)->toArray();
+        $export = new ExcelExport($itens,$headings);
+        return $excel->download($export, 'exemplo.xlsx');
+          
     }
 
     public function processarForm(Item $item)
