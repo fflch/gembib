@@ -58,9 +58,10 @@ class ProcessarController extends Controller
 
     public function excel(Excel $excel){
         $query = $this->search();
-        $headings = ['tombo','titulo','autor','editora','status','procedencia','sugerido_por'];
+        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
+        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
         $itens = $query->get($headings)->toArray();
-        $export = new ExcelExport($itens,$headings);
+        $export = new ExcelExport($itens,$campos);
         return $excel->download($export, 'busca.xlsx');
           
     }
