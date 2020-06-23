@@ -5,6 +5,8 @@
 @section('content')
 @include('flash')
 
+@include('item.etapas')
+
 <table class="table table-striped">
   <tbody>
     <tr>

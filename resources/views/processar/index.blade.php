@@ -50,7 +50,6 @@
           <th scope="col">Status</th>
           <th scope="col">Procedência</th>
           <th scope="col">Sugestão feita por</th>
-          <th scope="col">Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -63,7 +62,7 @@
           <td>{{ $item->status }}</td>
           <td>{{ $item->procedencia }}</td>
           <td>{{ $item->sugerido_por }}</td>
-          <td><a href="/processar/{{$item->id}}">editar</a></td>
+
         </tr>
         @endforeach
 

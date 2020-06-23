@@ -14,8 +14,9 @@ use App\Exports\ExcelExport;
 
 class ProcessarController extends Controller
 {
-    private $status = Util::status;
-    private $procedencia = Util::procedencia;
+    
+    private $status = Item::status;
+    private $procedencia = Item::procedencia;
 
     private function search(){
         $request =  request();
@@ -71,7 +72,7 @@ class ProcessarController extends Controller
         $this->authorize('sai');
         $status = $this->status;
         $areas = Area::all();
-        $tipo_material = Util::tipo_material;
+        $tipo_material = Item::tipo_material;
 
         /* Pegando o próximo tompo disponível */
         if(empty($item->tombo)) {
@@ -80,7 +81,7 @@ class ProcessarController extends Controller
             $proximo = null;
         }
 
-        return view('processar/form',compact('item','status','areas','tipo_material','proximo'));
+        
     }
 
     public function processar(Request $request, Item $item)
@@ -90,5 +91,36 @@ class ProcessarController extends Controller
         $request->session()->flash('alert-info', "Sugestão processada com sucesso.");
 
         return redirect("/item/{$item->id}");
+    }
+
+    public function processarSugestao(Request $request, Item $item){
+        if ($request->processar_sugestao == 'Em Cotação'){
+            $item->status = 'Em Cotação';
+            $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para cotação");
+            return redirect("/item/{$item->id}");
+        }
+
+        if ($request->processar_sugestao == 'Em Tombamento'){
+            $areas = Area::all();
+            $item->status = 'Em Tombamento';
+            $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para Em tombamento");
+            return view('processar/form',compact('item','areas'));
+        }
+
+        if ($request->processar_sugestao == 'Negado'){
+            
+            $request->validate([
+                'motivo' => 'required'
+            ]);
+
+            $item->status = 'Negado';
+            $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para negado");
+            return redirect("/item/{$item->id}");
+        }
+
+       
     }
 }

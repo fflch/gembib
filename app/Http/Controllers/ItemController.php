@@ -11,7 +11,7 @@ use App\Utils\Util;
 
 class ItemController extends Controller
 {
-    private $status = Util::status;
+    private $status = Item::status;
 
     public function insercaoForm()
     {

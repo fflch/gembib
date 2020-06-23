@@ -1,17 +1,5 @@
 <div class="row">
-        <div class="col-sm form-group">
-          <label for="tombo">Tombo:</label>
-          <input type="text" id="tombo" class="form-control" name="tombo"
-          @if(isset($item))
-            value="{{ $item->tombo }}" />
-            @if(empty($item->tombo))
-                <small> Próximo tombo disponível no sistema: <b>{{$proximo}}</b> </small>
-            @endif
-          @else 
-            value="{{ $proximo }}" />
-          @endif
-          
-        </div>
+
         <div class="col-sm form-group">
           <label for="tombo_antigo">Tombo antigo:</label>
           <input type="text" id="tombo_antigo" class="form-control" name="tombo_antigo"
@@ -69,7 +57,7 @@
     <select class="form-control" id="tipo_material" name="tipo_material">
           <option value=""></option>
     
-          @foreach($tipo_material as $tipo)
+          @foreach($item::tipo_material as $tipo)
               <option @if(isset($item)) 
                     @if($item->tipo_material=="$tipo")
                       selected 
