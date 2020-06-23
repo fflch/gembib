@@ -40,6 +40,50 @@ class Util {
         "Outros Tipos"
     ];
 
+    const tipo_aquisicao = [
+        "Compra",
+        "Doação",
+        "Multa",
+        "Reposição",
+        "Retombamento",
+        "Permuta"
+    ];
+
+    const dpto = [
+        "Antropologia",
+        "Ciência Politica",
+        "Filosofia",
+        "Geografia",
+        "História",
+        "Letras Modernas",
+        "Letras Clássicas e Vernáculas",
+        "Letras Orientais",
+        "Linguística",
+        "Sociologia",
+        "Teoria Literária e Literatura Comparada"
+    ];
+
+    const subcategoria = [
+        "Mestrado",
+        "Doutorado",
+        "Livre-docência"
+    ];
+
+    const verba = [
+        "CAPES",
+        "FAPESP",
+        "RUSP",
+        "CNPQ",
+        "FAPLIVROS",
+        "PROAP",
+        "Outras"        
+    ];
+
+    const moeda = [
+        "REAL",
+        "DÓLAR"
+    ];
+
     public static function gravarNoBanco(Request $request, Item $item){
 
         if($request->status == 'Negado') {
