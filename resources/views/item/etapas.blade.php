@@ -30,12 +30,32 @@
         @break
 
         @case('Em Cotação')
-
+            @include('processar.cotacao')
         @break
 
         @case('Em Licitação')
-
+            @include('processar.licitacao')
         @break
+
+        @case('Em Tombamento')
+            @include('processar.tombamento')
+        @break
+
+        @case('Tombado')
+            @include('processar.processamento')
+        @break
+
+        @case('Em Processamento Técnico')
+            @include('processar.processado')
+        @break
+        
+        @case('Negado')
+            
+        @break
+        
+        @case('Processado')
+            
+        @break 
 
         @default
             <span>Erro no sistema, contate a Seção Técnica de Informática</span>

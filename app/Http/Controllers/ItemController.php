@@ -16,13 +16,14 @@ class ItemController extends Controller
     public function insercaoForm()
     {
         $this->authorize('sai');
+        $item = new Item;
         $areas = Area::all();
-        $tipo_material = Util::tipo_material;
+        $tipo_material = Item::tipo_material;
 
         /* Pegando o próximo tompo disponível */
         $proximo = Item::max('tombo') + 1;
 
-        return view('item/insercao', compact('areas','tipo_material','proximo'));
+        return view('item/insercao', compact('areas','item','tipo_material','proximo'));
     }
 
     public function show(Request $request, Item $item)
@@ -35,6 +36,7 @@ class ItemController extends Controller
     {
         $this->authorize('sai');
         $item = new Item;
+        $areas = Area::all();
         $item->insercao_por = Auth::user()->codpes;
 
         Util::gravarNoBanco($request, $item);

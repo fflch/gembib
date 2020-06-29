@@ -2,20 +2,20 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Item;
-use App\Utils\Util;
+use App\Items\Util;
 use App\Area;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Item::class, function (Faker $faker) {
-    $status = Util::status;
-    $tipo_material = Util::tipo_material;
-    $procedencia = Util::procedencia;
-    $dpto = Util::dpto;
-    $subcategoria = Util::subcategoria;
-    $verba = Util::verba;
-    $tipo_aquisicao = Util::tipo_aquisicao;
-    $moeda = Util::moeda;
+    $status = Item::status;
+    $tipo_material = Item::tipo_material;
+    $procedencia = Item::procedencia;
+    $dpto = Item::dpto;
+    $subcategoria = Item::subcategoria;
+    $verba = Item::verba;
+    $tipo_aquisicao = Item::tipo_aquisicao;
+    $moeda = Item::moeda;
     return [
         'titulo' => $faker->sentence,
         'autor' =>$faker->sentence,
