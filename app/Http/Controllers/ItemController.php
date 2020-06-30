@@ -12,18 +12,51 @@ use App\Utils\Util;
 class ItemController extends Controller
 {
     private $status = Item::status;
+    private $procedencia = Item::procedencia;
 
-    public function insercaoForm()
+    private function search(){
+        $request =  request();
+        $query = Item::orderBy('created_at', 'desc');
+
+        if (isset($request->status) && !empty($request->status)) {
+            $query->where(function ($p) use (&$request) {
+            $p->where('status','=',$request->status);
+            });
+        }
+
+        if (isset($request->procedencia) && !empty ($request->procedencia)) {
+            $query->where(function ($s) use (&$request) {
+            $s->where('procedencia','=',$request->procedencia)
+              ->orwhere('procedencia','=',$request->procedencia);
+            });
+        }
+
+        if (isset($request->busca) && !empty($request->busca)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->busca . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        return $query;
+    }
+
+    public function index()
     {
         $this->authorize('sai');
-        $item = new Item;
-        $areas = Area::all();
-        $tipo_material = Item::tipo_material;
+        $status = $this->status;
+        $procedencia = $this->procedencia;
+        $query = $this->search();
+        $itens = $query->paginate(10);
+        return view('item/index',compact('itens','status','procedencia'));
+    }
 
-        /* Pegando o próximo tompo disponível */
-        $proximo = Item::max('tombo') + 1;
-
-        return view('item/insercao', compact('areas','item','tipo_material','proximo'));
+    public function create()
+    {
+        $this->authorize('sai');
+        return view('item/create')->with('item', new Item);
     }
 
     public function show(Request $request, Item $item)
@@ -32,23 +65,19 @@ class ItemController extends Controller
         return view('item/show', compact('item'));
     }
 
-    public function insercao(Request $request)
+    public function store(Request $request)
     {
         $this->authorize('sai');
+
         $item = new Item;
-        $areas = Area::all();
+        $item->status = 'Em Tombamento';
         $item->insercao_por = Auth::user()->codpes;
 
-        Util::gravarNoBanco($request, $item);
+        $item = Util::gravarNoBanco($request, $item);
 
-        $data = Carbon::parse($item->data_tombamento);
-        $dataformatada = $data->format('d/m/Y');
+        $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
-        $request->session()->flash('alert-info',
-            "Inserção direta enviada com sucesso em {$dataformatada}.
-            Novo status: {$item->status}");
-
-        return redirect('/');
+        return redirect("/item/{$item->id}");
 
     }
 

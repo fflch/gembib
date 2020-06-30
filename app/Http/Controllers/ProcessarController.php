@@ -15,48 +15,6 @@ use App\Exports\ExcelExport;
 class ProcessarController extends Controller
 {
     
-    private $status = Item::status;
-    private $procedencia = Item::procedencia;
-
-    private function search(){
-        $request =  request();
-        $query = Item::orderBy('created_at', 'desc');
-
-        if (isset($request->status) && !empty($request->status)) {
-            $query->where(function ($p) use (&$request) {
-            $p->where('status','=',$request->status);
-            });
-        }
-
-        if (isset($request->procedencia) && !empty ($request->procedencia)) {
-            $query->where(function ($s) use (&$request) {
-            $s->where('procedencia','=',$request->procedencia)
-              ->orwhere('procedencia','=',$request->procedencia);
-            });
-        }
-
-        if (isset($request->busca) && !empty($request->busca)) {
-            $query->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->busca . '%')
-                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
-            });
-        }
-
-        return $query;
-    }
-
-    public function processarIndex()
-    {
-        $this->authorize('sai');
-        $status = $this->status;
-        $procedencia = $this->procedencia;
-        $query = $this->search();
-        $itens = $query->paginate(10);
-        return view('processar/index',compact('itens','status','procedencia'));
-    }
-
     public function excel(Excel $excel){
         $query = $this->search();
         $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
@@ -64,31 +22,6 @@ class ProcessarController extends Controller
         $itens = $query->get($headings)->toArray();
         $export = new ExcelExport($itens,$campos);
         return $excel->download($export, 'busca.xlsx');
-          
-    }
-
-    public function processarForm(Item $item)
-    {
-        $this->authorize('sai');
-        $status = $this->status;
-        $areas = Area::all();
-        $tipo_material = Item::tipo_material;
-
-        /* Pegando o próximo tompo disponível */
-        if(empty($item->tombo)) {
-            $proximo = Item::max('tombo') + 1;
-        } else {
-            $proximo = null;
-        }        
-    }
-
-    public function processar(Request $request, Item $item)
-    {
-        $this->authorize('sai');
-        Util::gravarNoBanco($request, $item);
-        $request->session()->flash('alert-info', "Sugestão processada com sucesso.");
-
-        return redirect("/item/{$item->id}");
     }
 
     public function processarSugestao(Request $request, Item $item){
@@ -96,15 +29,13 @@ class ProcessarController extends Controller
             $item->status = 'Em Cotação';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
         }
 
         if ($request->processar_sugestao == 'Em Tombamento'){
             $areas = Area::all();
             $item->status = 'Em Tombamento';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return view('processar/form',compact('item','areas'));
+            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}"); 
         }
 
         if ($request->processar_sugestao == 'Negado'){
@@ -116,16 +47,15 @@ class ProcessarController extends Controller
             $item->status = 'Negado';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
-        }       
+        } 
+        return redirect("/item/{$item->id}");      
     }
 
     public function processarCotacao(Request $request, Item $item){
         if($request->processar_cotacao == 'Em Licitação'){
             $item->status = 'Em Licitação';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
+            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");  
         }
 
         if ($request->processar_cotacao == 'Negado'){
@@ -137,8 +67,8 @@ class ProcessarController extends Controller
             $item->status = 'Negado';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
         }
+        return redirect("/item/{$item->id}");
     }
 
     public function processarLicitacao(Request $request, Item $item){
@@ -151,23 +81,37 @@ class ProcessarController extends Controller
     }
 
     public function processarTombamento(Request $request, Item $item){
-        if($request->processar_tombamento == 'Tombado'){
-            //numero de tombo será gerado automaticamente
+
+        $item = Util::gravarNoBanco($request, $item);
+
+        if($request->processar_tombamento == 'tombar'){
+
             $item->status = 'Tombado';
+
+            //numero de tombo será gerado automaticamente
+            if(empty($item->tombo)) {
+                $item->tombo = Item::max('tombo') + 1;
+            }  
+
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
+            
         }
+
+        if($request->processar_tombamento == 'salvar'){
+            $request->session()->flash('alert-info', "Dados forma salvos");
+        }
+
+        return redirect("/item/{$item->id}");
     }
-//quando for tombado
+    //quando for tombado
     public function processarProcessamento(Request $request, Item $item){
         if($request->processamento == 'Em Processamento Técnico'){
-            $areas = Area::all();
             $item->status = 'Em Processamento Técnico';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return view('processar/form',compact('item','areas'));
         }
+        return redirect("/item/{$item->id}");
     }
     //quando estiver em processamento técnico
     public function processarProcessado(Request $request, Item $item){

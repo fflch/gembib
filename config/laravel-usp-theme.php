@@ -13,13 +13,13 @@ return [
             'can'  => 'logado'
         ],
         [
-            'text' => 'Tombamento',
-            'url'  => '/item',
+            'text' => 'Cadastrar novo tombamento',
+            'url'  => '/item/create',
             'can'  => 'sai',
         ],
         [
-            'text' => 'Análise',
-            'url'  => '/processar',
+            'text' => 'Busca',
+            'url'  => '/item',
             'can'  => 'sai',
         ],
         [

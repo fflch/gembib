@@ -8,7 +8,8 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Item::class, function (Faker $faker) {
-    $status = Item::status;
+
+    
     $tipo_material = Item::tipo_material;
     $procedencia = Item::procedencia;
     $dpto = Item::dpto;
@@ -16,7 +17,19 @@ $factory->define(Item::class, function (Faker $faker) {
     $verba = Item::verba;
     $tipo_aquisicao = Item::tipo_aquisicao;
     $moeda = Item::moeda;
+
+    /* Colocando motivo somente quando o item é negado */
+    $status = Item::status;
+    $status_escolhido = $status[array_rand($status)];
+    $motivo = null;
+    if($status_escolhido == 'Negado') $motivo = $faker->sentence;
+
+    /* Quando é sugestão não tem tombo */
+    $tombo = $faker->unique()->numberBetween($min = 1000, $max = 9000);
+    if($status_escolhido == 'Sugestão') $tombo = null;
+
     return [
+        'tombo' => $tombo,
         'titulo' => $faker->sentence,
         'autor' =>$faker->sentence,
         'editora' => $faker->sentence, 
@@ -24,9 +37,8 @@ $factory->define(Item::class, function (Faker $faker) {
         'informacoes' => $faker->sentence,
         'sugerido_por' => $faker->sentence,
         'insercao_por' =>  $faker->sentence,
-        'motivo' => $faker->sentence,
-        'status' => $status[array_rand($status)],
-        'tombo' => $faker->numberBetween($min = 1000, $max = 9000),
+        'motivo' => $motivo,
+        'status' => $status_escolhido,
         'tombo_antigo' => $faker->numberBetween($min = 1000, $max = 9000), 
         'cod_impressao' => $faker->randomDigit,
         'tipo_aquisicao' => $tipo_aquisicao[array_rand($tipo_aquisicao)],

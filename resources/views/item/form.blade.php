@@ -1,3 +1,8 @@
+@section('javascripts_head')
+@parent
+    <script src="/js/item.js"></script>
+@endsection
+
 <div class="row">
 
         <div class="col-sm form-group">
@@ -297,7 +302,7 @@
           <label for="capes">Capes:</label>
           <select class="form-control" id="capes" class="form-control" name="capes">
             <option value="">Selecione</option>
-            @foreach($areas as $area)
+            @foreach(App\Area::all() as $area)
                 <option value="{{$area->codigo}}" 
                     @if(isset($item)) 
                         @if($item->capes == $area->codigo)
@@ -445,10 +450,5 @@
         <label for="observacao">Observações:</label>
         <textarea class="form-control" id="observacao" rows="3" name="observacao">@if(isset($item)){{ $item->observacao }}
   @endif</textarea>
-    </div>
-
-
-    <div>
-        <button type="submit" class="btn btn-success"> Enviar </button> 
     </div>
 

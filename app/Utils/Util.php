@@ -7,28 +7,19 @@ use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Rules\TomboRule;
 
 class Util {
 
     public static function gravarNoBanco(Request $request, Item $item){
 
-        if($request->status == 'Negado') {
-            $request->validate([
-                'motivo'  => 'required',
-            ]);
-            $item->motivo = $request->motivo;
-        } else {
-            $request->validate([
-                'tombo' => ['required','integer', new TomboRule($item)],
-                'titulo'           => 'required',
-                'autor'            => 'required',
-                'cod_impressao'    => 'required',
-                'tipo_aquisicao'   => 'required',
-                'tipo_material'    => 'required',
-                'editora'          => 'required',
-            ]);
-        }
+        $request->validate([
+            'titulo'           => 'required',
+            'autor'            => 'required',
+            'cod_impressao'    => 'required',
+            'tipo_aquisicao'   => 'required',
+            'tipo_material'    => 'required',
+            'editora'          => 'required',
+        ]);
 
         $item->titulo = $request->titulo;
         $item->autor = $request->autor;
@@ -54,11 +45,14 @@ class Util {
         $item->processo = $request->processo;
         $item->fornecedor = $request->fornecedor;
         $item->moeda = $request->moeda;
+
+
         if(!empty($request->preco)){
             $item->preco = str_replace(',','.',$request->preco);
         } else {
             $item->preco = null;
         }
+        
         $item->nota_fiscal = $request->nota_fiscal;
         $item->data_tombamento = Carbon::now();
         $item->data_sugestao = Carbon::now();
@@ -95,21 +89,9 @@ class Util {
         if($request->tipo_material == 'Mapas'){
             $item->escala = $valorescala;
         }
-
-        /*if($request->status == 'Negado') {
-            $request->validate([
-                'motivo'  => 'required',
-            ]);
-            $item->motivo = $request->motivo;
-        }*/
-
-        // No caso de inserção direta, o status estava salvando como null, por isso o if.
-        $item->status = $request->status;
-        if($item->status ?? $item->status = "Tombado");
-
         
         $item->save();
-
+        return $item; 
     }
 
 

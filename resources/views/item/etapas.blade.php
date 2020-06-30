@@ -26,31 +26,31 @@
 <div>
     @switch($item->status)
         @case('Sugestão')
-            @include('processar.sugestao')
+            @include('item.etapas.sugestao')
         @break
 
         @case('Em Cotação')
-            @include('processar.cotacao')
+            @include('item.etapas.cotacao')
         @break
 
         @case('Em Licitação')
-            @include('processar.licitacao')
+            @include('item.etapas.licitacao')
         @break
 
         @case('Em Tombamento')
-            @include('processar.tombamento')
+            @include('item.etapas.tombamento')
         @break
 
         @case('Tombado')
-            @include('processar.processamento')
+            @include('item.etapas.tombado')
         @break
 
         @case('Em Processamento Técnico')
-            @include('processar.processado')
+            @include('item.etapas.processamento')
         @break
         
         @case('Negado')
-            
+        @include('item.etapas.negado')
         @break
         
         @case('Processado')

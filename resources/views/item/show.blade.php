@@ -10,6 +10,11 @@
 <table class="table table-striped">
   <tbody>
     <tr>
+      <th scope="col">Tombo:</th>
+      <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
+    </tr>
+
+    <tr>
       <th scope="col">Livro: </th>
       <td scope="col">{{ $item->titulo }}</td>
     </tr>
@@ -107,10 +112,7 @@
       <th scope="col">ISBN:</th>
       <td scope="row">{{ $item->isbn ?? 'Não cadastrado' }}</td>
     </tr>
-    <tr>
-      <th scope="col">Tombo:</th>
-      <td scope="row">{{ $item->tombo ?? 'Não cadastrado' }}</td>
-    </tr>
+
     <tr>
       <th scope="col">Tipo de aquisição:</th>
       <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
