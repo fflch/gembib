@@ -9,13 +9,15 @@ Instruções para a instalação do projeto:
 	  cp .env.example .env
 	  php artisan key:generate
 	  php artisan vendor:publish --provider="Uspdev\UspTheme\ServiceProvider" --tag=assets --force
-    php artisan migrate
+      php artisan migrate
 	  php artisan serve
 	
 
 Workflow: 
-
+	sudo apt-get install graphviz
     php artisan workflow:dump -v workflow_itens --class=App\\Item
+
+![workflow](https://raw.githubusercontent.com/fflch/gembib/master/workflow_itens.png)
 
 
 

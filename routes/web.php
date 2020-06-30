@@ -32,6 +32,11 @@ Route::get('/processar','ProcessarController@processarIndex');
 Route::get('/processar/{item}','ProcessarController@processarForm');
 Route::post('/processar/{item}','ProcessarController@processar');
 Route::post('/processar_sugestao/{item}','ProcessarController@processarSugestao');
+Route::post('/processar_cotacao/{item}','ProcessarController@processarCotacao');
+Route::post('/processar_licitacao/{item}','ProcessarController@processarLicitacao');
+Route::post('/processar_tombamento/{item}','ProcessarController@processarTombamento');
+Route::post('/processamento/{item}','ProcessarController@processarProcessamento');
+Route::post('/processado/{item}','ProcessarController@processarProcessado');
 Route::get('/excel','ProcessarController@excel');
 
 /* show item */
