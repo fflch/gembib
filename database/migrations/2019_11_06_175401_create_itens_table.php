@@ -48,7 +48,7 @@ class CreateItensTable extends Migration
             $table->text('local')->nullable();
             $table->text('colecao')->nullable();
             $table->text('isbn')->nullable();
-            $table->text('dpto')->nullable();
+            $table->text('departamento')->nullable();
             $table->text('pedido_por')->nullable();
             $table->text('finalidade')->nullable();
             $table->date('data_sugestao')->nullable();

@@ -46,7 +46,7 @@ class Item extends Model
         "Permuta"
     ];
 
-    const dpto = [
+    const departamento = [
         "Antropologia",
         "Ciência Politica",
         "Filosofia",

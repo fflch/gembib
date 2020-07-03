@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Utils\Util;
+use App\Http\Requests\ItemRequest;
+
 
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
@@ -80,9 +82,9 @@ class ProcessarController extends Controller
         }
     }
 
-    public function processarTombamento(Request $request, Item $item){
+    public function processarTombamento(ItemRequest $request, Item $item){
 
-        $item = Util::gravarNoBanco($request, $item);
+        //$item = Util::gravarNoBanco($request, $item);
 
         if($request->processar_tombamento == 'tombar'){
 
@@ -106,7 +108,7 @@ class ProcessarController extends Controller
     }
     //quando for tombado
     public function processarProcessamento(Request $request, Item $item){
-        if($request->processamento == 'Em Processamento Técnico'){
+        if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
@@ -115,11 +117,16 @@ class ProcessarController extends Controller
     }
     //quando estiver em processamento técnico
     public function processarProcessado(Request $request, Item $item){
-        if($request->processado == 'Processado'){
+        if($request->processar_processado == 'Processado'){
             $item->status = 'Processado';
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return redirect("/item/{$item->id}");
         }
+        if($request->processar_processado == 'Em Tombamento'){
+            $item->status = 'Em Tombamento';
+            $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+        }
+        return redirect("/item/{$item->id}");
     }
 }

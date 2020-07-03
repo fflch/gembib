@@ -9,13 +9,12 @@ use Proner\PhpPimaco\Pimaco;
 use Proner\PhpPimaco\Tags\Barcode;
 use App\Item;
 use Carbon\Carbon;
-use App\Utils\Util;
 
 class EstatisticaController extends Controller
 {
     public function form(){
         $this->authorize('sai');
-        $tipo_material = Util::tipo_material;
+        $tipo_material = Item::tipo_material;
         return view('estatistica.form', compact('tipo_material'));
     }
 

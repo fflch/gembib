@@ -102,7 +102,7 @@
 
     <tr>
       <th scope="col">Departamento:</th>
-      <td scope="row">{{ $item->dpto ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->departamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Capes:</th>

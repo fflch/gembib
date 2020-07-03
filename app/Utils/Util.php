@@ -11,7 +11,11 @@ use Carbon\Carbon;
 class Util {
 
     public static function gravarNoBanco(Request $request, Item $item){
-
+//essa parte de validação vai pra um formRequest
+//se nao for obrigatorio: 
+    //'volume' => '',
+//mutator :setPrecoAttribute().
+//$item->preco = str_replace(',','.',$request->preco);
         $request->validate([
             'titulo'           => 'required',
             'autor'            => 'required',
@@ -37,7 +41,7 @@ class Util {
         $item->isbn = $request->isbn;
         $item->link = $request->link;
         $item->edicao = $request->edicao;
-        $item->dpto = $request->dpto;
+        $item->departamento = $request->departamento;
         $item->prioridade = $request->prioridade;
         $item->procedencia = $request->procedencia;
         $item->finalidade = $request->finalidade;
