@@ -3,6 +3,7 @@
 @section('content')
 @include('flash')
 
-<b>{{ $resultado }}</b>
+<td>Estatística com o intervalo de data entre {{ date( 'd/m/Y' , strtotime($inicio))}} - {{ date( 'd/m/Y' , strtotime($fim))}}
+<br> Resultado: <b>{{$resultado}}</b></td>
 
 @endsection('content')

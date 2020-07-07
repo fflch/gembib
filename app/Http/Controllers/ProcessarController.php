@@ -78,13 +78,11 @@ class ProcessarController extends Controller
             $areas = Area::all();
             $item->status = 'Em Tombamento';
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return view('processar/form',compact('item','areas'));
+            return view('item/show',compact('item','areas'));
         }
     }
 
     public function processarTombamento(ItemRequest $request, Item $item){
-
-        //$item = Util::gravarNoBanco($request, $item);
 
         if($request->processar_tombamento == 'tombar'){
 

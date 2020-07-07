@@ -67,7 +67,7 @@ class ItemController extends Controller
     }
 
     public function store(ItemRequest $request)
-    {
+    {   
         $this->authorize('sai');
 
         $item = new Item;
@@ -106,9 +106,9 @@ class ItemController extends Controller
         $item->observacao = $request->observacao;
         $item->capes = $request->capes;
         $item->subcategoria = $request->subcategoria;
+        $item->escala = $request->escala;
 
         $item->save();
-        //$item = Util::gravarNoBanco($request, $item);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 

@@ -33,8 +33,6 @@ class ItemRequest extends FormRequest
             'ano'              => 'integer',
             'tombo'            => '', 
             'tombo_antigo'     => '', 
-            'tipo_aquisicao'   => '', 
-            'tipo_material'    => '', 
             'parte'            => '', 
             'volume'           => '', 
             'fasciulo'         => '', 
@@ -43,7 +41,7 @@ class ItemRequest extends FormRequest
             'isbn'             => '', 
             'link'             => '', 
             'edicao'           => '', 
-            'departamento'             => '', 
+            'departamento'     => '', 
             'prioridade'       => '', 
             'procedencia'      => '', 
             'finalidade'       => '', 
@@ -55,10 +53,10 @@ class ItemRequest extends FormRequest
             'nota_fiscal'      => '', 
             'data_tombamento'  => '', 
             'data_sugestao'    => '', 
-            'cod_impressao'    => '', 
             'observacao'       => '', 
             'capes'            => '', 
-            'subcategoria'     => '',                           
+            'subcategoria'     => '',
+            'escala'           => '',                            
         ];
     }
 }

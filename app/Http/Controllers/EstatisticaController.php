@@ -15,7 +15,9 @@ class EstatisticaController extends Controller
     public function form(){
         $this->authorize('sai');
         $tipo_material = Item::tipo_material;
-        return view('estatistica.form', compact('tipo_material'));
+        $tipo_aquisicao = Item::tipo_aquisicao;
+        $procedencia = Item::procedencia;
+        return view('estatistica.form', compact('tipo_material', 'tipo_aquisicao', 'procedencia'));
     }
 
 //Livros - compra - nacional  
@@ -54,6 +56,6 @@ class EstatisticaController extends Controller
         }
 
         $resultado = $query->count();
-        return view('estatistica.view',compact('resultado'));
+        return view('estatistica.view',compact('resultado','inicio','fim'));
     }
 }

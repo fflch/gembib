@@ -16,70 +16,39 @@
     <label for="tipo_aquisicao">Tipo de aquisição:</label>
     <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
         <option value="">Selecionar tipo de aquisição</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Compra")
-          selected
-          @endif
-        @endif
-        >Compra</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Doação")
-          selected
-          @endif
-        @endif
-        >Doação</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Multa")
-          selected
-          @endif
-        @endif
-        >Multa</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Reposição")
-          selected
-          @endif
-        @endif
-        >Reposição</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Retombamento")
-          selected
-          @endif
-        @endif
-        >Retombamento</option>
-        <option @if(isset($item))
-        @if($item->tipo_aquisicao=="Permuta")
-          selected
-          @endif
-        @endif
-        >Permuta</option>
+        @foreach($item::tipo_aquisicao as $option)
+      @if (old('tipo_aquisicao') == '' and isset($item->tipo_aquisicao))
+          <option value="{{$option}}" {{ ($item->tipo_aquisicao == $option) ? 'selected' : ''}}>
+            {{$option}}
+          </option>
+      @else
+        <option value = "{{$option}}" {{ ( old('tipo_aquisicao') == $option) ? 'selected' : ''}}>
+        {{$option}}
+      </option>
+      @endif
+      @endforeach
     </select>
   </div>
 </div>
 
-<div class="row" onchange="optionCheck()" style="position: relative; ">
+<div class="row">
   <div class="col-sm form-group">
     <label for="tipo_material">Tipo de material:</label>
     <select class="form-control" id="tipo_material" name="tipo_material">
       <option value="">Selecionar tipo de material</option>
       @foreach($item::tipo_material as $tipo)
-          <option @if(isset($item)) 
-                @if($item->tipo_material=="$tipo")
-                  selected 
-                @endif 
-              @endif
-        >{{$tipo}}</option>
+      @if (old('tipo_material') == '' and isset($item->tipo_material))
+          <option value="{{$tipo}}" {{ ($item->tipo_material == $tipo) ? 'selected' : ''}}>
+            {{$tipo}}
+          </option>
+      @else
+        <option value = "{{$tipo}}" {{ ( old('tipo_material') == $tipo) ? 'selected' : ''}}>
+        {{$tipo}}
+      </option>
+      @endif
       @endforeach
     </select>
  </div>
-    <!--Campo Subcategoria-->
-<div id="hiddenDiv" style="visibility:hidden; position: absolute;">
-  <select class="form-control" id="subcategoria" name="subcategoria" style="position: relative; top: 60px; left: 120px;"> 
-      <option value="">Selecionar subcategoria</option>
-      <option>Mestrado</option>
-      <option>Doutorado</option>
-      <option>Livre-docência</option>
-  </select>
-</div>
     
 <div class="col-sm form-group">
   <label for="titulo">Título:</label>
@@ -190,104 +159,71 @@
     <label for="departamento">Departamento:</label>
     <select class="form-control" id="departamento" name="departamento">
       <option value="">Selecionar departamento</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Antropologia")
-        selected
-        @endif
+      @foreach($item::departamento as $dpto)
+      @if (old('departamento') == '' and isset($item->departamento))
+          <option value="{{$dpto}}" {{ ($item->departamento == $dpto) ? 'selected' : ''}}>
+            {{$dpto}}
+          </option>
+      @else
+        <option value = "{{$dpto}}" {{ ( old('departamento') == $dpto) ? 'selected' : ''}}>
+        {{$dpto}}
+      </option>
       @endif
-      >Antropologia</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Ciência Politica")
-        selected
-        @endif
-      @endif
-      >Ciência Politica</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Filosofia")
-        selected
-        @endif
-      @endif
-      >Filosofia</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Geografia")
-        selected
-        @endif
-      @endif
-      >Geografia</option>
-      <option @if(isset($item))
-      @if($item->departamento=="História")
-        selected
-        @endif
-      @endif
-      >História</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Letras Clássicas e Vernáculas")
-        selected
-        @endif
-      @endif
-      >Letras Clássicas e Vernáculas </option>
-      <option @if(isset($item))
-      @if($item->departamento=="Modernas")
-        selected
-        @endif
-      @endif
-      >Letras Modernas</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Letras Orientais")
-        selected
-        @endif
-      @endif
-      >Letras Orientais</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Linguística")
-        selected
-        @endif
-      @endif
-      >Linguística</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Sociologia")
-        selected
-        @endif
-      @endif
-      >Sociologia</option>
-      <option @if(isset($item))
-      @if($item->departamento=="Teoria Literária e Literatura Comparada")
-        selected
-        @endif
-      @endif
-      >Teoria Literária e Literatura Comparada</option>
+      @endforeach
     </select>
   </div>      
   <div class="col-sm form-group">
     <label for="prioridade">Prioridade:</label>
     <select class="form-control" id="prioridade" name="prioridade">
       <option value="">Selecionar prioridade</option>
-      <option @if(isset($item))
-        @if($item->prioridade=="Coleção Didática")
-          selected
-          @endif
-        @endif
-      >Coleção Didática</option>
+      @foreach($item::prioridade as $opcao)
+      @if (old('prioridade') == '' and isset($item->prioridade))
+          <option value="{{$opcao}}" {{ ($item->prioridade == $opcao) ? 'selected' : ''}}>
+            {{$opcao}}
+          </option>
+      @else
+        <option value = "{{$opcao}}" {{ ( old('prioridade') == $opcao) ? 'selected' : ''}}>
+        {{$opcao}}
+      </option>
+      @endif
+      @endforeach
     </select>
   </div>
+
+  <div class="col-sm form-group">
+    <label for="subcategoria">Subcategoria:</label>
+    <select class="form-control" id="subcategoria" name="subcategoria">
+        <option value="">Subcategoria da tese:</option>
+        @foreach($item::subcategoria as $sub)
+        @if (old('subcategoria') == '' and isset($item->subcategoria))
+          <option value="{{$sub}}" {{ ($item->subcategoria == $sub) ? 'selected' : ''}}>
+            {{$sub}}
+          </option>
+      @else
+        <option value = "{{$sub}}" {{ ( old('subcategoria') == $sub) ? 'selected' : ''}}>
+        {{$sub}}
+      </option>
+      @endif
+      @endforeach
+    </select>
+ </div>
 </div>
 <div class="row">      
   <div class="col-sm form-group">
     <label for="procedencia">Procedência:</label>
     <select class="form-control" id="procedencia" name="procedencia">
       <option value="">Selecionar procedência</option>
-      <option @if(isset($item))
-          @if($item->procedencia=="NACIONAL")
-            selected
-            @endif
-          @endif
-      >NACIONAL</option>
-      <option @if(isset($item))
-          @if($item->procedencia=="INTERNACIONAL")
-            selected
-            @endif
-          @endif
-      >INTERNACIONAL</option>
+      @foreach($item::procedencia as $p)
+      @if (old('procedencia') == '' and isset($item->procedencia))
+          <option value="{{$p}}" {{ ($item->procedencia == $p) ? 'selected' : ''}}>
+            {{$p}}
+          </option>
+      @else
+        <option value = "{{$p}}" {{ ( old('procedencia') == $p) ? 'selected' : ''}}>
+        {{$p}}
+      </option>
+      @endif
+      @endforeach
     </select>
   </div>
   <div class="col-sm form-group">
@@ -327,52 +263,21 @@
 
 <br><h3>Informações adicionais</h3><br>
 <div class="row">
-  <div class="col-sm form-group" style="position: relative;">
+  <div class="col-sm form-group">
       <label for="verba">Verba:</label>
-      <select class="form-control" id="verba" name="verba" onchange="mostraCampo(this);">
+      <select class="form-control" id="verba" name="verba" >
         <option value="">Selecionar tipo de verba</option>
-        <option @if(isset($item))
-          @if($item->verba=="CAPES")
-            selected
-            @endif
-          @endif
-        >CAPES</option>
-        <option @if(isset($item))
-          @if($item->verba=="RUSP")
-            selected
-            @endif
-          @endif
-        >RUSP</option>
-        <option @if(isset($item))
-          @if($item->verba=="CNPQ")
-            selected
-            @endif
-          @endif
-        >CNPQ</option>
-        <option @if(isset($item))
-          @if($item->verba=="FAPESP")
-            selected
-            @endif
-          @endif
-        >FAPESP</option>
-        <option @if(isset($item))
-          @if($item->verba=="FAPLIVROS")
-            selected
-            @endif
-          @endif
-        >FAPLIVROS</option>
-        <option @if(isset($item))
-          @if($item->verba=="PROAP")
-            selected
-            @endif
-          @endif
-        >PROAP</option>
-        <option @if(isset($item))
-          @if($item->verba=="Outras")
-            selected
-            @endif
-          @endif
-        >Outras</option>
+        @foreach($item::verba as $v)
+      @if (old('verba') == '' and isset($item->verba))
+          <option value="{{$v}}" {{ ($item->verba == $v) ? 'selected' : ''}}>
+            {{$v}}
+          </option>
+      @else
+        <option value = "{{$v}}" {{ ( old('verba') == $v) ? 'selected' : ''}}>
+        {{$v}}
+      </option>
+      @endif
+      @endforeach
       </select>
   </div>
   <div class="col-sm form-group">
@@ -398,18 +303,17 @@
       <label for="moeda">Moeda:</label>
       <select class="form-control" id="moeda" name="moeda">
         <option value="">Selecionar moeda</option>
-        <option @if(isset($item))
-          @if($item->moeda=="REAL")
-            selected
-            @endif
-          @endif
-        >REAL</option>
-        <option @if(isset($item))
-          @if($item->moeda=="DÓLAR")
-            selected
-            @endif
-          @endif
-        >DÓLAR</option>
+        @foreach($item::moeda as $m)
+      @if (old('moeda') == '' and isset($item->moeda))
+          <option value="{{$m}}" {{ ($item->moeda == $m) ? 'selected' : ''}}>
+            {{$m}}
+          </option>
+      @else
+        <option value = "{{$m}}" {{ ( old('moeda') == $m) ? 'selected' : ''}}>
+        {{$m}}
+      </option>
+      @endif
+      @endforeach
       </select>
   </div>
   <div class="col-sm  form-group">
