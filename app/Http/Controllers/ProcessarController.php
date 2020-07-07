@@ -10,22 +10,9 @@ use Carbon\Carbon;
 use App\Utils\Util;
 use App\Http\Requests\ItemRequest;
 
-use Maatwebsite\Excel\Excel;
-use App\Exports\ExcelExport;
-
 class ProcessarController extends Controller
 {
-    
-    public function excel(Excel $excel){
-        $query = $this->search();
-        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
-        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
-        $itens = $query->get($headings)->toArray();
-        $export = new ExcelExport($itens,$campos);
-        return $excel->download($export, 'busca.xlsx');
-    }
-
-    public function processarSugestao(Request $request, Item $item){
+        public function processarSugestao(Request $request, Item $item){
         if ($request->processar_sugestao == 'Em Cotação'){
             $item->status = 'Em Cotação';
             $item->save();
@@ -73,15 +60,16 @@ class ProcessarController extends Controller
     }
 
     public function processarLicitacao(Request $request, Item $item){
+;
         if($request->processar_licitacao == 'Em Tombamento'){
-            $areas = Area::all();
             $item->status = 'Em Tombamento';
+            $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
-            return view('item/show',compact('item','areas'));
         }
+        return redirect("/item/{$item->id}");
     }
 
-    public function processarTombamento(Request $request, Item $item){
+    public function processarTombamento(ItemRequest $request, Item $item){
 
         if($request->processar_tombamento == 'tombar'){
 
@@ -98,6 +86,8 @@ class ProcessarController extends Controller
         }
 
         if($request->processar_tombamento == 'salvar'){
+            $validated = $request->validated();
+            $item->update($validated);
             $request->session()->flash('alert-info', "Dados forma salvos");
         }
 

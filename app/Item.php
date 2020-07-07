@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class Item extends Model
 {
     protected $table = 'itens';
+    protected $guarded = ['id'];
 
     const status = [
         "Sugestão",
@@ -87,9 +88,13 @@ class Item extends Model
         "DÓLAR"
     ];
     
-    public function setPrecoAttribute($item){
-        if(!empty($item->preco)){
-            $this->attributes['preco'] = str_replace(',','.',$item);
+    public function setPrecoAttribute($value){
+        if($value){
+            $this->attributes['preco'] = str_replace(',','.',$value);
         }
+    }
+
+    public function getPrecoAttribute($value){
+        return str_replace('.', ',', $value);
     }
 }

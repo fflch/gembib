@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+use App\Item;
 
 class ItemRequest extends FormRequest
 {
@@ -23,11 +26,13 @@ class ItemRequest extends FormRequest
      */
     public function rules()
     {
+        $tipo_aquisicao = Item::tipo_aquisicao;
+
         return [
             'titulo'           => 'required',
             'autor'            => 'required',
             'cod_impressao'    => 'required',
-            'tipo_aquisicao'   => 'required',
+            'tipo_aquisicao'   => 'required|in:' . implode(',', $tipo_aquisicao),
             'tipo_material'    => 'required',
             'editora'          => 'required',
             'ano'              => 'integer',

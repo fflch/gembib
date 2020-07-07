@@ -27,6 +27,7 @@ Route::post('/sugestao','SugestaoController@sugestao');
 Route::get('/item','ItemController@index');
 Route::get('/item/create','ItemController@create');
 Route::post('/item','ItemController@store');
+Route::get('/excel','ItemController@excel');
 
 /* rotas para processar */
 Route::get('/processar','ProcessarController@processarIndex');
@@ -36,7 +37,6 @@ Route::post('/processar_licitacao/{item}','ProcessarController@processarLicitaca
 Route::post('/processar_tombamento/{item}','ProcessarController@processarTombamento');
 Route::post('/processar_processamento/{item}','ProcessarController@processarProcessamento');
 Route::post('/processar_processado/{item}','ProcessarController@processarProcessado');
-Route::get('/excel','ProcessarController@excel');
 
 /* show item */
 Route::get('/item/{item}','ItemController@show');

@@ -10,6 +10,9 @@ use Carbon\Carbon;
 use App\Utils\Util;
 use App\Http\Requests\ItemRequest;
 
+use Maatwebsite\Excel\Excel;
+use App\Exports\ExcelExport;
+
 class ItemController extends Controller
 {
     private $status = Item::status;
@@ -54,6 +57,15 @@ class ItemController extends Controller
         return view('item/index',compact('itens','status','procedencia'));
     }
 
+    public function excel(Excel $excel){
+        $query = $this->search();
+        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
+        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
+        $itens = $query->get($headings)->toArray();
+        $export = new ExcelExport($itens,$campos);
+        return $excel->download($export, 'busca.xlsx');
+    }
+
     public function create()
     {
         $this->authorize('sai');
@@ -70,43 +82,14 @@ class ItemController extends Controller
     {   
         $this->authorize('sai');
 
-        $item = new Item;
-        $item->status = 'Em Tombamento';
-        $item->insercao_por = Auth::user()->codpes;
+        $validated = $request->validated();
 
-        $item->titulo = $request->titulo;
-        $item->autor = $request->autor;
-        $item->editora = $request->editora;
-        $item->ano = $request->ano;
-        $item->tombo = $request->tombo;
-        $item->tombo_antigo = $request->tombo_antigo;
-        $item->tipo_aquisicao = $request->tipo_aquisicao;
-        $item->tipo_material = $request->tipo_material;
-        $item->parte = $request->parte;
-        $item->volume = $request->volume;
-        $item->fasciculo = $request->fasciculo;
-        $item->local = $request->local;
-        $item->colecao = $request->colecao;
-        $item->isbn = $request->isbn;
-        $item->link = $request->link;
-        $item->edicao = $request->edicao;
-        $item->departamento = $request->departamento;
-        $item->prioridade = $request->prioridade;
-        $item->procedencia = $request->procedencia;
-        $item->finalidade = $request->finalidade;
-        $item->verba = $request->verba;
-        $item->processo = $request->processo;
-        $item->fornecedor = $request->fornecedor;
-        $item->moeda = $request->moeda;
-        $item->preco = $request->preco;
-        $item->nota_fiscal = $request->nota_fiscal;
-        $item->data_tombamento = Carbon::now();
-        $item->data_sugestao = Carbon::now();
-        $item->cod_impressao = $request->cod_impressao;
-        $item->observacao = $request->observacao;
-        $item->capes = $request->capes;
-        $item->subcategoria = $request->subcategoria;
-        $item->escala = $request->escala;
+        $validated['status'] = 'Em Tombamento';
+        $validated['insercao_por'] = Auth::user()->codpes;
+        $validated['data_tombamento'] = Carbon::now();
+        $validated['data_sugestao'] = Carbon::now();
+
+        $item = Item::create($validated);
 
         $item->save();
 

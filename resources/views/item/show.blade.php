@@ -15,7 +15,7 @@
     </tr>
 
     <tr>
-      <th scope="col">Livro: </th>
+      <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>
     </tr>
     <tr>
@@ -155,7 +155,7 @@
     </tr>
     <tr>
       <th scope="col">Preço:</th>
-      <td scope="row">{{ str_replace('.', ',', $item->preco) ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->preco ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Código de impressão:</th>
