@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use App\Utils\Util;
 use App\Http\Requests\ItemRequest;
 
-
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
 
@@ -82,7 +81,7 @@ class ProcessarController extends Controller
         }
     }
 
-    public function processarTombamento(ItemRequest $request, Item $item){
+    public function processarTombamento(Request $request, Item $item){
 
         if($request->processar_tombamento == 'tombar'){
 

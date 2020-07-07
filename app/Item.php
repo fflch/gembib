@@ -86,11 +86,10 @@ class Item extends Model
         "REAL",
         "DÓLAR"
     ];
-
-    /*
-    public function setPrecoAttribute(Item $item){
+    
+    public function setPrecoAttribute($item){
         if(!empty($item->preco)){
             $this->attributes['preco'] = str_replace(',','.',$item);
         }
-    }*/
+    }
 }

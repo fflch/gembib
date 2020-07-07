@@ -22,17 +22,17 @@
 
 <div class="row">
   <div class="col-sm form-group">
-          <label for="tipo_aquisicao">Tipo de aquisição:</label>
-          <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
-              <option value="">Selecionar tipo de aquisição</option>
-              @foreach($tipo_aquisicao as $opcao)
-              <option @if(isset($item)) 
-                    @if($item->tipo_material=="$opcao")
-                      selected 
-                    @endif 
-                  @endif
-            >{{$opcao}}</option>
-          @endforeach
+    <label for="tipo_aquisicao">Tipo de aquisição:</label>
+    <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
+      <option value="">Selecionar tipo de aquisição</option>
+      @foreach($tipo_aquisicao as $opcao)
+        <option @if(isset($item)) 
+          @if($item->tipo_material=="$opcao")
+            selected 
+          @endif 
+        @endif
+        >{{$opcao}}</option>
+      @endforeach
     </select>
   </div>
 </div>

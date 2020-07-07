@@ -19,7 +19,7 @@
   </select>
   
   <b>Buscar pelo título, autor, tombo ou código de impressão:</b>
-  <input type="text" name="busca">
+  <input type="text" name="busca" value="{{ Request()->busca }}">
   <button type="submit" class="btn btn-success">buscar</button>
 </form>
 <br>

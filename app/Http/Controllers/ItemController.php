@@ -17,7 +17,7 @@ class ItemController extends Controller
 
     private function search(){
         $request =  request();
-        $query = Item::orderBy('created_at', 'desc');
+        $query = Item::orderBy('created_at', 'desc');        
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where(function ($p) use (&$request) {
@@ -44,7 +44,7 @@ class ItemController extends Controller
         return $query;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('sai');
         $status = $this->status;

@@ -15,18 +15,18 @@
   <div class="col-sm form-group">
     <label for="tipo_aquisicao">Tipo de aquisição:</label>
     <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
-        <option value="">Selecionar tipo de aquisição</option>
-        @foreach($item::tipo_aquisicao as $option)
-      @if (old('tipo_aquisicao') == '' and isset($item->tipo_aquisicao))
+      <option value="">Selecionar tipo de aquisição</option>
+      @foreach($item::tipo_aquisicao as $option)
+        @if (old('tipo_aquisicao') == '' and isset($item->tipo_aquisicao))
           <option value="{{$option}}" {{ ($item->tipo_aquisicao == $option) ? 'selected' : ''}}>
             {{$option}}
           </option>
-      @else
-        <option value = "{{$option}}" {{ ( old('tipo_aquisicao') == $option) ? 'selected' : ''}}>
-        {{$option}}
-      </option>
+        @else
+          <option value = "{{$option}}" {{ ( old('tipo_aquisicao') == $option) ? 'selected' : ''}}>
+          {{$option}}
+        </option>
       @endif
-      @endforeach
+    @endforeach
     </select>
   </div>
 </div>
@@ -37,15 +37,15 @@
     <select class="form-control" id="tipo_material" name="tipo_material">
       <option value="">Selecionar tipo de material</option>
       @foreach($item::tipo_material as $tipo)
-      @if (old('tipo_material') == '' and isset($item->tipo_material))
+        @if (old('tipo_material') == '' and isset($item->tipo_material))
           <option value="{{$tipo}}" {{ ($item->tipo_material == $tipo) ? 'selected' : ''}}>
             {{$tipo}}
           </option>
-      @else
-        <option value = "{{$tipo}}" {{ ( old('tipo_material') == $tipo) ? 'selected' : ''}}>
-        {{$tipo}}
-      </option>
-      @endif
+        @else
+          <option value = "{{$tipo}}" {{ ( old('tipo_material') == $tipo) ? 'selected' : ''}}>
+          {{$tipo}}
+        </option>
+        @endif
       @endforeach
     </select>
  </div>
@@ -72,15 +72,15 @@
   <div class="col-sm form-group">
     <label for="editora">Editora:</label>
     <input type="text" id="editora" value="{{old('editora')}}" class="form-control" name="editora"
-        @if(isset($item))
-            value="{{ $item->editora }}"
-        @endif
+      @if(isset($item))
+        value="{{ $item->editora }}"
+      @endif
         />
   </div>
   <div class="col-sm form-group">
     <label for="ano">Ano de publicação:</label>
     <input type="text" id="ano" value="{{old('ano')}}" class="form-control" name='ano'
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->ano }}"
       @endif
       />
@@ -88,7 +88,7 @@
   <div class="col-sm form-group">
     <label for="volume">Volume:</label>
     <input type="text" id="volume" value="{{old('volume')}}" class="form-control" name="volume"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->volume }}"
       @endif
       />
@@ -98,7 +98,7 @@
   <div class="col-sm form-group">
     <label for="parte">Parte:</label>
     <input type="text" id="parte" value="{{old('parte')}}" class="form-control" name="parte"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->parte }}"
       @endif
       />
@@ -106,7 +106,7 @@
   <div class="col-sm form-group">
     <label for="fasciculo">Fascículo:</label>
     <input type="text" id="fasciculo" value="{{old('fasciculo')}}" class="form-control" name="fasciculo"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->fasciculo }}"
       @endif
       />
@@ -114,7 +114,7 @@
   <div class="col-sm form-group">
     <label for="local">Local:</label>
     <input type="text" id="local" value="{{old('local')}}" class="form-control" name="local"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->local}}"
       @endif
       />
@@ -124,15 +124,15 @@
   <div class="col-sm form-group">
     <label for="colecao">Coleção:</label>
     <input type="text" id="colecao" value="{{old('colecao')}}" class="form-control" name="colecao"
-    @if(isset($item))
-      value="{{ $item->colecao }}"
-    @endif
+      @if(isset($item))
+        value="{{ $item->colecao }}"
+      @endif
     />
   </div>
   <div class="col-sm form-group">
     <label for="link">Link:</label>
     <input type="text" id="link" value="{{old('link')}}" class="form-control"  name="link"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->link }}"
       @endif
       />
@@ -140,7 +140,7 @@
   <div class="col-sm form-group">
     <label for="edicao">Edição:</label>
     <input type="text" id="edicao" value="{{old('edicao')}}" class="form-control" name="edicao"
-    @if(isset($item))
+      @if(isset($item))
         value="{{ $item->edicao }}"
       @endif
       />
@@ -150,9 +150,9 @@
   <div class="col-sm form-group">
     <label for="isbn">ISBN:</label>
     <input type="text" id="isbn" value="{{old('isbn')}}" class="form-control" name="isbn"
-    @if(isset($item))
-      value="{{ $item->isbn }}"
-    @endif
+      @if(isset($item))
+        value="{{ $item->isbn }}"
+      @endif
     />
   </div>
   <div class="col-sm form-group">
