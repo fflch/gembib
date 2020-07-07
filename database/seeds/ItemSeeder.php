@@ -10,10 +10,14 @@ class ItemSeeder extends Seeder
      *
      * @return void
      */
+
+    /* Quando é sugestão não tem tombo */
+
+
     public function run()
-    {
+    {  
         $item = [
-            'titulo' => 'Meu pé de laranja lina',
+            'titulo' => 'Meu pé de laranja lima',
             'autor' => 'Mário Quintana',
             'editora' => 'Abril', 
             'ano' => '2020',
@@ -21,7 +25,7 @@ class ItemSeeder extends Seeder
             'sugerido_por' => 'Gabriela Reis',
             'insercao_por' => 'Gabriela', 
             'motivo' => 'Preciso ler urgente ',
-            'status' => 'Sugestão',
+            'status' => 'Tombado',
             'tombo' => '010101',
             'tombo_antigo' => '020303', 
             'cod_impressao' => '50607080',
@@ -37,7 +41,7 @@ class ItemSeeder extends Seeder
             'local' => 'Diadema',
             'colecao' => 'Nova', 
             'isbn' => '9000',
-            'dpto' => 'Letras',
+            'departamento' => 'Letras',
             'pedido_por' => 'Maria',
             'finalidade' => 'Leitura', 
             'data_sugestao' => '2020-06-22',

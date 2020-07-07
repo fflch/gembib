@@ -12,7 +12,7 @@ $factory->define(Item::class, function (Faker $faker) {
     
     $tipo_material = Item::tipo_material;
     $procedencia = Item::procedencia;
-    $dpto = Item::dpto;
+    $departamento = Item::departamento;
     $subcategoria = Item::subcategoria;
     $verba = Item::verba;
     $tipo_aquisicao = Item::tipo_aquisicao;
@@ -53,7 +53,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'local' => $faker->sentence,
         'colecao' => $faker->sentence, 
         'isbn' => $faker->randomDigit,
-        'dpto' => $dpto[array_rand($dpto)],
+        'departamento' => $departamento[array_rand($departamento)],
         'pedido_por' => $faker->sentence,
         'finalidade' => $faker->sentence, 
         'data_sugestao' => $faker->date,

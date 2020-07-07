@@ -27,5 +27,15 @@ return [
             'url'  => '/estatisticas',
             'can'  => 'sai',
         ],
+        [
+            'text' => 'Relatórios',
+            'url'  => '/relatorios',
+            'can'  => 'sai',
+        ],
+        [
+            'text' => 'Etiquetas',
+            'url'  => '/etiquetas',
+            'can'  => 'sai',
+        ],
     ]
 ];

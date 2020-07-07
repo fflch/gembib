@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\ItemRequest;
+use Illuminate\Http\Request;
 
 class Item extends Model
 {
@@ -46,7 +48,11 @@ class Item extends Model
         "Permuta"
     ];
 
-    const dpto = [
+    const prioridade = [
+        "Coleção Didática"
+    ];
+
+    const departamento = [
         "Antropologia",
         "Ciência Politica",
         "Filosofia",
@@ -80,5 +86,10 @@ class Item extends Model
         "REAL",
         "DÓLAR"
     ];
-
+    
+    public function setPrecoAttribute($item){
+        if(!empty($item->preco)){
+            $this->attributes['preco'] = str_replace(',','.',$item);
+        }
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Utils\Util;
+use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
 {
@@ -16,7 +17,7 @@ class ItemController extends Controller
 
     private function search(){
         $request =  request();
-        $query = Item::orderBy('created_at', 'desc');
+        $query = Item::orderBy('created_at', 'desc');        
 
         if (isset($request->status) && !empty($request->status)) {
             $query->where(function ($p) use (&$request) {
@@ -43,7 +44,7 @@ class ItemController extends Controller
         return $query;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('sai');
         $status = $this->status;
@@ -65,20 +66,53 @@ class ItemController extends Controller
         return view('item/show', compact('item'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(ItemRequest $request)
+    {   
         $this->authorize('sai');
 
         $item = new Item;
         $item->status = 'Em Tombamento';
         $item->insercao_por = Auth::user()->codpes;
 
-        $item = Util::gravarNoBanco($request, $item);
+        $item->titulo = $request->titulo;
+        $item->autor = $request->autor;
+        $item->editora = $request->editora;
+        $item->ano = $request->ano;
+        $item->tombo = $request->tombo;
+        $item->tombo_antigo = $request->tombo_antigo;
+        $item->tipo_aquisicao = $request->tipo_aquisicao;
+        $item->tipo_material = $request->tipo_material;
+        $item->parte = $request->parte;
+        $item->volume = $request->volume;
+        $item->fasciculo = $request->fasciculo;
+        $item->local = $request->local;
+        $item->colecao = $request->colecao;
+        $item->isbn = $request->isbn;
+        $item->link = $request->link;
+        $item->edicao = $request->edicao;
+        $item->departamento = $request->departamento;
+        $item->prioridade = $request->prioridade;
+        $item->procedencia = $request->procedencia;
+        $item->finalidade = $request->finalidade;
+        $item->verba = $request->verba;
+        $item->processo = $request->processo;
+        $item->fornecedor = $request->fornecedor;
+        $item->moeda = $request->moeda;
+        $item->preco = $request->preco;
+        $item->nota_fiscal = $request->nota_fiscal;
+        $item->data_tombamento = Carbon::now();
+        $item->data_sugestao = Carbon::now();
+        $item->cod_impressao = $request->cod_impressao;
+        $item->observacao = $request->observacao;
+        $item->capes = $request->capes;
+        $item->subcategoria = $request->subcategoria;
+        $item->escala = $request->escala;
+
+        $item->save();
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
         return redirect("/item/{$item->id}");
-
     }
 
 }
