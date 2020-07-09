@@ -40,7 +40,7 @@ class ItemRequest extends FormRequest
             'tombo_antigo'     => '', 
             'parte'            => '', 
             'volume'           => '', 
-            'fasciulo'         => '', 
+            'fasciculo'         => '', 
             'local'            => '', 
             'colecao'          => '', 
             'isbn'             => '', 

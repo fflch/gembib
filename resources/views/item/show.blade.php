@@ -13,7 +13,10 @@
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
     </tr>
-
+    <tr>
+      <th scope="col">Código de impressão:</th>
+      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
+    </tr>
     <tr>
       <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>
@@ -29,10 +32,6 @@
     <tr>
       <th scope="col">Data da sugestão:</th>
       <td scope="col">{{ \Carbon\Carbon::parse($item->data_sugestao)->format('d/m/Y')}}</td>
-    </tr>
-    <tr>
-      <th scope="col">Observação da sugestão:</th>
-      <td scope="row">{{ $item->informacoes ?? 'Sem informações' }}</td>
     </tr>
     <tr>
       <th scope="col">Autor:</th>
@@ -84,8 +83,6 @@
       <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
 
-
-
     @if(isset($item->escala))
       <tr>
         <th scope="col">Escala:</th>
@@ -98,7 +95,6 @@
       </tr>
     @else
     @endif
-
 
     <tr>
       <th scope="col">Departamento:</th>
@@ -156,10 +152,6 @@
     <tr>
       <th scope="col">Preço:</th>
       <td scope="row">{{ $item->preco ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Código de impressão:</th>
-      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
     </tr>
       <th scope="col">Observações:</th>
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>
