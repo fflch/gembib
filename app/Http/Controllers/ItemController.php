@@ -8,21 +8,68 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Utils\Util;
+use App\Http\Requests\ItemRequest;
+
+use Maatwebsite\Excel\Excel;
+use App\Exports\ExcelExport;
 
 class ItemController extends Controller
 {
-    private $status = Util::status;
+    private $status = Item::status;
+    private $procedencia = Item::procedencia;
 
-    public function insercaoForm()
+    private function search(){
+        $request =  request();
+        $query = Item::orderBy('created_at', 'desc');        
+
+        if (isset($request->status) && !empty($request->status)) {
+            $query->where(function ($p) use (&$request) {
+            $p->where('status','=',$request->status);
+            });
+        }
+
+        if (isset($request->procedencia) && !empty ($request->procedencia)) {
+            $query->where(function ($s) use (&$request) {
+            $s->where('procedencia','=',$request->procedencia)
+              ->orwhere('procedencia','=',$request->procedencia);
+            });
+        }
+
+        if (isset($request->busca) && !empty($request->busca)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->busca . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        return $query;
+    }
+
+    public function index(Request $request)
     {
         $this->authorize('sai');
-        $areas = Area::all();
-        $tipo_material = Util::tipo_material;
+        $status = $this->status;
+        $procedencia = $this->procedencia;
+        $query = $this->search();
+        $itens = $query->paginate(10);
+        return view('item/index',compact('itens','status','procedencia'));
+    }
 
-        /* Pegando o próximo tompo disponível */
-        $proximo = Item::max('tombo') + 1;
+    public function excel(Excel $excel){
+        $query = $this->search();
+        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
+        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
+        $itens = $query->get($headings)->toArray();
+        $export = new ExcelExport($itens,$campos);
+        return $excel->download($export, 'busca.xlsx');
+    }
 
-        return view('item/insercao', compact('areas','tipo_material','proximo'));
+    public function create()
+    {
+        $this->authorize('sai');
+        return view('item/create')->with('item', new Item);
     }
 
     public function show(Request $request, Item $item)
@@ -31,23 +78,24 @@ class ItemController extends Controller
         return view('item/show', compact('item'));
     }
 
-    public function insercao(Request $request)
-    {
+    public function store(ItemRequest $request)
+    {   
         $this->authorize('sai');
-        $item = new Item;
-        $item->insercao_por = Auth::user()->codpes;
 
-        Util::gravarNoBanco($request, $item);
+        $validated = $request->validated();
 
-        $data = Carbon::parse($item->data_tombamento);
-        $dataformatada = $data->format('d/m/Y');
+        $validated['status'] = 'Em Tombamento';
+        $validated['insercao_por'] = Auth::user()->codpes;
+        $validated['data_tombamento'] = Carbon::now();
+        $validated['data_sugestao'] = Carbon::now();
 
-        $request->session()->flash('alert-info',
-            "Inserção direta enviada com sucesso em {$dataformatada}.
-            Novo status: {$item->status}");
+        $item = Item::create($validated);
 
-        return redirect('/');
+        $item->save();
 
+        $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
+
+        return redirect("/item/{$item->id}");
     }
 
 }

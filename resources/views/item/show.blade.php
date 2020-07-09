@@ -5,10 +5,17 @@
 @section('content')
 @include('flash')
 
+@include('item.etapas')
+
 <table class="table table-striped">
   <tbody>
     <tr>
-      <th scope="col">Livro: </th>
+      <th scope="col">Tombo:</th>
+      <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
+    </tr>
+
+    <tr>
+      <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>
     </tr>
     <tr>
@@ -95,7 +102,7 @@
 
     <tr>
       <th scope="col">Departamento:</th>
-      <td scope="row">{{ $item->dpto ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->departamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Capes:</th>
@@ -105,10 +112,7 @@
       <th scope="col">ISBN:</th>
       <td scope="row">{{ $item->isbn ?? 'Não cadastrado' }}</td>
     </tr>
-    <tr>
-      <th scope="col">Tombo:</th>
-      <td scope="row">{{ $item->tombo ?? 'Não cadastrado' }}</td>
-    </tr>
+
     <tr>
       <th scope="col">Tipo de aquisição:</th>
       <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
@@ -151,7 +155,7 @@
     </tr>
     <tr>
       <th scope="col">Preço:</th>
-      <td scope="row">{{ str_replace('.', ',', $item->preco) ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->preco ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Código de impressão:</th>

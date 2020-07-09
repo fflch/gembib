@@ -24,13 +24,19 @@ Route::get('/sugestao','SugestaoController@sugestaoForm');
 Route::post('/sugestao','SugestaoController@sugestao');
 
 /* rotas de inserção */
-Route::get('/item','ItemController@insercaoForm');
-Route::post('/item','ItemController@insercao');
+Route::get('/item','ItemController@index');
+Route::get('/item/create','ItemController@create');
+Route::post('/item','ItemController@store');
+Route::get('/excel','ItemController@excel');
 
 /* rotas para processar */
 Route::get('/processar','ProcessarController@processarIndex');
-Route::get('/processar/{item}','ProcessarController@processarForm');
-Route::post('/processar/{item}','ProcessarController@processar');
+Route::post('/processar_sugestao/{item}','ProcessarController@processarSugestao');
+Route::post('/processar_cotacao/{item}','ProcessarController@processarCotacao');
+Route::post('/processar_licitacao/{item}','ProcessarController@processarLicitacao');
+Route::post('/processar_tombamento/{item}','ProcessarController@processarTombamento');
+Route::post('/processar_processamento/{item}','ProcessarController@processarProcessamento');
+Route::post('/processar_processado/{item}','ProcessarController@processarProcessado');
 
 /* show item */
 Route::get('/item/{item}','ItemController@show');

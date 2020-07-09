@@ -13,18 +13,28 @@ return [
             'can'  => 'logado'
         ],
         [
-            'text' => 'Tombamento',
-            'url'  => '/item',
+            'text' => 'Cadastrar novo tombamento',
+            'url'  => '/item/create',
             'can'  => 'sai',
         ],
         [
-            'text' => 'Análise',
-            'url'  => '/processar',
+            'text' => 'Busca',
+            'url'  => '/item',
             'can'  => 'sai',
         ],
         [
             'text' => 'Estatística',
             'url'  => '/estatisticas',
+            'can'  => 'sai',
+        ],
+        [
+            'text' => 'Relatórios',
+            'url'  => '/relatorios',
+            'can'  => 'sai',
+        ],
+        [
+            'text' => 'Etiquetas',
+            'url'  => '/etiquetas',
             'can'  => 'sai',
         ],
     ]
