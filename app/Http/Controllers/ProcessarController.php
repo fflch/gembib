@@ -16,14 +16,14 @@ class ProcessarController extends Controller
         if ($request->processar_sugestao == 'Em Cotação'){
             $item->status = 'Em Cotação';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
 
         if ($request->processar_sugestao == 'Em Tombamento'){
             $areas = Area::all();
             $item->status = 'Em Tombamento';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}"); 
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}"); 
         }
 
         if ($request->processar_sugestao == 'Negado'){
@@ -33,6 +33,7 @@ class ProcessarController extends Controller
             ]);
 
             $item->status = 'Negado';
+            $item->motivo = $request->motivo;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
         } 
@@ -43,7 +44,7 @@ class ProcessarController extends Controller
         if($request->processar_cotacao == 'Em Licitação'){
             $item->status = 'Em Licitação';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");  
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");  
         }
 
         if ($request->processar_cotacao == 'Negado'){
@@ -53,8 +54,9 @@ class ProcessarController extends Controller
             ]);
 
             $item->status = 'Negado';
+            $item->motivo = $request->motivo;
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");
     }
@@ -64,7 +66,7 @@ class ProcessarController extends Controller
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");
     }
@@ -81,7 +83,7 @@ class ProcessarController extends Controller
             }  
 
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado:<b> {$item->tombo}");
             
         }
 
@@ -98,7 +100,7 @@ class ProcessarController extends Controller
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");
     }
@@ -107,12 +109,12 @@ class ProcessarController extends Controller
         if($request->processar_processado == 'Processado'){
             $item->status = 'Processado';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         if($request->processar_processado == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");
     }

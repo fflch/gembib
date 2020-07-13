@@ -42,6 +42,14 @@
       <td scope="row">{{ $item->editora }}</td>
     </tr>
     <tr>
+      <th scope="col">Tipo de material:</th>
+      <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Tipo de aquisição:</th>
+      <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
       <th scope="col">Edição:</th>
       <td scope="row">{{ $item->edicao ?? 'Não cadastrado' }}</td>
     </tr>
@@ -74,11 +82,6 @@
       <td scope="row">{{ $item->link ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
-      <th scope="col">Tipo de material:</th>
-      <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
-    </tr>
-
-    <tr>
       <th scope="col">Pedido por:</th>
       <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
@@ -107,11 +110,6 @@
     <tr>
       <th scope="col">ISBN:</th>
       <td scope="row">{{ $item->isbn ?? 'Não cadastrado' }}</td>
-    </tr>
-
-    <tr>
-      <th scope="col">Tipo de aquisição:</th>
-      <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Tombo antigo:</th>

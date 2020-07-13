@@ -26,16 +26,15 @@ class ItemRequest extends FormRequest
      */
     public function rules()
     {
-        $tipo_aquisicao = Item::tipo_aquisicao;
-
+        $item = new Item;
         return [
             'titulo'           => 'required',
             'autor'            => 'required',
             'cod_impressao'    => 'required',
-            'tipo_aquisicao'   => 'required|in:' . implode(',', $tipo_aquisicao),
-            'tipo_material'    => 'required',
+            'tipo_aquisicao'   => ['required', Rule::in($item::tipo_aquisicao)],
+            'tipo_material'    => ['required', Rule::in($item::tipo_material)],
             'editora'          => 'required',
-            'ano'              => 'integer',
+            'ano'              => 'nullable|integer',
             'tombo'            => '', 
             'tombo_antigo'     => '', 
             'parte'            => '', 
@@ -46,21 +45,21 @@ class ItemRequest extends FormRequest
             'isbn'             => '', 
             'link'             => '', 
             'edicao'           => '', 
-            'departamento'     => '', 
-            'prioridade'       => '', 
-            'procedencia'      => '', 
+            'departamento'     => ['nullable', Rule::in($item::departamento)], 
+            'prioridade'       => ['nullable', Rule::in($item::prioridade)], 
+            'procedencia'      => ['nullable', Rule::in($item::procedencia)], 
             'finalidade'       => '', 
-            'verba'            => '', 
+            'verba'            => ['nullable', Rule::in($item::verba)], 
             'processo'         => '', 
             'fornecedor'       => '', 
-            'moeda'            => '', 
+            'moeda'            => ['nullable', Rule::in($item::moeda)], 
             'preco'            => '', 
             'nota_fiscal'      => '', 
             'data_tombamento'  => '', 
             'data_sugestao'    => '', 
             'observacao'       => '', 
             'capes'            => '', 
-            'subcategoria'     => '',
+            'subcategoria'     => ['nullable', Rule::in($item::subcategoria)],
             'escala'           => '',                            
         ];
     }
