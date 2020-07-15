@@ -13,7 +13,10 @@
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
     </tr>
-
+    <tr>
+      <th scope="col">Código de impressão:</th>
+      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
+    </tr>
     <tr>
       <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>
@@ -31,16 +34,20 @@
       <td scope="col">{{ \Carbon\Carbon::parse($item->data_sugestao)->format('d/m/Y')}}</td>
     </tr>
     <tr>
-      <th scope="col">Observação da sugestão:</th>
-      <td scope="row">{{ $item->informacoes ?? 'Sem informações' }}</td>
-    </tr>
-    <tr>
       <th scope="col">Autor:</th>
       <td scope="row">{{ $item->autor }}</td>
     </tr>
     <tr>
       <th scope="col">Editora:</th>
       <td scope="row">{{ $item->editora }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Tipo de material:</th>
+      <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Tipo de aquisição:</th>
+      <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Edição:</th>
@@ -75,16 +82,9 @@
       <td scope="row">{{ $item->link ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
-      <th scope="col">Tipo de material:</th>
-      <td scope="row">{{ $item->tipo_material ?? 'Não cadastrado' }}</td>
-    </tr>
-
-    <tr>
       <th scope="col">Pedido por:</th>
       <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
-
-
 
     @if(isset($item->escala))
       <tr>
@@ -99,23 +99,17 @@
     @else
     @endif
 
-
     <tr>
       <th scope="col">Departamento:</th>
       <td scope="row">{{ $item->departamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Capes:</th>
-      <td scope="row">{{ $item->capes ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->capes == $area ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">ISBN:</th>
       <td scope="row">{{ $item->isbn ?? 'Não cadastrado' }}</td>
-    </tr>
-
-    <tr>
-      <th scope="col">Tipo de aquisição:</th>
-      <td scope="row">{{ $item->tipo_aquisicao ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Tombo antigo:</th>
@@ -156,10 +150,6 @@
     <tr>
       <th scope="col">Preço:</th>
       <td scope="row">{{ $item->preco ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Código de impressão:</th>
-      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
     </tr>
       <th scope="col">Observações:</th>
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>

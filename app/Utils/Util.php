@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+
 class Util {
    
     public static function limita_caracteres($texto, $limite, $quebra = true){

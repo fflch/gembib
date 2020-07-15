@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Item;
+use App\Area;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,7 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ItemSeeder::class);
-        factory(Item::class, 100)->create();
+        $this->call([
+            ItemSeeder::class,
+            AreaSeeder::class,
+        ]);
     }
 }

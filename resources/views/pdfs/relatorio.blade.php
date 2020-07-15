@@ -13,7 +13,7 @@
 </table>
 
 
-<div><h3><center>{$titulo}</center></h3></div>
+<div><h3><center>{{$titulo}}</center></h3></div>
 
 <table style='width:100%'>
   <thead>
@@ -31,15 +31,15 @@
 
   	@foreach($itens as $item) 
     <tr>
-      <td>{{$item->tombo}}</td>
-      <td>{{$item->autor}}</td>
-      <td>{{$item->titulo}}</td>
-      <td>{{$item->volume}}</td>
-      <td>{{$item->parte}}</td>";
+      <td><center>{{$item->tombo}}</td>
+      <td><center>{{$item->autor}}</td>
+      <td><center>{{$item->titulo}}</td>
+      <td><center>{{$item->volume}}</td>
+      <td><center>{{$item->parte}}</td>";
       {{-- if($item->moeda == "REAL") $html .= "<td>R$</td>";
       else $html .= "<td>$</td>"; 
       --}}
-      <td>{$item->$preco}</td>
+      <td><center>{$item->$preco}</td>
     </tr>
     @endforeach
 
