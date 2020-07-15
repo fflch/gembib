@@ -72,10 +72,10 @@ class ItemController extends Controller
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Request $request, Item $item)
+    public function show(Request $request, Item $item, Area $area)
     {
         $this->authorize('sai');
-        return view('item/show', compact('item'));
+        return view('item/show', compact('item', 'area'));
     }
 
     public function store(ItemRequest $request)

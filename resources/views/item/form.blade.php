@@ -65,12 +65,12 @@
 
 <div class="row">
   <div class="col-sm form-group">
-    <label for="ano">Ano de publicação:</label>
-    <input type="text" id="ano" value="{{old('ano',$item->ano)}}" class="form-control" name='ano'/>
-  </div>
-  <div class="col-sm form-group">
       <label for="cod_impressao">Código de impressão:</label>
       <input type="text" id="cod_impressao" value="{{old('cod_impressao',$item->cod_impressao)}}" class="form-control" name="cod_impressao"/>
+  </div>
+  <div class="col-sm form-group">
+    <label for="ano">Ano de publicação:</label>
+    <input type="text" id="ano" value="{{old('ano',$item->ano)}}" class="form-control" name='ano'/>
   </div>
   <div class="col-sm form-group">
     <label for="volume">Volume:</label>
@@ -186,14 +186,15 @@
     <select class="form-control" id="capes" class="form-control" name="capes">
       <option value="">Selecione</option>
       @foreach(App\Area::all() as $area)
-      <option value="{{$area->codigo}}" 
-          @if(isset($item)) 
-              @if($item->capes == $area->codigo)
-                  {{$area->codigo}} - {{$area->nome}}
-                  selected
-              @endif
-          @endif
-      >{{$area->codigo}} - {{$area->nome}}</option>
+      @if (old('App\Area::all()') == '' and isset($item->capes))
+          <option value="{{$area}}" {{ ($item->capes == $area) ? 'selected' : ''}}>
+          {{$area->codigo}} - {{$area->nome}}
+          </option>
+      @else
+        <option value = "{{$area}}" {{ ( old('capes') == $area) ? 'selected' : ''}}>
+        {{$area->codigo}} - {{$area->nome}}
+      </option>
+      @endif
   @endforeach
     </select>
   </div>

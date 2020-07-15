@@ -105,7 +105,7 @@
     </tr>
     <tr>
       <th scope="col">Capes:</th>
-      <td scope="row">{{ $item->capes ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->capes == $area ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">ISBN:</th>

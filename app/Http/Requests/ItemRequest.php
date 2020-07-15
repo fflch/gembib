@@ -27,6 +27,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         $item = new Item;
+
         return [
             'titulo'           => 'required',
             'autor'            => 'required',
@@ -34,17 +35,17 @@ class ItemRequest extends FormRequest
             'tipo_aquisicao'   => ['required', Rule::in($item::tipo_aquisicao)],
             'tipo_material'    => ['required', Rule::in($item::tipo_material)],
             'editora'          => 'required',
-            'ano'              => 'nullable|integer',
+            'ano'              => 'nullable|integer|min:4|',
             'tombo'            => '', 
             'tombo_antigo'     => '', 
-            'parte'            => '', 
-            'volume'           => '', 
-            'fasciculo'         => '', 
+            'parte'            => 'nullable|integer', 
+            'volume'           => 'nullable|integer', 
+            'fasciculo'         => 'nullable|integer', 
             'local'            => '', 
             'colecao'          => '', 
-            'isbn'             => '', 
+            'isbn'             => 'nullable|min:10|max:13', 
             'link'             => '', 
-            'edicao'           => '', 
+            'edicao'           => 'nullable|integer', 
             'departamento'     => ['nullable', Rule::in($item::departamento)], 
             'prioridade'       => ['nullable', Rule::in($item::prioridade)], 
             'procedencia'      => ['nullable', Rule::in($item::procedencia)], 
@@ -55,10 +56,10 @@ class ItemRequest extends FormRequest
             'moeda'            => ['nullable', Rule::in($item::moeda)], 
             'preco'            => '', 
             'nota_fiscal'      => '', 
-            'data_tombamento'  => '', 
-            'data_sugestao'    => '', 
+            'data_tombamento'  => 'date', 
+            'data_sugestao'    => 'date', 
             'observacao'       => '', 
-            'capes'            => '', 
+            'capes'            => 'nullable', //fazer validação
             'subcategoria'     => ['nullable', Rule::in($item::subcategoria)],
             'escala'           => '',                            
         ];

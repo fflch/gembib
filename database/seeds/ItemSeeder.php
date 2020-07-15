@@ -40,7 +40,7 @@ class ItemSeeder extends Seeder
             'fasciculo' => '4',
             'local' => 'Diadema',
             'colecao' => 'Nova', 
-            'isbn' => '9000',
+            'isbn' => '900451987-0',
             'departamento' => 'Letras',
             'pedido_por' => 'Maria',
             'finalidade' => 'Leitura', 
