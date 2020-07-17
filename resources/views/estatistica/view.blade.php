@@ -4,7 +4,7 @@
 @include('flash')
 
 
-<td>Estatística com o intervalo de data entre <b>{{ date( 'd/m/Y' , strtotime($inicio)) }} - {{ date( 'd/m/Y' , strtotime($fim)) }} </b></td><br><br>
+<td>Estatística com o intervalo de data entre <b>{{ $inicio }} - {{ $fim }} </b></td><br><br>
 @if(isset($tipo_aquisicao))
     <td>Tipo de aquisição:<b> {{ $tipo_aquisicao }} </b><td><br>
 @endif

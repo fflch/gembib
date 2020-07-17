@@ -99,11 +99,11 @@ class Item extends Model
     }
   
     public function getDataTombamentoAttribute(){
-        return date('d-m-Y', strtotime($this->attributes['data_tombamento']));
+        return date('d/m/Y', strtotime($this->attributes['data_tombamento']));
     }
 
     public function getDataSugestaoAttribute(){
-        return date('d-m-Y', strtotime($this->attributes['data_sugestao']));
+        return date('d/m/Y', strtotime($this->attributes['data_sugestao']));
     }
 
 }
