@@ -5,16 +5,20 @@
 
 <form method="GET" >
   <select name="status">
-  <option value="" selected>Selecionar o status</option>
+  <option value="" selected="">Selecionar o status</option>
     @foreach($status as $i)
-      <option>{{$i}}</option>
+      <option @if(Request()->status == "$i") selected @endif>
+        {{$i}}
+      </option>
     @endforeach
   </select>
 
   <select name="procedencia">
   <option value="" selected>Procedência</option>
     @foreach($procedencia as $p)
-      <option>{{$p}}</option>
+      <option @if(Request()->procedencia == "$p") selected @endif>
+        {{$p}}
+      </option>
     @endforeach
   </select>
   

@@ -97,4 +97,13 @@ class Item extends Model
     public function getPrecoAttribute($value){
         return str_replace('.', ',', $value);
     }
+  
+    public function getDataTombamentoAttribute(){
+        return date('d-m-Y', strtotime($this->attributes['data_tombamento']));
+    }
+
+    public function getDataSugestaoAttribute(){
+        return date('d-m-Y', strtotime($this->attributes['data_sugestao']));
+    }
+
 }

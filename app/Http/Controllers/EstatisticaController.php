@@ -56,6 +56,10 @@ class EstatisticaController extends Controller
         }
 
         $resultado = $query->count();
-        return view('estatistica.view',compact('resultado','inicio','fim'));
+        $tipo_material = $request->tipo_material;
+        $tipo_aquisicao = $request->tipo_aquisicao;
+        $procedencia = $request->procedencia;
+        
+        return view('estatistica.view',compact('resultado','inicio','fim', 'tipo_material', 'tipo_aquisicao', 'procedencia'));
     }
 }

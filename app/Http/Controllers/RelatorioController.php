@@ -28,3 +28,4 @@ class RelatorioController extends Controller
       return $pdf->download('relatorio.pdf');
     }
 }
+

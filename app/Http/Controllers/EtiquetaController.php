@@ -16,6 +16,9 @@ class EtiquetaController extends Controller
         return view('etiquetas');
     }
 
+    //acho que aqui posso usar o ItemRequest $item
+    //acho que tenho que colocar lá em cima o use PDF;
+    //
     public function show(Request $request){
         if(isset($request->cod_impressao)){
             $request->validate([

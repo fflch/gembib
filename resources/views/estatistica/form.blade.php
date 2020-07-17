@@ -27,7 +27,7 @@
       <option value="">Selecionar tipo de aquisição</option>
       @foreach($tipo_aquisicao as $opcao)
         <option @if(isset($item)) 
-          @if($item->tipo_material=="$opcao")
+          @if($item->tipo_aquisicao=="$opcao")
             selected 
           @endif 
         @endif
@@ -36,40 +36,39 @@
     </select>
   </div>
 </div>
-      
-<div class="row"> 
-    <div class="col-sm form-group">
-        <label for="procedencia">Procedência:</label>
-        <select class="form-control" id="procedencia" name="procedencia">
-          <option value="">Selecionar procedência</option>
-          @foreach($procedencia as $option)
-          <option @if(isset($item))
-          @if($item->procedencia=="$option")
-            selected
-            @endif
-            @endif
-          >{{$option}}</option>
-        @endforeach
-        </select>
-      </div>
-</div>
 
 <div class="row">
   <div class="col-sm form-group">
     <label for="tipo_material">Tipo de material:</label>
     <select class="form-control" id="tipo_material" name="tipo_material">
-          <option value="">Selecionar tipo de material</option>
-          @foreach($tipo_material as $tipo)
-              <option @if(isset($item)) 
-                    @if($item->tipo_material=="$tipo")
-                      selected 
-                    @endif 
-                  @endif
-            >{{$tipo}}</option>
-          @endforeach
+      <option value="">Selecionar tipo de material</option>
+      @foreach($tipo_material as $tipo)
+          <option @if(isset($item)) 
+                @if($item->tipo_material=="$tipo")
+                  selected 
+                @endif 
+              @endif
+        >{{$tipo}}</option>
+      @endforeach
     </select>
+  </div>
 </div>
-
+      
+<div class="row"> 
+  <div class="col-sm form-group">
+    <label for="procedencia">Procedência:</label>
+    <select class="form-control" id="procedencia" name="procedencia">
+      <option value="">Selecionar procedência</option>
+      @foreach($procedencia as $option)
+      <option @if(isset($item))
+      @if($item->procedencia=="$option")
+        selected
+        @endif
+        @endif
+      >{{$option}}</option>
+    @endforeach
+    </select>
+  </div>
 </div>
 
 <br>
