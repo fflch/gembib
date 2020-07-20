@@ -12,8 +12,9 @@
   </tr>
 </table>
 
-
-<div><h3><center>{{$titulo}}</center></h3></div>
+<div>
+  <h3><center>{{ $titulo }}</center></h3>
+</div>
 
 <table style='width:100%'>
   <thead>
@@ -36,27 +37,27 @@
       <td><center>{{$item->titulo}}</td>
       <td><center>{{$item->volume}}</td>
       <td><center>{{$item->parte}}</td>";
-      {{-- if($item->moeda == "REAL") $html .= "<td>R$</td>";
-      else $html .= "<td>$</td>"; 
-      --}}
-      <td><center>{$item->$preco}</td>
+      <td><center>@if($item->moeda == "REAL") R$
+      @else $
+  	  @endif</td>
+      <td><center>{{ $item->preco }}</td>
     </tr>
     @endforeach
 
   </tbody>
 </table>
 
-    {{-- $soma = str_replace('.',',', $itens->sum("preco")); --}}
-
 <div>
 <br>
 <div>
 <label><b>Quantidade: {{$itens->count()}} </b></label>
 </div>
-<div style='width: 75%'></div>
+  <div style='width: 75%'>
+</div>
 <br>
 <div>
-<label><b>Preço: {{--$soma --}}}</b></label>
+<label><b>Preço: {{ $soma }}</b></label>
 </div>
 </div>
+
 

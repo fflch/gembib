@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
-      <td scope="col">{{ \Carbon\Carbon::parse($item->data_sugestao)->format('d/m/Y')}}</td>
+      <td scope="col">{{ $item->data_sugestao }}</td>
     </tr>
     <tr>
       <th scope="col">Autor:</th>

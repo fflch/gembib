@@ -23,8 +23,9 @@ class RelatorioController extends Controller
       $titulo = $request->titulo;
 
     	$itens = Item::where('cod_impressao', $request->cod_impressao)->get();
+      $soma = $itens->sum((int)'preco');
 
-      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo'));
+      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo','soma'));
       return $pdf->download('relatorio.pdf');
     }
 }
