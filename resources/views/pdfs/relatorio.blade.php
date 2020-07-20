@@ -28,8 +28,8 @@
       <th>Preço:</th>
     </tr>
   </thead>
+  
   <tbody>
-
   	@foreach($itens as $item) 
     <tr>
       <td><center>{{$item->tombo}}</td>
@@ -56,7 +56,7 @@
 </div>
 <br>
 <div>
-<label><b>Preço: {{ $soma }}</b></label>
+<label><b>Preço: {{ $total }}</b></label>
 </div>
 </div>
 
