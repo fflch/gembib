@@ -35,7 +35,7 @@ class ItemRequest extends FormRequest
             'tipo_aquisicao'   => ['required', Rule::in($item::tipo_aquisicao)],
             'tipo_material'    => ['required', Rule::in($item::tipo_material)],
             'editora'          => 'required',
-            'ano'              => 'nullable|integer|min:4|',
+            'ano'              => 'nullable|integer|digits:4|',
             'tombo'            => '', 
             'tombo_antigo'     => '', 
             'parte'            => 'nullable|integer', 

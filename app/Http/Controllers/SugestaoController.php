@@ -23,6 +23,7 @@ class SugestaoController extends Controller
             'titulo'  => 'required',
             'autor'   => 'required',
             'editora' => 'required',
+            'ano'     => 'nullable|integer|digits:4|',
         ]);
 
         $item = new Item;

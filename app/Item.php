@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 
+
 class Item extends Model
 {
     protected $table = 'itens';
@@ -97,4 +98,13 @@ class Item extends Model
     public function getPrecoAttribute($value){
         return str_replace('.', ',', $value);
     }
+  
+    public function getDataTombamentoAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_tombamento']));
+    }
+
+    public function getDataSugestaoAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_sugestao']));
+    }
+
 }

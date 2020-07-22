@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
 use PDF;
+use DB;
 
 class RelatorioController extends Controller
 {
@@ -21,10 +22,13 @@ class RelatorioController extends Controller
           'titulo'  => 'required'
       ]);
       $titulo = $request->titulo;
+      $itens = Item::where('cod_impressao', $request->cod_impressao)->get();
+      
+      $soma = DB::table('itens')->select('preco')->where('cod_impressao', $request->cod_impressao)->get();
+      $total = $soma->sum('preco');
 
-    	$itens = Item::where('cod_impressao', $request->cod_impressao)->get();
-
-      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo'));
+      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo','total'));
       return $pdf->download('relatorio.pdf');
     }
 }
+
