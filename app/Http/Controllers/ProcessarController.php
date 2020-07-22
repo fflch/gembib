@@ -83,7 +83,7 @@ class ProcessarController extends Controller
             }  
 
             $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado:<b> {$item->tombo}");
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado: {$item->tombo}");
             
         }
 

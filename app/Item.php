@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 
+
 class Item extends Model
 {
     protected $table = 'itens';

@@ -7,8 +7,6 @@ use Proner\PhpPimaco\Tag;
 use Proner\PhpPimaco\Pimaco;
 use Proner\PhpPimaco\Tags\Barcode;
 use App\Item;
-use App\Utils\Util;
-use PDF;
 
 class EtiquetaController extends Controller
 {
@@ -42,12 +40,14 @@ class EtiquetaController extends Controller
             $tag->setSize(2);
 
             $barcode = new Barcode((string)$item->tombo, null);
+            $barcode = new Barcode((string)$item->cod_impressao, null);
             $barcode->setAlign('right');
             $barcode->setWidth(1);
+            
+            $limiteCaracteres = 10;            
 
-            $limiteCaracteres = 10;
             $codigo = $barcode->render();
-            $tag->p(view('pdfs.etiquetas', compact ('itens', 'codigo')));
+            $tag->p(view('pdfs.etiquetas', compact ('itens', 'codigo','limiteCaracteres','item')));
             $pimaco->addTag($tag);
         }
 
