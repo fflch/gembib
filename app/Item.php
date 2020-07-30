@@ -96,7 +96,9 @@ class Item extends Model
     }
 
     public function getPrecoAttribute($value){
-        return str_replace('.', ',', $value);
+        #dd($value);
+        return number_format($value, 2, ',', '');
+        #return str_replace('.', ',', $value);
     }
   
     public function getDataTombamentoAttribute(){

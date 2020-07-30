@@ -44,7 +44,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'tipo_aquisicao' => $tipo_aquisicao[array_rand($tipo_aquisicao)],
         'tipo_material' => $tipo_material[array_rand($tipo_material)],
         'subcategoria' => $subcategoria[array_rand($subcategoria)], 
-        'capes' => '10101063 - GEOMETRIA ALGÉBRICA',
+        'capes' => factory(Area::class)->create()->codigo,
         'link' => $faker->sentence,
         'edicao' => $faker->randomDigit,
         'volume' => $faker->randomDigit, 

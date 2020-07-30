@@ -185,17 +185,22 @@
     <label for="capes">Capes:</label>
     <select class="form-control" id="capes" class="form-control" name="capes">
       <option value="">Selecione</option>
+
       @foreach(App\Area::all() as $area)
-      @if (old('App\Area::all()') == '' and isset($item->capes))
-          <option value="{{$area}}" {{ ($item->capes == $area) ? 'selected' : ''}}>
+
+        {{-- Edição --}} 
+        @if( old('capes') == '' and isset($item->capes))
+            <option value="{{$area->codigo}}" {{ ($item->capes == $area->codigo) ? 'selected' : ''}}>
+            {{$area->codigo}} - {{$area->nome}}
+            </option>
+        {{-- Novo cadastro --}} 
+        @else
+          <option value = "{{$area->codigo}}" {{ ( old('capes') == $area->codigo) ? 'selected' : ''}}>
           {{$area->codigo}} - {{$area->nome}}
-          </option>
-      @else
-        <option value = "{{$area}}" {{ ( old('capes') == $area) ? 'selected' : ''}}>
-        {{$area->codigo}} - {{$area->nome}}
-      </option>
-      @endif
-  @endforeach
+        </option>
+        @endif
+
+      @endforeach
     </select>
   </div>
   <div class="col-sm form-group">

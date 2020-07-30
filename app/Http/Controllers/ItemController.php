@@ -85,6 +85,7 @@ class ItemController extends Controller
 
         $validated['status'] = 'Em Tombamento';
         $validated['insercao_por'] = Auth::user()->codpes;
+        $validated['alterado_por'] = Auth::user()->codpes;
         $validated['data_tombamento'] = Carbon::now();
         $validated['data_sugestao'] = Carbon::now();
 

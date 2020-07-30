@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 use App\Item;
+use App\Area;
 
 class ItemRequest extends FormRequest
 {
@@ -27,6 +28,9 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         $item = new Item;
+        
+        /* Códigos de área capes */
+        $codigos = array_column(Area::select('codigo')->get()->toArray(), 'codigo');
 
         return [
             'titulo'           => 'required',
@@ -59,7 +63,7 @@ class ItemRequest extends FormRequest
             'data_tombamento'  => 'date', 
             'data_sugestao'    => 'date', 
             'observacao'       => '', 
-            'capes'            => 'nullable', //fazer validação
+            'capes'            => ['nullable',Rule::in($codigos)],
             'subcategoria'     => ['nullable', Rule::in($item::subcategoria)],
             'escala'           => '',                            
         ];

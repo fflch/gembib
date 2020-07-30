@@ -15,6 +15,7 @@ class ProcessarController extends Controller
         public function processarSugestao(Request $request, Item $item){
         if ($request->processar_sugestao == 'Em Cotação'){
             $item->status = 'Em Cotação';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
@@ -75,14 +76,15 @@ class ProcessarController extends Controller
 
         if($request->processar_tombamento == 'tombar'){
 
-            $item->status = 'Tombado';
+            $validated = $request->validated();
+            $validated['status'] = 'Tombado';
 
             //numero de tombo será gerado automaticamente
             if(empty($item->tombo)) {
-                $item->tombo = Item::max('tombo') + 1;
-            }  
+                $validated['tombo'] = Item::max('tombo') + 1;
+            } 
 
-            $item->save();
+            $item->update($validated);
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado: {$item->tombo}");
             
         }
