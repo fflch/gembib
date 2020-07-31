@@ -32,7 +32,7 @@ class ItemSeeder extends Seeder
             'tipo_aquisicao' => 'Compra',
             'tipo_material' => 'Livro',
             'subcategoria' => 'Doutorado', 
-            'capes' => 'Humanas',
+            'capes' => '01',
             'link' => 'www',
             'edicao' => '2',
             'volume' => '1', 
@@ -40,14 +40,14 @@ class ItemSeeder extends Seeder
             'fasciculo' => '4',
             'local' => 'Diadema',
             'colecao' => 'Nova', 
-            'isbn' => '900451987-0',
+            'isbn' => '9004519870',
             'departamento' => 'Letras',
             'pedido_por' => 'Maria',
             'finalidade' => 'Leitura', 
             'data_sugestao' => '2020-06-22',
             'prioridade' => 'Importante',
             'moeda' => 'REAL',
-            'preco' => '46', 
+            'preco' => '46,0', 
             'procedencia' => 'NACIONAL',
             'observacao' => 'Urgente',
             'verba' => 'RUSP',
@@ -55,9 +55,10 @@ class ItemSeeder extends Seeder
             'fornecedor' => 'TesteForn',
             'nota_fiscal' => '654',
             'data_tombamento' => '2020-04-07',
-            'escala' => '15545'
+            'escala' => '15545',
+            'alterado_por' => '11284280',
         ];
         Item::create($item);
-        factory(Item::class, 100)->create();
+        factory(Item::class, 200)->create();
     }
 }

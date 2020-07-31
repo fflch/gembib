@@ -241,6 +241,10 @@
     <label for="fornecedor">Fornecedor:</label>
     <input type="text" id="fornecedor" value="{{old('fornecedor', $item->fornecedor)}}" class="form-control" name="fornecedor"/>
   </div>
+  <div class="col-sm form-group">
+    <label for="pedido_por">Item pedido por:</label>
+    <input type="text" id="pedido_por" value="{{old('pedido_por', $item->pedido_por)}}" class="form-control" name="pedido_por"/>
+  </div>
 </div>
 
 <div class="row">

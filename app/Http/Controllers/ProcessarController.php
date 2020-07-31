@@ -23,6 +23,7 @@ class ProcessarController extends Controller
         if ($request->processar_sugestao == 'Em Tombamento'){
             $areas = Area::all();
             $item->status = 'Em Tombamento';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}"); 
         }
@@ -35,6 +36,7 @@ class ProcessarController extends Controller
 
             $item->status = 'Negado';
             $item->motivo = $request->motivo;
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para {$item->status}");
         } 
@@ -44,6 +46,7 @@ class ProcessarController extends Controller
     public function processarCotacao(Request $request, Item $item){
         if($request->processar_cotacao == 'Em Licitação'){
             $item->status = 'Em Licitação';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");  
         }
@@ -56,6 +59,7 @@ class ProcessarController extends Controller
 
             $item->status = 'Negado';
             $item->motivo = $request->motivo;
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
@@ -66,6 +70,7 @@ class ProcessarController extends Controller
 ;
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
@@ -83,7 +88,7 @@ class ProcessarController extends Controller
             if(empty($item->tombo)) {
                 $validated['tombo'] = Item::max('tombo') + 1;
             } 
-
+            $item->alterado_por = Auth::user()->codpes;
             $item->update($validated);
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado: {$item->tombo}");
             
@@ -91,8 +96,9 @@ class ProcessarController extends Controller
 
         if($request->processar_tombamento == 'salvar'){
             $validated = $request->validated();
+            $item->alterado_por = Auth::user()->codpes;
             $item->update($validated);
-            $request->session()->flash('alert-info', "Dados forma salvos");
+            $request->session()->flash('alert-info', "Dados foram salvos");
         }
 
         return redirect("/item/{$item->id}");
@@ -101,6 +107,7 @@ class ProcessarController extends Controller
     public function processarProcessamento(Request $request, Item $item){
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
@@ -110,11 +117,13 @@ class ProcessarController extends Controller
     public function processarProcessado(Request $request, Item $item){
         if($request->processar_processado == 'Processado'){
             $item->status = 'Processado';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         if($request->processar_processado == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
+            $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
