@@ -99,7 +99,7 @@
     </tr>
     <tr>
       <th scope="col">Capes:</th>
-      <td scope="row">{{ $campos ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $area->codigo ?? 'Não cadastrado' }} - {{ $area->nome ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">ISBN:</th>

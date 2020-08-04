@@ -71,15 +71,11 @@ class ItemController extends Controller
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Request $request, Item $item, Area $area)
+    public function show(Request $request, Item $item)
     {
         $this->authorize('sai');
-        $campos = DB::table('itens')
-        ->join('areas', 'areas.codigo', '=', 'itens.capes')
-        ->select('areas.codigo', 'areas.nome')
-        ->where('areas.codigo', $item->capes)
-        ->get();
-        return view('item/show', compact('item', 'area', 'campos'));
+        $area = Area::where('codigo', $item->capes)->first();
+        return view('item/show', compact('item', 'area'));
     }
 
     public function store(ItemRequest $request)
