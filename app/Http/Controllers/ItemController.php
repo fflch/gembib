@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
-use DB;
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
 
