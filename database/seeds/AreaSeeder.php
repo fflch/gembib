@@ -17,6 +17,6 @@ class AreaSeeder extends Seeder
             'nome' => 'CONSTRUÇÃO CIVIL',
         ];
         Area::create($area);
-        factory(Area::class, 20)->create();
+        factory(Area::class, 100)->create();
     }
 }

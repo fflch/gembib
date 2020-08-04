@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
-
+use DB;
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
 
@@ -74,7 +74,12 @@ class ItemController extends Controller
     public function show(Request $request, Item $item, Area $area)
     {
         $this->authorize('sai');
-        return view('item/show', compact('item', 'area'));
+        $campos = DB::table('itens')
+        ->join('areas', 'areas.codigo', '=', 'itens.capes')
+        ->select('areas.codigo', 'areas.nome')
+        ->where('areas.codigo', $item->capes)
+        ->get();
+        return view('item/show', compact('item', 'area', 'campos'));
     }
 
     public function store(ItemRequest $request)
