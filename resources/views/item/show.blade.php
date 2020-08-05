@@ -85,27 +85,21 @@
       <th scope="col">Pedido por:</th>
       <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
-
-    @if(isset($item->escala))
-      <tr>
-        <th scope="col">Escala:</th>
-        <td scope="row">{{ $item->escala ?? 'Não cadastrado' }}</td>
-      </tr>
-    @elseif(isset($item->subcategoria))
-      <tr>
-        <th scope="col">Subcategoria:</th>
-        <td scope="row">{{ $item->subcategoria ?? 'Não cadastrado' }}</td>
-      </tr>
-    @else
-    @endif
-
+    <tr>
+      <th scope="col">Escala:</th>
+      <td scope="row">{{ $item->escala ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Subcategoria:</th>
+      <td scope="row">{{ $item->subcategoria ?? 'Não cadastrado' }}</td>
+    </tr>
     <tr>
       <th scope="col">Departamento:</th>
       <td scope="row">{{ $item->departamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Capes:</th>
-      <td scope="row">{{ $item->capes == $area ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $area->codigo ?? 'Não cadastrado' }} - {{ $area->nome ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">ISBN:</th>

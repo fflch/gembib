@@ -65,7 +65,8 @@ class ItemRequest extends FormRequest
             'observacao'       => '', 
             'capes'            => ['nullable',Rule::in($codigos)],
             'subcategoria'     => ['nullable', Rule::in($item::subcategoria)],
-            'escala'           => '',                            
+            'escala'           => '',
+            'pedido_por'       => '',                            
         ];
     }
 }

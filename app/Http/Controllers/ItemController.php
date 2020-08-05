@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
-
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
 
@@ -71,9 +70,10 @@ class ItemController extends Controller
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Request $request, Item $item, Area $area)
+    public function show(Request $request, Item $item)
     {
         $this->authorize('sai');
+        $area = Area::where('codigo', $item->capes)->first();
         return view('item/show', compact('item', 'area'));
     }
 

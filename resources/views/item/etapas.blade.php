@@ -54,7 +54,7 @@
         @break
         
         @case('Processado')
-            
+        Enviado para {{$item->status}} por {{$item->alterado_por}}
         @break 
 
         @default

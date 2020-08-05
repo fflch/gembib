@@ -56,7 +56,7 @@
 </div>
 <br>
 <div>
-<label><b>Preço: {{ $total }}</b></label>
+<label><b>Total: R${{ $total }}</b></label>
 </div>
 </div>
 

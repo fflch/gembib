@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Area::class, function (Faker $faker) {
     return [
-        'codigo' => $faker->randomDigit,
+        'codigo' => $faker->numberBetween($min = 0, $max = 2000),
         'nome' => $faker->sentence,
     ];
 });
