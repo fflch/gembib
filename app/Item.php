@@ -60,8 +60,8 @@ class Item extends Model
         "Filosofia",
         "Geografia",
         "História",
-        "Letras Modernas",
         "Letras Clássicas e Vernáculas",
+        "Letras Modernas",
         "Letras Orientais",
         "Linguística",
         "Sociologia",
@@ -76,10 +76,11 @@ class Item extends Model
 
     const verba = [
         "CAPES",
-        "FAPESP",
-        "RUSP",
         "CNPQ",
+        "FAPESP",
         "FAPLIVROS",
+        "FFLCH",
+        "RUSP",
         "PROAP",
         "Outras"        
     ];
