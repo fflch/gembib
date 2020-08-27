@@ -63,8 +63,6 @@ class CreateItensTable extends Migration
             $table->text('nota_fiscal')->nullable();
             $table->date('data_tombamento')->nullable();
             $table->text('escala')->nullable();
-            $table->date('data_processamento')->nullable();
-            $table->date('data_sau')->nullable();
         });
     }
 
