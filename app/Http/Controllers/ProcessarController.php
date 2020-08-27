@@ -7,7 +7,6 @@ use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Utils\Util;
 use App\Http\Requests\ItemRequest;
 
 class ProcessarController extends Controller
@@ -21,6 +20,7 @@ class ProcessarController extends Controller
             $item->motivo = $request->motivo;
         } 
             $item->status = $request->processar_sugestao;
+            $item->observacao = $request->observacao;//SALVAR O REGISTRO
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -37,6 +37,7 @@ class ProcessarController extends Controller
             $item->motivo = $request->motivo;
         }
             $item->status = $request->processar_cotacao;
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -48,6 +49,7 @@ class ProcessarController extends Controller
 ;
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -64,6 +66,7 @@ class ProcessarController extends Controller
             if(empty($item->tombo)) {
                 $validated['tombo'] = Item::max('tombo') + 1;
             } 
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->update($validated);
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado: {$item->tombo}");
@@ -75,14 +78,24 @@ class ProcessarController extends Controller
             $item->update($validated);
             $request->session()->flash('alert-info', "Dados foram salvos");
         }
-
+        //Quando já tiver tombo (Devolver para Processamento)
+        if($request->processar_tombamento == 'Em Processamento Técnico'){
+            $item->status = 'Em Processamento Técnico';
+            $validated = $request->validated();
+            $item->observacao = $request->observacao;
+            $item->alterado_por = Auth::user()->codpes;
+            $item->update($validated);
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+        }
         return redirect("/item/{$item->id}");
     }
     //quando for tombado
     public function processarProcessamento(Request $request, Item $item){
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
+            $item->data_processamento = Carbon::now();
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
@@ -91,7 +104,9 @@ class ProcessarController extends Controller
     //quando estiver em processamento técnico
     public function processarProcessado(Request $request, Item $item){
             $item->status = $request->processar_processado;
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
+            $item->data_sau = Carbon::now();
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         return redirect("/item/{$item->id}");

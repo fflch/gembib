@@ -17,6 +17,12 @@
       <th scope="col">Código de impressão:</th>
       <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
     </tr>
+    @if($item->status == 'Processado')
+    <tr>
+      <th scope="col">Entregue para o SAU em:</th>
+      <td scope="row">{{ $item->data_sau ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
     <tr>
       <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>

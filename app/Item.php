@@ -110,4 +110,12 @@ class Item extends Model
         return date('d/m/Y', strtotime($this->attributes['data_sugestao']));
     }
 
+    public function getDataProcessamentoAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_processamento']));
+    }
+
+    public function getDataSauAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_sau']));
+    }
+
 }

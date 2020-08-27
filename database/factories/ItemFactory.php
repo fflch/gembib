@@ -69,5 +69,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'data_tombamento' => $faker->date,
         'escala' => $faker->randomDigit,
         'alterado_por' => $faker->name(),
+        'data_processamento' => $faker->date,
+        'data_sau' => $faker->date,
     ];
 });

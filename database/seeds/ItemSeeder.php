@@ -57,6 +57,8 @@ class ItemSeeder extends Seeder
             'data_tombamento' => '2020-04-07',
             'escala' => '15545',
             'alterado_por' => '11284280',
+            'data_processamento' => '2020-08-27',
+            'data_sau' => '2020-08-28',
         ];
         Item::create($item);
         factory(Item::class, 200)->create();

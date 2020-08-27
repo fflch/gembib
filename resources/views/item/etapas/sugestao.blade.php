@@ -1,5 +1,9 @@
 <form method="POST" action="/processar_sugestao/{{$item->id}}">
-    @csrf 
+    @csrf
+    <div class="form-group">
+      <label for="observacao">Observações:</label>
+      <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao') }}  @if(isset($item)){{ $item->observacao }}@endif</textarea>
+    </div> 
     <button type="submit" name="processar_sugestao" class="btn btn-info" value="Em Cotação" onclick="return confirm('Mudar status para Em Cotação?')">Em Cotação</button>
     <button type="submit" name="processar_sugestao" class="btn btn-info" value="Em Tombamento" onclick="return confirm('Mudar status para Em Tombamento?')">Começar Tombamento</button>
     <br><br>
