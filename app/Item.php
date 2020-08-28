@@ -118,4 +118,9 @@ class Item extends Model
         return date('d/m/Y', strtotime($this->attributes['data_sau']));
     }
 
+    public function getUpdatedAtAttribute()
+    {
+        return date('d/m/Y H:m:s', strtotime($this->attributes['updated_at']));
+    }
+
 }
