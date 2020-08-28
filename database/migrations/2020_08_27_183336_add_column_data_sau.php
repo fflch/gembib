@@ -14,7 +14,7 @@ class AddColumnDataSau extends Migration
     public function up()
     {
         Schema::table('itens', function (Blueprint $table) {
-            $table->date('data_sau')->nullable()->change();
+            $table->date('data_sau')->nullable();
         });
     }
 

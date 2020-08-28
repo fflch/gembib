@@ -20,7 +20,7 @@ class ProcessarController extends Controller
             $item->motivo = $request->motivo;
         } 
             $item->status = $request->processar_sugestao;
-            $item->observacao = $request->observacao;//SALVAR O REGISTRO
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -49,7 +49,6 @@ class ProcessarController extends Controller
 ;
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
-            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -66,7 +65,6 @@ class ProcessarController extends Controller
             if(empty($item->tombo)) {
                 $validated['tombo'] = Item::max('tombo') + 1;
             } 
-            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->update($validated);
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status} - Tombo gerado: {$item->tombo}");
@@ -82,11 +80,11 @@ class ProcessarController extends Controller
         if($request->processar_tombamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
             $validated = $request->validated();
-            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->update($validated);
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
+
         return redirect("/item/{$item->id}");
     }
     //quando for tombado
@@ -112,4 +110,3 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 }
-
