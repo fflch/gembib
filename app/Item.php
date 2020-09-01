@@ -51,7 +51,11 @@ class Item extends Model
     ];
 
     const prioridade = [
-        "Coleção Didática"
+        "Coleção Didática",
+        "1",
+        "2",
+        "3",
+        "4"
     ];
 
     const departamento = [

@@ -32,12 +32,16 @@
       <td scope="col">{{ $item->status }}</td>
     </tr>
     <tr>
+      <th scope="col">Item pedido por:</th>
+      <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
       <th scope="col">Sugerido por:</th>
-      <td scope="col">{{ $item->sugerido_por }}</td>
+      <td scope="col">{{ $item->sugerido_por ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
-      <td scope="col">{{ $item->data_sugestao }}</td>
+      <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
     </tr>
     @if($item->status == 'Em Processamento Técnico')
     <tr>
@@ -51,7 +55,7 @@
     </tr>
     <tr>
       <th scope="col">Editora:</th>
-      <td scope="row">{{ $item->editora }}</td>
+      <td scope="row">{{ $item->editora ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Tipo de material:</th>
@@ -92,10 +96,6 @@
     <tr>
       <th scope="col">Link:</th>
       <td scope="row">{{ $item->link ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Pedido por:</th>
-      <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Escala:</th>
