@@ -1,6 +1,6 @@
 <form method="POST" action="/processar_sugestao/{{$item->id}}">
     @csrf
-    @include('item.observacao') 
+    @include('item.observacao')
     <button type="submit" name="processar_sugestao" class="btn btn-info" value="Em Cotação" onclick="return confirm('Mudar status para Em Cotação?')">Em Cotação</button>
     <button type="submit" name="processar_sugestao" class="btn btn-info" value="Em Tombamento" onclick="return confirm('Mudar status para Em Tombamento?')">Começar Tombamento</button>
     <br><br>
