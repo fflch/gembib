@@ -12,4 +12,3 @@
 
     <button type="submit" name="processar_sugestao" class="btn btn-danger" value="Negado">Negar</button>
 </form>
-
