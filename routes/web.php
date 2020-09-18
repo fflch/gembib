@@ -53,6 +53,8 @@ Route::post('/relatorios','RelatorioController@show');
 Route::get('/estatisticas', 'EstatisticaController@form');
 Route::post('/estatisticas','EstatisticaController@show');
 
+Route::get('/migracao', 'MigracaoController@migracao');
+
 /*
 
 Route::get('/itens/processar_tombamento/{tombamento}','ItemController@processar_tombamento');
