@@ -66,7 +66,9 @@ class ItemRequest extends FormRequest
             'capes'            => ['nullable',Rule::in($codigos)],
             'subcategoria'     => ['nullable', Rule::in($item::subcategoria)],
             'escala'           => '',
-            'pedido_por'       => '',                            
+            'pedido_por'       => '',
+            'data_processamento'  => 'date',
+            'data_sau'         => 'date',                            
         ];
     }
 }

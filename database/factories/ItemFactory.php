@@ -28,6 +28,12 @@ $factory->define(Item::class, function (Faker $faker) {
     $tombo = $faker->unique()->numberBetween($min = 1000, $max = 9000);
     if($status_escolhido == 'Sugestão') $tombo = null;
 
+    $data_sau = $faker->date;
+    if($status_escolhido != 'Processado') $data_sau = null;
+
+    $data_processamento = $faker->date;
+    if($status_escolhido != 'Em Processamento Técnico') $data_processamento = null;
+
     return [
         'tombo' => $tombo,
         'titulo' => $faker->sentence,
@@ -69,5 +75,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'data_tombamento' => $faker->date,
         'escala' => $faker->randomDigit,
         'alterado_por' => $faker->name(),
+        'data_processamento' => $data_processamento,
+        'data_sau' => $data_sau,
     ];
 });

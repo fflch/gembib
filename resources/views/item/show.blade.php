@@ -9,6 +9,12 @@
 
 <table class="table table-striped">
   <tbody>
+  @if($item->status == 'Processado')
+    <tr>
+      <th scope="col">Entregue para o SAU em:</th>
+      <td scope="row">{{ $item->data_sau ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
     <tr>
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
@@ -26,20 +32,30 @@
       <td scope="col">{{ $item->status }}</td>
     </tr>
     <tr>
+      <th scope="col">Item pedido por:</th>
+      <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
       <th scope="col">Sugerido por:</th>
-      <td scope="col">{{ $item->sugerido_por }}</td>
+      <td scope="col">{{ $item->sugerido_por ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
-      <td scope="col">{{ $item->data_sugestao }}</td>
+      <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
     </tr>
+    @if($item->status == 'Em Processamento Técnico')
+    <tr>
+      <th scope="col">Data de envio para processamento técnico:</th>
+      <td scope="col">{{ $item->data_processamento }}</td>
+    </tr>
+    @endif
     <tr>
       <th scope="col">Autor:</th>
       <td scope="row">{{ $item->autor }}</td>
     </tr>
     <tr>
       <th scope="col">Editora:</th>
-      <td scope="row">{{ $item->editora }}</td>
+      <td scope="row">{{ $item->editora ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Tipo de material:</th>
@@ -80,10 +96,6 @@
     <tr>
       <th scope="col">Link:</th>
       <td scope="row">{{ $item->link ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Pedido por:</th>
-      <td scope="row">{{ $item->pedido_por ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Escala:</th>

@@ -15,10 +15,12 @@
   <div class="col-sm form-group">
     <label for="tipo_aquisicao">Tipo de aquisição:</label>
     <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
+    @if(! $item->tipo_aquisicao)
       <option value="">Selecionar tipo de aquisição</option>
+    @endif
       @foreach($item::tipo_aquisicao as $option)
         @if (old('tipo_aquisicao') == '' and isset($item->tipo_aquisicao))
-          <option value="{{$option}}" {{ ($item->tipo_aquisicao == $option) ? 'selected' : ''}}>
+          <option value="{{$option}}" {{($item->tipo_aquisicao == $option) ? 'selected' : ''}}>
             {{$option}}
           </option>
         @else
@@ -32,7 +34,9 @@
   <div class="col-sm form-group">
     <label for="tipo_material">Tipo de material:</label>
     <select class="form-control" id="tipo_material" name="tipo_material">
+    @if(! $item->tipo_material)
       <option value="">Selecionar tipo de material</option>
+    @endif
       @foreach($item::tipo_material as $tipo)
         @if (old('tipo_material') == '' and isset($item->tipo_material))
           <option value="{{$tipo}}" {{ ($item->tipo_material == $tipo) ? 'selected' : ''}}>
@@ -242,7 +246,7 @@
     <input type="text" id="fornecedor" value="{{old('fornecedor', $item->fornecedor)}}" class="form-control" name="fornecedor"/>
   </div>
   <div class="col-sm form-group">
-    <label for="pedido_por">Item pedido por:</label>
+    <label for="pedido_por">Item sugerido por:</label>
     <input type="text" id="pedido_por" value="{{old('pedido_por', $item->pedido_por)}}" class="form-control" name="pedido_por"/>
   </div>
 </div>
@@ -277,9 +281,8 @@
   </div>
 </div>
 
-<div class="form-group">
-  <label for="observacao">Observações:</label>
-  <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao') }}  @if(isset($item)){{ $item->observacao }}
-@endif</textarea>
-</div>
+  @if($item->status != 'Em Tombamento')
+    @include('item.observacao')
+  @endif
+
 

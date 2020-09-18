@@ -51,7 +51,11 @@ class Item extends Model
     ];
 
     const prioridade = [
-        "Coleção Didática"
+        "Coleção Didática",
+        "1",
+        "2",
+        "3",
+        "4"
     ];
 
     const departamento = [
@@ -60,8 +64,8 @@ class Item extends Model
         "Filosofia",
         "Geografia",
         "História",
-        "Letras Modernas",
         "Letras Clássicas e Vernáculas",
+        "Letras Modernas",
         "Letras Orientais",
         "Linguística",
         "Sociologia",
@@ -76,10 +80,11 @@ class Item extends Model
 
     const verba = [
         "CAPES",
-        "FAPESP",
-        "RUSP",
         "CNPQ",
+        "FAPESP",
         "FAPLIVROS",
+        "FFLCH",
+        "RUSP",
         "PROAP",
         "Outras"        
     ];
@@ -107,6 +112,19 @@ class Item extends Model
 
     public function getDataSugestaoAttribute(){
         return date('d/m/Y', strtotime($this->attributes['data_sugestao']));
+    }
+
+    public function getDataProcessamentoAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_processamento']));
+    }
+
+    public function getDataSauAttribute(){
+        return date('d/m/Y', strtotime($this->attributes['data_sau']));
+    }
+
+    public function getUpdatedAtAttribute()
+    {
+        return date('d/m/Y H:m:s', strtotime($this->attributes['updated_at']));
     }
 
 }
