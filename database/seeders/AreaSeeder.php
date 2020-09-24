@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Area;
+use App\Models\Area;
 
 class AreaSeeder extends Seeder
 {
@@ -17,6 +19,6 @@ class AreaSeeder extends Seeder
             'nome' => 'CONSTRUÇÃO CIVIL',
         ];
         Area::create($area);
-        factory(Area::class, 100)->create();
+        Area::factory(100)->create();
     }
 }

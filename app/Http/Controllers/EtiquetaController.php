@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Proner\PhpPimaco\Tag;
 use Proner\PhpPimaco\Pimaco;
 use Proner\PhpPimaco\Tags\Barcode;
-use App\Item;
+use App\Models\Item;
 
 class EtiquetaController extends Controller
 {

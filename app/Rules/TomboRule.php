@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Item;
+use App\Models\Item;
 
 class TomboRule implements Rule
 {

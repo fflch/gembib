@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 

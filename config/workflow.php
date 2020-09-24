@@ -1,14 +1,16 @@
 <?php
 
+use App\Models\Item;
+
 $workflow_itens = [
     'type' => 'workflow',
     'marking_store' => [
         'type'     => 'single_state',
         'property' => 'status'
     ],
-    'supports' => [\App\Item::class],
+    'supports' => [Item::class],
     'initial_places' => 'Sugestão',
-    'places' => App\Item::status,
+    'places' => Item::status,
     $negar = ['Sugestão', 'Em Cotação'],
     'transitions' => [
         'enviar_para_negar' => [

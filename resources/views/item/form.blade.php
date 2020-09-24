@@ -190,7 +190,7 @@
     <select class="form-control" id="capes" class="form-control" name="capes">
       <option value="">Selecione</option>
 
-      @foreach(App\Area::all() as $area)
+      @foreach(App\Models\Area::all() as $area)
 
         {{-- Edição --}} 
         @if( old('capes') == '' and isset($item->capes))
