@@ -1,14 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 
 
 class Item extends Model
 {
+    use HasFactory;
     protected $table = 'itens';
     protected $guarded = ['id'];
 
@@ -99,13 +101,13 @@ class Item extends Model
             $this->attributes['preco'] = str_replace(',','.',$value);
         }
     }
-
+    
     public function getPrecoAttribute($value){
         #dd($value);
         return number_format($value, 2, ',', '');
         #return str_replace('.', ',', $value);
     }
-  
+    /*
     public function getDataTombamentoAttribute(){
         return date('d/m/Y', strtotime($this->attributes['data_tombamento']));
     }
@@ -126,5 +128,5 @@ class Item extends Model
     {
         return date('d/m/Y H:m:s', strtotime($this->attributes['updated_at']));
     }
-
+*/
 }

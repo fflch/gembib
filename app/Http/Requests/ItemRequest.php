@@ -5,8 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-use App\Item;
-use App\Area;
+use App\Models\Item;
+use App\Models\Area;
 
 class ItemRequest extends FormRequest
 {

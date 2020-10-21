@@ -1,6 +1,6 @@
 # Sobre o projeto
 
-Sistema que gerencia o fluxo de aquisição e processameto de livros
+Sistema que gerencia o fluxo de aquisição e processamento de livros
 desde a sugestão até a catalogação.
 
 Instruções para a instalação do projeto:

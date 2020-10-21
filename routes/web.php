@@ -1,59 +1,60 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SugestaoController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProcessarController;
+use App\Http\Controllers\EtiquetaController;
+use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\EstatisticaController;
+use App\Http\Controllers\MigracaoController;
+use App\Http\Controllers\TesteController;
 
-Route::get('/', 'IndexController@index')->name('home');
+
+Route::get('/', [IndexController::class, 'index'])->name('home');
 
 /* rotas para login e logout */
-Route::get('login', 'Auth\LoginController@redirectToProvider');
-Route::get('callback', 'Auth\LoginController@handleProviderCallback');
-Route::post('/logout', 'Auth\LoginController@logout');
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('login', [LoginController::class, 'redirectToProvider']);
+Route::get('callback', [LoginController::class, 'handleProviderCallback']);
+Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 /* rotas de sugestão */
-Route::get('/sugestao','SugestaoController@sugestaoForm');
-Route::post('/sugestao','SugestaoController@sugestao');
+Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
+Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
 
 /* rotas de inserção */
-Route::get('/item','ItemController@index');
-Route::get('/item/create','ItemController@create');
-Route::post('/item','ItemController@store');
-Route::get('/excel','ItemController@excel');
+Route::get('/item', [ItemController::class, 'index']);
+Route::get('/item/create', [ItemController::class, 'create']);
+Route::post('/item', [ItemController::class, 'store']);
+Route::get('/excel', [ItemController::class, 'excel']);
 
 /* rotas para processar */
-Route::get('/processar','ProcessarController@processarIndex');
-Route::post('/processar_sugestao/{item}','ProcessarController@processarSugestao');
-Route::post('/processar_cotacao/{item}','ProcessarController@processarCotacao');
-Route::post('/processar_licitacao/{item}','ProcessarController@processarLicitacao');
-Route::post('/processar_tombamento/{item}','ProcessarController@processarTombamento');
-Route::post('/processar_processamento/{item}','ProcessarController@processarProcessamento');
-Route::post('/processar_processado/{item}','ProcessarController@processarProcessado');
+Route::get('/processar', [ProcessarController::class, 'processarIndex']);
+Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processarSugestao']);
+Route::post('/processar_cotacao/{item}', [ProcessarController::class, 'processarCotacao']);
+Route::post('/processar_licitacao/{item}', [ProcessarController::class, 'processarLicitacao']);
+Route::post('/processar_tombamento/{item}', [ProcessarController::class, 'processarTombamento']);
+Route::post('/processar_processamento/{item}', [ProcessarController::class, 'processarProcessamento']);
+Route::post('/processar_processado/{item}', [ProcessarController::class, 'processarProcessado']);
 
 /* show item */
-Route::get('/item/{item}','ItemController@show');
+Route::get('/item/{item}', [ItemController::class, 'show']);
 
 /* Etiquetas */
-Route::get('/etiquetas','EtiquetaController@form');
-Route::post('/etiquetas','EtiquetaController@show');
+Route::get('/etiquetas', [EtiquetaController::class, 'form']);
+Route::post('/etiquetas', [EtiquetaController::class, 'show']);
 
 /* Relatório */
-Route::get('/relatorios','RelatorioController@form');
-Route::post('/relatorios','RelatorioController@show');
+Route::get('/relatorios', [RelatorioController::class, 'form']);
+Route::post('/relatorios', [RelatorioController::class, 'show']);
 
 /* Estatísticas */
-Route::get('/estatisticas', 'EstatisticaController@form');
-Route::post('/estatisticas','EstatisticaController@show');
+Route::get('/estatisticas', [EstatisticaController::class, 'form']);
+Route::post('/estatisticas', [EstatisticaController::class, 'show']);
 
-Route::get('/migracao', 'MigracaoController@migracao');
+Route::get('/migracao', [MigracaoController::class, 'migracao']);
 
 /*
 

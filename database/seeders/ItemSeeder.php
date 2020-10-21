@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Item;
+use App\Models\Item;
 
 class ItemSeeder extends Seeder
 {
@@ -61,6 +63,6 @@ class ItemSeeder extends Seeder
             'data_sau' => '2020-08-28',
         ];
         Item::create($item);
-        factory(Item::class, 200)->create();
+        Item::factory(200)->create();
     }
 }
