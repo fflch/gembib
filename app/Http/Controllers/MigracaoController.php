@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
 
 class MigracaoController extends Controller
 {
@@ -18,7 +17,7 @@ class MigracaoController extends Controller
                 $item = new Item;
                 $item->tombo = $normalizado->tombo;
             }//atualização e inserção - se o campo da tabela acervo estiver vazio, manter informação do campo da tabela item
-            $item->created_at = empty($item->created_at) ? $normalizado->created_at : $item->created_at;
+            empty($normalizado->created_at) ? : $item->created_at = $normalizado->created_at;
             $item->titulo = empty($item->titulo) ? $normalizado->titulo : $item->titulo;
             $item->status = empty($item->status) ? $normalizado->status : $item->status;
             $item->tipo_aquisicao = empty($item->tipo_aquisicao) ? $normalizado->tipo_aquisicao : $item->tipo_aquisicao;
@@ -36,9 +35,9 @@ class MigracaoController extends Controller
             $item->local = empty($item->local) ? $normalizado->local : $item->local;
             $item->colecao = empty($item->colecao) ? $normalizado->colecao : $item->colecao;
             $item->isbn = empty($item->isbn) ? $normalizado->isbn : $item->isbn;
-            $item->dpto = empty($item->dpto) ? $normalizado->departamento : $item->dpto;
+            $item->departamento = empty($item->departamento) ? $normalizado->departamento : $item->departamento;
             $item->finalidade = empty($item->finalidade) ? $normalizado->finalidade : $item->finalidade;
-            $item->data_sugestao = empty($item->data_sugestao) ? $normalizado->data_sugestao : $item->data_sugestao;
+            empty($normalizado->data_sugestao) ? : $item->data_sugestao = $normalizado->data_sugestao;
             $item->prioridade = empty($item->prioridade) ? $normalizado->prioridade : $item->prioridade;
             $item->moeda = empty($item->moeda) ? $normalizado->moeda : $item->moeda;
             $item->preco = empty($item->preco) ? $normalizado->preco : $item->preco;
@@ -48,6 +47,9 @@ class MigracaoController extends Controller
             $item->processo = empty($item->processo) ? $normalizado->processo : $item->processo;
             $item->fornecedor = empty($item->fornecedor) ? $normalizado->fornecedor : $item->fornecedor;
             $item->nota_fiscal = empty($item->nota_fiscal) ? $normalizado->nota_fiscal : $item->nota_fiscal;
+            empty($normalizado->data_sau) ? : $item->data_sau = $normalizado->data_sau . " 23:00:00" ;
+            empty($normalizado->data_processamento) ? : $item->data_processamento = $normalizado->data_processamento . " 23:00:00" ;
+            $item->capes = empty($item->capes) ? $normalizado->capes : $item->capes;
             $item->save();
         }
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\EstatisticaController;
 use App\Http\Controllers\MigracaoController;
+use App\Http\Controllers\TesteController;
 
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
