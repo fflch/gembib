@@ -1,15 +1,46 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 
-class MigracaoController extends Controller
+class migragem extends Command
 {
-    public function migracao(){
-        // EU sei que existe uma tabela chamada: acervonormalizado que queremos juntar com itens!
-        $normalizados = DB::table('acervonormalizado')->get();
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'migragem';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $normalizados = DB::table('acervonormalizado')->offset(1001)->limit(2000)->get();
+        #dd($normalizados);
 
         foreach ($normalizados as $normalizado) {
             $item = Item::where('tombo',$normalizado->tombo)->first();
@@ -40,7 +71,11 @@ class MigracaoController extends Controller
             empty($normalizado->data_sugestao) ? : $item->data_sugestao = $normalizado->data_sugestao;
             $item->prioridade = empty($item->prioridade) ? $normalizado->prioridade : $item->prioridade;
             $item->moeda = empty($item->moeda) ? $normalizado->moeda : $item->moeda;
-            $item->preco = empty($item->preco) ? $normalizado->preco : $item->preco;
+
+            if((float)$normalizado->preco > 99999) $normalizado->preco = 0;
+
+            $item->preco = empty(trim($item->preco)) ? (float)$normalizado->preco : $item->preco;
+
             $item->procedencia = empty($item->procedencia) ? $normalizado->procedencia : $item->procedencia;
             $item->observacao = empty($item->observacao) ? $normalizado->observacao : $item->observacao;
             $item->verba = empty($item->verba) ? $normalizado->verba : $item->verba;
@@ -52,5 +87,6 @@ class MigracaoController extends Controller
             $item->capes = empty($item->capes) ? $normalizado->capes : $item->capes;
             $item->save();
         }
+        return 0;
     }
 }

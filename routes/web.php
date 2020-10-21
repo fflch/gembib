@@ -9,8 +9,6 @@ use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\EstatisticaController;
 use App\Http\Controllers\MigracaoController;
-use App\Http\Controllers\TesteController;
-
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
@@ -53,34 +51,3 @@ Route::post('/relatorios', [RelatorioController::class, 'show']);
 /* Estatísticas */
 Route::get('/estatisticas', [EstatisticaController::class, 'form']);
 Route::post('/estatisticas', [EstatisticaController::class, 'show']);
-
-Route::get('/migracao', [MigracaoController::class, 'migracao']);
-
-/*
-
-Route::get('/itens/processar_tombamento/{tombamento}','ItemController@processar_tombamento');
-Route::post('/itens/store_processar_tombamento/{tombamento}','ItemController@store_processar_tombamento');
-
-//Rota para mostrar as sugestões em processo de aquisição
-Route::get('/itens/lista_aquisicao/','ItemController@lista_aquisicao');
-
-//Rota para mostrar a lista com o status das sugestões
-Route::get('/itens/consulta/','ItemController@consulta');
-
-
-
-
-Route::get('/itens/disparar_email', function(){
-	Mail::send('mail.sugestao', ['usuario' => 'Gabriela'], function($m){//conseguir passar o nome do usuário
-		$user = Auth::user();
-		$m->from('gabsreisg@gmail.com', 'Gabriela');//o remetente deve ser o email gembib
-		$m->subject('Sugestão enviada!'); //assunto
-		$m->to($user->email);//email do usuário que fez a sugestão
-	});
-});
-
-
-//Rota para edição
-Route::get('/itens/edit/{item}','editController@editEdit');
-Route::post('/itens/updateEdit/{item}','editController@updateEdit');
-*/
