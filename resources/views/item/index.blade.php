@@ -37,6 +37,7 @@
 
     {{ $itens->appends(request()->query())->links() }}
 <table class="table table-striped">
+  <p><b>Total de itens:</b> {{ $total }} </p>
   <thead>
     <tr>
       <th scope="col">Tombo</th>

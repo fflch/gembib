@@ -51,8 +51,9 @@ class ItemController extends Controller
         $status = $this->status;
         $procedencia = $this->procedencia;
         $query = $this->search();
+        $total = Item::count();
         $itens = $query->paginate(10);
-        return view('item/index',compact('itens','status','procedencia'));
+        return view('item/index',compact('itens','status','procedencia','total'));
     }
 
     public function excel(Excel $excel){
