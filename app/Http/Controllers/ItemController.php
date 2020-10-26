@@ -51,8 +51,18 @@ class ItemController extends Controller
         $status = $this->status;
         $procedencia = $this->procedencia;
         $query = $this->search();
+        $busca = $query->count();
+        $total = Item::count();
+        $sugestao = Item::where('status', 'Sugestão')->count();
+        $cotacao = Item::where('status', 'Em Cotação')->count();
+        $licitacao = Item::where('status', 'Em Licitação')->count();
+        $tombamento = Item::where('status', 'Em Tombamento')->count();
+        $negado = Item::where('status', 'Negado')->count();
+        $tombado = Item::where('status', 'Tombado')->count();
+        $processamento = Item::where('status', 'Em Processamento Técnico')->count();
+        $processado = Item::where('status', 'Processado')->count();
         $itens = $query->paginate(10);
-        return view('item/index',compact('itens','status','procedencia'));
+        return view('item/index',compact('itens','status','procedencia','total', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'busca', 'query'));
     }
 
     public function excel(Excel $excel){
