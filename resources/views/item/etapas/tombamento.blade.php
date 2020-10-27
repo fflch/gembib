@@ -17,4 +17,6 @@
     @endif
     <br>
     @include('item/form')
+    <button type="submit" name="processar_tombamento" class="btn btn-info" value="salvar">Salvar e continuar editando</button>
+        <button type="submit" name="processar_tombamento" class="btn btn-success" value="tombar" onclick="return confirm('Mudar status para Tombado?')">Tombar (gerar número de tombo)</button>
 </form>
