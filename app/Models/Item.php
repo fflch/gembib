@@ -95,7 +95,7 @@ class Item extends Model
         "REAL",
         "DÓLAR"
     ];
-    /*
+    
     public function setPrecoAttribute($value){
         if($value){
             $this->attributes['preco'] = str_replace(',','.',$value);
@@ -105,8 +105,7 @@ class Item extends Model
     public function getPrecoAttribute($value){
         return number_format($value, 2, ',', '');
     }
-    */
-    /*
+    
     public function getDataTombamentoAttribute(){
         return date('d/m/Y', strtotime($this->attributes['data_tombamento']));
     }
@@ -127,5 +126,4 @@ class Item extends Model
     {
         return date('d/m/Y H:m:s', strtotime($this->attributes['updated_at']));
     }
-*/
 }
