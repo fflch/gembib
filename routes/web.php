@@ -47,7 +47,3 @@ Route::post('/etiquetas', [EtiquetaController::class, 'show']);
 /* Relatório */
 Route::get('/relatorios', [RelatorioController::class, 'form']);
 Route::post('/relatorios', [RelatorioController::class, 'show']);
-
-/* Estatísticas */
-Route::get('/estatisticas', [EstatisticaController::class, 'form']);
-Route::post('/estatisticas', [EstatisticaController::class, 'show']);

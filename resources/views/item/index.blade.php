@@ -3,7 +3,10 @@
 @section('content')
 @include('flash')
 
-<form method="GET" >
+<form method="GET">
+
+<div class="row">
+  <div class="col-sm form-group">
   <select name="status">
   <option value="" selected="">Selecionar o status</option>
     @foreach($status as $i)
@@ -21,17 +24,57 @@
       </option>
     @endforeach
   </select>
-  
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm form-group">
   <b>Buscar pelo título, autor, tombo ou código de impressão:</b>
   <input type="text" name="busca" value="{{ Request()->busca }}">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm form-group">
+      <label for="">Data Sugestão</label>
+      <input type="text" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}"> <b>-</b>
+      <input type="text" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm form-group">
+    <label for="">Data Tombamento</label>
+    <input type="text" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}"> <b>-</b>
+    <input type="text" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm form-group">
+    <label for="">Data Processamento</label>
+    <input type="text" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
+    <input type="text" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
+  </div>
+</div>
+
   <button type="submit" class="btn btn-success">buscar</button>
 </form>
 <br>
 
 <div>
-  <a href="/excel?status={{ request()->status }}&procedencia={{ request()->procedencia }}&busca={{ request()->busca }}">
+  <a href="/excel?status={{ request()->status }}
+  &procedencia={{ request()->procedencia }}
+  &busca={{ request()->busca }}
+  &data_sugestao_inicio={{ request()->data_sugestao_inicio }}
+  &data_sugestao_fim={{ request()->data_sugestao_fim }}
+  &data_tombamento_inicio={{ request()->data_tombamento_inicio }}
+  &data_tombamento_fim={{ request()->data_tombamento_fim }}
+  &data_processamento_inicio={{ request()->data_processamento_inicio }}
+  &data_processamento_fim={{ request()->data_processamento_fim }}">
   <i class="fas fa-file-excel"></i>Exportar busca em excel</a>  
 </div>
+
 <br>
     {{ $itens->appends(request()->query())->links() }}
 <table class="table table-striped">

@@ -23,11 +23,6 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Estatística',
-            'url'  => '/estatisticas',
-            'can'  => 'sai',
-        ],
-        [
             'text' => 'Relatórios',
             'url'  => '/relatorios',
             'can'  => 'sai',

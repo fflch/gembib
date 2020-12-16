@@ -20,20 +20,20 @@ class ItemController extends Controller
         $request =  request();
         $query = Item::orderBy('created_at', 'desc');        
 
-        if (isset($request->status) && !empty($request->status)) {
+        if (!empty($request->status)) {
             $query->where(function ($p) use (&$request) {
-            $p->where('status','=',$request->status);
+                $p->where('status','=',$request->status);
             });
         }
 
-        if (isset($request->procedencia) && !empty ($request->procedencia)) {
+        if (!empty ($request->procedencia)) {
             $query->where(function ($s) use (&$request) {
-            $s->where('procedencia','=',$request->procedencia)
-              ->orwhere('procedencia','=',$request->procedencia);
+                $s->where('procedencia','=',$request->procedencia)
+                  ->orwhere('procedencia','=',$request->procedencia);
             });
         }
 
-        if (isset($request->busca) && !empty($request->busca)) {
+        if (!empty($request->busca)) {
             $query->where(function ($q) use (&$request) {
                 $q->where('titulo','LIKE', '%' . $request->busca . '%')
                   ->orWhere('autor','LIKE', '%' . $request->busca . '%')
@@ -41,6 +41,14 @@ class ItemController extends Controller
                   ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
             });
         }
+
+        if (!empty($request->data_sugestao_inicio) && !empty($request->data_sugestao_fim)) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
+            $query->whereBetween('data_sugestao', [$from, $to])->get();
+        }
+
+        
 
         return $query;
     }
@@ -63,15 +71,6 @@ class ItemController extends Controller
         $processado = Item::where('status', 'Processado')->count();
         $itens = $query->paginate(10);
         return view('item/index',compact('itens','status','procedencia','total', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'busca', 'query'));
-    }
-
-    public function excel(Excel $excel){
-        $query = $this->search();
-        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
-        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
-        $itens = $query->get($headings)->toArray();
-        $export = new ExcelExport($itens,$campos);
-        return $excel->download($export, 'busca.xlsx');
     }
 
     public function create()
@@ -106,6 +105,15 @@ class ItemController extends Controller
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
         return redirect("/item/{$item->id}");
+    }
+    
+    public function excel(Excel $excel){
+        $query = $this->search();
+        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
+        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
+        $itens = $query->get($headings)->toArray();
+        $export = new ExcelExport($itens,$campos);
+        return $excel->download($export, 'busca.xlsx');
     }
 
 }
