@@ -38,7 +38,7 @@ class ItemFactory extends Factory
         if($status_escolhido == 'Negado') $motivo = $this->faker->sentence;
 
         /* Quando é sugestão não tem tombo */
-        $tombo = $this->faker->unique()->numberBetween($min = 1000, $max = 9000);
+        $tombo = $this->faker->unique()->numberBetween($min = 1000, $max = 9000000);
         if($status_escolhido == 'Sugestão') $tombo = null;
 
         $data_sau = $this->faker->date;

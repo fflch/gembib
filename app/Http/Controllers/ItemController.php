@@ -72,18 +72,33 @@ class ItemController extends Controller
         $status = $this->status;
         $procedencia = $this->procedencia;
         $query = $this->search();
-        $busca = $query->count();
-        $total = Item::count();
-        $sugestao = Item::where('status', 'Sugestão')->count();
-        $cotacao = Item::where('status', 'Em Cotação')->count();
-        $licitacao = Item::where('status', 'Em Licitação')->count();
-        $tombamento = Item::where('status', 'Em Tombamento')->count();
-        $negado = Item::where('status', 'Negado')->count();
-        $tombado = Item::where('status', 'Tombado')->count();
-        $processamento = Item::where('status', 'Em Processamento Técnico')->count();
-        $processado = Item::where('status', 'Processado')->count();
+
+        $q = clone $query;
+        $sugestao = $q->where('status', 'Sugestão')->count();
+
+        $q = clone $query;
+        $cotacao = $q->where('status', 'Em Cotação')->count();
+
+        $q = clone $query;
+        $licitacao = $q->where('status', 'Em Licitação')->count();
+
+        $q = clone $query;
+        $tombamento = $q->where('status', 'Em Tombamento')->count();
+
+        $q = clone $query;
+        $negado = $q->where('status', 'Negado')->count();
+
+        $q = clone $query;
+        $tombado = $q->where('status', 'Tombado')->count();
+
+        $q = clone $query;
+        $processamento = $q->where('status', 'Em Processamento Técnico')->count();
+
+        $q = clone $query;
+        $processado = $q->where('status', 'Processado')->count();
+
         $itens = $query->paginate(10);
-        return view('item/index',compact('itens','status','procedencia','total', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'busca', 'query'));
+        return view('item/index',compact('itens','status','procedencia', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
     }
 
     public function create()
@@ -122,6 +137,13 @@ class ItemController extends Controller
     
     public function excel(Excel $excel){
         $query = $this->search();
+        $q = clone $query;
+        if($q->count() > 10000){
+            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo, 
+            limite de 10000 registros excedido");
+            return redirect('/item');
+        }
+        
         $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
         $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
         $itens = $query->get($headings)->toArray();

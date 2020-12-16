@@ -72,7 +72,7 @@
   &data_tombamento_fim={{ request()->data_tombamento_fim }}
   &data_processamento_inicio={{ request()->data_processamento_inicio }}
   &data_processamento_fim={{ request()->data_processamento_fim }}">
-  <i class="fas fa-file-excel"></i>Exportar busca em excel</a>  
+  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>  
 </div>
 
 <br>
@@ -89,7 +89,6 @@
     <th scope="col">Em Processamento Técnico:</th>
     <th scope="col">Processado:</th>
     <th scope="col">Total de itens:</th>
-    <th scope="col">Total por busca:</th>
   </tr>
   </thead>
   <tbody>
@@ -102,8 +101,7 @@
       <td>{{ $tombado }}</td>
       <td>{{ $processamento }}</td>
       <td>{{ $processado }}</td>
-      <td>{{ $total }}</td>
-      <td>{{ $busca }}</td>
+      <td>{{ $itens->total() }}</td>
     </tr>
   </tbody>
 </table>
