@@ -9,7 +9,7 @@
 
 <table class="table table-striped">
   <tbody>
-  @if($item->status == 'Processado')
+    @if($item->status == 'Processado')
     <tr>
       <th scope="col">Entregue para o SAU em:</th>
       <td scope="row">{{ $item->data_sau ?? 'Não cadastrado' }}</td>
@@ -43,12 +43,10 @@
       <th scope="col">Data da sugestão:</th>
       <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
     </tr>
-    @if($item->status == 'Em Processamento Técnico')
     <tr>
       <th scope="col">Data de envio para processamento técnico:</th>
-      <td scope="col">{{ $item->data_processamento }}</td>
+      <td scope="col">{{ $item->data_processamento ?? '' }}</td>
     </tr>
-    @endif
     <tr>
       <th scope="col">Autor:</th>
       <td scope="row">{{ $item->autor }}</td>
