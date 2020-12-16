@@ -45,19 +45,22 @@ class ItemController extends Controller
         if (!empty($request->data_sugestao_inicio) && !empty($request->data_sugestao_fim)) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
-            $query->orWhereBetween('data_sugestao', [$from, $to]);
+            $query->whereBetween('data_sugestao', [$from, $to]);
+            $query->whereNotNull('data_sugestao');
         }
 
         if (!empty($request->data_processamento_inicio) && !empty($request->data_processamento_fim)) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
-            $query->orWhereBetween('data_processamento', [$from, $to]);
+            $query->whereBetween('data_processamento', [$from, $to]);
+            $query->whereNotNull('data_processamento');
         }
 
         if (!empty($request->data_tombamento_inicio) && !empty($request->data_tombamento_fim)) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_tombamento_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim);
-            $query->orWhereBetween('data_tombamento', [$from, $to]);
+            $query->whereBetween('data_tombamento', [$from, $to]);
+            $query->whereNotNull('data_tombamento');
         }
 
         return $query;

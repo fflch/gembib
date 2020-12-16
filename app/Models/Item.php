@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 
 class Item extends Model
 {
@@ -106,24 +106,34 @@ class Item extends Model
         return number_format($value, 2, ',', '');
     }
     
-    public function getDataTombamentoAttribute(){
-        return date('d/m/Y', strtotime($this->attributes['data_tombamento']));
+    public function getDataTombamentoAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
-    public function getDataSugestaoAttribute(){
-        return date('d/m/Y', strtotime($this->attributes['data_sugestao']));
+    public function getDataSugestaoAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
-    public function getDataProcessamentoAttribute(){
-        return date('d/m/Y', strtotime($this->attributes['data_processamento']));
+    public function getDataProcessamentoAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
-    public function getDataSauAttribute(){
-        return date('d/m/Y', strtotime($this->attributes['data_sau']));
+    public function getDataSauAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
-    public function getUpdatedAtAttribute()
+    public function getUpdatedAtAttribute($value)
     {
-        return date('d/m/Y H:m:s', strtotime($this->attributes['updated_at']));
+        if($value){
+            return Carbon::CreateFromFormat('d/m/Y H:m:s', $value)->format('d/m/Y');
+        }
     }
 }
