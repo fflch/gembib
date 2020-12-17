@@ -24,6 +24,15 @@
       </option>
     @endforeach
   </select>
+
+  <select name="tipo_material">
+  <option value="" selected>Selecionar tipo de material</option>
+    @foreach($tipo_material as $t)
+      <option @if(Request()->tipo_material == "$t") selected @endif>
+        {{$t}}
+      </option>
+    @endforeach
+  </select>
   </div>
 </div>
 
