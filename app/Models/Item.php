@@ -19,6 +19,7 @@ class Item extends Model
         "Em Tombamento",
         "Negado",
         "Tombado",
+        "Em Trânsito",
         "Em Processamento Técnico",
         "Processado"
     ];

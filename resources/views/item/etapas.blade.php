@@ -45,6 +45,10 @@
             @include('item.etapas.tombado')
         @break
 
+        @case('Em Trânsito')
+            @include('item.etapas.transito')
+        @break
+
         @case('Em Processamento Técnico')
             @include('item.etapas.processamento')
         @break

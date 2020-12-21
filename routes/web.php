@@ -34,6 +34,7 @@ Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processa
 Route::post('/processar_cotacao/{item}', [ProcessarController::class, 'processarCotacao']);
 Route::post('/processar_licitacao/{item}', [ProcessarController::class, 'processarLicitacao']);
 Route::post('/processar_tombamento/{item}', [ProcessarController::class, 'processarTombamento']);
+Route::post('/enviar_processamento/{item}', [ProcessarController::class, 'enviarProcessamento']);
 Route::post('/processar_processamento/{item}', [ProcessarController::class, 'processarProcessamento']);
 Route::post('/processar_processado/{item}', [ProcessarController::class, 'processarProcessado']);
 
