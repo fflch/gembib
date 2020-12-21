@@ -24,6 +24,15 @@
       </option>
     @endforeach
   </select>
+
+  <select name="tipo_material">
+  <option value="" selected>Selecionar tipo de material</option>
+    @foreach($tipo_material as $t)
+      <option @if(Request()->tipo_material == "$t") selected @endif>
+        {{$t}}
+      </option>
+    @endforeach
+  </select>
   </div>
 </div>
 
@@ -65,6 +74,7 @@
 <div>
   <a href="/excel?status={{ request()->status }}
   &procedencia={{ request()->procedencia }}
+  &tipo_material={{ request()->tipo_material }}
   &busca={{ request()->busca }}
   &data_sugestao_inicio={{ request()->data_sugestao_inicio }}
   &data_sugestao_fim={{ request()->data_sugestao_fim }}

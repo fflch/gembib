@@ -14,6 +14,7 @@ class ItemController extends Controller
 {
     private $status = Item::status;
     private $procedencia = Item::procedencia;
+    private $tipo_material = Item::tipo_material;
 
     private function search(){
         $request =  request();
@@ -29,6 +30,13 @@ class ItemController extends Controller
             $query->where(function ($s) use (&$request) {
                 $s->where('procedencia','=',$request->procedencia)
                   ->orwhere('procedencia','=',$request->procedencia);
+            });
+        }
+
+        if (!empty ($request->tipo_material)) {
+            $query->where(function ($t) use (&$request) {
+                $t->where('tipo_material','=',$request->tipo_material)
+                  ->orwhere('tipo_material','=',$request->tipo_material);
             });
         }
 
@@ -70,6 +78,7 @@ class ItemController extends Controller
         $this->authorize('sai');
         $status = $this->status;
         $procedencia = $this->procedencia;
+        $tipo_material = $this->tipo_material;
         $query = $this->search();
 
         $q = clone $query;
@@ -97,7 +106,7 @@ class ItemController extends Controller
         $processado = $q->where('status', 'Processado')->count();
 
         $itens = $query->paginate(10);
-        return view('item/index',compact('itens','status','procedencia', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
+        return view('item/index',compact('itens','status','procedencia', 'tipo_material', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
     }
 
     public function create()
