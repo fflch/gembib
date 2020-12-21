@@ -105,7 +105,7 @@ class Item extends Model
     public function getPrecoAttribute($value){
         return number_format($value, 2, ',', '');
     }
-    
+
     public function getDataTombamentoAttribute($value){
         if($value){
             return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
@@ -127,13 +127,6 @@ class Item extends Model
     public function getDataSauAttribute($value){
         if($value){
             return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
-        }
-    }
-
-    public function getUpdatedAtAttribute($value)
-    {
-        if($value){
-            return Carbon::CreateFromFormat('d/m/Y H:m:s', $value)->format('d/m/Y');
         }
     }
 }

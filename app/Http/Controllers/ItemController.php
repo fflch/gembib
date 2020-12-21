@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
-use Maatwebsite\Excel\Excel;
-use App\Exports\ExcelExport;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class ItemController extends Controller
 {
@@ -135,7 +134,7 @@ class ItemController extends Controller
         return redirect("/item/{$item->id}");
     }
     
-    public function excel(Excel $excel){
+    public function excel(){
         $query = $this->search();
         $q = clone $query;
         if($q->count() > 10000){
@@ -144,11 +143,8 @@ class ItemController extends Controller
             return redirect('/item');
         }
         
-        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
-        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
-        $itens = $query->get($headings)->toArray();
-        $export = new ExcelExport($itens,$campos);
-        return $excel->download($export, 'busca.xlsx');
+        $export = new FastExcel($query->get());
+        return $export->download(date("YmdHi").'gembib.xlsx');
     }
 
 }
