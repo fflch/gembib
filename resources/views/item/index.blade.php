@@ -131,7 +131,7 @@
   <tbody>
     @foreach($itens as $item)
     <tr>
-      <td>{{ $item->tombo ?? 'Sem tombo' }}</td>
+      <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
       <th><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></th>
       <td>{{ $item->autor }}</td>
       <td>{{ $item->editora }}</td>

@@ -153,8 +153,8 @@ class ItemController extends Controller
             return redirect('/item');
         }
         
-        $headings = ['isbn','titulo','autor','editora','data_sugestao','data_tombamento'];
-        $campos = ['ISBN', 'Título', 'Autor', 'Editora', 'Data de sugestão', 'Data de tombamento'];
+        $headings = ['tombo','titulo','autor','editora', 'ano', 'tipo_material', 'tipo_aquisicao', 'subcategoria','status','data_sugestao','data_tombamento','data_processamento', 'data_processado', 'fornecedor', 'processo', 'verba', 'procedencia','preco', 'moeda','prioridade','finalidade', 'departamento', 'colecao', 'observacao', 'escala','local', 'fasciculo', 'parte', 'volume','edicao','link','capes','isbn'];
+        $campos = ['Tombo', 'Título', 'Autor', 'Editora', 'Ano', 'Tipo de material', 'tipo_aquisicao', 'Subcategoria','Status', 'Data de sugestão', 'Data de tombamento', 'Data de processamento', 'Data processado', 'Fornecedor', 'Processo', 'Verba', 'Procedência','Preço', 'Moeda','Prioridade','Finalidade', 'Departamento','Coleção', 'Observação', 'Escala','Local','Fascículo', 'Parte','Volume','Edição','Link','Área do conhecimento', 'ISBN'];
         $itens = $query->get($headings)->toArray();
         $export = new ExcelExport($itens,$campos);
         return $excel->download($export, 'busca.xlsx');

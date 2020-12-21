@@ -54,7 +54,7 @@
         @break
         
         @case('Processado')
-          Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_sau }}.
+          Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_processado }}.
         @break 
 
         @default

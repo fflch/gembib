@@ -124,7 +124,7 @@ class Item extends Model
         }
     }
 
-    public function getDataSauAttribute($value){
+    public function getDataProcessadoAttribute($value){
         if($value){
             return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
         }
@@ -133,7 +133,8 @@ class Item extends Model
     public function getUpdatedAtAttribute($value)
     {
         if($value){
-            return Carbon::CreateFromFormat('d/m/Y H:m:s', $value)->format('d/m/Y');
+            return Carbon::CreateFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y');
         }
     }
 }
+
