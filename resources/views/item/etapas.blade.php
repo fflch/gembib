@@ -58,7 +58,7 @@
         @break
         
         @case('Processado')
-          Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_processado }}.
+          Enviado para {{ $item->status }} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{ $item->data_processado }}.
         @break 
 
         @default
