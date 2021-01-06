@@ -41,8 +41,8 @@ class ItemFactory extends Factory
         $tombo = $this->faker->unique()->numberBetween($min = 1000, $max = 9000000);
         if($status_escolhido == 'Sugestão') $tombo = null;
 
-        $data_sau = $this->faker->date;
-        if($status_escolhido != 'Processado') $data_sau = null;
+        $data_processado = $this->faker->date;
+        if($status_escolhido != 'Processado') $data_processado = null;
 
         $data_processamento = $this->faker->date;
         if($status_escolhido != 'Em Processamento Técnico') $data_processamento = null;
@@ -87,9 +87,9 @@ class ItemFactory extends Factory
             'nota_fiscal' => $this->faker->randomDigit,
             'data_tombamento' => $this->faker->date,
             'escala' => $this->faker->randomDigit,
-            'alterado_por' => $this->faker->name(),
+            'alterado_por' => $this->faker->randomDigit(),
             'data_processamento' => $data_processamento,
-            'data_sau' => $data_sau,
+            'data_processado' => $data_processado,
         ];
     }
 }

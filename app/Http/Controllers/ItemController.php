@@ -115,6 +115,7 @@ class ItemController extends Controller
         $processado = $q->where('status', 'Processado')->count();
 
         $itens = $query->paginate(10);
+        
         return view('item/index',compact('itens','status','procedencia', 'tipo_material', 'tipo_aquisicao', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
     }
 
