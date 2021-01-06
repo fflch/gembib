@@ -33,6 +33,15 @@
       </option>
     @endforeach
   </select>
+
+  <select name="tipo_aquisicao">
+  <option value="" selected>Selecionar tipo de aquisição</option>
+    @foreach($tipo_aquisicao as $a)
+      <option @if(Request()->tipo_aquisicao == "$a") selected @endif>
+        {{$a}}
+      </option>
+    @endforeach
+  </select>
   </div>
 </div>
 
