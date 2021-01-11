@@ -132,7 +132,7 @@ class Item extends Model
     public function getUpdatedAtAttribute($value)
     {
         if($value){
-            return Carbon::CreateFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y');
+            return  Carbon::parse($this->attributes['updated_at'])->format('d/m/Y');
         }
     }
 }
