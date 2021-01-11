@@ -84,6 +84,7 @@
   <a href="/excel?status={{ request()->status }}
   &procedencia={{ request()->procedencia }}
   &tipo_material={{ request()->tipo_material }}
+  &tipo_aquisicao={{ request()->tipo_aquisicao }}
   &busca={{ request()->busca }}
   &data_sugestao_inicio={{ request()->data_sugestao_inicio }}
   &data_sugestao_fim={{ request()->data_sugestao_fim }}
