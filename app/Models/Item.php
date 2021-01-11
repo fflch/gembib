@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Http\Requests\ItemRequest;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class Item extends Model
@@ -21,6 +19,7 @@ class Item extends Model
         "Em Tombamento",
         "Negado",
         "Tombado",
+        "Em Trânsito",
         "Em Processamento Técnico",
         "Processado"
     ];
@@ -124,9 +123,17 @@ class Item extends Model
         }
     }
 
-    public function getDataSauAttribute($value){
+    public function getDataProcessadoAttribute($value){
         if($value){
             return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
         }
     }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y');
+        }
+    }
 }
+

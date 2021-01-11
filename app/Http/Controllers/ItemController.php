@@ -15,6 +15,7 @@ class ItemController extends Controller
     private $status = Item::status;
     private $procedencia = Item::procedencia;
     private $tipo_material = Item::tipo_material;
+    private $tipo_aquisicao = Item::tipo_aquisicao;
 
     private function search(){
         $request =  request();
@@ -37,6 +38,13 @@ class ItemController extends Controller
             $query->where(function ($t) use (&$request) {
                 $t->where('tipo_material','=',$request->tipo_material)
                   ->orwhere('tipo_material','=',$request->tipo_material);
+            });
+        }
+
+        if (!empty ($request->tipo_aquisicao)) {
+            $query->where(function ($a) use (&$request) {
+                $a->where('tipo_aquisicao','=',$request->tipo_aquisicao)
+                  ->orwhere('tipo_aquisicao','=',$request->tipo_aquisicao);
             });
         }
 
@@ -79,6 +87,7 @@ class ItemController extends Controller
         $status = $this->status;
         $procedencia = $this->procedencia;
         $tipo_material = $this->tipo_material;
+        $tipo_aquisicao = $this->tipo_aquisicao;
         $query = $this->search();
 
         $q = clone $query;
@@ -106,7 +115,8 @@ class ItemController extends Controller
         $processado = $q->where('status', 'Processado')->count();
 
         $itens = $query->paginate(10);
-        return view('item/index',compact('itens','status','procedencia', 'tipo_material', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
+        
+        return view('item/index',compact('itens','status','procedencia', 'tipo_material', 'tipo_aquisicao', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
     }
 
     public function create()
@@ -151,7 +161,6 @@ class ItemController extends Controller
             limite de 10000 registros excedido");
             return redirect('/item');
         }
-        
         $export = new FastExcel($query->get());
         return $export->download(date("YmdHi").'gembib.xlsx');
     }

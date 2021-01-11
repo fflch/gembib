@@ -33,6 +33,15 @@
       </option>
     @endforeach
   </select>
+
+  <select name="tipo_aquisicao">
+  <option value="" selected>Selecionar tipo de aquisição</option>
+    @foreach($tipo_aquisicao as $a)
+      <option @if(Request()->tipo_aquisicao == "$a") selected @endif>
+        {{$a}}
+      </option>
+    @endforeach
+  </select>
   </div>
 </div>
 
@@ -131,7 +140,7 @@
   <tbody>
     @foreach($itens as $item)
     <tr>
-      <td>{{ $item->tombo ?? 'Sem tombo' }}</td>
+      <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
       <th><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></th>
       <td>{{ $item->autor }}</td>
       <td>{{ $item->editora }}</td>

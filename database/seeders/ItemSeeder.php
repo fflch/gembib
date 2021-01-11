@@ -60,7 +60,7 @@ class ItemSeeder extends Seeder
             'escala' => '15545',
             'alterado_por' => '11284280',
             'data_processamento' => '2020-08-27',
-            'data_sau' => '2020-08-28',
+            'data_processado' => '2020-08-28',
         ];
         Item::create($item);
         Item::factory(10000)->create();

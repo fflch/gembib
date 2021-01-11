@@ -45,6 +45,10 @@
             @include('item.etapas.tombado')
         @break
 
+        @case('Em Trânsito')
+            @include('item.etapas.transito')
+        @break
+
         @case('Em Processamento Técnico')
             @include('item.etapas.processamento')
         @break
@@ -54,7 +58,7 @@
         @break
         
         @case('Processado')
-          Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_sau }}.
+          Enviado para {{ $item->status }} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{ $item->data_processado }}.
         @break 
 
         @default

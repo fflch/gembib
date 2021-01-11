@@ -9,15 +9,21 @@
 
 <table class="table table-striped">
   <tbody>
-    @if($item->status == 'Processado')
-    <tr>
-      <th scope="col">Entregue para o SAU em:</th>
-      <td scope="row">{{ $item->data_sau ?? 'Não cadastrado' }}</td>
-    </tr>
-    @endif
     <tr>
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Data da sugestão:</th>
+      <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Data de envio para processamento técnico:</th>
+      <td scope="col">{{ $item->data_processamento ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Entregue para o SAU em:</th>
+      <td scope="row">{{ $item->data_processado ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Código de impressão:</th>
@@ -26,6 +32,10 @@
     <tr>
       <th scope="col">Título: </th>
       <td scope="col">{{ $item->titulo }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Autor:</th>
+      <td scope="row">{{ $item->autor }}</td>
     </tr>
     <tr>
       <th scope="col"><b>Status:</b></th>
@@ -38,18 +48,6 @@
     <tr>
       <th scope="col">Sugerido por:</th>
       <td scope="col">{{ $item->sugerido_por ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Data da sugestão:</th>
-      <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Data de envio para processamento técnico:</th>
-      <td scope="col">{{ $item->data_processamento ?? '' }}</td>
-    </tr>
-    <tr>
-      <th scope="col">Autor:</th>
-      <td scope="row">{{ $item->autor }}</td>
     </tr>
     <tr>
       <th scope="col">Editora:</th>
