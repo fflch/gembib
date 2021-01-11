@@ -63,6 +63,6 @@ class ItemSeeder extends Seeder
             'data_processado' => '2020-08-28',
         ];
         Item::create($item);
-        Item::factory(10000)->create();
+        Item::factory(100)->create();
     }
 }
