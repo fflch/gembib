@@ -10,14 +10,12 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\EstatisticaController;
 use App\Http\Controllers\MigracaoController;
 
-#Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 
 /* rotas para login e logout */
-Route::get('login', [LoginController::class, 'redirectToProvider']);
+Route::get('login', [LoginController::class, 'redirectToProvider'])->name('login');
 Route::get('callback', [LoginController::class, 'handleProviderCallback']);
 Route::post('/logout', [LoginController::class, 'logout']);
-Route::get('/logout', [LoginController::class, 'logout']);
 
 /* rotas de sugestão */
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);

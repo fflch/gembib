@@ -6,7 +6,7 @@
 <h3>Sistema para Gestão de Material Bibliográfico</h3>
 
 Consulte nosso acervo na busca abaixo e faça sugestões de compra acessando
-o sistema com sua <a href="/login">Senha Única</a> da Universidade de São Paulo.
+o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 <br><br>
 
 
