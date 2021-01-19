@@ -9,8 +9,6 @@ Consulte nosso acervo na busca abaixo e faça sugestões de compra acessando
 o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 <br><br>
 
-
-
 <form method="get">
 <div class="row">
     <div class=" col-sm input-group">
@@ -53,6 +51,5 @@ o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidad
 
 {{ $itens->appends(request()->query())->links() }}
 @endif
-
 
 @endsection('content')
