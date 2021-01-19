@@ -81,42 +81,71 @@ class ItemController extends Controller
         return $query;
     }
 
+    private function quantidades($query){
+        $quantidades = [];
+
+        $q = clone $query;
+        $quantidades['sugestao'] = $q->where('status', 'Sugestão')->count();
+
+        $q = clone $query;
+        $quantidades['cotacao'] = $q->where('status', 'Em Cotação')->count();
+
+        $q = clone $query;
+        $quantidades['licitacao'] = $q->where('status', 'Em Licitação')->count();
+
+        $q = clone $query;
+        $quantidades['tombamento'] = $q->where('status', 'Em Tombamento')->count();
+
+        $q = clone $query;
+        $quantidades['negado'] = $q->where('status', 'Negado')->count();
+
+        $q = clone $query;
+        $quantidades['tombado'] = $q->where('status', 'Tombado')->count();
+
+        $q = clone $query;
+        $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
+
+        $q = clone $query;
+        $quantidades['processado'] = $q->where('status', 'Processado')->count();
+        return $quantidades;
+    }
+
     public function index(Request $request)
     {
         $this->authorize('sai');
-        $status = $this->status;
-        $procedencia = $this->procedencia;
-        $tipo_material = $this->tipo_material;
-        $tipo_aquisicao = $this->tipo_aquisicao;
         $query = $this->search();
-
-        $q = clone $query;
-        $sugestao = $q->where('status', 'Sugestão')->count();
-
-        $q = clone $query;
-        $cotacao = $q->where('status', 'Em Cotação')->count();
-
-        $q = clone $query;
-        $licitacao = $q->where('status', 'Em Licitação')->count();
-
-        $q = clone $query;
-        $tombamento = $q->where('status', 'Em Tombamento')->count();
-
-        $q = clone $query;
-        $negado = $q->where('status', 'Negado')->count();
-
-        $q = clone $query;
-        $tombado = $q->where('status', 'Tombado')->count();
-
-        $q = clone $query;
-        $processamento = $q->where('status', 'Em Processamento Técnico')->count();
-
-        $q = clone $query;
-        $processado = $q->where('status', 'Processado')->count();
-
+        $quantidades = $this->quantidades($query);
         $itens = $query->paginate(10);
         
-        return view('item/index',compact('itens','status','procedencia', 'tipo_material', 'tipo_aquisicao', 'sugestao', 'cotacao', 'licitacao', 'tombamento','negado', 'tombado', 'processamento','processado', 'query'));
+        return view('item/index', [
+            'itens'          => $itens,
+            'status'         => $this->status,
+            'quantidades'    => $quantidades,
+            'procedencia'    => $this->procedencia,
+            'tipo_material'  => $this->tipo_material,
+            'tipo_aquisicao' => $this->tipo_aquisicao,
+            'query'          => $query,
+            ]);
+    }
+
+    public function indexPublic(Request $request)
+    {
+        $query = Item::orderBy('created_at', 'desc'); 
+
+        if (!empty($request->search)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->search . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->search . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->search . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->search . '%');
+            });
+        }
+        $quantidades = $this->quantidades($query);
+        $itens = $query->paginate(10);
+    	return view('index',[
+            'quantidades' => $quantidades,
+            'itens' => $itens
+        ]);
     }
 
     public function create()

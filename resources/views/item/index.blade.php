@@ -96,35 +96,9 @@
 </div>
 
 <br>
-    {{ $itens->appends(request()->query())->links() }}
-<table class="table table-striped">
-  <thead>
-  <tr align="center">
-    <th scope="col">Sugestão</th>
-    <th scope="col">Em Cotação:</th>
-    <th scope="col">Em Licitação:</th>
-    <th scope="col">Em Tombamento:</th>
-    <th scope="col">Negado:</th>
-    <th scope="col">Tombado:</th>
-    <th scope="col">Em Processamento Técnico:</th>
-    <th scope="col">Processado:</th>
-    <th scope="col">Total de itens:</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr align="center">
-      <td>{{ $sugestao }}</td>
-      <td>{{ $cotacao }}</td>
-      <td>{{ $licitacao }}</td>
-      <td>{{ $tombamento }}</td>
-      <td>{{ $negado }}</td>
-      <td>{{ $tombado }}</td>
-      <td>{{ $processamento }}</td>
-      <td>{{ $processado }}</td>
-      <td>{{ $itens->total() }}</td>
-    </tr>
-  </tbody>
-</table>
+
+{{ $itens->appends(request()->query())->links() }}
+@include('item.partials.quantidades')
 
 <table class="table table-striped">
   <thead>

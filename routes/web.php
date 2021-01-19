@@ -10,7 +10,8 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\EstatisticaController;
 use App\Http\Controllers\MigracaoController;
 
-Route::get('/', [IndexController::class, 'index'])->name('home');
+#Route::get('/', [IndexController::class, 'index'])->name('home');
+Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 
 /* rotas para login e logout */
 Route::get('login', [LoginController::class, 'redirectToProvider']);
