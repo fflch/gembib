@@ -47,8 +47,9 @@
 
 <div class="row">
   <div class="col-sm form-group">
-  <b>Buscar pelo título, autor, tombo ou código de impressão:</b>
+  <b>Buscar pelo título, autor, tombo, código de impressão ou observação:</b>
   <input type="text" name="busca" value="{{ Request()->busca }}">
+
   </div>
 </div>
 

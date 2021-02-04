@@ -53,7 +53,8 @@ class ItemController extends Controller
                 $q->where('titulo','LIKE', '%' . $request->busca . '%')
                   ->orWhere('autor','LIKE', '%' . $request->busca . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%');
             });
         }
 
