@@ -47,9 +47,13 @@
 
 <div class="row">
   <div class="col-sm form-group">
-  <b>Buscar pelo título, autor, tombo, código de impressão ou observação:</b>
+  <b>Buscar:</b>
   <input type="text" name="busca" value="{{ Request()->busca }}">
-
+  <label><input type="checkbox" name="titulo" value="titulo"> Título</label>
+  <label><input type="checkbox" name="autor" value="autor"> Autor</label>
+  <label><input type="checkbox" name="tombo" value="tombo"> Tombo</label>
+  <label><input type="checkbox" name="cod_impressao" value="cod_impressao"> Código de Impressão</label>
+  <label><input type="checkbox" name="observacao" value="observacao"> Observação</label>
   </div>
 </div>
 
