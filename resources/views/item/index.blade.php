@@ -49,11 +49,11 @@
   <div class="col-sm form-group">
   <b>Buscar:</b>
   <input type="text" name="busca" value="{{ Request()->busca }}">
-  <label><input type="checkbox" name="titulo" value="titulo"> Título</label>
-  <label><input type="checkbox" name="autor" value="autor"> Autor</label>
-  <label><input type="checkbox" name="tombo" value="tombo"> Tombo</label>
-  <label><input type="checkbox" name="cod_impressao" value="cod_impressao"> Código de Impressão</label>
-  <label><input type="checkbox" name="observacao" value="observacao"> Observação</label>
+  <label><input type="checkbox" name="titulo" value="1" {{ (Request()->titulo == 1 ? ' checked' : '') }}> Título</label>
+  <label><input type="checkbox" name="autor" value="2" {{ (Request()->autor == 2 ? ' checked' : '') }}> Autor</label>
+  <label><input type="checkbox" name="tombo" value="3" {{ (Request()->tombo == 3 ? ' checked' : '') }}> Tombo</label>
+  <label><input type="checkbox" name="cod_impressao" value="4" {{ (Request()->cod_impressao == 4 ? ' checked' : '') }}> Código de Impressão</label>
+  <label><input type="checkbox" name="observacao" value="5" {{ (Request()->observacao == 5 ? ' checked' : '') }}> Observação</label>
   </div>
 </div>
 
