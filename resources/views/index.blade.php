@@ -5,8 +5,7 @@
 
 <h3>Sistema para Gestão de Material Bibliográfico</h3>
 
-Consulte nosso acervo na busca abaixo e faça sugestões de compra acessando
-o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
+Consulte nosso acervo público na busca abaixo: 
 <br><br>
 
 <form method="get">
@@ -21,6 +20,8 @@ o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidad
     </div>
 </div>
 </form><br>
+
+Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 
 @if(request()->search)
 

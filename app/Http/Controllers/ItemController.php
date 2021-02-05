@@ -53,7 +53,8 @@ class ItemController extends Controller
                 $q->where('titulo','LIKE', '%' . $request->busca . '%')
                   ->orWhere('autor','LIKE', '%' . $request->busca . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%');
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%');
             });
         }
 
@@ -76,6 +77,36 @@ class ItemController extends Controller
             $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim);
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
+        }
+
+        if(isset($request->titulo)){
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        if(isset($request->autor)){
+            $query->where(function ($q) use (&$request) {
+                $q->where('autor','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        if(isset($request->tombo)){
+            $query->where(function ($q) use (&$request) {
+                $q->where('tombo','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        if(isset($request->cod_impressao)){
+            $query->where(function ($q) use (&$request) {
+                $q->where('cod_impressao','LIKE', '%' . $request->busca . '%');
+            });
+        }
+
+        if(isset($request->observacao)){
+            $query->where(function ($q) use (&$request) {
+                $q->where('observacao','LIKE', '%' . $request->busca . '%');
+            });
         }
 
         return $query;
