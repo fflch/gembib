@@ -54,11 +54,11 @@
         @break
         
         @case('Negado')
-        @include('item.etapas.negado')
+          @include('item.etapas.negado')
         @break
         
         @case('Processado')
-          Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_processado }}.
+          @include('item.etapas.processado')
         @break 
 
         @default
