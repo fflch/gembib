@@ -110,17 +110,33 @@ class ProcessarController extends Controller
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
+        if($request->processar_processamento == 'Em Tombamento'){
+            $item->status = 'Em Tombamento';
+            $item->observacao = $request->observacao;
+            $item->alterado_por = Auth::user()->codpes;
+            $item->data_processamento = Carbon::now();
+            $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+        }
         return redirect("/item/{$item->id}");
     }
 
     //quando for processado
     public function processarProcessado(Request $request, Item $item){
-            $item->status = $request->processar_processado;
-            $item->observacao = $request->observacao;
+        $item->status = $request->processar_processado;
+        $item->observacao = $request->observacao;
+        $item->alterado_por = Auth::user()->codpes;
+        $item->data_processado = Carbon::now();
+        $item->save();
+        $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+
+        if($request->processar_processado == 'Em Processamento Técnico'){
+            $item->status = 'Em Processamento Técnico';
             $item->alterado_por = Auth::user()->codpes;
-            $item->data_processado = Carbon::now();
+            $item->data_processamento = Carbon::now();
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+        }
         return redirect("/item/{$item->id}");
     }
 }
