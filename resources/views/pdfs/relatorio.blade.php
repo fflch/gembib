@@ -24,7 +24,6 @@
       <th>Título:</th>
       <th>Volume:</th>
       <th>Parte:</th>
-      <th>Moeda:</th>
       <th>Preço:</th>
     </tr>
   </thead>
@@ -36,10 +35,7 @@
       <td><center>{{$item->autor}}</td>
       <td><center>{{$item->titulo}}</td>
       <td><center>{{$item->volume}}</td>
-      <td><center>{{$item->parte}}</td>";
-      <td><center>@if($item->moeda == "REAL") R$
-      @else $
-  	  @endif</td>
+      <td><center>{{$item->parte}}</td>
       <td><center>{{ $item->preco }}</td>
     </tr>
     @endforeach
