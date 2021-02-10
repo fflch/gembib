@@ -113,6 +113,7 @@
       <th scope="col">Autor</th>
       <th scope="col">Editora</th>
       <th scope="col">Status</th>
+      <th scope="col">Ano de publicação</th>
       <th scope="col">Procedência</th>
       <th scope="col">Sugestão feita por</th>
     </tr>
@@ -125,9 +126,9 @@
       <td>{{ $item->autor }}</td>
       <td>{{ $item->editora }}</td>
       <td>{{ $item->status }}</td>
+      <td><center>{{ $item->ano }}</td>
       <td>{{ $item->procedencia }}</td>
       <td>{{ $item->sugerido_por }}</td>
-
     </tr>
     @endforeach
 

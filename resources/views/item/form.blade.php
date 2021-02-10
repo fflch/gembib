@@ -77,8 +77,21 @@
     <input type="text" id="ano" value="{{old('ano',$item->ano)}}" class="form-control" name='ano'/>
   </div>
   <div class="col-sm form-group">
-    <label for="volume">Volume:</label>
-    <input type="text" id="volume" value="{{old('volume', $item->volume)}}" class="form-control" name="volume"/>
+    <label for="procedencia">Procedência:</label>
+    <select class="form-control" id="procedencia" name="procedencia">
+      <option value="">Selecionar procedência</option>
+      @foreach($item::procedencia as $p)
+      @if (old('procedencia') == '' and isset($item->procedencia))
+          <option value="{{$p}}" {{ ($item->procedencia == $p) ? 'selected' : ''}}>
+            {{$p}}
+          </option>
+      @else
+        <option value = "{{$p}}" {{ ( old('procedencia') == $p) ? 'selected' : ''}}>
+        {{$p}}
+      </option>
+      @endif
+      @endforeach
+    </select>
   </div>
 </div>
 <div class="row">   
@@ -169,21 +182,8 @@
 </div>
 <div class="row">      
   <div class="col-sm form-group">
-    <label for="procedencia">Procedência:</label>
-    <select class="form-control" id="procedencia" name="procedencia">
-      <option value="">Selecionar procedência</option>
-      @foreach($item::procedencia as $p)
-      @if (old('procedencia') == '' and isset($item->procedencia))
-          <option value="{{$p}}" {{ ($item->procedencia == $p) ? 'selected' : ''}}>
-            {{$p}}
-          </option>
-      @else
-        <option value = "{{$p}}" {{ ( old('procedencia') == $p) ? 'selected' : ''}}>
-        {{$p}}
-      </option>
-      @endif
-      @endforeach
-    </select>
+    <label for="volume">Volume:</label>
+    <input type="text" id="volume" value="{{old('volume', $item->volume)}}" class="form-control" name="volume"/>
   </div>
   <div class="col-sm form-group">
     <label for="capes">Capes:</label>
