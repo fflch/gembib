@@ -27,6 +27,10 @@ Route::get('/item/create', [ItemController::class, 'create']);
 Route::post('/item', [ItemController::class, 'store']);
 Route::get('/excel', [ItemController::class, 'excel']);
 
+/* rotas de edição */
+Route::get('/item/{item}/edit', [ItemController::class, 'edit']);
+Route::patch('/item/{item}', [ItemController::class, 'update']);
+
 /* rotas para processar */
 Route::get('/processar', [ProcessarController::class, 'processarIndex']);
 Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processarSugestao']);

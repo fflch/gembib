@@ -218,7 +218,7 @@
   </div>
 </div>
 
-<br><h3>Informações adicionais</h3><br>
+<br><h3>Informações adicionais</h3>
 <div class="row">
   <div class="col-sm form-group">
       <label for="verba">Verba:</label>
