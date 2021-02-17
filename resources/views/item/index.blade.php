@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-sm form-group">
   <select name="status">
-  <option value="" selected="">Selecionar o status</option>
+  <option value="" selected="">Selecionar status</option>
     @foreach($status as $i)
       <option @if(Request()->status == "$i") selected @endif>
         {{$i}}
@@ -17,7 +17,7 @@
   </select>
 
   <select name="procedencia">
-  <option value="" selected>Procedência</option>
+  <option value="" selected>Selecionar procedência</option>
     @foreach($procedencia as $p)
       <option @if(Request()->procedencia == "$p") selected @endif>
         {{$p}}
@@ -113,9 +113,10 @@
       <th scope="col">Autor</th>
       <th scope="col">Editora</th>
       <th scope="col">Status</th>
-      <th scope="col">Ano de publicação</th>
+      <th scope="col">Ano</th>
       <th scope="col">Procedência</th>
       <th scope="col">Sugestão feita por</th>
+      <th scope="col">Editar</th>
     </tr>
   </thead>
   <tbody>
@@ -129,6 +130,7 @@
       <td><center>{{ $item->ano }}</td>
       <td>{{ $item->procedencia }}</td>
       <td>{{ $item->sugerido_por }}</td>
+      <td><a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a></td>  
     </tr>
     @endforeach
 

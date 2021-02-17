@@ -212,6 +212,30 @@ class ItemController extends Controller
 
         return redirect("/item/{$item->id}");
     }
+
+    public function edit(Item $item){
+        $this->authorize('sai');
+
+        return view('item.edit')->with('item',$item);
+
+    }
+
+    public function update(ItemRequest $request, Item $item){
+        $this->authorize('sai');
+
+        $validated = $request->validated();
+        
+        $validated['alterado_por'] = Auth::user()->codpes;
+
+        $item = Item::find($item->id);
+
+        $item->update($validated);
+
+        $request->session()->flash('alert-info',"Item atualizado com sucesso");
+
+        return redirect("/item/{$item->id}");
+
+    }
     
     public function excel(){
         $query = $this->search();
