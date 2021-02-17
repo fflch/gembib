@@ -49,11 +49,17 @@
   <div class="col-sm form-group">
   <b>Buscar:</b>
   <input type="text" name="busca" value="{{ Request()->busca }}">
-  <label><input type="checkbox" name="titulo" value="1" {{ (Request()->titulo == 1 ? ' checked' : '') }}> Título</label>
-  <label><input type="checkbox" name="autor" value="2" {{ (Request()->autor == 2 ? ' checked' : '') }}> Autor</label>
-  <label><input type="checkbox" name="tombo" value="3" {{ (Request()->tombo == 3 ? ' checked' : '') }}> Tombo</label>
-  <label><input type="checkbox" name="cod_impressao" value="4" {{ (Request()->cod_impressao == 4 ? ' checked' : '') }}> Código de Impressão</label>
-  <label><input type="checkbox" name="observacao" value="5" {{ (Request()->observacao == 5 ? ' checked' : '') }}> Observação</label>
+
+   @foreach(App\Models\Item::filters as $key=>$filter)
+     <label>
+       @if(Request()->filtro != null)
+          <input type="checkbox" name="filtro[]" value="{{$key}}" {{ (in_array($key, Request()->filtro)  ? ' checked' : '') }}> {{$filter}}
+       @else 
+          <input type="checkbox" name="filtro[]" value="{{$key}}"> {{$filter}}
+       @endif   
+     </label>
+   @endforeach
+  
   </div>
 </div>
 

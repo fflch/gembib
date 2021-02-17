@@ -94,6 +94,11 @@ class Item extends Model
         "REAL",
         "DÓLAR"
     ];
+
+    const filters = [
+        'titulo' => 'Título',
+        "autor" => 'Autor'
+    ];
     
     public function setPrecoAttribute($value){
         if($value){

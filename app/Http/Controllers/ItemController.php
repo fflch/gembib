@@ -27,34 +27,24 @@ class ItemController extends Controller
             });
         }
 
-        if (!empty ($request->procedencia)) {
+        if (!empty($request->procedencia)) {
             $query->where(function ($s) use (&$request) {
                 $s->where('procedencia','=',$request->procedencia)
                   ->orwhere('procedencia','=',$request->procedencia);
             });
         }
 
-        if (!empty ($request->tipo_material)) {
+        if (!empty($request->tipo_material)) {
             $query->where(function ($t) use (&$request) {
                 $t->where('tipo_material','=',$request->tipo_material)
                   ->orwhere('tipo_material','=',$request->tipo_material);
             });
         }
 
-        if (!empty ($request->tipo_aquisicao)) {
+        if (!empty($request->tipo_aquisicao)) {
             $query->where(function ($a) use (&$request) {
                 $a->where('tipo_aquisicao','=',$request->tipo_aquisicao)
                   ->orwhere('tipo_aquisicao','=',$request->tipo_aquisicao);
-            });
-        }
-
-        if (!empty($request->busca)) {
-            $query->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->busca . '%')
-                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%');
             });
         }
 
@@ -77,6 +67,16 @@ class ItemController extends Controller
             $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim);
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
+        }
+
+        if (!empty($request->busca)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->busca . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%');
+            });
         }
 
         if(isset($request->titulo)){
@@ -155,7 +155,7 @@ class ItemController extends Controller
             'procedencia'    => $this->procedencia,
             'tipo_material'  => $this->tipo_material,
             'tipo_aquisicao' => $this->tipo_aquisicao,
-            'query'          => $query,
+            'query'          => $query
             ]);
     }
 
