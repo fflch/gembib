@@ -10,7 +10,7 @@ use App\Http\Requests\ItemRequest;
 
 class ProcessarController extends Controller
 {
-        public function processarSugestao(Request $request, Item $item){
+    public function processarSugestao(Request $request, Item $item){
         if ($request->processar_sugestao == 'Negado'){
         
             $request->validate([
@@ -45,7 +45,6 @@ class ProcessarController extends Controller
     }
 
     public function processarLicitacao(Request $request, Item $item){
-;
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
             $item->alterado_por = Auth::user()->codpes;
@@ -56,7 +55,6 @@ class ProcessarController extends Controller
     }
 
     public function processarTombamento(ItemRequest $request, Item $item){
-
         if($request->processar_tombamento == 'tombar'){
             $validated = $request->validated();
             $validated['status'] = 'Tombado';
@@ -124,7 +122,9 @@ class ProcessarController extends Controller
     //quando for processado
     public function processarProcessado(Request $request, Item $item){
         $item->status = $request->processar_processado;
+        $item->recebido_sau_por = $request->bibliotecario;
         $item->observacao = $request->observacao;
+        $item->data_processado = Carbon::now();
         $item->alterado_por = Auth::user()->codpes;
         $item->save();
         $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
