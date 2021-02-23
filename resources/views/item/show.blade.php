@@ -22,10 +22,6 @@
       <td scope="col">{{ $item->data_processamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
-      <th scope="col">Entregue para o SAU em:</th>
-      <td scope="row">{{ $item->data_processado ?? 'Não cadastrado' }}</td>
-    </tr>
-    <tr>
       <th scope="col">Código de impressão:</th>
       <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
     </tr>

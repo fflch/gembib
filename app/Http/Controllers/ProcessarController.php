@@ -126,7 +126,6 @@ class ProcessarController extends Controller
         $item->status = $request->processar_processado;
         $item->observacao = $request->observacao;
         $item->alterado_por = Auth::user()->codpes;
-        $item->data_processado = Carbon::now();
         $item->save();
         $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
 

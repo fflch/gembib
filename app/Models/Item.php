@@ -97,7 +97,12 @@ class Item extends Model
 
     const filters = [
         'titulo' => 'Título',
-        "autor" => 'Autor'
+        'autor' => 'Autor',
+        'tombo' => 'Tombo',
+        'cod_impressao' => 'Código de Impressão',
+        'observacao' => 'Observação',
+        'verba' => 'Verba',
+        'processo' => 'Processo'
     ];
     
     public function setPrecoAttribute($value){

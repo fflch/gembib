@@ -41,9 +41,6 @@ class ItemFactory extends Factory
         $tombo = $this->faker->unique()->numberBetween($min = 1000, $max = 9000000);
         if($status_escolhido == 'Sugestão') $tombo = null;
 
-        $data_processado = $this->faker->date;
-        if($status_escolhido != 'Processado') $data_processado = null;
-
         $data_processamento = $this->faker->date;
         if($status_escolhido != 'Em Processamento Técnico') $data_processamento = null;
 
