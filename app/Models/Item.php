@@ -115,6 +115,11 @@ class Item extends Model
         return number_format($value, 2, ',', '');
     }
 
+    public function getSauAttribute(){
+        $sau = explode(",",env("SAU"));
+        return $sau;
+    }
+
     public function getDataTombamentoAttribute($value){
         if($value){
             return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
