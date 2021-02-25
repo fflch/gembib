@@ -12,9 +12,9 @@
     <select class="form-control" id="bibliotecario" name="bibliotecario">
         <option value="">Selecionar bibliotecário SAU que irá receber</option>
         @foreach ($item->sau as $s)
-        <option value="{{$s}}"> 
-            {{ Uspdev\Replicado\Pessoa::nomeCompleto($s) }}
-        </option>
+            <option value="{{$s}}">
+                {{ Uspdev\Replicado\Pessoa::nomeCompleto($s) }}
+            </option>
         @endforeach
     </select>
 <br>

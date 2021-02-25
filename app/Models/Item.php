@@ -116,8 +116,9 @@ class Item extends Model
     }
 
     public function getSauAttribute(){
-        $sau = explode(",",env("SAU"));
-        return $sau;
+        $codpes = env("SAU");
+        if(empty($codpes)) return [];
+        return explode(",",$codpes);
     }
 
     public function getDataTombamentoAttribute($value){
