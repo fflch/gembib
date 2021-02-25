@@ -97,7 +97,12 @@ class Item extends Model
 
     const filters = [
         'titulo' => 'Título',
-        "autor" => 'Autor'
+        'autor' => 'Autor',
+        'tombo' => 'Tombo',
+        'cod_impressao' => 'Código de Impressão',
+        'observacao' => 'Observação',
+        'verba' => 'Verba',
+        'processo' => 'Processo'
     ];
     
     public function setPrecoAttribute($value){
@@ -108,6 +113,11 @@ class Item extends Model
     
     public function getPrecoAttribute($value){
         return number_format($value, 2, ',', '');
+    }
+
+    public function getSauAttribute(){
+        $sau = explode(",",env("SAU"));
+        return $sau;
     }
 
     public function getDataTombamentoAttribute($value){

@@ -18,8 +18,8 @@ class ItemController extends Controller
     private $tipo_aquisicao = Item::tipo_aquisicao;
 
     private function search(){
-        $request =  request();
-        $query = Item::orderBy('created_at', 'desc');        
+        $request = request();
+        $query = Item::orderBy('created_at', 'desc');     
 
         if (!empty($request->status)) {
             $query->where(function ($p) use (&$request) {
@@ -75,37 +75,15 @@ class ItemController extends Controller
                   ->orWhere('autor','LIKE', '%' . $request->busca . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
                   ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%');
+                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('verba','LIKE', '%' . $request->busca . '%')
+                  ->orwhere('processo','LIKE', '%' . $request->busca . '%');
             });
-        }
+        } 
 
-        if(isset($request->titulo)){
+        if(isset($request->filtro)){
             $query->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->busca . '%');
-            });
-        }
-
-        if(isset($request->autor)){
-            $query->where(function ($q) use (&$request) {
-                $q->where('autor','LIKE', '%' . $request->busca . '%');
-            });
-        }
-
-        if(isset($request->tombo)){
-            $query->where(function ($q) use (&$request) {
-                $q->where('tombo','LIKE', '%' . $request->busca . '%');
-            });
-        }
-
-        if(isset($request->cod_impressao)){
-            $query->where(function ($q) use (&$request) {
-                $q->where('cod_impressao','LIKE', '%' . $request->busca . '%');
-            });
-        }
-
-        if(isset($request->observacao)){
-            $query->where(function ($q) use (&$request) {
-                $q->where('observacao','LIKE', '%' . $request->busca . '%');
+                $q->where($request->filtro[0],'LIKE', '%' . $request->busca . '%');
             });
         }
 
@@ -226,8 +204,6 @@ class ItemController extends Controller
         $validated = $request->validated();
         
         $validated['alterado_por'] = Auth::user()->codpes;
-
-        $item = Item::find($item->id);
 
         $item->update($validated);
 
