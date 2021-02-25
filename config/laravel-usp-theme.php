@@ -1,8 +1,9 @@
 <?php
 
 return [
-    'title' => config('app.name'),
+    'title' => '',
     'app_url' => config('app.url'),
+    'skin' => env('USP_THEME_SKIN', 'uspdev'),
     'logout_method' => 'POST',
     'logout_url' => config('app.url') . '/logout',
     'login_url' => config('app.url') . '/login',
