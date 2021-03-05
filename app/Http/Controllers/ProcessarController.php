@@ -121,19 +121,21 @@ class ProcessarController extends Controller
 
     //quando for processado
     public function processarProcessado(Request $request, Item $item){
-        $item->status = $request->processar_processado;
-        $item->recebido_sau_por = $request->bibliotecario;
-        $item->observacao = $request->observacao;
-        $item->data_processado = Carbon::now();
-        $item->alterado_por = Auth::user()->codpes;
-        $item->save();
-        $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
-
-        if($request->processar_processado == 'Em Processamento Técnico'){
-            $item->status = 'Em Processamento Técnico';
+        if($request->processar_processado == 'Processado'){
+            $item->status = $request->processar_processado;
+            $item->recebido_sau_por = $request->bibliotecario;
+            $item->observacao = $request->observacao;
+            $item->data_processado = Carbon::now();
             $item->alterado_por = Auth::user()->codpes;
-            $item->data_processamento = Carbon::now();
             $item->save();
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+        } elseif($request->processar_processado == 'Em Processamento Técnico'){
+            $item->status = 'Em Processamento Técnico';
+            $item->update();
+            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
+        } else {
+            $item->status = $request->processar_processado;
+            $item->update();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");

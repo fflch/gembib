@@ -2,7 +2,7 @@
 @csrf 
 <div>
     @include('item.observacao') 
-    <p>Enviado para {{$item->status}} por {{ $item->alterado_por }} em {{$item->updated_at}}.</p>
+    <p>Enviado para {{$item->status}} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{$item->updated_at}}.</p>
     <button type="submit" name="processar_licitacao" class="btn btn-info" value="Em Tombamento" onclick="return confirm('Mudar status para Em Tombamento?')">Começar Tombamento</button>
 </div>
 </form>
