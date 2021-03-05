@@ -1,7 +1,7 @@
 <form method="POST" action="/processar_cotacao/{{$item->id}}">
   @csrf 
   <div>
-    <p>Enviado para {{$item->status}} por {{ $item->alterado_por }} em {{$item->updated_at}}</p>
+    <p>Enviado para {{$item->status}} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{$item->updated_at}}.</p>
     @include('item.observacao') 
     <button type="submit" class="btn btn-info" name="processar_cotacao" value="Em Licitação" onclick="return confirm('Mudar status para Em Licitação?')">Em Licitação</button>
     <br><br>

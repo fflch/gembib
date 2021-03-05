@@ -2,8 +2,8 @@
 <form method="POST" action="/processar_processado/{{$item->id}}">
     @csrf 
     <div>
-    <p>Enviado para {{ $item->status }} por {{ $item->alterado_por }} em {{ $item->data_processamento }}.</p>
-    <p>Última alteração feita em: {{ $item->updated_at }}<br>
+    <p>Enviado para {{ $item->status }} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{ $item->data_processamento }}.</p>
+    <p>Última alteração feita em: {{ $item->updated_at }}.<br>
     @include('item.observacao')
 
 
@@ -12,9 +12,17 @@
     <select class="form-control" id="bibliotecario" name="bibliotecario">
         <option value="">Selecionar bibliotecário SAU que irá receber</option>
         @foreach ($item->sau as $s)
-            <option value="{{$s}}">
+        {{-- 1. Situação em que não houve tentativa de submissão e é uma edição --}}
+        @if (old('bibliotecario') == '' and isset($item->recebido_sau_por))
+            <option value="{{$s}}" {{ ( $item->recebido_sau_por == $s) ? 'selected' : ''}}>
                 {{ Uspdev\Replicado\Pessoa::nomeCompleto($s) }}
             </option>
+        {{-- 2. Situação em que houve tentativa de submissão, o valor de old prevalece --}}
+        @else
+            <option value="{{$s}}" {{ ( old('bibliotecario') == $s) ? 'selected' : ''}}>
+                {{ Uspdev\Replicado\Pessoa::nomeCompleto($s) }}
+            </option>
+            @endif
         @endforeach
     </select>
 <br>
