@@ -86,7 +86,7 @@ class ItemFactory extends Factory
             'escala' => $this->faker->randomDigit,
             'alterado_por' => $this->faker->randomDigit(),
             'data_processamento' => $data_processamento,
-            'data_processado' => $data_processado,
+            'data_processado' => $this->faker->date,
         ];
     }
 }
