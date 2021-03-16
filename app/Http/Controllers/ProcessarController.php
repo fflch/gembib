@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
+use Illuminate\Validation\Rule;
 
 class ProcessarController extends Controller
 {
@@ -122,8 +123,13 @@ class ProcessarController extends Controller
     //quando for processado
     public function processarProcessado(Request $request, Item $item){
         if($request->processar_processado == 'Processado'){
-            $item->status = $request->processar_processado;
+
+            $request->validate([
+                'bibliotecario' => ['required', Rule::in($item->getSauAttribute())]
+            ]);
+
             $item->recebido_sau_por = $request->bibliotecario;
+            $item->status = $request->processar_processado;
             $item->observacao = $request->observacao;
             $item->data_processado = Carbon::now();
             $item->alterado_por = Auth::user()->codpes;
