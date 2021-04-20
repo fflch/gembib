@@ -5,6 +5,8 @@
 
 <form method="POST" action="/etiquetas">
     @csrf
+
+    <h4>Etiquetas</h4><br>
     <div class="row">
       <div class="col-sm form-group">
         <label for="tombo_inicio">Tombo início:</label>
@@ -18,7 +20,7 @@
     <div class="row">
       <div class="col-sm form-group">
         <label for="cod_impressao">Código de impressão:</label>
-        <input type="text" id="cod_impressao" style="width: 540px" class="form-control" name="cod_impressao"/>
+        <input type="text" id="cod_impressao" style="width: 740px" class="form-control" name="cod_impressao"/>
       </div>
     </div>
 
