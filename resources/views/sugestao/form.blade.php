@@ -6,7 +6,7 @@
 <form method="POST" action="/sugestao">
   @csrf
   <div class="form-group">
-
+  <h4>Preencha os campos e faça uma sugestão:</h4><br>
     <div>
       <label for="titulo">Título:</label>
       <input type="text" id="titulo" class="form-control" name="titulo" value="{{old('titulo')}}">

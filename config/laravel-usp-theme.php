@@ -24,7 +24,7 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Relatórios',
+            'text' => 'Relatório SAI',
             'url'  => '/relatorios',
             'can'  => 'sai',
         ],
