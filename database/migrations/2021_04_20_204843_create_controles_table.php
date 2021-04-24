@@ -16,9 +16,9 @@ class CreateControlesTable extends Migration
         Schema::create('controles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            // Campos a serem preenchidos pelo usuário
-            $table->date('data_processamento_inicio')->nullable();
-            $table->date('data_processamento_fim')->nullable();
+            // Campos da tela de preenchimento
+            $table->date('inicio')->nullable();
+            $table->date('fim')->nullable();
             $table->integer('titulos_novos')->nullable();
             $table->integer('volumes')->nullable();
             $table->integer('consistencia_acervo')->nullable();
@@ -27,7 +27,6 @@ class CreateControlesTable extends Migration
             $table->integer('servicos_tecnicos')->nullable();
             $table->integer('remocoes_acervo')->nullable();
             $table->text('observacao')->nullable();
-
         });
     }
 
