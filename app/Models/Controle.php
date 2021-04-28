@@ -17,14 +17,18 @@ class Controle extends Model
         'observacao',
     ];
 
-    public function setInicioAttribute($value)
-    {
-        $this->attributes['inicio'] =  Carbon::parse($value);
+    protected $dates = ['inicio', 'fim'];
+
+    public function getInicioAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
-    public function setFimAttribute($value)
-    {
-        $this->attributes['fim'] =  Carbon::parse($value);
+    public function getFimAttribute($value){
+        if($value){
+            return Carbon::CreateFromFormat('Y-m-d', $value)->format('d/m/Y');
+        }
     }
 
 }
