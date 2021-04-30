@@ -22,10 +22,10 @@ class CreateControlesTable extends Migration
             $table->integer('titulos_novos')->nullable();
             $table->integer('volumes')->nullable();
             $table->integer('consistencia_acervo')->nullable();
-            $table->integer('outro_material')->nullable();
             $table->integer('multimeios')->nullable();
             $table->integer('servicos_tecnicos')->nullable();
             $table->integer('remocoes_acervo')->nullable();
+            $table->integer('outro_material')->nullable();
             $table->text('observacao')->nullable();
         });
     }

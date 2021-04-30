@@ -7,10 +7,10 @@
         <th scope="col">Títulos novos</th>
         <th scope="col">Volumes</th>
         <th scope="col">Consistência do Acervo</th>
-        <th scope="col">Outro tipo de material:</th>
         <th scope="col">Multimeios:</th>
         <th scope="col">Serviços Técnicos</th>
         <th scope="col">Remoções do Acervo</th>
+        <th scope="col">Outro tipo de material:</th>
         <th scope="col">Editar</th>
       </tr>
     </thead>
@@ -22,11 +22,11 @@
         <td> {{ $c->titulos_novos ?? '' }} </td>
         <td> {{ $c->volumes ?? '' }} </td>
         <td> {{ $c->consistencia_acervo ?? '' }} </td>
-        <td> {{ $c->outro_material ?? '' }} </td>
         <td> {{ $c->multimeios ?? '' }} </td>
         <td> {{ $c->servicos_tecnicos ?? '' }} </td>
         <td> {{ $c->remocoes_acervo ?? '' }} </td>
-        <td><a href="/" class="btn btn-success">Editar</a></td>  
+        <td> {{ $c->outro_material ?? '' }} </td>
+        <td><a href="/controle/{{$c->id}}/edit" class="btn btn-success" onclick="return confirm('Deseja editar esse registro?');">Editar</a></td>  
       </tr>
     @endforeach
     </tbody>     

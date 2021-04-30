@@ -24,16 +24,16 @@ class ControleRequest extends FormRequest
     public function rules()
     {
         return [
-            'inicio' => 'required|date',
-            'fim' => 'required|date',
+            'inicio' => 'required|date_format:"d/m/Y"',
+            'fim' => 'required|date_format:"d/m/Y"',
             'titulos_novos' => 'required|integer',
             'volumes' => 'required|integer',
             'consistencia_acervo' => 'required|integer',
-            'outro_material' => 'required|integer',
             'multimeios' => 'required|integer',
             'servicos_tecnicos' => 'required|integer',
             'remocoes_acervo' => 'required|integer',
-            'observacao' => 'nullable|string'
+            'outro_material' => 'required|integer',
+            'observacao' => 'required'
         ];
     }
 }
