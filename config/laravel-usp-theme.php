@@ -29,6 +29,11 @@ return [
             'can'  => 'sai',
         ],
         [
+            'text' => 'Relatório STL',
+            'url'  => '/controle',
+            'can'  => 'sai',
+        ],
+        [
             'text' => 'Etiquetas',
             'url'  => '/etiquetas',
             'can'  => 'sai',
