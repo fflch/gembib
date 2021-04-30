@@ -7,12 +7,6 @@ use App\Http\Requests\ControleRequest;
 
 class ControleController extends Controller
 {
-    public function create()
-    {
-        $this->authorize('sai');        
-
-        return view('controle/create')->with('controle', new Controle);
-    }
 
     public function index(Controle $controle)
     {

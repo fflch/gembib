@@ -51,7 +51,6 @@ Route::get('/relatorios', [RelatorioController::class, 'form']);
 Route::post('/relatorios', [RelatorioController::class, 'show']);
 
 /* Controle */
-Route::get('/controle/create', [ControleController::class, 'create']);
 Route::get('/controle', [ControleController::class, 'index']);
 Route::get('/controle/index', [ControleController::class, 'show']);
 //salvar e editar
