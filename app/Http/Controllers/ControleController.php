@@ -7,12 +7,11 @@ use App\Http\Requests\ControleRequest;
 
 class ControleController extends Controller
 {
-
     public function index(Controle $controle)
     {
         $this->authorize('sai');        
 
-        $registros = Controle::orderByDesc('id')->paginate(10);
+        $registros = Controle::orderByDesc('id')->paginate(12);
 
         return view('controle/index', ['registros' => $registros, 'controle' =>$controle]);
     }
@@ -32,7 +31,6 @@ class ControleController extends Controller
         return redirect("/controle");
     }
     
-
     public function show(Controle $controle)
     {
         $this->authorize('sai');
@@ -44,7 +42,6 @@ class ControleController extends Controller
         $this->authorize('sai');
 
         return view('controle.edit', with(['controle' => $controle]));
-
     }
 
     public function update(Controle $controle, ControleRequest $request){
@@ -57,7 +54,6 @@ class ControleController extends Controller
         $request->session()->flash('alert-info',"Registro {$controle->inicio} - {$controle->fim} atualizado com sucesso!");
 
         return redirect("/controle");
-
     }
 
 }
