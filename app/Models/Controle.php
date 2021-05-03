@@ -39,7 +39,8 @@ class Controle extends Model
 
     public function setInicioAttribute($value){//para salvar no formato ano-mes-dia
         if($value){
-            $this->attributes['inicio'] = Carbon::parse($value)->format('Y-m-d');
+            $replace = date("Y-m-d", strtotime(str_replace('/', '-', $value)));
+            $this->attributes['inicio'] = Carbon::parse($replace)->format('Y-m-d');
         }
     }
 
@@ -51,7 +52,8 @@ class Controle extends Model
 
     public function setFimAttribute($value){
         if($value){
-            $this->attributes['fim'] = Carbon::parse($value)->format('Y-m-d');
+            $replace = date("Y-m-d", strtotime(str_replace('/', '-', $value)));
+            $this->attributes['fim'] = Carbon::parse($replace)->format('Y-m-d');
         }
     }  
 
