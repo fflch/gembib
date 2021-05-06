@@ -1,4 +1,15 @@
-{{ $registros->links() }}
+<form method="GET">
+  @csrf
+  <div class="row">
+      <div class="col-sm form-group">
+          <b>Busca por período:</b>
+          <input type="text" name="busca_inicio" class="datepicker" value="{{ Request()->busca_inicio }}"> <b>-</b>
+          <input type="text" name="busca_fim" class="datepicker" value="{{ Request()->busca_fim }}">
+          <button type="submit" class="btn btn-success btn-sm">Buscar</button>
+      </div>
+  </div>
+</form>
+
 <table class="table table-striped">
     <thead>
       <tr align="center">
@@ -31,3 +42,4 @@
     @endforeach
     </tbody>     
   </table>
+{{ $registros->appends(request()->query())->links() }}

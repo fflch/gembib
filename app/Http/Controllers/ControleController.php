@@ -4,16 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Controle;
 use App\Http\Requests\ControleRequest;
+use Carbon\Carbon;
 
 class ControleController extends Controller
 {
+    private function search(){
+        $request = request();
+        $query = Controle::orderByDesc('id');
+        
+        if (!empty($request->busca_inicio) && !empty($request->busca_fim)) {
+            $from = Carbon::createFromFormat('d/m/Y', $request->busca_inicio);
+            $to = Carbon::createFromFormat('d/m/Y', $request->busca_fim);
+            $query->where('inicio', '>=', $from);
+            $query->where('fim', '<=', $to);
+            $query->whereNotNull('inicio');
+            $query->whereNotNull('fim');
+        }
+        return $query;
+    }
+    
     public function index(Controle $controle)
     {
-        $this->authorize('sai');        
+        $this->authorize('sai');    
+        $query = $this->search();  
 
-        $registros = Controle::orderByDesc('id')->paginate(12);
+        $registros = $query->paginate(12);
 
-        return view('controle/index', ['registros' => $registros, 'controle' =>$controle]);
+        return view('controle/index', ['registros' => $registros, 'controle' =>$controle,  'query' => $query]);
     }
 
     public function store(ControleRequest $request)
