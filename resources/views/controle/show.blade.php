@@ -10,6 +10,9 @@
   </div>
 </form>
 
+{{ $registros->appends(request()->query())->links() }}
+@include('controle.partials.quantidades')
+
 <table class="table table-striped">
     <thead>
       <tr align="center">
@@ -18,10 +21,10 @@
         <th scope="col">Títulos novos</th>
         <th scope="col">Volumes</th>
         <th scope="col">Consistência do Acervo</th>
-        <th scope="col">Multimeios:</th>
+        <th scope="col">Multimeios</th>
         <th scope="col">Serviços Técnicos</th>
         <th scope="col">Remoções do Acervo</th>
-        <th scope="col">Outro tipo de material:</th>
+        <th scope="col">Outro tipo de material</th>
         <th scope="col">Editar</th>
       </tr>
     </thead>
@@ -42,4 +45,3 @@
     @endforeach
     </tbody>     
   </table>
-{{ $registros->appends(request()->query())->links() }}

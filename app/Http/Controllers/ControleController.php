@@ -22,15 +22,43 @@ class ControleController extends Controller
         }
         return $query;
     }
+
+    private function quantidades($query){
+        $quantidades = [];
+
+        $q = clone $query;
+        $quantidades['titulos_novos'] = $q->sum('titulos_novos');
+
+        $q = clone $query;
+        $quantidades['volumes'] = $q->sum('volumes');
+
+        $q = clone $query;
+        $quantidades['consistencia_acervo'] = $q->sum('consistencia_acervo');
+
+        $q = clone $query;
+        $quantidades['multimeios'] = $q->sum('multimeios');
+
+        $q = clone $query;
+        $quantidades['servicos_tecnicos'] = $q->sum('servicos_tecnicos');
+
+        $q = clone $query;
+        $quantidades['remocoes_acervo'] = $q->sum('remocoes_acervo');
+
+        $q = clone $query;
+        $quantidades['outro_material'] = $q->sum('outro_material');
+
+        return $quantidades;
+    }
     
     public function index(Controle $controle)
     {
         $this->authorize('sai');    
         $query = $this->search();  
+        $quantidades = $this->quantidades($query);
 
         $registros = $query->paginate(12);
 
-        return view('controle/index', ['registros' => $registros, 'controle' =>$controle,  'query' => $query]);
+        return view('controle/index', ['registros' => $registros, 'controle' =>$controle,  'query' => $query, 'quantidades' => $quantidades]);
     }
 
     public function store(ControleRequest $request)
