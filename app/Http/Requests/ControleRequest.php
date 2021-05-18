@@ -26,14 +26,14 @@ class ControleRequest extends FormRequest
         return [
             'inicio' => 'required|date_format:"d/m/Y"',
             'fim' => 'required|date_format:"d/m/Y"',
-            'titulos_novos' => 'required|integer',
-            'volumes' => 'required|integer',
-            'consistencia_acervo' => 'required|integer',
-            'multimeios' => 'required|integer',
-            'servicos_tecnicos' => 'required|integer',
-            'remocoes_acervo' => 'required|integer',
-            'outro_material' => 'required|integer',
-            'observacao' => 'required'
+            'titulos_novos' => 'nullable|integer',
+            'volumes' => 'nullable|integer',
+            'consistencia_acervo' => 'nullable|integer',
+            'multimeios' => 'nullable|integer',
+            'servicos_tecnicos' => 'nullable|integer',
+            'remocoes_acervo' => 'nullable|integer',
+            'outro_material' => 'nullable|integer',
+            'observacao' => 'nullable'
         ];
     }
 }
