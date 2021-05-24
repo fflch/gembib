@@ -2,7 +2,9 @@
     @csrf
     @if(isset($item->tombo))
     <div>
-        <p>Material enviado para {{ $item->status }} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }}.</p>
+        <p>Material enviado para {{ $item->status }}
+            @include('item.partials.alterado_por')
+        </p>
         @include('item.observacao')
         <button type="submit" name="processar_tombamento" class="btn btn-info" value="salvar">Salvar e continuar editando</button>
         <button type="submit" name="processar_tombamento" class="btn btn-success" value="Em Processamento Técnico" onclick="return confirm('Mudar status para Em Processamento Técnico?')">Devolver para Processamento Técnico</button> 

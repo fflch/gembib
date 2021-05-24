@@ -2,10 +2,15 @@
 <form method="POST" action="/processar_processado/{{$item->id}}">
     @csrf 
     <div>
-    <p>Enviado para {{ $item->status }} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{ $item->data_processamento }}.</p>
-    <p>Última alteração feita em: {{ $item->updated_at }}.<br>
-    @include('item.observacao')
+    <p>Enviado para {{ $item->status }} 
+    @include('item.partials.alterado_por') 
+    @if($item->data_processamento)
+        em {{ $item->data_processamento }}.
+    @endif
+    </p>
+    <p>Última alteração feita em: {{ $item->updated_at }}.</p><br>
 
+    @include('item.observacao')
 
     <label for="bibliotecario">Recebimento do livro processado pelo STL para SAU:</label>
 
