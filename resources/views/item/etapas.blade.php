@@ -59,7 +59,11 @@
         
         @case('Processado')
           @include('item.etapas.processado')
-        @break 
+        @break
+        
+        @case('Acervo')
+          @include('item.etapas.acervo')
+        @break
 
         @default
             <span>Erro no sistema, contate a Seção Técnica de Informática</span>
