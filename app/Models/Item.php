@@ -21,7 +21,8 @@ class Item extends Model
         "Tombado",
         "Em Trânsito",
         "Em Processamento Técnico",
-        "Processado"
+        "Processado",
+        "Acervo"
     ];
 
     const procedencia = [

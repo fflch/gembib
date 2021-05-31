@@ -41,6 +41,7 @@ Route::post('/processar_tombamento/{item}', [ProcessarController::class, 'proces
 Route::post('/enviar_processamento/{item}', [ProcessarController::class, 'enviarProcessamento']);
 Route::post('/processar_processamento/{item}', [ProcessarController::class, 'processarProcessamento']);
 Route::post('/processar_processado/{item}', [ProcessarController::class, 'processarProcessado']);
+Route::post('/processar_acervo/{item}', [ProcessarController::class, 'processarAcervo']);
 
 /* Etiquetas */
 Route::get('/etiquetas', [EtiquetaController::class, 'form']);

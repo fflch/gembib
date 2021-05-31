@@ -30,7 +30,7 @@ class ProcessarController extends Controller
 
     public function processarCotacao(Request $request, Item $item){
         if ($request->processar_cotacao == 'Negado'){
-            
+
             $request->validate([
                 'motivo' => 'required'
             ]);
@@ -48,6 +48,7 @@ class ProcessarController extends Controller
     public function processarLicitacao(Request $request, Item $item){
         if($request->processar_licitacao == 'Em Tombamento'){
             $item->status = 'Em Tombamento';
+            $item->observacao = $request->observacao;
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -99,7 +100,6 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 
-    //quando for mandado para o processamento técnico
     public function processarProcessamento(Request $request, Item $item){
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';
@@ -120,15 +120,9 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 
-    //quando for processado
     public function processarProcessado(Request $request, Item $item){
         if($request->processar_processado == 'Processado'){
 
-            $request->validate([
-                'bibliotecario' => ['required', Rule::in($item->getSauAttribute())]
-            ]);
-
-            $item->recebido_sau_por = $request->bibliotecario;
             $item->status = $request->processar_processado;
             $item->observacao = $request->observacao;
             $item->data_processado = Carbon::now();
@@ -144,6 +138,20 @@ class ProcessarController extends Controller
             $item->update();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
+        return redirect("/item/{$item->id}");
+    }
+
+    public function processarAcervo(Request $request, Item $item){
+        if($request->processar_acervo == 'Salvar'){
+
+            $request->validate([
+                'bibliotecario' => ['required', Rule::in($item->getSauAttribute())]
+            ]);
+            $item->recebido_sau_por = $request->bibliotecario;
+            $item->alterado_por = Auth::user()->codpes;
+            $item->save();
+            $request->session()->flash('alert-info', "Funcionário alterado!");
+        } 
         return redirect("/item/{$item->id}");
     }
 }
