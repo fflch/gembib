@@ -58,3 +58,6 @@ Route::get('/controle/index', [ControleController::class, 'show']);
 Route::post('/controle', [ControleController::class, 'store']);
 Route::get('/controle/{controle}/edit', [ControleController::class, 'edit']);
 Route::patch('/controle/{controle}', [ControleController::class, 'update']);
+
+# Logs - deveria ser admin
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:sai');

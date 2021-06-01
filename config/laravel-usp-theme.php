@@ -1,5 +1,17 @@
 <?php
 
+$right_menu = [
+    [
+        'text'   => '<i class="fas fa-cog"></i>',
+        'title'  => 'logs',
+        'target' => '_blank',
+        'url'    => config('app.url') . '/logs',
+        'align'  => 'right',
+        'can'    => 'sai',
+    ],
+];
+
+
 return [
     'title' => '',
     'app_url' => config('app.url'),
@@ -7,6 +19,7 @@ return [
     'logout_method' => 'POST',
     'logout_url' => config('app.url') . '/logout',
     'login_url' => config('app.url') . '/login',
+    'right_menu' => $right_menu,
     'menu' => [
         [
             'text' => 'Sugestão',
