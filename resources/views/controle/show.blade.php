@@ -1,11 +1,13 @@
 <form method="GET">
-  @csrf
   <div class="row">
       <div class="col-sm form-group">
           <b>Busca por período:</b>
           <input type="text" name="busca_inicio" class="datepicker" value="{{ Request()->busca_inicio }}"> <b>-</b>
           <input type="text" name="busca_fim" class="datepicker" value="{{ Request()->busca_fim }}">
           <button type="submit" class="btn btn-success btn-sm">Buscar</button>
+          <a href="/controle/pdf?busca_inicio={{Request()->busca_inicio}}
+            &busca_fim={{Request()->busca_fim}}" style="float: right;">
+          <i class="fas fa-file-pdf"></i> Exportar busca em PDF</a> 
       </div>
   </div>
 </form>
