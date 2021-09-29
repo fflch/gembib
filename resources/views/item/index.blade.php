@@ -66,28 +66,28 @@
 <div class="row">
   <div class="col-sm form-group">
       <label for="">Data Sugestão</label>
-      <input type="text" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}"> <b>-</b>
-      <input type="text" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}">
+      <input type="text" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}" autocomplete="off"> <b>-</b>
+      <input type="text" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}" autocomplete="off">
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm form-group">
     <label for="">Data Tombamento</label>
-    <input type="text" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}"> <b>-</b>
-    <input type="text" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}">
+    <input type="text" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}" autocomplete="off"> <b>-</b>
+    <input type="text" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}" autocomplete="off">
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm form-group">
     <label for="">Data Processamento</label>
-    <input type="text" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
-    <input type="text" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
+    <input type="text" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}" autocomplete="off"> <b>-</b>
+    <input type="text" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}" autocomplete="off">
   </div>
 </div>
 
-  <button type="submit" class="btn btn-success">buscar</button>
+  <button type="submit" class="btn btn-success">Buscar</button>
 </form>
 <br>
 
