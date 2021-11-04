@@ -1,3 +1,4 @@
+Excluir caso necessario
 <form method="POST" action="/processar_acervo/{{$item->id}}">
     @csrf 
     <div>

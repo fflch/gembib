@@ -114,7 +114,7 @@
     <input type="text" id="colecao" value="{{old('colecao', $item->colecao)}}" class="form-control" name="colecao"/>
   </div>
   <div class="col-sm form-group">
-    <label for="link">Link:</label>
+    <label for="link">Link do E-book:</label>
     <input type="text" id="link" value="{{old('link', $item->link)}}" class="form-control"  name="link"/>
   </div>
   <div class="col-sm form-group">

@@ -1,4 +1,4 @@
-<form method="POST" action="/enviar_processamento/{{$item->id}}">
+<form method="POST" action="/processar_processamento/{{$item->id}}">
     @csrf 
     <div>
         <p>Enviado para {{$item->status}} 
@@ -6,6 +6,6 @@
         em {{$item->updated_at}}.
         </p>
         @include('item.observacao')
-        <button type="submit" name="enviar_processamento" class="btn btn-info" value="Em Trânsito" onclick="return confirm('Mudar status para Em Trânsito?')">Solicitar Processamento Técnico</button>
+        <button type="submit" name="processar_processamento" class="btn btn-info" value="Em Processamento Técnico" onclick="return confirm('Mudar status para Em Processamento?')">Solicitar Processamento Técnico</button>
     </div>
 </form>
