@@ -51,7 +51,7 @@ class ItemRequest extends FormRequest
             'link'             => '', 
             'edicao'           => 'nullable|integer', 
             'departamento'     => ['nullable', Rule::in($item::departamento)], 
-            'prioridade'       => ['nullable', Rule::in($item::prioridade)], 
+            'prioridade'       => ['nullable', Rule::in(array_keys($item::prioridade))], 
             'procedencia'      => ['required', Rule::in($item::procedencia)], 
             'finalidade'       => '', 
             'verba'            => ['nullable', Rule::in($item::verba)], 

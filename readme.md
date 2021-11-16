@@ -26,6 +26,7 @@ Workflow:
 
 	UPDATE itens SET tipo_aquisicao='Doação' WHERE tipo_aquisicao='Retombamento';
 	UPDATE itens SET prioridade='0' WHERE prioridade='Coleção Didática';
+	UPDATE itens SET prioridade=NULL WHERE prioridade='';
 
 
 
