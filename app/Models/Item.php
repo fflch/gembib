@@ -15,14 +15,12 @@ class Item extends Model
     const status = [
         "Sugestão",
         "Em Cotação",
+        "Negado",
         "Em Licitação",
         "Em Tombamento",
-        "Negado",
         "Tombado",
-        "Em Trânsito",
         "Em Processamento Técnico",
-        "Processado",
-        "Acervo"
+        "Processado"
     ];
 
     const procedencia = [
@@ -48,16 +46,15 @@ class Item extends Model
         "Doação",
         "Multa",
         "Reposição",
-        "Retombamento",
         "Permuta"
     ];
 
     const prioridade = [
-        "Coleção Didática",
-        "1",
-        "2",
-        "3",
-        "4"
+        "0 – Coleção Didática",
+        "1 – Obras adquiridas Reserva Técnica (FAPESP, CNPQ etc)",
+        "2 – Obras adquiridas Verba RUSP",
+        "3 – Obras adquiridas – verbas específicas",
+        "4 – Doações específicas e de Docentes"
     ];
 
     const departamento = [

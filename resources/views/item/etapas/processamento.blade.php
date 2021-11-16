@@ -13,7 +13,7 @@
     @include('item.observacao')
 
 <br>
-    <button type="submit" name="processar_processado" class="btn btn-info" value="Em Trânsito" onclick="return confirm('Mudar status para Em Tombamento? O livro entrará Em Trânsito.')">Devolver para Tombamento</button>
+    <button type="submit" name="processar_processamento" class="btn btn-info" value="Em Tombamento" onclick="return confirm('Mudar status para Em Tombamento?')">Dar entrada/devolver ao Tombamento</button>
     <button type="submit" name="processar_processado" class="btn btn-success" value="Processado" onclick="return confirm('Mudar status para Processado?')">Processar</button>
     </div>
 </form>

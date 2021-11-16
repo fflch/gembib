@@ -32,6 +32,10 @@
         @case('Em Cotação')
             @include('item.etapas.cotacao')
         @break
+        
+        @case('Negado')
+          @include('item.etapas.negado')
+        @break
 
         @case('Em Licitação')
             @include('item.etapas.licitacao')
@@ -45,24 +49,12 @@
             @include('item.etapas.tombado')
         @break
 
-        @case('Em Trânsito')
-            @include('item.etapas.transito')
-        @break
-
         @case('Em Processamento Técnico')
             @include('item.etapas.processamento')
         @break
         
-        @case('Negado')
-          @include('item.etapas.negado')
-        @break
-        
         @case('Processado')
           @include('item.etapas.processado')
-        @break
-        
-        @case('Acervo')
-          @include('item.etapas.acervo')
         @break
 
         @default
