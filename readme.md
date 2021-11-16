@@ -20,4 +20,13 @@ Workflow:
 ![workflow](https://raw.githubusercontent.com/fflch/gembib/master/workflow_itens.png)
 
 
+## Atualizações no banco
+
+16/nov/2021
+
+	UPDATE itens SET tipo_aquisicao='Doação' WHERE tipo_aquisicao='Retombamento';
+	UPDATE itens SET prioridade='0' WHERE prioridade='Coleção Didática';
+
+
+
 
