@@ -129,9 +129,12 @@ class ProcessarController extends Controller
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
-        } elseif($request->processar_processado == 'Em Processamento Técnico'){
-            $item->status = 'Em Processamento Técnico';
-            $item->update();
+        } elseif($request->processar_processamento == 'Em Tombamento'){
+            $item->status = 'Em Tombamento';
+            $item->observacao = $request->observacao;
+            $item->alterado_por = Auth::user()->codpes;
+            $item->data_processamento = Carbon::now();
+            $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         } else {
             $item->status = $request->processar_processado;
@@ -141,6 +144,7 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 
+    //talvez excluir se as mudanças nos status forem necessarias 
     public function processarAcervo(Request $request, Item $item){
         if($request->processar_acervo == 'Salvar'){
 

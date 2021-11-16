@@ -21,6 +21,30 @@ class ItemController extends Controller
         $request = request();
         $query = Item::orderBy('created_at', 'desc');     
 
+        if(isset($request->titulo)) {
+            $query->where('titulo',$request->titulo);
+        }
+
+        if(isset($request->autor)) {
+            $query->where('autor',$request->autor);
+        }
+        
+        if(isset($request->tombo)) {
+            $query->where('tombo',$request->tombo);
+        }
+
+        if(isset($request->observacao)) {
+            $query->where('observacao',$request->observacao);
+        }
+
+        if(isset($request->observacao)) {
+            $query->where('verba',$request->observacao);
+        }
+
+        if(isset($request->observacao)) {
+            $query->where('processo',$request->observacao);
+        }
+
         if (!empty($request->status)) {
             $query->where(function ($p) use (&$request) {
                 $p->where('status','=',$request->status);
@@ -68,18 +92,6 @@ class ItemController extends Controller
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
         }
-
-        if (!empty($request->busca)) {
-            $query->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->busca . '%')
-                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('verba','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('processo','LIKE', '%' . $request->busca . '%');
-            });
-        } 
 
         if(isset($request->filtro)){
             $query->where(function ($q) use (&$request) {

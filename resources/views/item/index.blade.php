@@ -5,6 +5,49 @@
 
 <form method="GET">
 
+<b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
+<br><br>
+<div class="row">
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="titulo" value="{{ request()->titulo }}" placeholder="Busca por Título">
+      </div>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="autor" value="{{ request()->autor }}" placeholder="Busca por Autor">
+      </div>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="tombo" value="{{ request()->tombo }}" placeholder="Busca por Tombo">
+      </div>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="codigoimpressao" value="{{ request()->codigoimpressao  }}" style="width: 300px" placeholder="Busca por Código de Impressão"> 
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="observacao" value="{{ request()->observacao }}" placeholder="Busca por Observação">
+      </div>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="verba" value="{{ request()->verba }}" placeholder="Busca por Verba">
+      </div>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-group">
+        <input type="text" name="processo" value="{{ request()->processo }}" placeholder="Busca por Processo">    </div>
+      </div>
+    </div>
+</div>
+</div>
+
 <div class="row">
   <div class="col-sm form-group">
   <select name="status">
@@ -45,45 +88,41 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-sm form-group">
-  <b>Buscar:</b>
-  <input type="text" name="busca" value="{{ Request()->busca }}">
+<div class="row justify-content-md-left">
+  <div class="col col-lg-2">
+    <label for="">Data Sugestão</label>
+  </div>
 
-   @foreach(App\Models\Item::filters as $key=>$filter)
-     <label>
-       @if(Request()->filtro != null)
-          <input type="checkbox" name="filtro[]" value="{{$key}}" {{ (in_array($key, Request()->filtro)  ? ' checked' : '') }}> {{$filter}}
-       @else 
-          <input type="checkbox" name="filtro[]" value="{{$key}}"> {{$filter}}
-       @endif   
-     </label>
-   @endforeach
-  
+  <div class="col-md-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}"> <b>-</b>
+  </div>
+  <div class="col col-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}">
   </div>
 </div>
 
-<div class="row">
-  <div class="col-sm form-group">
-      <label for="">Data Sugestão</label>
-      <input type="text" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}" autocomplete="off"> <b>-</b>
-      <input type="text" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}" autocomplete="off">
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm form-group">
+<div class="row justify-content-md-left">
+  <div class="col col-lg-2">
     <label for="">Data Tombamento</label>
-    <input type="text" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}" autocomplete="off"> <b>-</b>
-    <input type="text" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}" autocomplete="off">
+
+  </div>
+  <div class="col-md-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}"> <b>-</b>
+  </div>
+  <div class="col col-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}">
   </div>
 </div>
 
-<div class="row">
-  <div class="col-sm form-group">
+<div class="row justify-content-md-left">
+  <div class="col col-lg-2">
     <label for="">Data Processamento</label>
-    <input type="text" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}" autocomplete="off"> <b>-</b>
-    <input type="text" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}" autocomplete="off">
+  </div>
+  <div class="col-md-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
+  </div>
+  <div class="col col-lg-2">
+    <input type="text" data-mask="00/00/0000" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
   </div>
 </div>
 
@@ -108,40 +147,42 @@
 
 <br>
 
-{{ $itens->appends(request()->query())->links() }}
 @include('item.partials.quantidades')
+<br>
+{{ $itens->appends(request()->query())->links() }}
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Tombo</th>
-      <th scope="col">Título</th>
-      <th scope="col">Autor</th>
-      <th scope="col">Editora</th>
-      <th scope="col">Status</th>
-      <th scope="col">Ano</th>
-      <th scope="col">Procedência</th>
-      <th scope="col">Sugestão feita por</th>
-      <th scope="col">Editar</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($itens as $item)
-    <tr>
-      <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
-      <th><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></th>
-      <td>{{ $item->autor }}</td>
-      <td>{{ $item->editora }}</td>
-      <td>{{ $item->status }}</td>
-      <td><center>{{ $item->ano }}</td>
-      <td>{{ $item->procedencia }}</td>
-      <td>{{ $item->sugerido_por }}</td>
-      <td><a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a></td>  
-    </tr>
-    @endforeach
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Tombo</th>
+        <th scope="col">Título</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Editora</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ano</th>
+        <th scope="col">Procedência</th>
+        <th scope="col">Sugestão feita por</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($itens as $item)
+      <tr>
+        <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
+        <th><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></th>
+        <td>{{ $item->autor }}</td>
+        <td>{{ $item->editora }}</td>
+        <td>{{ $item->status }}</td>
+        <td>{{ $item->ano }}</td>
+        <td>{{ $item->procedencia }}</td>
+        <td>{{ $item->sugerido_por }}</td>
+        <td><a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a></td>  
+      </tr>
+      @endforeach
 
-  </tbody>
-</table>
-
+    </tbody>
+  </table>
+</div>
 @endsection
 
