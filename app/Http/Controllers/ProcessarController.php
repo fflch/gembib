@@ -141,10 +141,6 @@ class ProcessarController extends Controller
             $item->update();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
-        /*if($request->processar_processado == 'Em Processamento Técnico'){
-            $item->status = 'Em Processamento Técnico';
-            $item->update();
-            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");}*/
         return redirect("/item/{$item->id}");
     }
 

@@ -21,7 +21,6 @@ class ItemController extends Controller
         $request = request();
         $query = Item::orderBy('created_at', 'desc');     
 
-        //teste busca 
         if(isset($request->titulo)) {
             $query->where('titulo',$request->titulo);
         }
@@ -45,9 +44,6 @@ class ItemController extends Controller
         if(isset($request->observacao)) {
             $query->where('processo',$request->observacao);
         }
-
-        //fim teste
-
 
         if (!empty($request->status)) {
             $query->where(function ($p) use (&$request) {
@@ -96,18 +92,6 @@ class ItemController extends Controller
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
         }
-
-        /*if (!empty($request->busca)) {
-            $query->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->busca . '%')
-                  ->orWhere('autor','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('observacao','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('verba','LIKE', '%' . $request->busca . '%')
-                  ->orwhere('processo','LIKE', '%' . $request->busca . '%');
-            });
-        }*/ 
 
         if(isset($request->filtro)){
             $query->where(function ($q) use (&$request) {
