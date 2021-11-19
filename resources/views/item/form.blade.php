@@ -148,15 +148,15 @@
     <label for="prioridade">Prioridade:</label>
     <select class="form-control" id="prioridade" name="prioridade">
       <option value="">Selecionar prioridade</option>
-      @foreach($item::prioridade as $opcao)
+      @foreach($item::prioridade as $key=>$opcao)
       @if (old('prioridade') == '' and isset($item->prioridade))
-          <option value="{{$opcao}}" {{ ($item->prioridade == $opcao) ? 'selected' : ''}}>
-            {{$opcao}}
+          <option value="{{$key}}" {{ ($item->prioridade == $key) ? 'selected' : ''}}>
+            {{ $key }} - {{$opcao}}
           </option>
       @else
-        <option value = "{{$opcao}}" {{ ( old('prioridade') == $opcao) ? 'selected' : ''}}>
-        {{$opcao}}
-      </option>
+        <option value = "{{$key}}" {{ ( old('prioridade') == $key) ? 'selected' : ''}}>
+          {{ $key }} - {{$opcao}}
+        </option>
       @endif
       @endforeach
     </select>

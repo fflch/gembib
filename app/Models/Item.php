@@ -50,11 +50,11 @@ class Item extends Model
     ];
 
     const prioridade = [
-        "0 – Coleção Didática",
-        "1 – Obras adquiridas Reserva Técnica (FAPESP, CNPQ etc)",
-        "2 – Obras adquiridas Verba RUSP",
-        "3 – Obras adquiridas – verbas específicas",
-        "4 – Doações específicas e de Docentes"
+        0 => "Coleção Didática",
+        1 => "Obras adquiridas Reserva Técnica (FAPESP, CNPQ etc)",
+        2 => "Obras adquiridas Verba RUSP",
+        3 => "Obras adquiridas – verbas específicas",
+        4 => "Doações específicas e de Docentes"
     ];
 
     const departamento = [
@@ -148,6 +148,13 @@ class Item extends Model
         if($value){
             return  Carbon::parse($this->attributes['updated_at'])->format('d/m/Y');
         }
+    }
+
+    public function getPrioridadeAttribute($value){
+        if(array_key_exists($value,self::prioridade)){
+            return $value . ' - ' .  self::prioridade[$value];
+        }
+        return $value;
     }
 }
 
