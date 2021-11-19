@@ -177,7 +177,11 @@
         <td>{{ $item->ano }}</td>
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
+        @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
         <td><a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a></td>  
+        @else
+          <td></td>
+        @endif
       </tr>
       @endforeach
 
