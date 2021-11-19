@@ -5,14 +5,6 @@
 
 <div class="row">
   <div class="col-sm form-group">
-    <label for="tombo_antigo">Tombo antigo:</label>
-    <input type="text" id="tombo_antigo" value="{{old('tombo_antigo', $item->tombo_antigo)}}" class="form-control" name="tombo_antigo"
-    @if(isset($item))
-      value="{{ $item->tombo_antigo }}"
-    @endif
-    />
-  </div>
-  <div class="col-sm form-group">
     <label for="tipo_aquisicao">Tipo de aquisição:</label>
     <select class="form-control" id="tipo_aquisicao" name="tipo_aquisicao">
     @if(! $item->tipo_aquisicao)
