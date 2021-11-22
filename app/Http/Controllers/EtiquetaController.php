@@ -24,8 +24,9 @@ class EtiquetaController extends Controller
 
         }else{
             $request->validate([
-            'tombo_inicio'  => 'required|integer',
-            'tombo_fim'   => 'required|integer|gte:tombo_inicio',
+            'cod_impressao'  => 'required',
+            'tombo_inicio'  => 'nullable|integer',
+            'tombo_fim'   => 'nullable|integer|gte:tombo_inicio',
         ]);
 
         $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();

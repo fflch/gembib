@@ -221,8 +221,14 @@ class ItemController extends Controller
 
         $request->session()->flash('alert-info',"Item atualizado com sucesso");
 
-        return redirect("/item/{$item->id}");
+    }
 
+    public function destroy(Item $item)
+    {
+        $this->authorize('sai');
+        $item->delete();
+        request()->session()->flash('alert-info','Item excluído com sucesso.');
+        return redirect("/item"); 
     }
     
     public function excel(){

@@ -19,18 +19,11 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
 
-/* rotas de inserção */
-Route::get('/item', [ItemController::class, 'index']);
-Route::get('/item/create', [ItemController::class, 'create']);
-Route::post('/item', [ItemController::class, 'store']);
+/* excel */
 Route::get('/excel', [ItemController::class, 'excel']);
 
-/* rotas de edição */
-Route::get('/item/{item}/edit', [ItemController::class, 'edit']);
-Route::patch('/item/{item}', [ItemController::class, 'update']);
-
-/* show item */
-Route::get('/item/{item}', [ItemController::class, 'show']);
+/* rota resource item */
+Route::resource('/item', ItemController::class);
 
 /* rotas para processar */
 Route::get('/processar', [ProcessarController::class, 'processarIndex']);

@@ -6,11 +6,11 @@
 <div class="row">
 <div class="col-md form-group">
 <label for="inicio">Data início:</label><br>
-<input id="inicio" class="datepicker" style="width: 300px" value="{{ old('inicio', $controle->inicio) }}" name="inicio"/><br><br>
+<input id="inicio" data-mask="00/00/0000" class="datepicker" style="width: 300px" value="{{ old('inicio', $controle->inicio) }}" name="inicio"/><br><br>
 </div>
 <div class="col-md form-group">
     <label for="fim">Data fim:</label><br>
-    <input id="fim" class="datepicker" style="width: 300px" value="{{old('fim', $controle->fim)}}" name="fim"/><br><br>
+    <input id="fim" data-mask="00/00/0000" class="datepicker" style="width: 300px" value="{{old('fim', $controle->fim)}}" name="fim"/><br><br>
 </div>
 <div class="col-md form-group">
     <label for="titulos_novos">TÍTULOS NOVOS:</label>
