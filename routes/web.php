@@ -37,6 +37,7 @@ Route::post('/processar_processado/{item}', [ProcessarController::class, 'proces
 Route::post('/processar_acervo/{item}', [ProcessarController::class, 'processarAcervo']);
 
 /* Etiquetas */
+Route::get('/etiquetas/{codimpressao}', [EtiquetaController::class, 'impressao']);
 Route::get('/etiquetas', [EtiquetaController::class, 'form']);
 Route::post('/etiquetas', [EtiquetaController::class, 'show']);
 
