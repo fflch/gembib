@@ -2,8 +2,8 @@
   <div class="row">
       <div class="col-sm form-group">
           <b>Busca por período:</b>
-          <input name="busca_inicio" class="datepicker" value="{{ Request()->busca_inicio }}" autocomplete="off"> <b>-</b>
-          <input name="busca_fim" class="datepicker" value="{{ Request()->busca_fim }}" autocomplete="off">
+          <input name="busca_inicio" data-mask="00/00/0000" class="datepicker" value="{{ Request()->busca_inicio }}" autocomplete="off"> <b>-</b>
+          <input name="busca_fim" data-mask="00/00/0000" class="datepicker" value="{{ Request()->busca_fim }}" autocomplete="off">
           <button type="submit" class="btn btn-success btn-sm">Buscar</button>
           <a href="/controle/pdf?busca_inicio={{Request()->busca_inicio}}
             &busca_fim={{Request()->busca_fim}}" style="float: right;">

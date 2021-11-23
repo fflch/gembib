@@ -7,7 +7,7 @@
       <p align='center'><b>SERVIÇO DE BIBLIOTECA E DOCUMENTAÇÃO</b><br>
        FACULDADE DE FILOSOFIA, LETRAS E CIÊNCIAS HUMANAS - USP<br>
        Av.: Prof. Lineu Prestes - travessa 12. n° 350 CEP: 05508-900 - Cidade Universitária - São Paulo - SP / Brasil<br>
-       Serviço de Aquisição e Intercâmbio (11)3091-4502 - saifflch@usp.br</p>
+       Serviço Técnico de Livros (11)3091-4818 – stlfflch@usp.br</p>
     </td>
   </tr>
 </table>
