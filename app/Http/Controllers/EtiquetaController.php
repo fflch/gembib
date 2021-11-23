@@ -15,22 +15,42 @@ class EtiquetaController extends Controller
         return view('etiquetas');
     }
 
+    public function impressao($codimpressao){
+        $this->authorize('logado');
+        if($codimpressao){
+            $itens = Item::where('cod_impressao', [$codimpressao])->get();
+            if($itens->isNotEmpty()) {
+                $this->printerPimaco($itens);
+            }
+        }
+
+    }
     public function show(Request $request){
+        $this->authorize('logado');
         if(isset($request->cod_impressao)){
             $request->validate([
                 'cod_impressao'  => 'required'
             ]);
-        $itens = Item::where('cod_impressao', [$request->cod_impressao])->get();
-
-        }else{
-            $request->validate([
-            'tombo_inicio'  => 'required|integer',
-            'tombo_fim'   => 'required|integer|gte:tombo_inicio',
-        ]);
-
-        $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();
-
+            $itens = Item::where('cod_impressao', [$request->cod_impressao])->get();
         }
+        else{
+            $request->validate([
+                'tombo_inicio'  => 'required|integer',
+                'tombo_fim'   => 'required|integer|gte:tombo_inicio',
+            ]);
+            $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();
+        }
+
+        if($itens->isNotEmpty()) {
+            $this->printerPimaco($itens);
+        }
+        else {
+            return redirect()->back()->with('alert-danger','Registro não encontrado!');
+        }
+
+    }
+
+    private function printerPimaco($itens){
 
         $pimaco = new Pimaco('6180');
 
@@ -43,8 +63,8 @@ class EtiquetaController extends Controller
             $barcode = new Barcode((string)$item->cod_impressao, null);
             $barcode->setAlign('right');
             $barcode->setWidth(1);
-            
-            $limiteCaracteres = 10;            
+
+            $limiteCaracteres = 10;
 
             $codigo = $barcode->render();
             $tag->p(view('pdfs.etiquetas', compact ('itens', 'codigo','limiteCaracteres','item')));

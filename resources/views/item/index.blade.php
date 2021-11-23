@@ -163,7 +163,7 @@
         <th scope="col">Ano</th>
         <th scope="col">Procedência</th>
         <th scope="col">Sugestão feita por</th>
-        <th scope="col">Editar</th>
+        <th scope="col">Alterações</th>
       </tr>
     </thead>
     <tbody>
@@ -178,9 +178,23 @@
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
         @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
-        <td><a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a></td>  
+        <td>
+          <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
+          <br><br>
+          <form method="POST" action="/item/{{$item->id}}"> 
+              @csrf
+              @method('delete')
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+          </form>
+        </td>  
         @else
-          <td></td>
+        <td>
+          <form method="POST" action="/item/{{$item->id}}"> 
+              @csrf
+              @method('delete')
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button> 
+          </form>
+        </td>
         @endif
       </tr>
       @endforeach

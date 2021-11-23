@@ -8,6 +8,10 @@
 @include('item.etapas')
 
 <table class="table table-striped">
+@if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+<a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
+<br><br>
+@endif
   <tbody>
     @if(isset($item->recebido_sau) && $item->status == "Processado")
     <tr>
@@ -29,7 +33,14 @@
     </tr>
     <tr>
       <th scope="col">Código de impressão:</th>
-      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
+      @if(empty($item->cod_impressao))
+      <td scope="row">Não cadastrado</td>
+      @else
+      <td scope="row">
+        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao
+          }}</a>
+      </td>
+      @endif
     </tr>
     <tr>
       <th scope="col">Título: </th>
