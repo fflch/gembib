@@ -32,16 +32,13 @@
       <td scope="col">{{ $item->data_processamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
+      <th scope="col">Código de impressão:</th>
       @if(empty($item->cod_impressao))
-      <th scope="col">Código de impressão:</th>
-      <td scope="row">{{ $item->cod_impressao ?? 'Não cadastrado' }}</td>
+      <td scope="row">Não cadastrado</td>
       @else
-      <th scope="col">Código de impressão:</th>
       <td scope="row">
-        <form method="POST" action="/etiquetas">
-        @csrf
-          <input class="form-control" type="hidden" name="cod_impressao" value="{{ $item->cod_impressao }}">
-          <button type="submit" style="background-color: transparent; border: none; color: #007bff;">{{ $item->cod_impressao ?? 'Não cadastrado' }} </button>
+        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao
+          }}</a>
       </td>
       @endif
     </tr>
