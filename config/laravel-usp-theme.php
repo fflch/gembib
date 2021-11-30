@@ -51,5 +51,10 @@ return [
             'url'  => '/etiquetas',
             'can'  => 'sai',
         ],
+        [
+            'text' => 'Pedir',
+            'url'  => '/pedido',
+            'can'  => 'aluno',
+        ],
     ]
 ];
