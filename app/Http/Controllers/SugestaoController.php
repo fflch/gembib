@@ -6,6 +6,8 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Mail;
+use App\Mail\email_sugestao;
 
 class SugestaoController extends Controller
 {    
@@ -37,6 +39,7 @@ class SugestaoController extends Controller
 
         $item->status = "Sugestão";
         $item->save();
+        Mail::queue(new email_sugestao($item));
 
         $request->session()->flash('alert-info', 'Sugestão enviada com sucesso');
 

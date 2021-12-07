@@ -28,6 +28,8 @@ Route::resource('/item', ItemController::class);
 
 /* rota resource pedido */
 Route::resource('/pedido', PedidoController::class);
+Route::post('/pedido/item/{item}', [PedidoController::class, 'pedidoItem'])
+    ->name('pedidos.item');
 
 /* rotas para processar */
 Route::get('/processar', [ProcessarController::class, 'processarIndex']);

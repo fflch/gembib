@@ -53,7 +53,7 @@ return [
         ],
         [
             'text' => 'Pedir',
-            'url'  => '/pedido',
+            'url'  => '/pedido/create',
             'can'  => 'aluno',
         ],
     ]

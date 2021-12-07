@@ -93,12 +93,6 @@ class ItemController extends Controller
             $query->whereNotNull('data_tombamento');
         }
 
-        if(isset($request->filtro)){
-            $query->where(function ($q) use (&$request) {
-                $q->where($request->filtro[0],'LIKE', '%' . $request->busca . '%');
-            });
-        }
-
         return $query;
     }
 
