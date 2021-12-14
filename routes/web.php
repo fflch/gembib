@@ -28,6 +28,7 @@ Route::resource('/item', ItemController::class);
 
 /* rota resource pedido */
 Route::resource('/pedido', PedidoController::class);
+Route::post('/pedido/email', [PedidoController::class, 'email_pedido']);
 Route::post('/pedido/item/{item}', [PedidoController::class, 'pedidoItem'])
     ->name('pedidos.item');
 

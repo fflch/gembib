@@ -19,9 +19,9 @@ class email_pedido extends Mailable
      *
      * @return void
      */
-    public function __construct(Item $itens)
+    public function __construct($itens)
     {
-        $this->itens = $itens;
+        $this->itens = Item::wherein('id', $itens)->get();
     }
 
     /**
@@ -33,7 +33,6 @@ class email_pedido extends Mailable
     {
         $sai = explode(',',env('EMAILS_SAI'));
         $aluno = auth()->user();
-
         return $this->view('emails.email_pedido')
             ->to($sai)
             ->subject('Pedido de intem(ns) em processamento técnico')
@@ -42,5 +41,6 @@ class email_pedido extends Mailable
                 'aluno' => $aluno,
                 
             ]);
+        
     }
 }

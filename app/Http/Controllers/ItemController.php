@@ -189,8 +189,8 @@ class ItemController extends Controller
         $validated['data_sugestao'] = Carbon::now();
 
         $item = Item::create($validated);
-
         $item->save();
+        $item->setStatus($validated->observacao);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 

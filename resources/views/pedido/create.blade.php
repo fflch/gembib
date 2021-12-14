@@ -28,26 +28,27 @@
   </script>
 @endsection
 
+<form method="GET">
 <b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
-<br>
+<br><br>
 <div class="row">
-    <div class="form-group col-sm-2">
-      <div class="form-group">
+  <div class="form-group">
+        <div class="form-group col-sm-2">
         <input type="text" name="titulo" value="{{ request()->titulo }}" placeholder="Busca por Título">
       </div>
     </div>
-    <div class="form-group col-sm-2">
-      <div class="form-group">
+    <div class="form-group">
+        <div class="form-group col-sm-2">
         <input type="text" name="autor" value="{{ request()->autor }}" placeholder="Busca por Autor">
       </div>
     </div>
-    <div class="form-group col-sm-2">
-      <div class="form-group">
+    <div class="form-group">
+        <div class="form-group col-sm-2">
         <input type="text" name="editora" value="{{ request()->editora }}" placeholder="Busca por Editora">
       </div>
     </div>
-    <div class="form-group col-sm-2">
-      <div class="form-group">
+    <div class="form-group">
+        <div class="form-group col-sm-2">
         <input type="text" name="ano" value="{{ request()->ano  }}" placeholder="Busca por Ano"> 
       </div>
     </div>
@@ -58,7 +59,7 @@
 
 {{ $itens->appends(request()->query())->links() }}
 
-<form method="POST" action="/pedido">
+<form method="POST" action="/pedido/email">
 @csrf
   <div class="card">
     <table class="table table-striped">
@@ -74,7 +75,8 @@
       <tbody>
         @foreach($itens as $item)
         <tr>
-          <td align="center"><input type="checkbox" class="item" name="item[]" value="{{ $item->id }}"></td>
+          <td align="center"><input type="checkbox" class="item" name="item[]" value="{{ $item->id }}" 
+          @if(Session::has('itens')) @if(in_array( $item->id , Session::get('itens')))checked @endif) @endif></td>
           <td>{{ $item->titulo }}</td>
           <td>{{ $item->autor }}</td>
           <td>{{ $item->editora }}</td>
@@ -84,7 +86,7 @@
       </tbody>
     </table>
   </div>
+  <br>
+  <button type="submit" onclick="return confirm('Tem certeza que deseja solicitar esse(s) livro(s)');" class="btn btn-success" name="pedido">Realizar Pedido</button>
 </form>
-<br>
-<button type="submit" onclick="return confirm('Tem certeza que deseja solicitar esse(s) livro(s)');" class="btn btn-success" name="pedido">Realizar Pedido</button>
 @endsection
