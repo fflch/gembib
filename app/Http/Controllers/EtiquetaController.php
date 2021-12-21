@@ -52,7 +52,7 @@ class EtiquetaController extends Controller
 
     private function printerPimaco($itens){
 
-        $pimaco = new Pimaco('6180');
+        $pimaco = new Pimaco('A4256');
 
         foreach($itens as $item){
             $tag = new Tag();
@@ -60,7 +60,6 @@ class EtiquetaController extends Controller
             $tag->setSize(2);
 
             $barcode = new Barcode((string)$item->tombo, null);
-            $barcode = new Barcode((string)$item->cod_impressao, null);
             $barcode->setAlign('right');
             $barcode->setWidth(1);
 
