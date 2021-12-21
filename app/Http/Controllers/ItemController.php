@@ -93,12 +93,6 @@ class ItemController extends Controller
             $query->whereNotNull('data_tombamento');
         }
 
-        if(isset($request->filtro)){
-            $query->where(function ($q) use (&$request) {
-                $q->where($request->filtro[0],'LIKE', '%' . $request->busca . '%');
-            });
-        }
-
         return $query;
     }
 
@@ -195,8 +189,8 @@ class ItemController extends Controller
         $validated['data_sugestao'] = Carbon::now();
 
         $item = Item::create($validated);
-
         $item->save();
+        $item->setStatus($validated->observacao);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
