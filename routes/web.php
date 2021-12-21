@@ -7,6 +7,7 @@ use App\Http\Controllers\ProcessarController;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
+use App\Http\Controllers\PedidoController;
 
 Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 
@@ -24,6 +25,13 @@ Route::get('/excel', [ItemController::class, 'excel']);
 
 /* rota resource item */
 Route::resource('/item', ItemController::class);
+
+/* rota resource pedido */
+Route::get('/pedido/create', [PedidoController::class, 'create'])
+    ->name('pedido.create');
+Route::post('/pedido/email', [PedidoController::class, 'email_pedido']);
+Route::post('/pedido/item/{item}', [PedidoController::class, 'pedidoItem'])
+    ->name('pedidos.item');
 
 /* rotas para processar */
 Route::get('/processar', [ProcessarController::class, 'processarIndex']);

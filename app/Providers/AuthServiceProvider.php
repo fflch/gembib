@@ -45,5 +45,6 @@ class AuthServiceProvider extends ServiceProvider
             $admin = explode(',', trim(config('gembib.admin')));
             return ( in_array($user->codpes, $admin) and $user->codpes );
         });
+
     }
 }
