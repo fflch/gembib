@@ -46,9 +46,5 @@ class AuthServiceProvider extends ServiceProvider
             return ( in_array($user->codpes, $admin) and $user->codpes );
         });
 
-        Gate::define('aluno', function ($user) {
-            $aluno = explode(',', trim(config('gembib.aluno')));
-            return ( in_array($user->codpes, $aluno) and $user->codpes );
-        });
     }
 }

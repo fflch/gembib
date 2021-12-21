@@ -54,7 +54,7 @@ return [
         [
             'text' => 'Pedir',
             'url'  => '/pedido/create',
-            'can'  => 'aluno',
+            'can'  => 'logado',
         ],
     ]
 ];
