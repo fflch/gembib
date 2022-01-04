@@ -18,7 +18,8 @@ class EtiquetaController extends Controller
     public function impressao($codimpressao){
         $this->authorize('logado');
         if($codimpressao){
-            $itens = Item::where('cod_impressao', [$codimpressao])->get();
+            $itens = Item::where('cod_impressao', [$codimpressao])->
+                           whereNotNull('tombo')->get();
             if($itens->isNotEmpty()) {
                 $this->printerPimaco($itens);
             }
@@ -31,7 +32,8 @@ class EtiquetaController extends Controller
             $request->validate([
                 'cod_impressao'  => 'required'
             ]);
-            $itens = Item::where('cod_impressao', [$request->cod_impressao])->get();
+            $itens = Item::where('cod_impressao', [$request->cod_impressao])->
+                           whereNotNull('tombo')->get();
         }
         else{
             $request->validate([
