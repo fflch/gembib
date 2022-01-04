@@ -190,7 +190,7 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
         $item->save();
-        //$item->setStatus($validated->observacao);
+        $item->setStatus($validated->observacao);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
