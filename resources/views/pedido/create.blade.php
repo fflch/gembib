@@ -9,7 +9,6 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
       $(document).ready(function(){
         $(".item").click(function () {
-          console.log('oi');
           if( $(this).val() )
           var item = $(this).val();
           {
@@ -20,7 +19,7 @@
               data: {
                  _token: CSRF_TOKEN,
                  item: $(this).val(),
-              }, 
+              },
             });
           }
         });
@@ -49,7 +48,7 @@
     </div>
     <div class="form-group">
         <div class="form-group col-sm-2">
-        <input type="text" name="ano" value="{{ request()->ano  }}" placeholder="Busca por Ano"> 
+        <input type="text" name="ano" value="{{ request()->ano  }}" placeholder="Busca por Ano">
       </div>
     </div>
 </div>
@@ -75,7 +74,7 @@
       <tbody>
         @foreach($itens as $item)
         <tr>
-          <td align="center"><input type="checkbox" class="item" name="item[]" value="{{ $item->id }}" 
+          <td align="center"><input type="checkbox" class="item" name="item[]" value="{{ $item->id }}"
           @if(Session::has('itens')) @if(in_array( $item->id , Session::get('itens')))checked @endif) @endif></td>
           <td>{{ $item->titulo }}</td>
           <td>{{ $item->autor }}</td>

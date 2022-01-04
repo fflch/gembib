@@ -27,7 +27,8 @@ Route::get('/excel', [ItemController::class, 'excel']);
 Route::resource('/item', ItemController::class);
 
 /* rota resource pedido */
-Route::resource('/pedido', PedidoController::class);
+Route::get('/pedido/create', [PedidoController::class, 'create'])
+    ->name('pedido.create');
 Route::post('/pedido/email', [PedidoController::class, 'email_pedido']);
 Route::post('/pedido/item/{item}', [PedidoController::class, 'pedidoItem'])
     ->name('pedidos.item');

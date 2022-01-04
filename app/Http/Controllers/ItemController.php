@@ -37,12 +37,16 @@ class ItemController extends Controller
             $query->where('observacao',$request->observacao);
         }
 
-        if(isset($request->observacao)) {
-            $query->where('verba',$request->observacao);
+        if(isset($request->verba)) {
+            $query->where('verba',$request->verba);
         }
 
-        if(isset($request->observacao)) {
-            $query->where('processo',$request->observacao);
+        if(isset($request->processo)) {
+            $query->where('processo',$request->processo);
+        }
+
+        if(isset($request->codigoimpressao)) {
+            $query->where('cod_impressao',$request->codigoimpressao);
         }
 
         if (!empty($request->status)) {
@@ -190,7 +194,6 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
         $item->save();
-        $item->setStatus($validated->observacao);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
@@ -214,6 +217,7 @@ class ItemController extends Controller
         $item->update($validated);
 
         $request->session()->flash('alert-info',"Item atualizado com sucesso");
+        return redirect("/item/{$item->id}"); 
 
     }
 
