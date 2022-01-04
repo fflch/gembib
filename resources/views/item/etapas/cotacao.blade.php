@@ -1,5 +1,5 @@
 <form method="POST" action="/processar_cotacao/{{$item->id}}">
-  @csrf 
+  @csrf
   <div>
     <p>Enviado para {{$item->status}}
     @include('item.partials.alterado_por')

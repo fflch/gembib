@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
+//use App\Traits\HasStatuses;
 
 class Item extends Model
 {
     use HasFactory;
+    //use HasStatuses;
     protected $table = 'itens';
     protected $guarded = ['id'];
 
