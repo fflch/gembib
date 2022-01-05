@@ -25,6 +25,7 @@ Route::get('/excel', [ItemController::class, 'excel']);
 
 /* rota resource item */
 Route::resource('/item', ItemController::class);
+Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_update']);
 
 /* rota resource pedido */
 Route::get('/pedido/create', [PedidoController::class, 'create'])

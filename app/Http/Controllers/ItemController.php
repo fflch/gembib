@@ -221,6 +221,26 @@ class ItemController extends Controller
 
     }
 
+    public function etiqueta_update(Request $request, Item $item){
+        $this->authorize('sai');
+
+        $validated = $request->validate([
+            'no_classificacao' => 'required',
+            'no_cutter'        => 'required',
+            'exemplar'         => 'required',
+        ]);
+
+        $validated['no_classificacao'] = $request->no_classificacao;
+        $validated['no_cutter'] = $request->no_cutter;
+        $validated['exemplar'] = $request->exemplar;
+
+        $item->update($validated);
+
+        #return para o method da etiqueta
+        return redirect("/item/{$item->id}"); 
+
+    }
+
     public function destroy(Item $item)
     {
         $this->authorize('sai');
