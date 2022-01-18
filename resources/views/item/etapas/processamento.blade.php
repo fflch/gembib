@@ -16,13 +16,13 @@
         @if(empty($item->no_cutter))
             <br>
             @include('item.partials.etiqueta_lombada')
-            <button type="submit" name="etiqueta_lombada" class="btn btn-success"> Gerar Etiqueta de Lombada </button>
+            <button type="submit" name="etiqueta_lombada" class="btn btn-success"> Cadastrar Lombada </button>
         </form>
         @else
             <br>
             @include('item.partials.etiqueta_lombada')
         <span>
-            <button type="submit" name="etiqueta_lombada" class="btn btn-success" onclick="return confirm('Alterar a etiqueta de lombada?')"> Atualizar Etiqueta de Lombada </button>
+            <button type="submit" name="etiqueta_lombada" class="btn btn-success" onclick="return confirm('Alterar a etiqueta de lombada?')"> Atualizar Lombada </button>
         </form>
         <span>
     </div>
