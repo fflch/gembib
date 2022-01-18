@@ -7,11 +7,13 @@
 
 @include('item.etapas')
 
+<div class="card">
+  <div class="card-body">
 <table class="table table-striped">
-@if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
-<a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
-<br><br>
-@endif
+  @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+  <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
+  <br><br>
+  @endif
   <tbody>
     @if(isset($item->recebido_sau) && $item->status == "Processado")
     <tr>
@@ -37,8 +39,7 @@
       <td scope="row">Não cadastrado</td>
       @else
       <td scope="row">
-        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao
-          }}</a>
+        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao }}</a>
       </td>
       @endif
     </tr>
@@ -171,7 +172,8 @@
     </tr>
   </tbody>
 </table>
-
+  </div>
+</div>
 @endsection
 
 
