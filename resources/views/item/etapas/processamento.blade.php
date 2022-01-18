@@ -24,7 +24,6 @@
         <span>
             <button type="submit" name="etiqueta_lombada" class="btn btn-success" onclick="return confirm('Alterar a etiqueta de lombada?')"> Atualizar Etiqueta de Lombada </button>
         </form>
-            <button type="submit" name="etiqueta_lombada" class="btn btn-info"> Acessar Etiqueta de Lombada </button>
         <span>
     </div>
 </div>

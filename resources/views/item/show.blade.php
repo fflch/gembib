@@ -39,8 +39,7 @@
       <td scope="row">Não cadastrado</td>
       @else
       <td scope="row">
-        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao
-          }}</a>
+        <a href="/etiquetas/{{ $item->cod_impressao }}">{{ $item->cod_impressao }}</a>
       </td>
       @endif
     </tr>

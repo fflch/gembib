@@ -23,7 +23,7 @@ Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
 /* excel */
 Route::get('/excel', [ItemController::class, 'excel']);
 
-/* rota resource item */
+/* rota item */
 Route::resource('/item', ItemController::class);
 Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_update']);
 

@@ -23,9 +23,14 @@
         <input type="text" id="cod_impressao" style="width: 740px" class="form-control" name="cod_impressao"/>
       </div>
     </div>
-
-    <div>
-        <button type="submit" class="btn btn-success"> Enviar </button>
+  <br>
+    <div class= "row">
+      <div class="col-sm-2">
+        <button name="etiqueta" type="submit" class="btn btn-success" value="tombo"> Etiqueta de Tombo </button>
+      </div>
+      <div class="col-sm-2">
+        <button name="etiqueta" type="submit" class="btn btn-success" value="lombada"> Etiqueta de Lombada </button>
+      </div>
     </div>
   </div>
 </form>
