@@ -32,15 +32,12 @@ class email_sugestao extends Mailable
     public function build()
     {
         $sai = explode(',',env('EMAILS_SAI'));
-        $aluno = auth()->user();
-
         return $this->view('emails.email_sugestao')
             ->to($sai)
             ->subject('Envio de sugestão')
             ->with([
                 'item' => $this->item,
-                'aluno' => $aluno,
-                
+                'aluno' => (auth()->user()->name) ?: '',
             ]);
     }
 }
