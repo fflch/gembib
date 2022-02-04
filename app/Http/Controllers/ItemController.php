@@ -19,7 +19,7 @@ class ItemController extends Controller
 
     private function search(){
         $request = request();
-        $query = Item::orderBy('created_at', 'desc');     
+        $query = Item::orderBy('created_at', 'desc');
 
         if(isset($request->titulo)) {
             $query->where('titulo',$request->titulo);
@@ -28,7 +28,7 @@ class ItemController extends Controller
         if(isset($request->autor)) {
             $query->where('autor',$request->autor);
         }
-        
+
         if(isset($request->tombo)) {
             $query->where('tombo',$request->tombo);
         }
@@ -135,7 +135,7 @@ class ItemController extends Controller
         $query = $this->search();
         $quantidades = $this->quantidades($query);
         $itens = $query->paginate(10);
-        
+
         return view('item/index', [
             'itens'          => $itens,
             'status'         => $this->status,
@@ -149,7 +149,7 @@ class ItemController extends Controller
 
     public function indexPublic(Request $request)
     {
-        $query = Item::orderBy('created_at', 'desc'); 
+        $query = Item::orderBy('created_at', 'desc');
 
         if (!empty($request->search)) {
             $query->where(function ($q) use (&$request) {
@@ -181,7 +181,7 @@ class ItemController extends Controller
     }
 
     public function store(ItemRequest $request)
-    {   
+    {
         $this->authorize('sai');
 
         $validated = $request->validated();
@@ -211,54 +211,51 @@ class ItemController extends Controller
         $this->authorize('sai');
 
         $validated = $request->validated();
-        
+
         $validated['alterado_por'] = Auth::user()->codpes;
 
         $item->update($validated);
 
         $request->session()->flash('alert-info',"Item atualizado com sucesso");
-        return redirect("/item/{$item->id}"); 
+        return redirect("/item/{$item->id}");
 
     }
 
-    
+
     public function destroy(Item $item)
     {
         $this->authorize('sai');
         $item->delete();
         request()->session()->flash('alert-info','Item excluído com sucesso.');
-        return redirect("/item"); 
+        return redirect("/item");
     }
-    
+
     public function excel(){
         $query = $this->search();
         $q = clone $query;
         if($q->count() > 10000){
-            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo, 
+            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo,
             limite de 10000 registros excedido");
             return redirect('/item');
         }
         $export = new FastExcel($query->get());
         return $export->download(date("YmdHi").'gembib.xlsx');
     }
-    
+
     public function etiqueta_update(Request $request, Item $item){
         $this->authorize('sai');
-    
-        $validated = $request->validate([
-            'no_classificacao' => 'required',
-            'no_cutter'        => 'required',
-            'exemplar'         => 'required',
-        ]);
-    
-        $validated['no_classificacao'] = $request->no_classificacao;
-        $validated['no_cutter'] = $request->no_cutter;
-        $validated['exemplar'] = $request->exemplar;
-    
-        $item->update($validated);
-    
+
+        if ($request->filled('no_classificacao') or
+            $request->filled('no_cutter') or $request->filled('exemplar')) {
+                $item->update($request->only([
+                    'no_classificacao',
+                    'no_cutter',
+                    'exemplar',
+                ]));
+        }
+
         #return para o method da etiqueta
-        return redirect("/item/{$item->id}"); 
-    
+        return redirect("/item/{$item->id}");
+
     }
 }
