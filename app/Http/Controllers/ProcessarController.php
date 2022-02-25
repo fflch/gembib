@@ -87,19 +87,6 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 
-    //quando for tombado - entra em trânsito até ser aceito pelo processamento técnico
-    public function enviarProcessamento(Request $request, Item $item){
-        if($request->enviar_processamento == 'Em Trânsito'){
-            $item->status = 'Em Trânsito';
-            $item->observacao = $request->observacao;
-            $item->alterado_por = Auth::user()->codpes;
-            $item->data_processamento = Carbon::now();
-            $item->save();
-            $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
-        }
-        return redirect("/item/{$item->id}");
-    }
-
     public function processarProcessamento(Request $request, Item $item){
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';

@@ -31,20 +31,16 @@ class AuthServiceProvider extends ServiceProvider
 
         /* Serviço de Aquisição e Intercâmbio  */
         Gate::define('sai', function ($user) {
+            if(Gate::allows('admin')) return true;
             $sai = explode(',', trim(config('gembib.sai')));
             return ( in_array($user->codpes, $sai) and $user->codpes );
         });
 
         /* Serviço Técnico de Livros */
         Gate::define('stl', function ($user) {
+            if(Gate::allows('admin')) return true;
             $stl = explode(',', trim(config('gembib.stl')));
             return ( in_array($user->codpes, $stl) and $user->codpes );
         });
-
-        Gate::define('admin', function ($user) {
-            $admin = explode(',', trim(config('gembib.admin')));
-            return ( in_array($user->codpes, $admin) and $user->codpes );
-        });
-
     }
 }

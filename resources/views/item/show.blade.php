@@ -18,7 +18,7 @@
     @if(isset($item->recebido_sau) && $item->status == "Processado")
     <tr>
       <th scope="col">Material recebebido no SAU por:</th>
-      <td scope="row">{{ Uspdev\Replicado\Pessoa::nomeCompleto($item->recebido_sau_por) ?? 'Não cadastrado' }}</td>
+      <td scope="row">{{ $item->recebido_sau_por ?? 'Não cadastrado' }}</td>
     </tr>
     @endif
     <tr>

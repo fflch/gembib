@@ -11,11 +11,6 @@ use App\Http\Controllers\PedidoController;
 
 Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 
-/* rotas para login e logout */
-Route::get('login', [LoginController::class, 'redirectToProvider'])->name('login');
-Route::get('callback', [LoginController::class, 'handleProviderCallback']);
-Route::post('/logout', [LoginController::class, 'logout']);
-
 /* rotas de sugestão */
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
@@ -40,7 +35,6 @@ Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processa
 Route::post('/processar_cotacao/{item}', [ProcessarController::class, 'processarCotacao']);
 Route::post('/processar_licitacao/{item}', [ProcessarController::class, 'processarLicitacao']);
 Route::post('/processar_tombamento/{item}', [ProcessarController::class, 'processarTombamento']);
-Route::post('/enviar_processamento/{item}', [ProcessarController::class, 'enviarProcessamento']);
 Route::post('/processar_processamento/{item}', [ProcessarController::class, 'processarProcessamento']);
 Route::post('/processar_processado/{item}', [ProcessarController::class, 'processarProcessado']);
 Route::post('/processar_acervo/{item}', [ProcessarController::class, 'processarAcervo']);

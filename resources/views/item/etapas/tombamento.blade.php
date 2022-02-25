@@ -11,7 +11,7 @@
     </div>
     @else 
     <div>
-        <p>Enviado para {{$item->status}} por {{ Uspdev\Replicado\Pessoa::nomeCompleto($item->alterado_por) }} em {{$item->updated_at}}.</p>
+        <p>Enviado para {{$item->status}} por {{ $item->alterado_por }} em {{$item->updated_at}}.</p>
         @include('item.observacao')
         <button type="submit" name="processar_tombamento" class="btn btn-info" value="salvar">Salvar e continuar editando</button>
         <button type="submit" name="processar_tombamento" class="btn btn-success" value="tombar" onclick="return confirm('Mudar status para Tombado?')">Tombar (gerar número de tombo)</button>
