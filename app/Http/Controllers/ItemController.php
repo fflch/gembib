@@ -22,11 +22,11 @@ class ItemController extends Controller
         $query = Item::orderBy('created_at', 'desc');
 
         if(isset($request->titulo)) {
-            $query->where('titulo',$request->titulo);
+            $query->where('titulo','LIKE', '%'.$request->titulo.'%');
         }
 
         if(isset($request->autor)) {
-            $query->where('autor',$request->autor);
+            $query->where('autor','LIKE', '%'.$request->autor.'%');
         }
 
         if(isset($request->tombo)) {
@@ -34,7 +34,7 @@ class ItemController extends Controller
         }
 
         if(isset($request->observacao)) {
-            $query->where('observacao',$request->observacao);
+            $query->where('observacao','LIKE', '%'.$request->observacao.'%');
         }
 
         if(isset($request->verba)) {

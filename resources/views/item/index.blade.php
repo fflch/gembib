@@ -8,6 +8,26 @@
 <b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
 <br><br>
 <div class="row">
+    <div class="form-group col-2">
+    Campo para busca 
+      <select name="campo[]" name="campo[]" class="w-100">
+        <option value="">Todos os campos</option>
+        <option value="titulo">Título</option>
+        <option value="autor">Autor</option>
+        <option value="tombo">Tombo</option>
+        <option value="codigoimpressao">Código de Impressão</option>
+        <option value="observacao">Observação</option>
+        <option value="verba">Verba</option>
+        <option value="processo">Processo</option>
+      </select>
+    </div>
+    <div class="form-group col-3">
+      Informar palavra ou expressão
+      <input class="w-100" type="text" name="valor[]" value="{{ request()->valor }}" placeholder="Busca por Título">
+    </div>
+</div>
+<div class="row">
+  
   <div class="form-group">
         <div class="form-group col-sm-2">
         <input type="text" name="titulo" value="{{ request()->titulo }}" placeholder="Busca por Título">
