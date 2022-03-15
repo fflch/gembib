@@ -3,13 +3,10 @@
 @section('content')
 @include('flash')
 
-<form method="GET">
-
-<b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
-<br><br>
-<div class="row">
-    <div class="form-group col-2">
-    Campo para busca 
+<div id="examploRowBuscaCampoValor" class="d-none">
+  <div class="row">
+    <div class="form-group col-5">
+      Campo para busca 
       <select name="campo[]" name="campo[]" class="w-100">
         <option value="">Todos os campos</option>
         <option value="titulo">Título</option>
@@ -21,12 +18,79 @@
         <option value="processo">Processo</option>
       </select>
     </div>
-    <div class="form-group col-3">
+    <div class="form-group col-7">
       Informar palavra ou expressão
-      <input class="w-100" type="text" name="valor[]" value="{{ request()->valor }}" placeholder="Busca por Título">
+      <input class="w-100" type="text" name="valor[]" value="" placeholder="Busca por Título">
     </div>
+  </div>
 </div>
+
+<form method="GET">
+
+<b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
+<br><br>
 <div class="row">
+  <div class="col-md-6">
+    <div id="containerBuscaCampoValor">
+      @if(is_array(request()->campo))
+      @for($i =0 ; $i < sizeOf(request()->campo); $i++)
+      <div class="row">
+          <div class="form-group col-5">
+            Campo para busca 
+            <select name="campo[]" name="campo[]" class="w-100">
+              <option value="" @if(request()->campo[$i] == "")  selected="selected" @endif>Todos os campos</option>
+              <option value="titulo"  @if(request()->campo[$i] == "titulo") selected="selected" @endif>Título</option>
+              <option value="autor"  @if(request()->campo[$i] == "autor") selected="selected" @endif>Autor</option>
+              <option value="tombo" @if(request()->campo[$i] == "tombo") selected="selected" @endif>Tombo</option>
+              <option value="codigoimpressao" @if(request()->campo[$i] == "codigoimpressao") selected="selected" @endif>Código de Impressão</option>
+              <option value="observacao" @if(request()->campo[$i] == "observacao") selected="selected" @endif>Observação</option>
+              <option value="verba" @if(request()->campo[$i] == "verba") selected="selected" @endif>Verba</option>
+              <option value="processo" @if(request()->campo[$i] == "processo") selected="selected" @endif>Processo</option>
+            </select>
+          </div>
+          <div class="form-group col-7">
+            Informar palavra ou expressão
+            <input class="w-100" type="text" name="valor[]" value="{{ request()->valor[$i]}}" placeholder="Busca por Título">
+          </div>
+      </div>
+      @endfor
+      @else
+      <div class="row">
+          <div class="form-group col-5">
+            Campo para busca 
+            <select name="campo[]" name="campo[]" class="w-100">
+              <option value="">Todos os campos</option>
+              <option value="titulo">Título</option>
+              <option value="autor">Autor</option>
+              <option value="tombo">Tombo</option>
+              <option value="codigoimpressao">Código de Impressão</option>
+              <option value="observacao">Observação</option>
+              <option value="verba">Verba</option>
+              <option value="processo">Processo</option>
+            </select>
+          </div>
+          <div class="form-group col-7">
+            Informar palavra ou expressão
+            <input class="w-100" type="text" name="valor[]" value="" placeholder="Busca por Título">
+          </div>
+      </div>
+      @endif
+    </div>
+  </div>
+  <div class="form-group col-1 pt-3">
+    <span id="btnAdd" class="btn btn-success" alt="Adicionar mais um campo">
+      <i class="fas fa-plus"></i>
+    </span>
+    &nbsp;
+    <span id="btnRemove" class="btn btn-danger d-none" alt="Remover último campo">
+      <i class="fas fa-minus"></i>
+    </span>
+    
+  </div>
+</div>
+
+
+<div class="row d-none">
   
   <div class="form-group">
         <div class="form-group col-sm-2">
@@ -49,7 +113,7 @@
       </div>
     </div>
 </div>
-<div class="row">
+<div class="row d-none">
   <div class="form-group">
     <div class="form-group col-sm-2">
         <input type="text" name="observacao" value="{{ request()->observacao }}" placeholder="Busca por Observação">
@@ -224,3 +288,27 @@
 </div>
 @endsection
 
+@section('javascripts_bottom')
+<script>
+    $(document).ready(function(){
+      $("#btnAdd").click(function(){
+        if( $("#containerBuscaCampoValor .row").last().find('input[name^="valor"').val().length == 0){
+          alert('Por favor, preencha a última busca antes de adionar mais campos.');
+        }else{
+          var clone = $("#examploRowBuscaCampoValor .row").last().clone();
+          $(clone).appendTo( "#containerBuscaCampoValor" );
+          $("#btnRemove").removeClass("d-none");
+        }
+      });
+
+      $("#btnRemove").click(function(){
+        $("#containerBuscaCampoValor .row").last().remove();
+        if( $("#containerBuscaCampoValor .row").length == 1){
+          $("#btnRemove").addClass("d-none");
+        }
+      });
+      
+
+    });
+  </script>
+@stop
