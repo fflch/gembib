@@ -169,6 +169,17 @@
       </option>
     @endforeach
   </select>
+
+  <select name="is_active">
+  <option value="" selected>Selecionar ativos e desativos</option>
+      <option @if(Request()->is_active == '1') selected @endif value='1'>
+        Selecionar somente ativos
+      </option>
+      <option @if(Request()->is_active == '0') selected @endif value='0'>
+        Selecionar somente desativos
+      </option>
+    
+  </select>
   </div>
 </div>
 
@@ -261,35 +272,45 @@
         <td>{{ $item->ano }}</td>
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
-        @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
         <td>
-          <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
-          <br><br>
-          <form method="POST" action="/item/{{$item->id}}"> 
+          @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+            <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100">Editar</a>
+            <br><br>
+          @endif
+          @if($item->status == 'Em Tombamento' )
+            <form method="POST" action="/item/{{$item->id}}"> 
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+            </form>
+          @elseif($item->is_active)
+            <button type="button" class="btn btn-danger w-100" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+          @else
+           <form method="POST" action="/item/is_active"> 
               @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
-          </form>
+              <input type="hidden" name="tombo" value="{{$item->tombo}}">
+              <input type="hidden" name="is_active" value="1">
+              <button type="submit" class="btn btn-success w-100" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+            </form>
+          @endif
         </td>  
-        @else
-        <td>
-          <form method="POST" action="/item/{{$item->id}}"> 
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button> 
-          </form>
-        </td>
-        @endif
+       
       </tr>
       @endforeach
 
     </tbody>
   </table>
 </div>
+
+@include('item.partials.modal_desativar_tombo')
+
 @endsection
+
+
 
 @section('javascripts_bottom')
 <script>
+  
     $(document).ready(function(){
       $("#btnAdd").click(function(){
         if( $("#containerBuscaCampoValor .row").last().find('input[name^="valor"').val().length == 0){
@@ -307,7 +328,6 @@
           $("#btnRemove").addClass("d-none");
         }
       });
-      
 
     });
   </script>

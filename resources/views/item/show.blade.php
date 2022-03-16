@@ -7,11 +7,12 @@
 
 @include('item.etapas')
 
+
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
   @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
-  <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
+  <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
   <br><br>
   @endif
   <tbody>
@@ -170,10 +171,36 @@
       <th scope="col">Observações:</th>
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>
     </tr>
+    @if($item->status != 'Em Tombamento' )
+      <tr>
+        <th scope="col">Item está {{ $item->is_active ? 'ativo' : 'desativo' }}</th>
+        <td scope="row">
+            @if($item->is_active)
+              <button type="button" class="btn btn-danger" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+            @else
+            <form method="POST" action="/item/is_active"> 
+                @csrf
+                <input type="hidden" name="tombo" value="{{$item->tombo}}">
+                <input type="hidden" name="is_active" value="1">
+                <button type="submit" class="btn btn-success" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+              </form>
+            @endif
+        </td>
+      </tr>
+      @if(!$item->is_active)
+        </tr>
+          <th scope="col">Motivo do desativamento:</th>
+          <td scope="row">{{ $item->motivo_desativamento ?? 'Não cadastrado' }}</td>
+        </tr>
+      @endif
+    @endif
   </tbody>
 </table>
   </div>
 </div>
+
+@include('item.partials.modal_desativar_tombo')
+
 @endsection
 
 

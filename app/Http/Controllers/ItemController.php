@@ -22,10 +22,11 @@ class ItemController extends Controller
         $query = Item::orderBy('created_at', 'desc');
         if(is_array($request->campo)){
             for($i =0 ; $i < sizeOf($request->campo); $i++){
-                if(strlen($request->campo[$i]) == 0){
+                if(strlen($request->campo[$i]) == 0 && strlen($request->valor[$i]) > 0){
                     $columns =['titulo', 'autor', 'tombo', 'observacao', 'verba', 'processo', 'cod_impressao'];
                     foreach($columns as $column){
                         $query->orWhere($column, 'LIKE', '%' . $request->valor[$i] . '%');
+                        
                     }
                 }else if(strlen($request->valor[$i]) > 0){
                     if(in_array($request->campo[$i], ['titulo', 'autor', 'observacao'])){
@@ -63,6 +64,12 @@ class ItemController extends Controller
 
         if(isset($request->codigoimpressao)) {
             $query->where('cod_impressao',$request->codigoimpressao);
+        }
+
+        if(isset($request->is_active)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('is_active',$request->is_active == '1');
+            });
         }
         
         if (!empty($request->status)) {
@@ -169,7 +176,7 @@ class ItemController extends Controller
         $query = Item::orderBy('created_at', 'desc');
 
         if (!empty($request->search)) {
-            $query->where(function ($q) use (&$request) {
+            $query->where('is_active', 1)->where(function ($q) use (&$request) {
                 $q->where('titulo','LIKE', '%' . $request->search . '%')
                   ->orWhere('autor','LIKE', '%' . $request->search . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->search . '%')
@@ -242,9 +249,32 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $this->authorize('sai');
-        $item->delete();
-        request()->session()->flash('alert-info','Item excluído com sucesso.');
+        if($item->status == 'Em Tombamento' ){
+            $item->delete();
+            request()->session()->flash('alert-info','Item excluído com sucesso.');
+        }else{
+            request()->session()->flash('alert-danger','Não é possível excluir um item tombado, apenas desativá-lo.');
+        }
         return redirect("/item");
+    }
+
+    public function set_is_active(Request $request){
+        $this->authorize('sai');
+        $request->validate([
+            'is_active' => 'required|bool',
+            'tombo' => 'required|integer',
+        ]);
+
+        if(!$request->is_active){//se for para desativar, setar is_active para 0/false
+            $request->validate(['motivo_desativamento' => 'required|max:500']);
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento]);
+            request()->session()->flash('alert-success','Item desativado com sucesso.');
+        }else{
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => ""]);
+            request()->session()->flash('alert-success','Item ativado com sucesso.');
+        }
+        return back();
+
     }
 
     public function excel(){
