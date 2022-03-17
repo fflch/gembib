@@ -262,7 +262,7 @@ class ItemController extends Controller
         $this->authorize('sai');
         $request->validate([
             'is_active' => 'required|bool',
-            'tombo' => 'required|integer',
+            'tombo' => 'required',
         ]);
 
         if(!$request->is_active){//se for para desativar, setar is_active para 0/false
@@ -276,6 +276,26 @@ class ItemController extends Controller
         return back();
 
     }
+
+    public function duplicar(Request $request){
+        $this->authorize('sai');
+        $request->validate([
+            'itemId' => 'required',
+        ]);
+
+        $newItem = Item::where('id', $request->itemId)->first()->replicate();
+        $newItem->created_at = Carbon::now();
+        $newItem->tombo = null;
+        $newItem->status = 'Em Tombamento';
+        $newItem->save();
+
+        request()->session()->flash('alert-success','Item clonado com sucesso.');
+    
+        return redirect("/item/{$newItem->id}");
+
+    }
+
+    
 
     public function excel(){
         $query = $this->search();
