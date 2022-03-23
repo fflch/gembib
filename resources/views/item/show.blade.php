@@ -27,6 +27,10 @@
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
     </tr>
     <tr>
+      <th scope="col">Data do tombamento:</th>
+      <td scope="col">{{ $item->data_tombamento ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
       <th scope="col">Data da sugestão:</th>
       <td scope="col">{{ $item->data_sugestao ?? 'Não cadastrado' }}</td>
     </tr>
@@ -171,7 +175,8 @@
       <th scope="col">Observações:</th>
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>
     </tr>
-    @if($item->status != 'Em Tombamento' )
+         
+    @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
       <tr>
         <th scope="col">Item está {{ $item->is_active ? 'ativo' : 'desativo' }}</th>
         <td scope="row">

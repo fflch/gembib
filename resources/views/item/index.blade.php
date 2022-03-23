@@ -7,7 +7,7 @@
   <div class="row">
     <div class="form-group col-5">
       Campo para busca 
-      <select name="campo[]" name="campo[]" class="w-100">
+      <select name="campo[]"  class="w-100">
         <option value="">Todos os campos</option>
         <option value="titulo">Título</option>
         <option value="autor">Autor</option>
@@ -20,7 +20,7 @@
     </div>
     <div class="form-group col-7">
       Informar palavra ou expressão
-      <input class="w-100" type="text" name="valor[]" value="" placeholder="Busca por Título">
+      <input class="w-100" type="text" name="valor[]" value="" placeholder="">
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
       <div class="row">
           <div class="form-group col-5">
             Campo para busca 
-            <select name="campo[]" name="campo[]" class="w-100">
+            <select name="campo[]"  class="w-100">
               <option value="" @if(request()->campo[$i] == "")  selected="selected" @endif>Todos os campos</option>
               <option value="titulo"  @if(request()->campo[$i] == "titulo") selected="selected" @endif>Título</option>
               <option value="autor"  @if(request()->campo[$i] == "autor") selected="selected" @endif>Autor</option>
@@ -71,7 +71,7 @@
           </div>
           <div class="form-group col-7">
             Informar palavra ou expressão
-            <input class="w-100" type="text" name="valor[]" value="" placeholder="Busca por Título">
+            <input class="w-100" type="text" name="valor[]" value="" placeholder="">
           </div>
       </div>
       @endif
@@ -82,7 +82,7 @@
       <i class="fas fa-plus"></i>
     </span>
     &nbsp;
-    <span id="btnRemove" class="btn btn-danger d-none" alt="Remover último campo">
+    <span id="btnRemove" class="btn btn-danger  @if(!is_array(request()->campo) || (is_array(request()->campo) &&  sizeOf(request()->campo) < 2 )) d-none @endif" alt="Remover último campo">
       <i class="fas fa-minus"></i>
     </span>
     
@@ -220,13 +220,13 @@
     <input type="text" data-mask="00/00/0000" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
   </div>
 </div>
-
-  <button type="submit" class="btn btn-success">Buscar</button>
-</form>
 <br>
 
-<div>
-  <a href="/excel?status={{ request()->status }}
+  <button type="submit" class="btn btn-success mr-2">Buscar</button>
+
+  <button type="button" onclick="limparBusca();" class="btn btn-warning mr-2">Limpar busca</button>
+
+  <a class="btn btn-info" href="/excel?status={{ request()->status }}
   &procedencia={{ request()->procedencia }}
   &tipo_material={{ request()->tipo_material }}
   &tipo_aquisicao={{ request()->tipo_aquisicao }}
@@ -238,7 +238,9 @@
   &data_processamento_inicio={{ request()->data_processamento_inicio }}
   &data_processamento_fim={{ request()->data_processamento_fim }}">
   <i class="fas fa-file-excel"></i> Exportar busca em excel</a>  
-</div>
+</form>
+<br><br>
+
 
 <br>
 
@@ -250,15 +252,15 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">Tombo</th>
-        <th scope="col">Título</th>
-        <th scope="col">Autor</th>
-        <th scope="col">Editora</th>
-        <th scope="col">Status</th>
-        <th scope="col">Ano</th>
-        <th scope="col">Procedência</th>
-        <th scope="col">Sugestão feita por</th>
-        <th scope="col">Alterações</th>
+        <th scope="col">Tombo <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Título <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Autor <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Editora <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Status <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Ano <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Procedência <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Sugestão feita por <i class="fa fa-sort" aria-hidden="true"></i></th>
+        <th scope="col">Alterações <i class="fa fa-sort" aria-hidden="true"></i></th>
       </tr>
     </thead>
     <tbody>
@@ -276,26 +278,27 @@
           @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
             <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
           @endif
-          @if($item->status == 'Em Tombamento' )
-  
+          @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )
             <form method="POST" action="/item/{{$item->id}}"> 
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
             </form>
-          @elseif($item->is_active)
-  
-            <button type="button" class="btn btn-danger w-100" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+          @endif
+          @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
+          @if($item->is_active)
+            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
           @else
-           
            <form method="POST" action="/item/is_active"> 
               @csrf
               <input type="hidden" name="tombo" value="{{$item->tombo}}">
               <input type="hidden" name="is_active" value="1">
     
-              <button type="submit" class="btn btn-success w-100" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
             </form>
           @endif
+          @endif
+
 
           <form method="POST" action="/item/duplicar"> 
             @csrf
@@ -316,28 +319,3 @@
 @endsection
 
 
-
-@section('javascripts_bottom')
-<script>
-  
-    $(document).ready(function(){
-      $("#btnAdd").click(function(){
-        if( $("#containerBuscaCampoValor .row").last().find('input[name^="valor"').val().length == 0){
-          alert('Por favor, preencha a última busca antes de adionar mais campos.');
-        }else{
-          var clone = $("#examploRowBuscaCampoValor .row").last().clone();
-          $(clone).appendTo( "#containerBuscaCampoValor" );
-          $("#btnRemove").removeClass("d-none");
-        }
-      });
-
-      $("#btnRemove").click(function(){
-        $("#containerBuscaCampoValor .row").last().remove();
-        if( $("#containerBuscaCampoValor .row").length == 1){
-          $("#btnRemove").addClass("d-none");
-        }
-      });
-
-    });
-  </script>
-@stop

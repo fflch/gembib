@@ -30,10 +30,48 @@
 
 @section('javascripts_bottom')
 <script>
-   function desativarTombo(tombo){
+      function desativarTombo(tombo){
         $('#desativarTomboModal').modal('show');
         $("#desativarTomboModalTitle").text('Desativar Tombo N°'+tombo);
         $("#desativarTomboId").val(tombo);
       }
+      function limparBusca(){
+        $('#containerBuscaCampoValor select[name="campo[]"]').val("");
+        $('#containerBuscaCampoValor input[name="valor[]"]').val("");
+        $('select[name="status"]').val("");
+        $('select[name="procedencia"]').val("");
+        $('select[name="tipo_material"]').val("");
+        $('select[name="tipo_aquisicao"]').val("");
+        $('select[name="is_active"]').val("");
+        $('input[name="data_sugestao_inicio"]').val("");
+        $('input[name="data_sugestao_fim"]').val("");
+        $('input[name="data_tombamento_inicio"]').val("");
+        $('input[name="data_tombamento_fim"]').val("");
+        $('input[name="data_processamento_inicio"]').val("");
+        $('input[name="data_processamento_fim"]').val("");
+        while($("#containerBuscaCampoValor .row").length > 1){
+          $("#containerBuscaCampoValor .row").last().remove();
+        }
+        $("#btnRemove").addClass("d-none");
+      }
+      $(document).ready(function(){
+      $("#btnAdd").click(function(){
+        if( $("#containerBuscaCampoValor .row").last().find('input[name^="valor"').val().length == 0){
+          alert('Por favor, preencha a última busca antes de adionar mais campos.');
+        }else{
+          var clone = $("#examploRowBuscaCampoValor .row").last().clone();
+          $(clone).appendTo( "#containerBuscaCampoValor" );
+          $("#btnRemove").removeClass("d-none");
+        }
+      });
+
+      $("#btnRemove").click(function(){
+        $("#containerBuscaCampoValor .row").last().remove();
+        if( $("#containerBuscaCampoValor .row").length == 1){
+          $("#btnRemove").addClass("d-none");
+        }
+      });
+
+    });
   </script>
 @stop
