@@ -49,6 +49,17 @@
         $('input[name="data_tombamento_fim"]').val("");
         $('input[name="data_processamento_inicio"]').val("");
         $('input[name="data_processamento_fim"]').val("");
+
+
+        $('input[name="titulo"]').val("");
+        $('input[name="autor"]').val("");
+        $('input[name="tombo"]').val("");
+        $('input[name="codigoimpressao"]').val("");
+        $('input[name="observacao"]').val("");
+        $('input[name="verba"]').val("");
+        $('input[name="processo"]').val("");
+
+        
         while($("#containerBuscaCampoValor .row").length > 1){
           $("#containerBuscaCampoValor .row").last().remove();
         }

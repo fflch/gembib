@@ -20,23 +20,6 @@ class ItemController extends Controller
     private function search(){
         $request = request();
         $query = Item::orderBy('created_at', 'desc');
-        if(is_array($request->campo)){
-            for($i =0 ; $i < sizeOf($request->campo); $i++){
-                if(strlen($request->campo[$i]) == 0 && strlen($request->valor[$i]) > 0){
-                    $columns =['titulo', 'autor', 'tombo', 'observacao', 'verba', 'processo', 'cod_impressao'];
-                    foreach($columns as $column){
-                        $query->orWhere($column, 'LIKE', '%' . $request->valor[$i] . '%');
-                        
-                    }
-                }else if(strlen($request->valor[$i]) > 0){
-                    if(in_array($request->campo[$i], ['titulo', 'autor', 'observacao'])){
-                        $query->where($request->campo[$i],'LIKE', '%'.$request->valor[$i].'%');
-                    }else{
-                        $query->where($request->campo[$i],$request->valor[$i]);
-                    }
-                }
-            }
-        }
         
         if(isset($request->titulo)) {
             $query->where('titulo','LIKE', '%'.$request->titulo.'%');
