@@ -44,6 +44,7 @@ class ItemRequest extends FormRequest
             'tombo_antigo'     => '', 
             'parte'            => 'nullable|integer', 
             'volume'           => 'nullable', 
+            'sysno'           => 'nullable', 
             'fasciculo'         => 'nullable|integer', 
             'local'            => '', 
             'colecao'          => '', 

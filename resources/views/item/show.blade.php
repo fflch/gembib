@@ -89,6 +89,10 @@
       <td scope="row">{{ $item->ano ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
+      <th scope="col">SYSNO:</th>
+      <td scope="row">{{ $item->sysno ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
       <th scope="col">Volume:</th>
       <td scope="row">{{ $item->volume ?? 'Não cadastrado' }}</td>
     </tr>
