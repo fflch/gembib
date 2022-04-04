@@ -14,7 +14,7 @@ class AddColumnsIsActive extends Migration
     public function up()
     {
         Schema::table('itens', function (Blueprint $table) {
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->nullable()->default(true);
             $table->text('motivo_desativamento')->nullable();
         });
     }
