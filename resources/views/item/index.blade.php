@@ -3,6 +3,7 @@
 @section('content')
 @include('flash')
 
+
 <form method="GET">
 
 <b>Insira as informações somente nos campos que achar necessário para sua busca:</b>
@@ -126,7 +127,25 @@
   </div>
 </div>
 
-  <button type="submit" class="btn btn-success">Buscar</button>
+  
+  <br>
+
+  <button type="submit" class="btn btn-success mr-2">Buscar</button>
+
+  <button type="button" onclick="limparBusca();" class="btn btn-warning mr-2">Limpar busca</button>
+
+  <a class="btn btn-info" href="/excel?status={{ request()->status }}
+  &procedencia={{ request()->procedencia }}
+  &tipo_material={{ request()->tipo_material }}
+  &tipo_aquisicao={{ request()->tipo_aquisicao }}
+  &busca={{ request()->busca }}
+  &data_sugestao_inicio={{ request()->data_sugestao_inicio }}
+  &data_sugestao_fim={{ request()->data_sugestao_fim }}
+  &data_tombamento_inicio={{ request()->data_tombamento_inicio }}
+  &data_tombamento_fim={{ request()->data_tombamento_fim }}
+  &data_processamento_inicio={{ request()->data_processamento_inicio }}
+  &data_processamento_fim={{ request()->data_processamento_fim }}">
+  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>  
 </form>
 <br>
 
@@ -148,6 +167,7 @@
 <br>
 
 @include('item.partials.quantidades')
+
 <br>
 {{ $itens->appends(request()->query())->links() }}
 
@@ -177,30 +197,48 @@
         <td>{{ $item->ano }}</td>
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
-        @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
         <td>
-          <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
-          <br><br>
-          <form method="POST" action="/item/{{$item->id}}"> 
+          @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+            <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
+          @endif
+          @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )
+            <form method="POST" action="/item/{{$item->id}}"> 
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+            </form>
+          @endif
+          @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
+          @if($item->is_active)
+            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+          @else
+           <form method="POST" action="/item/is_active"> 
               @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+              <input type="hidden" name="tombo" value="{{$item->tombo}}">
+              <input type="hidden" name="is_active" value="1">
+    
+              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+            </form>
+          @endif
+          @endif
+
+
+          <form method="POST" action="/item/duplicar"> 
+            @csrf
+            <input type="hidden" name="itemId" value="{{$item->id}}">
+            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>  
           </form>
         </td>  
-        @else
-        <td>
-          <form method="POST" action="/item/{{$item->id}}"> 
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button> 
-          </form>
-        </td>
-        @endif
+       
       </tr>
       @endforeach
 
     </tbody>
   </table>
 </div>
+
+@include('item.partials.modal_desativar_tombo')
+
 @endsection
+
 

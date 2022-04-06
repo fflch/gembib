@@ -178,6 +178,10 @@
     <input type="text" id="volume" value="{{old('volume', $item->volume)}}" class="form-control" name="volume"/>
   </div>
   <div class="col-sm form-group">
+    <label for="volume">SYSNO:</label>
+    <input type="text" id="sysno" value="{{old('sysno', $item->sysno)}}" class="form-control" name="sysno"/>
+  </div>
+  <div class="col-sm form-group">
     <label for="capes">Capes:</label>
     <select class="form-control" id="capes" class="form-control" name="capes">
       <option value="">Selecione</option>

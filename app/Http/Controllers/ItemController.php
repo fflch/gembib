@@ -20,13 +20,13 @@ class ItemController extends Controller
     private function search(){
         $request = request();
         $query = Item::orderBy('created_at', 'desc');
-
+        
         if(isset($request->titulo)) {
-            $query->where('titulo',$request->titulo);
+            $query->where('titulo','LIKE', '%'.$request->titulo.'%');
         }
-
+        
         if(isset($request->autor)) {
-            $query->where('autor',$request->autor);
+            $query->where('autor','LIKE', '%'.$request->autor.'%');
         }
 
         if(isset($request->tombo)) {
@@ -34,7 +34,7 @@ class ItemController extends Controller
         }
 
         if(isset($request->observacao)) {
-            $query->where('observacao',$request->observacao);
+            $query->where('observacao','LIKE', '%'.$request->observacao.'%');
         }
 
         if(isset($request->verba)) {
@@ -49,7 +49,14 @@ class ItemController extends Controller
             $query->where('cod_impressao',$request->codigoimpressao);
         }
 
+        if(isset($request->is_active)) {
+            $query->where(function ($q) use (&$request) {
+                $q->where('is_active',$request->is_active == '1');
+            });
+        }
+        
         if (!empty($request->status)) {
+            
             $query->where(function ($p) use (&$request) {
                 $p->where('status','=',$request->status);
             });
@@ -152,7 +159,7 @@ class ItemController extends Controller
         $query = Item::orderBy('created_at', 'desc');
 
         if (!empty($request->search)) {
-            $query->where(function ($q) use (&$request) {
+            $query->where('is_active', 1)->where(function ($q) use (&$request) {
                 $q->where('titulo','LIKE', '%' . $request->search . '%')
                   ->orWhere('autor','LIKE', '%' . $request->search . '%')
                   ->orwhere('tombo','LIKE', '%' . $request->search . '%')
@@ -225,10 +232,53 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $this->authorize('sai');
-        $item->delete();
-        request()->session()->flash('alert-info','Item excluído com sucesso.');
+        if($item->status == 'Em Tombamento' ){
+            $item->delete();
+            request()->session()->flash('alert-info','Item excluído com sucesso.');
+        }else{
+            request()->session()->flash('alert-danger','Não é possível excluir um item tombado, apenas desativá-lo.');
+        }
         return redirect("/item");
     }
+
+    public function set_is_active(Request $request){
+        $this->authorize('sai');
+        $request->validate([
+            'is_active' => 'required|bool',
+            'tombo' => 'required',
+        ]);
+
+        if(!$request->is_active){//se for para desativar, setar is_active para 0/false
+            $request->validate(['motivo_desativamento' => 'required|max:500']);
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento]);
+            request()->session()->flash('alert-success','Item desativado com sucesso.');
+        }else{
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => ""]);
+            request()->session()->flash('alert-success','Item ativado com sucesso.');
+        }
+        return back();
+
+    }
+
+    public function duplicar(Request $request){
+        $this->authorize('sai');
+        $request->validate([
+            'itemId' => 'required',
+        ]);
+
+        $newItem = Item::where('id', $request->itemId)->first()->replicate();
+        $newItem->created_at = Carbon::now();
+        $newItem->tombo = null;
+        $newItem->status = 'Em Tombamento';
+        $newItem->save();
+
+        request()->session()->flash('alert-success','Item clonado com sucesso.');
+    
+        return redirect("/item/{$newItem->id}");
+
+    }
+
+    
 
     public function excel(){
         $query = $this->search();

@@ -7,11 +7,12 @@
 
 @include('item.etapas')
 
+
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
   @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
-  <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
+  <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
   <br><br>
   @endif
   <tbody>
@@ -24,6 +25,10 @@
     <tr>
       <th scope="col">Tombo:</th>
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">Data do tombamento:</th>
+      <td scope="col">{{ $item->data_tombamento ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Data da sugestão:</th>
@@ -82,6 +87,10 @@
     <tr>
       <th scope="col">Ano de publicação:</th>
       <td scope="row">{{ $item->ano ?? 'Não cadastrado' }}</td>
+    </tr>
+    <tr>
+      <th scope="col">SYSNO:</th>
+      <td scope="row">{{ $item->sysno ?? 'Não cadastrado' }}</td>
     </tr>
     <tr>
       <th scope="col">Volume:</th>
@@ -170,10 +179,37 @@
       <th scope="col">Observações:</th>
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>
     </tr>
+         
+    @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
+      <tr>
+        <th scope="col">Item está {{ $item->is_active ? 'ativo' : 'desativo' }}</th>
+        <td scope="row">
+            @if($item->is_active)
+              <button type="button" class="btn btn-danger" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+            @else
+            <form method="POST" action="/item/is_active"> 
+                @csrf
+                <input type="hidden" name="tombo" value="{{$item->tombo}}">
+                <input type="hidden" name="is_active" value="1">
+                <button type="submit" class="btn btn-success" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+              </form>
+            @endif
+        </td>
+      </tr>
+      @if(!$item->is_active)
+        </tr>
+          <th scope="col">Motivo do desativamento:</th>
+          <td scope="row">{{ $item->motivo_desativamento ?? 'Não cadastrado' }}</td>
+        </tr>
+      @endif
+    @endif
   </tbody>
 </table>
   </div>
 </div>
+
+@include('item.partials.modal_desativar_tombo')
+
 @endsection
 
 

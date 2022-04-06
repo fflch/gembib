@@ -20,6 +20,8 @@ Route::get('/excel', [ItemController::class, 'excel']);
 
 /* rota item */
 Route::resource('/item', ItemController::class);
+Route::post('/item/is_active', [ItemController::class, 'set_is_active']);
+Route::post('/item/duplicar', [ItemController::class, 'duplicar']);
 Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_update']);
 
 /* rota resource pedido */

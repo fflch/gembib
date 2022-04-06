@@ -32,8 +32,8 @@
   	@foreach($itens as $item) 
     <tr>
       <td><center>{{$item->tombo}}</td>
-      <td><center>{{$item->autor}}</td>
-      <td><center>{{$item->titulo}}</td>
+      <td>{{$item->autor}}</td>
+      <td>{{$item->titulo}}</td>
       <td><center>{{$item->volume}}</td>
       <td><center>{{$item->parte}}</td>
       <td><center>{{ $item->preco }}</td>
