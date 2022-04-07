@@ -139,14 +139,14 @@
   <div class="col-sm form-group">
     <label for="prioridade">Prioridade:</label>
     <select class="form-control" id="prioridade" name="prioridade">
-      <option value="">Selecionar prioridade</option>
+      <option   value="" {{ ( old('prioridade') == '' and !isset($item->prioridade)) ? 'selected' : ''}}>Selecionar prioridade </option>
       @foreach($item::prioridade as $key=>$opcao)
       @if (old('prioridade') == '' and isset($item->prioridade))
           <option value="{{$key}}" {{ ($item->prioridade == $key) ? 'selected' : ''}}>
-            {{ $key }} - {{$opcao}}
+            {{ $key }} - {{$opcao}} 
           </option>
       @else
-        <option value = "{{$key}}" {{ ( old('prioridade') == $key) ? 'selected' : ''}}>
+        <option value = "{{$key}}" {{ ( old('prioridade') === $key) ? 'selected' : ''}}>
           {{ $key }} - {{$opcao}}
         </option>
       @endif
