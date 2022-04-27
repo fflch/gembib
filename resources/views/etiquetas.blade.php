@@ -22,6 +22,16 @@
         <label for="cod_impressao">Código de impressão:</label>
         <input type="text" id="cod_impressao" style="width: 740px" class="form-control" name="cod_impressao"/>
       </div>
+      @if(isset($intervalos))
+      <div class="col-sm form-group">
+        <label for="pag_inicio">Página inicial: </label>
+        <input type="number" id="pag_inicio" class="form-control" name="pag_inicio" min="1" max="{{$totalPages}}" value="{{old('pag_inicio')}}"/>
+      </div>
+      <div class="col-sm form-group">
+        <label for="pag_fim">Página final:</label>
+        <input type="number" id="pag_fim" class="form-control" name="pag_fim" min="1" max="{{$totalPages}}" value="{{old('pag_fim')}}"/>
+      </div>
+      @endif
     </div>
   <br>
     <div class= "row">

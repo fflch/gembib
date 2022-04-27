@@ -16,7 +16,6 @@ class EtiquetaController extends Controller
     }
 
     public function impressao(Request $request, $codimpressao){
-
         $this->authorize('logado');
         if($codimpressao){
             $itens = Item::where('cod_impressao', [$codimpressao])->
@@ -28,14 +27,35 @@ class EtiquetaController extends Controller
 
     }
     public function show(Request $request){
-
+        
         $this->authorize('logado');
         if(isset($request->cod_impressao)){
             $request->validate([
                 'cod_impressao'  => 'required'
             ]);
-            $itens = Item::where('cod_impressao', [$request->cod_impressao])->
-            whereNotNull('tombo')->get();
+            $totalItens = Item::where('cod_impressao', [$request->cod_impressao])->
+            whereNotNull('tombo')->count();
+            if($totalItens > 330){ //mais que 10 páginas
+                $intervalos = "";
+                $totalPages = (int)ceil($totalItens/33);
+                for($i = 1; $i<= (int)ceil($totalItens/33); $i+=10){
+                    $limit = $i+9 > (int)ceil($totalItens/33) ? (int)ceil($totalItens/33) : $i+9;
+                    $intervalos .= "$i-".$limit." ";
+                    
+                }
+                if(!isset($request->pag_inicio) || !isset($request->pag_fim) || (((int)$request->pag_fim - (int)$request->pag_inicio) >10)){
+                    request()->session()->flash('alert-danger',"Esta etiqueta possui $totalItens tombos, totalizando ".(int)ceil($totalItens/33)." páginas a imprimir. Por favor, indique um intervalo de no MÁXIMO 10 páginas para gerar.\n
+                    Por exemplo, para imprimir todos os tombos é necessário ".(int)ceil($totalItens/330)." etapas: $intervalos ");
+                    return view('etiquetas', compact('intervalos', 'totalPages'));
+                }else{
+                    $itens = Item::where('cod_impressao', [$request->cod_impressao])->
+                    whereNotNull('tombo')->skip(((int)$request->pag_inicio - 1)*33)->take((((int)$request->pag_fim - (int)$request->pag_inicio)+1)*33)->get();
+                }
+                
+            }else{
+                $itens = Item::where('cod_impressao', [$request->cod_impressao])->
+                whereNotNull('tombo')->get();
+            }
         }
         else{
             $request->validate([
@@ -63,9 +83,8 @@ class EtiquetaController extends Controller
     }
 
     private function etiquetasTombo($itens){
-         
         $pimaco = new Pimaco('A4256');
-
+       
         foreach($itens as $item){
             $tag = new Tag();
             $tag->setBorder(0);
@@ -74,15 +93,18 @@ class EtiquetaController extends Controller
             $barcode = new Barcode((string)$item->tombo, null);
             $barcode->setAlign('right');
             $barcode->setWidth(1);
-
+            
             $limiteCaracteres = 10;
-
+            
             $codigo = $barcode->render();
             $tag->p(view('pdfs.etiquetas', compact ( 'codigo','limiteCaracteres','item')));
             $pimaco->addTag($tag);
+            
+            
+            
         }
-
         $pimaco->output();
+        
     }
 
     private function etiquetasLombada($itens){
