@@ -23,7 +23,8 @@ class Util {
                 $novo_texto = trim(substr($texto, 0, $ultimo_espaco))."..."; // Corta o $texto até a posição localizada
             }
         }
-        return $novo_texto; // Retorna o valor formatado
+        $texto_utf8 = iconv(mb_detect_encoding($novo_texto, mb_detect_order(), true) , 'ASCII//TRANSLIT//IGNORE', $novo_texto);
+        return $texto_utf8; // Retorna o valor formatado
     }
 
 }
