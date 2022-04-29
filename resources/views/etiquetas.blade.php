@@ -20,7 +20,9 @@
     <div class="row">
       <div class="col-sm form-group">
         <label for="cod_impressao">Código de impressão:</label>
-        <input type="text" id="cod_impressao" style="width: 740px" class="form-control" name="cod_impressao"/>
+        <input type="text" id="cod_impressao" style="width: 740px"
+              class="form-control" name="cod_impressao" value="{{
+                     isset($cod_impressao) ? $cod_impressao : ''}}"/>
       </div>
       @if(isset($intervalos))
       <div class="col-sm form-group">

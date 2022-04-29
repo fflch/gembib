@@ -27,7 +27,7 @@ class EtiquetaController extends Controller
 
     }
     public function show(Request $request){
-        
+
         $this->authorize('logado');
         if(isset($request->cod_impressao)){
             $request->validate([
@@ -41,17 +41,18 @@ class EtiquetaController extends Controller
                 for($i = 1; $i<= (int)ceil($totalItens/33); $i+=10){
                     $limit = $i+9 > (int)ceil($totalItens/33) ? (int)ceil($totalItens/33) : $i+9;
                     $intervalos .= "$i-".$limit." ";
-                    
+
                 }
                 if(!isset($request->pag_inicio) || !isset($request->pag_fim) || (((int)$request->pag_fim - (int)$request->pag_inicio) >10)){
                     request()->session()->flash('alert-danger',"Esta etiqueta possui $totalItens tombos, totalizando ".(int)ceil($totalItens/33)." páginas a imprimir. Por favor, indique um intervalo de no MÁXIMO 10 páginas para gerar.\n
                     Por exemplo, para imprimir todos os tombos é necessário ".(int)ceil($totalItens/330)." etapas: $intervalos ");
-                    return view('etiquetas', compact('intervalos', 'totalPages'));
+                    $cod_impressao = $request->cod_impressao;
+                    return view('etiquetas', compact('intervalos', 'totalPages', 'cod_impressao'));
                 }else{
                     $itens = Item::where('cod_impressao', [$request->cod_impressao])->
                     whereNotNull('tombo')->skip(((int)$request->pag_inicio - 1)*33)->take((((int)$request->pag_fim - (int)$request->pag_inicio)+1)*33)->get();
                 }
-                
+
             }else{
                 $itens = Item::where('cod_impressao', [$request->cod_impressao])->
                 whereNotNull('tombo')->get();
@@ -64,11 +65,11 @@ class EtiquetaController extends Controller
             ]);
             $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();
         }
-        
+
         if($itens->isNotEmpty()) {
             if($request->etiqueta == 'tombo')
                 $this->etiquetasTombo($itens);
-            else {   
+            else {
                 $itens = $itens->where('no_cutter','!=', '');
                 if($itens->isEmpty()){
                     return redirect('/etiquetas')->with('alert-danger','Nenhum item com lombada gerada');
@@ -84,7 +85,7 @@ class EtiquetaController extends Controller
 
     private function etiquetasTombo($itens){
         $pimaco = new Pimaco('A4256');
-       
+
         foreach($itens as $item){
             $tag = new Tag();
             $tag->setBorder(0);
@@ -93,30 +94,30 @@ class EtiquetaController extends Controller
             $barcode = new Barcode((string)$item->tombo, null);
             $barcode->setAlign('right');
             $barcode->setWidth(1);
-            
+
             $limiteCaracteres = 10;
-            
+
             $codigo = $barcode->render();
             $tag->p(view('pdfs.etiquetas', compact ( 'codigo','limiteCaracteres','item')));
             $pimaco->addTag($tag);
-            
-            
-            
+
+
+
         }
         $pimaco->output();
-        
+
     }
 
     private function etiquetasLombada($itens){
-         
+
         $pimaco = new Pimaco('A4256');
-       
+
         foreach($itens as $item){
             $tag = new Tag();
             $tag->setBorder(0);
             $tag->setSize(2);
             $tag->p(view('pdfs.etiquetas_lombada', compact ('item')));
-            $pimaco->addTag($tag); 
+            $pimaco->addTag($tag);
         }
         $pimaco->output();
     }
