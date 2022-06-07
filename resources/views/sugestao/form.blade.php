@@ -13,7 +13,7 @@
     </div>
     <br>
     <div>
-      <label for="autor">Autor:</label>
+      <label for="autor">Autor(es):</label>
       <input type="text" id="autor" class="form-control" name="autor" value="{{old('autor')}}">
     </div>
     <br>
@@ -28,6 +28,11 @@
       <input type="text" id="ano" class="form-control" name='ano' value="{{old('ano')}}">
     </div>
     <br>
+    <div>
+      <label for="isbn">ISBN:</label>
+      <input type="text" id="isbn" class="form-control" name='isbn' value="{{old('isbn')}}">
+    </div>
+    <br>    
     <div>
       <label for="informacoes">Outras informações:</label>
       <textarea class="form-control" id="informacoes" rows="3" name="informacoes">{{ old('informacoes') }}</textarea>

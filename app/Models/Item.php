@@ -46,7 +46,8 @@ class Item extends Model
         "Doação",
         "Multa",
         "Reposição",
-        "Permuta"
+        "Permuta",
+        "Retombamento"
     ];
 
     const prioridade = [

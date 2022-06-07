@@ -11,6 +11,9 @@ use Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
 
 class User extends Authenticatable
 {
+    use \Spatie\Permission\Traits\HasRoles;
+    use \Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
+    
     use HasFactory, Notifiable, HasRoles, HasSenhaunica;
 
     /**
