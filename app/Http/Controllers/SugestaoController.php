@@ -32,6 +32,7 @@ class SugestaoController extends Controller
         $item->autor = $request->autor;
         $item->editora = $request->editora;
         $item->ano = $request->ano;
+        $item->isbn = $request->isbn;
         $item->informacoes = $request->informacoes;
         $item->sugerido_por = Auth::user()->codpes;
         $item->alterado_por = Auth::user()->codpes;

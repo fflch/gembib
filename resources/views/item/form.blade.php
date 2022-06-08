@@ -44,7 +44,7 @@
  </div>
 </div>
 
-<div class="row">    
+<div class="row">
   <div class="col-sm form-group">
   <label for="titulo">Título:</label>
   <input type="text" id="titulo" value="{{old('titulo', $item->titulo )}}" class="form-control" name="titulo"/>
@@ -86,7 +86,7 @@
     </select>
   </div>
 </div>
-<div class="row">   
+<div class="row">
   <div class="col-sm form-group">
     <label for="parte">Parte:</label>
     <input type="text" id="parte" value="{{old('parte', $item->parte)}}" class="form-control" name="parte"/>
@@ -106,7 +106,7 @@
     <input type="text" id="colecao" value="{{old('colecao', $item->colecao)}}" class="form-control" name="colecao"/>
   </div>
   <div class="col-sm form-group">
-    <label for="link">Link do E-book:</label>
+    <label for="link">Link:</label>
     <input type="text" id="link" value="{{old('link', $item->link)}}" class="form-control"  name="link"/>
   </div>
   <div class="col-sm form-group">
@@ -135,7 +135,7 @@
       @endif
       @endforeach
     </select>
-  </div>      
+  </div>
   <div class="col-sm form-group">
     <label for="prioridade">Prioridade:</label>
     <select class="form-control" id="prioridade" name="prioridade">
@@ -143,7 +143,7 @@
       @foreach($item::prioridade as $key=>$opcao)
       @if (old('prioridade') == '' and isset($item->prioridade))
           <option value="{{$key}}" {{ ($item->prioridade == $key) ? 'selected' : ''}}>
-            {{ $key }} - {{$opcao}} 
+            {{ $key }} - {{$opcao}}
           </option>
       @else
         <option value = "{{$key}}" {{ ( old('prioridade') === $key) ? 'selected' : ''}}>
@@ -172,28 +172,28 @@
     </select>
  </div>
 </div>
-<div class="row">      
+<div class="row">
   <div class="col-sm form-group">
     <label for="volume">Volume:</label>
     <input type="text" id="volume" value="{{old('volume', $item->volume)}}" class="form-control" name="volume"/>
   </div>
   <div class="col-sm form-group">
-    <label for="volume">SYSNO:</label>
+    <label for="volume">Etapa de Processamento:</label>
     <input type="text" id="sysno" value="{{old('sysno', $item->sysno)}}" class="form-control" name="sysno"/>
   </div>
   <div class="col-sm form-group">
-    <label for="capes">Capes:</label>
+    <label for="capes">Área do Conhecimento:</label>
     <select class="form-control" id="capes" class="form-control" name="capes">
       <option value="">Selecione</option>
 
       @foreach(App\Models\Area::all() as $area)
 
-        {{-- Edição --}} 
+        {{-- Edição --}}
         @if( old('capes') == '' and isset($item->capes))
             <option value="{{$area->codigo}}" {{ ($item->capes == $area->codigo) ? 'selected' : ''}}>
             {{$area->codigo}} - {{$area->nome}}
             </option>
-        {{-- Novo cadastro --}} 
+        {{-- Novo cadastro --}}
         @else
           <option value = "{{$area->codigo}}" {{ ( old('capes') == $area->codigo) ? 'selected' : ''}}>
           {{$area->codigo}} - {{$area->nome}}
@@ -203,11 +203,6 @@
       @endforeach
     </select>
   </div>
-  <div class="col-sm form-group">
-    <label for="finalidade">Finalidade:</label>
-    <input type="text" id="finalidade" value="{{old('finalidade', $item->finalidade)}}" class="form-control" name="finalidade"/>
-  </div>
-
   <div class="col-sm form-group">
     <label for="titulo">Escala:</label>
     <input type="text" id="escala" value="{{old('escala', $item->escala)}}" class="form-control" name="escala" placeholder="Digite a escala do mapa"/>
