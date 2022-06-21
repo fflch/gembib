@@ -27,6 +27,37 @@ $right_menu = [
     ],
 ];
 
+$sai = [
+    [
+        'text' => 'Pesquisa',
+        'url'  => '/sai',
+        'can'  => 'sai',
+    ],
+    [
+        'text' => 'Cadastrar novo tombamento',
+        'url'  => '/item/create',
+        'can'  => 'sai',
+    ],
+    [
+        'text' => 'Relatório SAI',
+        'url'  => '/relatorios',
+        'can'  => 'sai',
+    ],
+];
+
+$stl = [
+    [
+        'text' => 'Pesquisa',
+        'url'  => '/stl',
+        'can'  => 'stl',
+    ],
+    [
+        'text' => 'Relatório STL',
+        'url'  => '/controle',
+        'can'  => 'sai',
+    ],
+];
+
 
 return [
     'title' => '',
@@ -42,26 +73,26 @@ return [
             'url'  => '/sugestao',
             'can'  => 'logado'
         ],
+
         [
-            'text' => 'Cadastrar novo tombamento',
-            'url'  => '/item/create',
-            'can'  => 'sai',
+            'text' => 'Aquisição',
+            'submenu'  => $sai,
+            'can'  => 'logado'
         ],
+
         [
-            'text' => 'Busca',
+            'text' => 'Processamento Técnico',
+            'submenu'  => $stl,
+            'can'  => 'logado'
+        ],
+
+        [
+            'text' => 'Busca (será desativado)',
             'url'  => '/item',
             'can'  => 'sai',
         ],
-        [
-            'text' => 'Relatório SAI',
-            'url'  => '/relatorios',
-            'can'  => 'sai',
-        ],
-        [
-            'text' => 'Relatório STL',
-            'url'  => '/controle',
-            'can'  => 'sai',
-        ],
+
+
         [
             'text' => 'Etiquetas',
             'url'  => '/etiquetas',

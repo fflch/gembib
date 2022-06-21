@@ -8,6 +8,8 @@ use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\SaiController;
+use App\Http\Controllers\StlController;
 
 Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 
@@ -62,3 +64,9 @@ Route::get('/controle/pdf', [ControleController::class, 'geraPDF']);
 
 # Logs - deveria ser admin
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('can:admin');
+
+# rotas para SAI
+Route::get('/sai', [SaiController::class, 'index']);
+
+# rotas para STL
+Route::get('/stl', [StlController::class, 'index']);
