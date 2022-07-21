@@ -23,6 +23,17 @@ class Item extends Model
         "Processado"
     ];
 
+    const campos = [
+        "Título" => "titulo",
+        "Autor" => "autor",
+        "Tombo" => "tombo",
+        "Observação" => "observacao",
+        "Verba" => "verba",
+        "Processo" => "processo",
+        "Código de Impressão" => "cod_impressao",
+        
+    ];
+
     const procedencia = [
         "INTERNACIONAL",
         "NACIONAL"
