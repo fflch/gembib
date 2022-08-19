@@ -5,41 +5,64 @@
 
     <form method="GET">
     <div class="form-group">
+          
+        <select name="campos[0]" class="btn btn-success mr-2">
+        <option value="" selected="">Selecione um campo</option>
         
+        @foreach($campos as $valor=>$chave)
+            @if(Request()->campos != null && array_key_exists(0, Request()->campos))
+            <option value = "{{$valor}}" @if(Request()->campos[0] == $valor) selected @endif>
+            @else
+            <option value = "{{$valor}}">
+            @endif
+            {{$chave}}
+            </option>
+        @endforeach
+        </select>
+        @if(Request()->campos != null && array_key_exists(0, Request()->campos))
+        <input name="search[]" value="{{request()->search[0]}}">
+        @else
         <input name="search[]">
+        @endif
 
-        <select name="campos[]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campos</option>
-        @foreach($campos as $chave=>$valor)
-            <option value = "{{$valor}}" @if(Request()->campos == "$chave") selected @endif>
+        <br>
+        <select name="campos[1]" class="btn btn-success mr-2">
+        <option value="" selected="">Selecione um campo</option>
+        @foreach($campos as $valor=>$chave)
+            @if(Request()->campos != null && array_key_exists(1, Request()->campos))
+            <option value = "{{$valor}}" @if(Request()->campos[1] == $valor) selected @endif>
+            @else
+            <option value = "{{$valor}}">
+            @endif
             {{$chave}}
             </option>
         @endforeach
         </select>
+        @if(Request()->campos != null && array_key_exists(1, Request()->campos))
+        <input name="search[]" value="{{request()->search[1]}}">
+        @else
+        <input name="search[]">
+        @endif
 
-        <br><input name="search[]">
-        
-
-        <select name="campos[]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campos</option>
-        @foreach($campos as $chave=>$valor)
-            <option value = "{{$valor}}" @if(Request()->campos == "$chave") selected @endif>
-                {{$chave}}
-            </option>
-        @endforeach
-        </select>
-
-        <br><input name="search[]">
-        
-
-        <select name="campos[]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campos</option>
-        @foreach($campos as $chave=>$valor)
-            <option value = "{{$valor}}" @if(Request()->campos == "$chave") selected @endif>
+        <br>
+        <select name="campos[2]" class="btn btn-success mr-2">
+        <option value="" selected="">Selecione um campo</option>
+        @foreach($campos as $valor=>$chave)
+            @if(Request()->campos != null && array_key_exists(2, Request()->campos))
+            <option value = "{{$valor}}" @if(Request()->campos[2] == $valor) selected @endif>
+            @else
+            <option value = "{{$valor}}">
+            @endif
             {{$chave}}
             </option>
         @endforeach
         </select>
+        @if(Request()->campos != null && array_key_exists(2, Request()->campos))
+        <input name="search[]" value="{{request()->search[2]}}">
+        @else
+        <input name="search[]">
+        @endif
+
     <br><br>
     <div class="row justify-content-md-left">
         <div class="col col-lg-2">
@@ -50,19 +73,6 @@
         </div>
         <div class="col col-lg-2">
             <input type="text" data-mask="00/00/0000" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}">
-        </div>
-        </div>
-        <br>
-
-        <div class="row justify-content-md-left">
-        <div class="col col-lg-2">
-            <label for="">Data Tombamento</label>
-        </div>
-        <div class="col-md-lg-2">
-            <input type="text" data-mask="00/00/0000" name="data_tombamento_inicio" class="datepicker" value="{{ Request()->data_tombamento_inicio }}"> <b>-</b>
-        </div>
-        <div class="col col-lg-2">
-            <input type="text" data-mask="00/00/0000" name="data_tombamento_fim" class="datepicker" value="{{ Request()->data_tombamento_fim }}">
         </div>
         </div>
         <br>

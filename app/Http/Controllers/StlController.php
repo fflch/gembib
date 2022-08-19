@@ -19,18 +19,55 @@ class StlController extends Controller
         
     private function search(){
         $request = request();
-        $itens = Item::orderBy('tombo', 'asc');
+        $itens = Item::orderBy('autor', 'asc');
         $this->authorize('admin');
 
-        if(isset($request->search[0])) {
-            $itens->where($request->campos[0],'LIKE', '%'.$request->search[0].'%');
+
+        if(isset($request->search[0]) && isset($request->campos[0])) {
+            if($request->campos[0] == 'todos_campos'){
+                $itens->where('cod_impressao','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('autor','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('tombo','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('observacao','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('verba','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('processo','LIKE', '%'.$request->search[0].'%')
+                    ->orwhere('titulo','LIKE', '%'.$request->search[0].'%');
+            }
+            else{
+                $itens->where($request->campos[0],'LIKE', '%'.$request->search[0].'%');
+            }
+            
         }
-        if(isset($request->search[1])) {
-            $itens->where($request->campos[1],'LIKE', '%'.$request->search[1].'%');
+        if(isset($request->search[1]) && isset($request->campos[1])) {
+            if($request->campos[1] == 'todos_campos'){
+                $itens->where('cod_impressao','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('autor','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('tombo','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('observacao','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('verba','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('processo','LIKE', '%'.$request->search[1].'%')
+                    ->orwhere('titulo','LIKE', '%'.$request->search[1].'%');
+            }
+            else{
+                $itens->where($request->campos[1],'LIKE', '%'.$request->search[1].'%');
+            }   
         }
-        if(isset($request->search[2])) {
-            $itens->where($request->campos[2],'LIKE', '%'.$request->search[2].'%');
+        if(isset($request->search[2]) && isset($request->campos[2])) {
+            if($request->campos[2] == 'todos_campos'){
+                $itens->where('cod_impressao','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('autor','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('tombo','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('observacao','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('verba','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('processo','LIKE', '%'.$request->search[2].'%')
+                    ->orwhere('titulo','LIKE', '%'.$request->search[2].'%');
+            }
+            else{
+                $itens->where($request->campos[2],'LIKE', '%'.$request->search[2].'%');
+            }
         }
+        
+
         if (!empty($request->status)) {
             
             $itens->where(function ($p) use (&$request) {
@@ -85,7 +122,7 @@ class StlController extends Controller
         $this->authorize('admin');
         $itens = $this->search();
         $query = $itens->paginate(15);
-
+        
         return view('stl.index',[
             'itens'         => $itens,
             'campos'        => $this->campos,
