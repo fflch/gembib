@@ -16,71 +16,75 @@ class StlController extends Controller
     private $procedencia = Item::procedencia;
     private $tipo_material = Item::tipo_material;
     private $tipo_aquisicao = Item::tipo_aquisicao;
-        
+
     private function search(){
         $request = request();
-        $itens = Item::orderBy('tombo', 'asc');
+        $itens = Item::orderBy('autor', 'asc');
         $this->authorize('admin');
 
-        if(isset($request->search[0])) {
-            $itens->where($request->campos[0],'LIKE', '%'.$request->search[0].'%');
-        }
-        if(isset($request->search[1])) {
-            $itens->where($request->campos[1],'LIKE', '%'.$request->search[1].'%');
-        }
-        if(isset($request->search[2])) {
-            $itens->where($request->campos[2],'LIKE', '%'.$request->search[2].'%');
-        }
-        if (!empty($request->status)) {
-            
-            $itens->where(function ($p) use (&$request) {
-                $p->where('status','=',$request->status);
-            });
-        }
-        
-        if (!empty($request->procedencia)) {
-            $itens->where(function ($s) use (&$request) {
-                $s->where('procedencia','=',$request->procedencia)
-                  ->orwhere('procedencia','=',$request->procedencia);
-            });
-        }
-        
-        if (!empty($request->tipo_material)) {
-            $itens->where(function ($t) use (&$request) {
-                $t->where('tipo_material','=',$request->tipo_material)
-                  ->orwhere('tipo_material','=',$request->tipo_material);
-            });
-        }
-        
-        if (!empty($request->tipo_aquisicao)) {
-            $itens->where(function ($a) use (&$request) {
-                $a->where('tipo_aquisicao','=',$request->tipo_aquisicao)
-                  ->orwhere('tipo_aquisicao','=',$request->tipo_aquisicao);
-            });
-        }
-        if (!empty($request->data_sugestao_inicio) && !empty($request->data_sugestao_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
-            $itens->whereBetween('data_sugestao', [$from, $to]);
-            $itens->whereNotNull('data_sugestao');
+        if($request->has('campos')) {
+            $campos = Item::campos;
+            unset($campos['todos_campos']);
+            foreach($request->campos as $key => $value) {
+                $itens->when(!is_null($value) && !is_null($request->search[$key]),
+                    function($query) use ($request, $campos, $key, $value) {
+                        if($value == 'todos_campos'){
+                            foreach($campos as $chave => $campo) {
+                                $query->orWhere($chave, 'LIKE', '%' . $request->search[$key] . '%');
+                            }
+                        }
+                        else {
+                            $query->where($value,'LIKE', '%'.$request->search[$key].'%');
+                        }
+                    }
+                );
+            }
         }
 
-        if (!empty($request->data_processamento_inicio) && !empty($request->data_processamento_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
-            $itens->whereBetween('data_processamento', [$from, $to]);
-            $itens->whereNotNull('data_processamento');
-        }
+        $itens->when($request->status, function($query) use ($request) {
+            $query->where('status', '=', $request->status);
+        });
 
-        if (!empty($request->data_tombamento_inicio) && !empty($request->data_tombamento_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_tombamento_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim);
-            $itens->whereBetween('data_tombamento', [$from, $to]);
-            $itens->whereNotNull('data_tombamento');
-        }
+        $itens->when($request->procedencia, function($query) use ($request) {
+            $query->where('procedencia', '=', $request->procedencia);
+        });
+
+        $itens->when($request->tipo_material, function($query) use ($request) {
+            $query->where('tipo_material', '=', $request->tipo_material);
+        });
+
+        $itens->when($request->tipo_aquisicao, function($query) use ($request) {
+            $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
+        });
+
+        $itens->when($request->data_sugestao_inicio && $request->data_sugestao_fim,
+            function($query) use ($request) {
+                $query->whereBetween('data_sugestao', [
+                    $request->data_sugestao_inicio,
+                    $request->data_sugestao_fim
+                ]);
+        });
+
+        $itens->when($request->data_processamento_inicio && $request->data_processamento_fim,
+            function($query) use ($request) {
+                $query->whereBetween('data_processamento', [
+                    $request->data_processamento_inicio,
+                    $request->data_processamento_fim
+                ]);
+        });
+
+        $itens->when($request->data_tombamento_inicio && $request->data_tombamento_fim,
+            function($query) use ($request) {
+                $query->whereBetween('data_tombamento', [
+                    $request->data_tombamento_inicio,
+                    $request->data_tombamento_fim
+                ]);
+        });
 
         return $itens;
+
     }
+
     public function index(Request $request){
         $this->authorize('admin');
         $itens = $this->search();

@@ -24,14 +24,14 @@ class Item extends Model
     ];
 
     const campos = [
-        "Título" => "titulo",
-        "Autor" => "autor",
-        "Tombo" => "tombo",
-        "Observação" => "observacao",
-        "Verba" => "verba",
-        "Processo" => "processo",
-        "Código de Impressão" => "cod_impressao",
-        
+        'titulo' => 'Título',
+        'autor' => 'Autor',
+        'tombo' => 'Tombo',
+        'observacao' => 'Observação',
+        'verba' => 'Verba',
+        'processo' => 'Processo',
+        'cod_impressao' => 'Código de Impressão',
+        'todos_campos' => 'Todos os Campos'
     ];
 
     const procedencia = [
