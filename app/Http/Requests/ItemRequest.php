@@ -48,7 +48,7 @@ class ItemRequest extends FormRequest
             'fasciculo'         => 'nullable', 
             'local'            => '', 
             'colecao'          => '', 
-            'isbn'             => 'nullable|min:10', 
+            'isbn'             => 'nullable', 
             'link'             => '', 
             'edicao'           => 'nullable|integer', 
             'departamento'     => ['nullable', Rule::in($item::departamento)], 
