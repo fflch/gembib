@@ -66,13 +66,13 @@
     <br><br>
     <div class="row justify-content-md-left">
         <div class="col col-lg-2">
-            <label for="">Data Sugestão</label>
+            <label for="">Data de Aquisição</label>
         </div>
         <div class="col-md-lg-2">
-            <input type="text" data-mask="00/00/0000" name="data_sugestao_inicio" class="datepicker" value="{{ Request()->data_sugestao_inicio }}"> <b>-</b>
+            <input type="text" data-mask="00/00/0000" name="data_aquisicao_inicio" class="datepicker" value="{{ Request()->data_aquisicao_inicio }}"> <b>-</b>
         </div>
         <div class="col col-lg-2">
-            <input type="text" data-mask="00/00/0000" name="data_sugestao_fim" class="datepicker" value="{{ Request()->data_sugestao_fim }}">
+            <input type="text" data-mask="00/00/0000" name="data_aquisicao_fim" class="datepicker" value="{{ Request()->data_aquisicao_fim }}">
         </div>
         </div>
         <br>

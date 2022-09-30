@@ -57,41 +57,35 @@ class StlController extends Controller
             $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
         });
 
-        $itens->when($request->data_sugestao_inicio && $request->data_sugestao_fim,
-            function($query) use ($request) {
-                $query->whereBetween('data_sugestao', [
-                    $request->data_sugestao_inicio,
-                    $request->data_sugestao_fim
-                ]);
+        $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim)->format('Y-m-d');
+            $query->whereBetween('data_processamento', [$from, $to]);
+            $query->whereNotNull('data_processamento');
         });
 
-        $itens->when($request->data_processamento_inicio && $request->data_processamento_fim,
-            function($query) use ($request) {
-                $query->whereBetween('data_processamento', [
-                    $request->data_processamento_inicio,
-                    $request->data_processamento_fim
-                ]);
+        $itens->when(($request->data_tombamento_inicio) && ($request->data_tombamento_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_tombamento_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim)->format('Y-m-d');
+            $query->whereBetween('data_tombamento', [$from, $to]);
+            $query->whereNotNull('data_tombamento');
         });
 
-        $itens->when($request->data_tombamento_inicio && $request->data_tombamento_fim,
-            function($query) use ($request) {
-                $query->whereBetween('data_tombamento', [
-                    $request->data_tombamento_inicio,
-                    $request->data_tombamento_fim
-                ]);
+        $itens->when(($request->data_aquisicao_inicio) && ($request->data_aquisicao_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_fim)->format('Y-m-d');
+            $query->whereBetween('created_at', [$from, $to]);
+            $query->whereNotNull('created_at');
         });
-
-        return $itens;
+        return $itens->paginate(15);
 
     }
 
     public function index(Request $request){
         $this->authorize('admin');
-        $itens = $this->search();
-        $query = $itens->paginate(15);
+        $query = $this->search();
 
         return view('stl.index',[
-            'itens'         => $itens,
             'campos'        => $this->campos,
             'query'         => $query,
             'procedencia'   => $this->procedencia,

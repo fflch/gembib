@@ -28,6 +28,11 @@ class RelatorioController extends Controller
       $total = $soma->sum('preco');
 
       $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo','total'));
+      $pdf->output();
+      $dom_pdf = $pdf->getDomPDF();
+
+      $canvas = $dom_pdf ->get_canvas();
+      $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
       return $pdf->download('relatorio.pdf');
     }
 }
