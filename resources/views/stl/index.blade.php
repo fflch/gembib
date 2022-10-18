@@ -5,63 +5,23 @@
 
     <form method="GET">
     <div class="form-group">
-          
-        <select name="campos[0]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campo</option>
-        
-        @foreach($campos as $valor=>$chave)
-            @if(Request()->campos != null && array_key_exists(0, Request()->campos))
-            <option value = "{{$valor}}" @if(Request()->campos[0] == $valor) selected @endif>
-            @else
-            <option value = "{{$valor}}">
-            @endif
-            {{$chave}}
-            </option>
+      <div id="container">
+        @foreach(request()->campos ?? [''] as $select_campo)
+        <div class="row" id="pesquisa{{ $loop->index }}">
+          <select name="campos[]" class="btn btn-success mr-2">
+          <option value="" selected="">Selecione um campo</option>
+          @foreach($campos as $key => $valor)
+              <option value = "{{ $key }}" @if($key == $select_campo) selected @endif>
+              {{$valor}}
+              </option>
+          @endforeach
+          </select>
+          <input name="search[]" value="{{ request()->search[$loop->index] ?? '' }}">
+          <button class="btn btn-primary float-left ml-2">+</button>
+        </div>
         @endforeach
-        </select>
-        @if(Request()->campos != null && array_key_exists(0, Request()->campos))
-        <input name="search[]" value="{{request()->search[0]}}">
-        @else
-        <input name="search[]">
-        @endif
-
-        <br>
-        <select name="campos[1]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campo</option>
-        @foreach($campos as $valor=>$chave)
-            @if(Request()->campos != null && array_key_exists(1, Request()->campos))
-            <option value = "{{$valor}}" @if(Request()->campos[1] == $valor) selected @endif>
-            @else
-            <option value = "{{$valor}}">
-            @endif
-            {{$chave}}
-            </option>
-        @endforeach
-        </select>
-        @if(Request()->campos != null && array_key_exists(1, Request()->campos))
-        <input name="search[]" value="{{request()->search[1]}}">
-        @else
-        <input name="search[]">
-        @endif
-
-        <br>
-        <select name="campos[2]" class="btn btn-success mr-2">
-        <option value="" selected="">Selecione um campo</option>
-        @foreach($campos as $valor=>$chave)
-            @if(Request()->campos != null && array_key_exists(2, Request()->campos))
-            <option value = "{{$valor}}" @if(Request()->campos[2] == $valor) selected @endif>
-            @else
-            <option value = "{{$valor}}">
-            @endif
-            {{$chave}}
-            </option>
-        @endforeach
-        </select>
-        @if(Request()->campos != null && array_key_exists(2, Request()->campos))
-        <input name="search[]" value="{{request()->search[2]}}">
-        @else
-        <input name="search[]">
-        @endif
+        <div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div>
+      </div>
 
     <br><br>
     <div class="row justify-content-md-left">
@@ -174,7 +134,25 @@
         @endforeach
         </tbody>
     </table>
-    
+
     {{$query->appends(request()->query())->links()}}
+
+@endsection
+
+@section('javascripts_bottom')
+<script>
+  $(document).ready( function () {
+    let row_select = $("select[name^='campos']").length;
+
+    $("#container").on("click", ".btn-primary", function(e){
+      e.preventDefault();
+      let new_row_select = row_select - 1;
+      $("#pesquisa" + row_select).html( $("#pesquisa" + new_row_select).html() );
+      $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div>');
+      row_select++;
+    });
+
+  });
+</script>
 
 @endsection
