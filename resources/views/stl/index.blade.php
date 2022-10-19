@@ -18,6 +18,7 @@
           </select>
           <input name="search[]" value="{{ request()->search[$loop->index] ?? '' }}">
           <button class="btn btn-primary float-left ml-2">+</button>
+          <button class="btn btn-danger float-left ml-2">-</button>
         </div>
         @endforeach
         <br><div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div><br>
@@ -150,6 +151,14 @@
       $("#pesquisa" + row_select).html( $("#pesquisa" + new_row_select).html() );
       $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div><br>');
       row_select++;
+    });
+
+    $("#container").on("click", ".btn-danger", function(e){
+      e.preventDefault();
+      if(row_select > 1){
+        $("#pesquisa" + (row_select - 1)).html('');
+        row_select--;
+      }
     });
 
   });
