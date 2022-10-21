@@ -5,7 +5,7 @@
 
     <form method="GET">
     <div class="form-group">
-      <div id="container">
+      <div id="container" class="col-sm form-group">
         @foreach(request()->campos ?? [''] as $select_campo)
         <div class="row" id="pesquisa{{ $loop->index }}">
           <select name="campos[]" class="btn btn-success mr-2">
@@ -18,9 +18,10 @@
           </select>
           <input name="search[]" value="{{ request()->search[$loop->index] ?? '' }}">
           <button class="btn btn-primary float-left ml-2">+</button>
+          <button class="btn btn-danger float-left ml-2">-</button>
         </div>
         @endforeach
-        <div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div>
+        <br><div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div><br>
       </div>
 
     <br><br>
@@ -148,8 +149,16 @@
       e.preventDefault();
       let new_row_select = row_select - 1;
       $("#pesquisa" + row_select).html( $("#pesquisa" + new_row_select).html() );
-      $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div>');
+      $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div><br>');
       row_select++;
+    });
+
+    $("#container").on("click", ".btn-danger", function(e){
+      e.preventDefault();
+      if(row_select > 1){
+        $("#pesquisa" + (row_select - 1)).html('');
+        row_select--;
+      }
     });
 
   });
