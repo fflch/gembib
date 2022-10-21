@@ -24,7 +24,6 @@
         <br><div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div><br>
       </div>
 
-    <br><br>
     <div class="row justify-content-md-left">
         <div class="col col-lg-2">
             <label for="">Data de Aquisição</label>
