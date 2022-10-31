@@ -7,21 +7,21 @@
     <div class="form-group">
       <div id="container" class="col-sm form-group">
         @foreach(request()->campos ?? [''] as $select_campo)
-        <div class="row" id="pesquisa{{ $loop->index }}">
-          <select name="campos[]" class="btn btn-success mr-2">
-          <option value="" selected="">Selecione um campo</option>
-          @foreach($campos as $key => $valor)
-              <option value = "{{ $key }}" @if($key == $select_campo) selected @endif>
-              {{$valor}}
-              </option>
-          @endforeach
-          </select>
-          <input name="search[]" value="{{ request()->search[$loop->index] ?? '' }}">
-          <button class="btn btn-primary float-left ml-2">+</button>
-          <button class="btn btn-danger float-left ml-2">-</button>
-        </div>
+            <div class="row" id="pesquisa{{ $loop->index }}">
+                <select name="campos[]" class="btn btn-success mr-2">
+                <option value="" selected="">Selecione um campo</option>
+                @foreach($campos as $key => $valor)
+                    <option value = "{{ $key }}" @if($key == $select_campo) selected @endif>
+                        {{$valor}}
+                    </option>
+                @endforeach
+                </select>
+                <input name="search[]" value="{{ request()->search[$loop->index] ?? '' }}">
+                <button class="btn btn-primary float-left ml-2">+</button>
+                <button class="btn btn-danger float-left ml-2">-</button>
+            </div>
         @endforeach
-        <br><div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div><br>
+        <div class="row" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div>
       </div>
 
     <div class="row justify-content-md-left">
@@ -148,7 +148,7 @@
       e.preventDefault();
       let new_row_select = row_select - 1;
       $("#pesquisa" + row_select).html( $("#pesquisa" + new_row_select).html() );
-      $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div><br>');
+      $("#container").append('<div class="row" id="pesquisa' + (row_select + 1)+ '"></div>');
       row_select++;
     });
 
