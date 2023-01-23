@@ -54,7 +54,7 @@ $stl = [
     [
         'text' => 'Relatório STL',
         'url'  => '/controle',
-        'can'  => 'sai',
+        'can'  => 'stl',
     ],
 ];
 

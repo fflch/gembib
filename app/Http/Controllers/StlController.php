@@ -20,7 +20,7 @@ class StlController extends Controller
     private function search(){
         $request = request();
         $itens = Item::orderBy('autor', 'asc');
-        $this->authorize('admin');
+        $this->authorize('stl');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -82,7 +82,7 @@ class StlController extends Controller
     }
 
     public function index(Request $request){
-        $this->authorize('admin');
+        $this->authorize('stl');
         $query = $this->search();
 
         return view('stl.index',[
