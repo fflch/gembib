@@ -27,11 +27,11 @@ class Item extends Model
         'titulo' => 'Título',
         'autor' => 'Autor',
         'tombo' => 'Tombo',
-        'observacao' => 'Observação',
         'verba' => 'Verba',
         'processo' => 'Processo',
         'cod_impressao' => 'Código de Impressão',
-        'todos_campos' => 'Todos os Campos'
+        'observacao' => 'Observação',
+        'todos_campos' => 'Todos os Campos',
     ];
 
     const procedencia = [

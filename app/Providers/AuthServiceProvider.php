@@ -42,5 +42,13 @@ class AuthServiceProvider extends ServiceProvider
             $stl = explode(',', trim(config('gembib.stl')));
             return ( in_array($user->codpes, $stl) and $user->codpes );
         });
+
+        /* Gate para ambos os serviços */
+        Gate::define('ambos', function ($user) {
+            if(Gate::allows('admin')) return true;
+            $stl = explode(',', trim(config('gembib.stl')));
+            $sai = explode(',', trim(config('gembib.sai')));
+            return ( in_array($user->codpes, array_merge($sai, $stl)) and $user->codpes );
+        });
     }
 }

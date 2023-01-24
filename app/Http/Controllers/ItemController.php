@@ -138,7 +138,7 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
         $query = $this->search();
         $quantidades = $this->quantidades($query);
         $itens = $query->paginate(10);
@@ -176,20 +176,20 @@ class ItemController extends Controller
 
     public function create()
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
         return view('item/create')->with('item', new Item);
     }
 
     public function show(Request $request, Item $item)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
         $area = Area::where('codigo', $item->capes)->first();
         return view('item/show', compact('item', 'area'));
     }
 
     public function store(ItemRequest $request)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         $validated = $request->validated();
 
@@ -208,14 +208,14 @@ class ItemController extends Controller
     }
 
     public function edit(Item $item){
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         return view('item.edit')->with('item',$item);
 
     }
 
     public function update(ItemRequest $request, Item $item){
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         $validated = $request->validated();
 
@@ -231,7 +231,7 @@ class ItemController extends Controller
 
     public function destroy(Item $item)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
         if($item->status == 'Em Tombamento' ){
             $item->delete();
             request()->session()->flash('alert-info','Item excluído com sucesso.');
@@ -242,7 +242,7 @@ class ItemController extends Controller
     }
 
     public function set_is_active(Request $request){
-        $this->authorize('sai');
+        $this->authorize('ambos');
         $request->validate([
             'is_active' => 'required|bool',
             'tombo' => 'required',
@@ -261,7 +261,7 @@ class ItemController extends Controller
     }
 
     public function duplicar(Request $request){
-        $this->authorize('sai');
+        $this->authorize('ambos');
         $request->validate([
             'itemId' => 'required',
         ]);
@@ -293,7 +293,7 @@ class ItemController extends Controller
     }
 
     public function etiqueta_update(Request $request, Item $item){
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         if ($request->filled('no_classificacao') or
             $request->filled('no_cutter') or $request->filled('exemplar')) {
