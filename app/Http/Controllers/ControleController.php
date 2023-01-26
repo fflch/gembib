@@ -24,7 +24,7 @@ class ControleController extends Controller
     
     public function index(Controle $controle)
     {
-        $this->authorize('sai');    
+        $this->authorize(['ambos']);    
         $query = $this->search();  
 
         $registros = $query->paginate(12);
@@ -34,7 +34,7 @@ class ControleController extends Controller
 
     public function store(ControleRequest $request)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
         
         $controle = Controle::create($request->validated()); 
         
@@ -47,19 +47,19 @@ class ControleController extends Controller
     
     public function show(Controle $controle)
     {
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         return view('controle/show', compact('controle'));
     }
 
     public function edit(Controle $controle){
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         return view('controle.edit', compact('controle'));
     }
 
     public function update(Controle $controle, ControleRequest $request){
-        $this->authorize('sai');
+        $this->authorize('ambos');
         
         $controle->update($request->validated());
 
@@ -69,7 +69,7 @@ class ControleController extends Controller
     }
 
     public function geraPDF(){
-        $this->authorize('sai');
+        $this->authorize('ambos');
 
         $query = $this->search(); 
 

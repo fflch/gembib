@@ -10,12 +10,12 @@ use DB;
 class RelatorioController extends Controller
 {
     public function form(){
-        $this->authorize('sai');
+        $this->authorize('ambos');
         return view('relatorios');
     }
 
     public function show(Request $request){
-      $this->authorize('sai');
+      $this->authorize('ambos');
       
     	$request->validate([
           'cod_impressao'  => 'required',
