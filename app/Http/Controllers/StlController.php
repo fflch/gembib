@@ -19,7 +19,7 @@ class StlController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::orderBy('tombo', 'asc')->where('status', '!=', 'sugestão');
+        $itens = Item::orderByRaw('-tombo DESC');
         $this->authorize('stl');
 
         if($request->has('campos')) {
