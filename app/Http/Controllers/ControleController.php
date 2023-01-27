@@ -24,7 +24,7 @@ class ControleController extends Controller
     
     public function index(Controle $controle)
     {
-        $this->authorize(['ambos']);    
+        $this->authorize('ambos');    
         $query = $this->search();  
 
         $registros = $query->paginate(12);
