@@ -104,6 +104,8 @@
     &data_processamento_fim={{ request()->data_processamento_fim }}">
     <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
   </div>
+
+@include('item.partials.quantidades')
 </form>
 
 <table class="table table-striped">

@@ -280,7 +280,7 @@
 
   <div class="col-sm  form-group">
     <label for="preco">Preço:</label>
-    <input type="text" id="preco" value="{{old('preco', $item->preco)}}" class="form-control" name="preco" />
+    <input type="text" id="preco" @if (old('preco') != null) value="{{old('preco', $item->preco)}}" @endif class="form-control" name="preco" />
   </div>
 
   <div class="col-sm form-group">
