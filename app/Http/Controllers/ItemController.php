@@ -202,6 +202,13 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
         $item->save();
+        $validated['status'] = 'Tombado';
+        //numero de tombo será gerado automaticamente
+        if(empty($item->tombo)) {
+            $validated['tombo'] = Item::max('tombo') + 1;
+        } 
+        $item->alterado_por = Auth::user()->codpes;
+        $item->update($validated);
 
         $request->session()->flash('alert-info',"Inserção direta enviada com sucesso");
 
