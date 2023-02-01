@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
+use App\Utils\Util;
+
 
 class SaiController extends Controller
 {
@@ -19,7 +21,7 @@ class SaiController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::orderBy('tombo', 'asc');
+        $itens = Item::orderBy('tombo', 'desc');
         $this->authorize('admin');
 
         if($request->has('campos')) {
@@ -92,9 +94,11 @@ class SaiController extends Controller
         $itens = $this->search();
         $query = $itens->paginate(15);
 
+
         return view('sai.index',[
             'itens'         => $itens,
             'campos'        => $this->campos,
+            'quantidades'   => Util::quantidades($query),
             'query'         => $query,
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,

@@ -132,6 +132,7 @@
   </div>
 </form>
 
+@include('item.partials.quantidades')
 <table class="table table-striped">
   <thead>
     <tr>

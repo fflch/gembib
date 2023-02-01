@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
+use App\Utils\Util;
 
 class StlController extends Controller
 {
@@ -88,6 +89,7 @@ class StlController extends Controller
         return view('stl.index',[
             'campos'        => $this->campos,
             'query'         => $query,
+            'quantidades'   => Util::quantidades($query),
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,
             'tipo_aquisicao'=> $this->tipo_aquisicao,

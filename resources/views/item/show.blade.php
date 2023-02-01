@@ -11,7 +11,7 @@
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
-  @if($item->status = 'Em Processamento Técnico')
+  @if($item->status == 'Em Processamento Técnico')
     @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
     <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
     <br><br>

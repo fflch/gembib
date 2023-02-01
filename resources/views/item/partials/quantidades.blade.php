@@ -23,7 +23,7 @@
         <td>{{ $quantidades['tombado'] }}</td>
         <td>{{ $quantidades['processamento'] }}</td>
         <td>{{ $quantidades['processado'] }}</td>
-        <td>{{ $itens->total() }}</td>
+        <td>{{ $query->total() }}</td>
       </tr>
     </tbody>
   </table>
