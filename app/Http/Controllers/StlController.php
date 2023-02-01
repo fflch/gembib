@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
+use App\Utils\Util;
 
 class StlController extends Controller
 {
@@ -80,45 +81,15 @@ class StlController extends Controller
         return $itens->paginate(15);
 
     }
-    private function quantidades($itens){
-        $quantidades = [];
-
-        $q = clone $itens;
-        $quantidades['sugestao'] = $q->where('status', 'Sugestão')->count();
-
-        $q = clone $itens;
-        $quantidades['cotacao'] = $q->where('status', 'Em Cotação')->count();
-
-        $q = clone $itens;
-        $quantidades['licitacao'] = $q->where('status', 'Em Licitação')->count();
-
-        $q = clone $itens;
-        $quantidades['tombamento'] = $q->where('status', 'Em Tombamento')->count();
-
-        $q = clone $itens;
-        $quantidades['negado'] = $q->where('status', 'Negado')->count();
-
-        $q = clone $itens;
-        $quantidades['tombado'] = $q->where('status', 'Tombado')->count();
-
-        $q = clone $itens;
-        $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
-
-        $q = clone $itens;
-        $quantidades['processado'] = $q->where('status', 'Processado')->count();
-        return $quantidades;
-    }
 
     public function index(Request $request){
         $this->authorize('stl');
         $query = $this->search();
-        $quantidades = $this->quantidades($query);
-
 
         return view('stl.index',[
             'campos'        => $this->campos,
             'query'         => $query,
-            'quantidades'    => $quantidades,
+            'quantidades'   => Util::quantidades($query),
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,
             'tipo_aquisicao'=> $this->tipo_aquisicao,

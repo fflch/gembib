@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
+use App\Utils\Util;
+
 
 class SaiController extends Controller
 {
@@ -86,46 +88,17 @@ class SaiController extends Controller
         return $itens;
 
     }
-    private function quantidades($itens){
-        $quantidades = [];
-
-        $q = clone $itens;
-        $quantidades['sugestao'] = $q->where('status', 'Sugestão')->count();
-
-        $q = clone $itens;
-        $quantidades['cotacao'] = $q->where('status', 'Em Cotação')->count();
-
-        $q = clone $itens;
-        $quantidades['licitacao'] = $q->where('status', 'Em Licitação')->count();
-
-        $q = clone $itens;
-        $quantidades['tombamento'] = $q->where('status', 'Em Tombamento')->count();
-
-        $q = clone $itens;
-        $quantidades['negado'] = $q->where('status', 'Negado')->count();
-
-        $q = clone $itens;
-        $quantidades['tombado'] = $q->where('status', 'Tombado')->count();
-
-        $q = clone $itens;
-        $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
-
-        $q = clone $itens;
-        $quantidades['processado'] = $q->where('status', 'Processado')->count();
-        return $quantidades;
-    }
 
     public function index(Request $request){
         $this->authorize('admin');
         $itens = $this->search();
         $query = $itens->paginate(15);
-        $quantidades = $this->quantidades($query);
 
 
         return view('sai.index',[
             'itens'         => $itens,
             'campos'        => $this->campos,
-            'quantidades'   => $quantidades,
+            'quantidades'   => Util::quantidades($query),
             'query'         => $query,
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,

@@ -207,23 +207,6 @@
     <label for="titulo">Escala:</label>
     <input type="text" id="escala" value="{{old('escala', $item->escala)}}" class="form-control" name="escala" placeholder="Digite a escala do mapa"/>
   </div>
-  <div class="col-sm form-group">
-  <label for="status">Status:</label>
-    <select class="form-control" id="status" name="status">
-      <option value="">Selecionar Status</option>
-      @foreach($item::status as $dpto)
-      @if (old('status') == '' and isset($item->status))
-          <option value="{{$dpto}}" {{ ($item->status == $dpto) ? 'selected' : ''}}>
-            {{$dpto}}
-          </option>
-      @else
-        <option value = "{{$dpto}}" {{ ( old('status') == $dpto) ? 'selected' : ''}}>
-        {{$dpto}}
-      </option>
-      @endif
-      @endforeach
-    </select>
-  </div>
 </div>
 
 <br><h3>Informações adicionais</h3>
