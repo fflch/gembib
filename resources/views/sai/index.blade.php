@@ -144,6 +144,7 @@
     <th scope="col">Ano</th>
     <th scope="col">Procedência</th>
     <th scope="col">sugestao feita por</th>
+    <th scope="col">Alterações</th>
     </tr>
   </thead>
   <tbody>
@@ -157,6 +158,38 @@
       <td>{{ $item->ano }}</td>
       <td>{{ $item->procedencia }}</td>
       <td>{{ $item->sugerido_por }}</td>
+      <td>
+          @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+            <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
+          @endif
+          @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )
+            <form method="POST" action="/item/{{$item->id}}"> 
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+            </form>
+          @endif
+          @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
+          @if($item->is_active)
+            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+          @else
+           <form method="POST" action="/item/is_active"> 
+              @csrf
+              <input type="hidden" name="tombo" value="{{$item->tombo}}">
+              <input type="hidden" name="is_active" value="1">
+    
+              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+            </form>
+          @endif
+          @endif
+
+
+          <form method="POST" action="/item/duplicar"> 
+            @csrf
+            <input type="hidden" name="itemId" value="{{$item->id}}">
+            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>  
+          </form>
+        </td>  
     </tr>
   @endforeach
   </tbody>
