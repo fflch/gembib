@@ -120,7 +120,20 @@
     <th scope="col">Procedência</th>
     <th scope="col">Sugestão feita por</th>
     <th scope="col">Alterações</th>
-    <td>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($query as $item)
+      <tr>
+        <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
+        <td><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></td>
+        <td>{{ $item->autor }}</td>
+        <td>{{ $item->editora }}</td>
+        <td>{{ $item->status }}</td>
+        <td>{{ $item->ano }}</td>
+        <td>{{ $item->procedencia }}</td>
+        <td>{{ $item->sugerido_por }}</td>
+        <td>
           @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
             <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
           @endif
@@ -152,19 +165,6 @@
             <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>  
           </form>
         </td>  
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($query as $item)
-      <tr>
-        <td><a href="/item/{{ $item->id }}">{{ $item->tombo ?? 'Sem tombo' }}</a></td>
-        <td><a href="/item/{{ $item->id }}">{{ $item->titulo }}</a></td>
-        <td>{{ $item->autor }}</td>
-        <td>{{ $item->editora }}</td>
-        <td>{{ $item->status }}</td>
-        <td>{{ $item->ano }}</td>
-        <td>{{ $item->procedencia }}</td>
-        <td>{{ $item->sugerido_por }}</td>
       </tr>
     @endforeach
   </tbody>
