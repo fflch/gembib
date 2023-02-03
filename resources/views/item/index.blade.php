@@ -166,7 +166,6 @@
 
 <br>
 
-@include('item.partials.quantidades')
 
 <br>
 {{ $itens->appends(request()->query())->links() }}

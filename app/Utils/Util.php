@@ -26,32 +26,25 @@ class Util {
         $texto_utf8 = iconv(mb_detect_encoding($novo_texto, mb_detect_order(), true) , 'ASCII//TRANSLIT//IGNORE', $novo_texto);
         return $texto_utf8; // Retorna o valor formatado
     }
+
     public static function quantidades($itens){
         $quantidades = [];
 
-        $q = clone $itens;
-        $quantidades['sugestao'] = $q->where('status', 'Sugestão')->count();
+        $quantidades['sugestao'] = $itens->where('status', 'Sugestão')->count();
 
-        $q = clone $itens;
-        $quantidades['cotacao'] = $q->where('status', 'Em Cotação')->count();
+        $quantidades['cotacao'] = $itens->where('status', 'Em Cotação')->count();
 
-        $q = clone $itens;
-        $quantidades['licitacao'] = $q->where('status', 'Em Licitação')->count();
+        $quantidades['licitacao'] = $itens->where('status', 'Em Licitação')->count();
 
-        $q = clone $itens;
-        $quantidades['tombamento'] = $q->where('status', 'Em Tombamento')->count();
+        $quantidades['tombamento'] = $itens->where('status', 'Em Tombamento')->count();
 
-        $q = clone $itens;
-        $quantidades['negado'] = $q->where('status', 'Negado')->count();
+        $quantidades['negado'] = $itens->where('status', 'Negado')->count();
 
-        $q = clone $itens;
-        $quantidades['tombado'] = $q->where('status', 'Tombado')->count();
+        $quantidades['tombado'] = $itens->where('status', 'Tombado')->count();
 
-        $q = clone $itens;
-        $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
+        $quantidades['processamento'] = $itens->where('status', 'Em Processamento Técnico')->count();
 
-        $q = clone $itens;
-        $quantidades['processado'] = $q->where('status', 'Processado')->count();
+        $quantidades['processado'] = $itens->where('status', 'Processado')->count();
         return $quantidades;
     }
 

@@ -22,7 +22,7 @@ class SaiController extends Controller
     private function search(){
         $request = request();
         $itens = Item::orderBy('tombo', 'desc');
-        $this->authorize('admin');
+        $this->authorize('sai');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -90,7 +90,7 @@ class SaiController extends Controller
     }
 
     public function index(Request $request){
-        $this->authorize('admin');
+        $this->authorize('sai');
         $itens = $this->search();
         $query = $itens->paginate(15);
 

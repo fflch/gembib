@@ -89,7 +89,7 @@ return [
         [
             'text' => 'Busca (será desativado)',
             'url'  => '/item',
-            'can'  => 'sai',
+            'can'  => 'admin',
         ],
 
 
