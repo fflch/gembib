@@ -129,6 +129,7 @@
       &data_processamento_inicio={{ request()->data_processamento_inicio }}
       &data_processamento_fim={{ request()->data_processamento_fim }}">
       <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
+      <button name="relatorio" type="submit" class="btn btn-warning" name = "relatorio" value="relatorio"> Gerar Relatório </button>
   </div>
 </form>
 

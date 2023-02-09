@@ -12,9 +12,7 @@
   </tr>
 </table>
 
-<div>
-  <h3><center>{{ $titulo }}</center></h3>
-</div>
+
 
 <table style='width:100%'>
   <thead>

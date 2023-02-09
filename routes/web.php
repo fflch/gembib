@@ -70,3 +70,4 @@ Route::get('/sai', [SaiController::class, 'index']);
 
 # rotas para STL
 Route::get('/stl', [StlController::class, 'index']);
+Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
