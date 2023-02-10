@@ -207,6 +207,12 @@
     <label for="titulo">Escala:</label>
     <input type="text" id="escala" value="{{old('escala', $item->escala)}}" class="form-control" name="escala" placeholder="Digite a escala do mapa"/>
   </div>
+  @if($item->status == 'Em Processamento Técnico')
+    <div class="col-sm form-group">
+      <label for="tombo">Tombo:</label>
+      <input type="text" id="tombo" value="{{old('tombo', $item->tombo)}}" class="form-control" name="tombo"/>
+    </div>
+  @endif
 </div>
 
 <br><h3>Informações adicionais</h3>

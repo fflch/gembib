@@ -194,19 +194,15 @@ class ItemController extends Controller
 
         $validated = $request->validated();
 
-        $validated['status'] = 'Em Tombamento';
+        $validated['status'] = 'Tombado';
         $validated['insercao_por'] = Auth::user()->codpes;
         $validated['alterado_por'] = Auth::user()->codpes;
         $validated['data_tombamento'] = Carbon::now();
         $validated['data_sugestao'] = Carbon::now();
-
+        $validated['tombo'] = Item::max('tombo') + 1;
         $item = Item::create($validated);
         $item->save();
-        $validated['status'] = 'Tombado';
-        //numero de tombo será gerado automaticamente
-        if(empty($item->tombo)) {
-            $validated['tombo'] = Item::max('tombo') + 1;
-        } 
+
         $item->alterado_por = Auth::user()->codpes;
         $item->update($validated);
 
