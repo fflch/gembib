@@ -115,7 +115,8 @@
       </div>
     </div>
 
-    <br><button type="submit" class="btn btn-success mr-2">Buscar</button>
+    <br><button type="submit" class="btn btn-success mr-2" name="buscar"
+                      value="buscar">Buscar</button>
 
     <a class="btn btn-info" href="/excel?status={{ request()->status }}
       &procedencia={{ request()->procedencia }}
@@ -164,33 +165,33 @@
             <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
           @endif
           @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )
-            <form method="POST" action="/item/{{$item->id}}"> 
+            <form method="POST" action="/item/{{$item->id}}">
                 @csrf
                 @method('delete')
-                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>
             </form>
           @endif
           @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
           @if($item->is_active)
-            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button>
           @else
-           <form method="POST" action="/item/is_active"> 
+           <form method="POST" action="/item/is_active">
               @csrf
               <input type="hidden" name="tombo" value="{{$item->tombo}}">
               <input type="hidden" name="is_active" value="1">
-    
-              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+
+              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>
             </form>
           @endif
           @endif
 
 
-          <form method="POST" action="/item/duplicar"> 
+          <form method="POST" action="/item/duplicar">
             @csrf
             <input type="hidden" name="itemId" value="{{$item->id}}">
-            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>  
+            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>
           </form>
-        </td>  
+        </td>
     </tr>
   @endforeach
   </tbody>
