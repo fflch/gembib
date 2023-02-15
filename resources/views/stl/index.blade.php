@@ -3,7 +3,7 @@
 @section('content')
 @include('flash')
 
-<form method="GET">
+<form method="GET" action="/stl">
   <div class="form-group">
     <div id="container" class="col-sm form-group">
       @foreach(request()->campos ?? [''] as $select_campo)
@@ -88,8 +88,8 @@
          </select>
        </div>
     </div>
-
-    <br><button type="submit" class="btn btn-success mr-2">Buscar</button>
+    
+    <br><button type="Submit" value="buscar" name="buscar" class="btn btn-success mr-2">Buscar</button>
 
     <a class="btn btn-info" href="/excel?status={{ request()->status }}
     &procedencia={{ request()->procedencia }}
@@ -103,10 +103,12 @@
     &data_processamento_inicio={{ request()->data_processamento_inicio }}
     &data_processamento_fim={{ request()->data_processamento_fim }}">
     <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
+    <button name="relatorio" type="submit" class="btn btn-warning" name = "relatorio" value="relatorio"> Gerar Relatório </button>
   </div>
-
-@include('item.partials.quantidades')
 </form>
+
+<br>
+@include('item.partials.quantidades')
 
 <table class="table table-striped">
   <thead>

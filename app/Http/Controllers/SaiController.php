@@ -9,7 +9,8 @@ use App\Http\Requests\ItemRequest;
 use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\Utils\Util;
-
+use PDF;
+use DB;
 
 class SaiController extends Controller
 {
@@ -22,7 +23,6 @@ class SaiController extends Controller
     private function search(){
         $request = request();
         $itens = Item::orderBy('tombo', 'desc');
-        $this->authorize('sai');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -86,24 +86,41 @@ class SaiController extends Controller
             $query->whereNotNull('data_sugestao');
         });
         return $itens;
-
     }
 
     public function index(Request $request){
         $this->authorize('sai');
-        $itens = $this->search();
-        $query = $itens->paginate(15);
 
+        if($request->relatorio == 'relatorio'){
+            return $this->reportItens();
+        }
+
+        $query = $this->search()->paginate(15);
 
         return view('sai.index',[
-            'itens'         => $itens,
             'campos'        => $this->campos,
-            'quantidades'   => Util::quantidades($query),
             'query'         => $query,
+            'quantidades'   => Util::quantidades($query),
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,
             'tipo_aquisicao'=> $this->tipo_aquisicao,
             'status'        => $this->status
+        ]);
+    }
+
+    private function reportItens() {
+        $query = $this->search();
+        $itens = $query->get();
+        $total = $query->sum('preco');
+
+        $pdf = PDF::loadView('pdfs.relatorio', compact('itens','total'));
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+
+        $canvas = $dom_pdf ->get_canvas();
+        $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        return $pdf->download('relatorio.pdf',[
+            'itens' => $itens,
         ]);
     }
 }
