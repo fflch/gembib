@@ -197,7 +197,14 @@
         row_select--;
       }
     });
-
+    $("input[name^='search']").keypress(function (e) {
+      var key = e.which;
+      if(key == 13)  // the enter key code
+        {
+          $('#buscar').click();
+          return false;  
+        }
+      });   
   });
 </script>
 

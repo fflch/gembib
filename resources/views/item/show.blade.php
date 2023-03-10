@@ -11,11 +11,18 @@
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
-  @if($item->status == 'Em Processamento Técnico')
+  @if($item->status == 'Em Processamento Técnico' || $item->status == 'Tombado' || $item->status == 'Processado')
     @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
     <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
     <br><br>
     @endif
+  @endif
+  @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento', 'Em Processamento Técnico', 'Processado']) )
+    <form method="POST" action=""> 
+        @csrf
+        @method('delete')
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+    </form>
   @endif
   <tbody>
     @if(isset($item->recebido_sau) && $item->status == "Processado")
