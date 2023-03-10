@@ -23,7 +23,6 @@ class SaiController extends Controller
     private function search(){
         $request = request();
         $itens = Item::orderBy('tombo', 'desc');
-        $this->authorize('sai');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -91,40 +90,37 @@ class SaiController extends Controller
 
     public function index(Request $request){
         $this->authorize('sai');
-        
-        if($request->buscar == 'buscar' || $request->relatorio == NULL){
-            $query = $this->search()->paginate(15);
 
-            return view('sai.index',[
-                'campos'        => $this->campos,
-                'query'         => $query,
-                'quantidades'   => Util::quantidades($query),
-                'procedencia'   => $this->procedencia,
-                'tipo_material' => $this->tipo_material,
-                'tipo_aquisicao'=> $this->tipo_aquisicao,
-                'status'        => $this->status
-            ]);
-        }
         if($request->relatorio == 'relatorio'){
-            $itens = $this->search()->get();
-
-            $titulo = $request->relatorio_titulo;
-
-            $total = 0;
-            foreach($itens as $item){
-                $precoreplace = str_replace(',','.',$item->preco);
-                $total += (float)$precoreplace;
-            }
-
-            $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo','total'));
-            $pdf->output();
-            $dom_pdf = $pdf->getDomPDF();
-
-            $canvas = $dom_pdf ->get_canvas();
-            $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-            return $pdf->download('relatorio.pdf',[
-                'itens'         => $itens,
-            ]);
+            return $this->reportItens();
         }
+
+        $query = $this->search()->paginate(15);
+
+        return view('sai.index',[
+            'campos'        => $this->campos,
+            'query'         => $query,
+            'quantidades'   => Util::quantidades($query),
+            'procedencia'   => $this->procedencia,
+            'tipo_material' => $this->tipo_material,
+            'tipo_aquisicao'=> $this->tipo_aquisicao,
+            'status'        => $this->status
+        ]);
+    }
+
+    private function reportItens() {
+        $query = $this->search();
+        $itens = $query->get();
+        $total = $query->sum('preco');
+
+        $pdf = PDF::loadView('pdfs.relatorio', compact('itens','total'));
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+
+        $canvas = $dom_pdf ->get_canvas();
+        $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        return $pdf->download('relatorio.pdf',[
+            'itens' => $itens,
+        ]);
     }
 }
