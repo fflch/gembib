@@ -197,7 +197,7 @@
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
         <td>
-          @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação')
+          @if(in_array($item->status, ['Em Tombamento', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
             <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
           @endif
           @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )

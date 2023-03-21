@@ -11,8 +11,8 @@
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
-  @if($item->status == 'Em Processamento Técnico' || $item->status == 'Tombado' || $item->status == 'Processado')
-    @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+  @if(in_array($item->status,['Em Processamento Técnico', 'Tombado', 'Processado']) )
+    @if(in_array($item->status, ['Tombado', 'Em Processamento Técnico', 'Processado'])  )
     <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
     <br><br>
     @endif
