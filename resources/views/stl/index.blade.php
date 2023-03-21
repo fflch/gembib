@@ -89,7 +89,7 @@
        </div>
     </div>
     
-    <br><button type="Submit" value="buscar" name="buscar" class="btn btn-success mr-2">Buscar</button>
+    <br><button type="submit" class="btn btn-success mr-2" name="buscar" value="buscar">Buscar</button>
 
     <a class="btn btn-info" href="/excel?status={{ request()->status }}
     &procedencia={{ request()->procedencia }}
@@ -197,7 +197,14 @@
         row_select--;
       }
     });
-
+    $("input[name^='search']").keypress(function (e) {
+      var key = e.which;
+      if(key == 13)  // the enter key code
+        {
+          $('#buscar').click();
+          return false;  
+        }
+      });   
   });
 </script>
 

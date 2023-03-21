@@ -137,8 +137,7 @@ class ItemController extends Controller
         return $quantidades;
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $this->authorize('ambos');
         $query = $this->search();
         $quantidades = $this->quantidades($query);
@@ -155,8 +154,7 @@ class ItemController extends Controller
             ]);
     }
 
-    public function indexPublic(Request $request)
-    {
+    public function indexPublic(Request $request){
         $query = Item::orderBy('created_at', 'desc');
 
         if (!empty($request->search)) {
@@ -175,21 +173,18 @@ class ItemController extends Controller
         ]);
     }
 
-    public function create()
-    {
+    public function create(){
         $this->authorize('ambos');
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Request $request, Item $item)
-    {
+    public function show(Request $request, Item $item){
         $this->authorize('ambos');
         $area = Area::where('codigo', $item->capes)->first();
         return view('item/show', compact('item', 'area'));
     }
 
-    public function store(ItemRequest $request)
-    {
+    public function store(ItemRequest $request){
         $this->authorize('ambos');
 
         $validated = $request->validated();
@@ -233,16 +228,15 @@ class ItemController extends Controller
     }
 
 
-    public function destroy(Item $item)
-    {
+    public function destroy(Item $item){
         $this->authorize('ambos');
-        if($item->status == 'Em Tombamento' ){
+        if($item->tombo == NULL ){
             $item->delete();
             request()->session()->flash('alert-info','Item excluído com sucesso.');
         }else{
-            request()->session()->flash('alert-danger','Não é possível excluir um item tombado, apenas desativá-lo.');
+            request()->session()->flash('alert-danger','Não é possível excluir um item que possua Tombo.');
         }
-        return redirect("/item");
+        return redirect("/");
     }
 
     public function set_is_active(Request $request){

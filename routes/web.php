@@ -25,6 +25,7 @@ Route::resource('/item', ItemController::class);
 Route::post('/item/is_active', [ItemController::class, 'set_is_active']);
 Route::post('/item/duplicar', [ItemController::class, 'duplicar']);
 Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_update']);
+Route::delete('/item/etiqueta_update/{item}', [ItemController::class, 'destroy']);
 
 /* rota resource pedido */
 Route::get('/pedido/create', [PedidoController::class, 'create'])

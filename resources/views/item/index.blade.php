@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <div class="form-group col-sm-2">
-        <input type="text" name="codigoimpressao" value="{{ request()->codigoimpressao  }}" style="width: 300px" placeholder="Busca por Código de Impressão"> 
+        <input type="text" name="codigoimpressao" value="{{ request()->codigoimpressao  }}" style="width: 300px" placeholder="Busca por Código de Impressão">
       </div>
     </div>
 </div>
@@ -127,7 +127,7 @@
   </div>
 </div>
 
-  
+
   <br>
 
   <button type="submit" class="btn btn-success mr-2">Buscar</button>
@@ -145,7 +145,7 @@
   &data_tombamento_fim={{ request()->data_tombamento_fim }}
   &data_processamento_inicio={{ request()->data_processamento_inicio }}
   &data_processamento_fim={{ request()->data_processamento_fim }}">
-  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>  
+  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
 </form>
 <br>
 
@@ -161,7 +161,7 @@
   &data_tombamento_fim={{ request()->data_tombamento_fim }}
   &data_processamento_inicio={{ request()->data_processamento_inicio }}
   &data_processamento_fim={{ request()->data_processamento_fim }}">
-  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>  
+  <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
 </div>
 
 <br>
@@ -197,38 +197,38 @@
         <td>{{ $item->procedencia }}</td>
         <td>{{ $item->sugerido_por }}</td>
         <td>
-          @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
+          @if(in_array($item->status, ['Em Tombamento', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
             <a href="/item/{{ $item->id }}/edit" class="btn btn-warning w-100 mb-1">Editar</a>
           @endif
           @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento']) )
-            <form method="POST" action="/item/{{$item->id}}"> 
+            <form method="POST" action="/item/{{$item->id}}">
                 @csrf
                 @method('delete')
-                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>
             </form>
           @endif
           @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
           @if($item->is_active)
-            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+            <button type="button" class="btn btn-danger w-100 mt-1" onclick="desativarTombo({{$item->tombo}});"> Desativar </button>
           @else
-           <form method="POST" action="/item/is_active"> 
+           <form method="POST" action="/item/is_active">
               @csrf
               <input type="hidden" name="tombo" value="{{$item->tombo}}">
               <input type="hidden" name="is_active" value="1">
-    
-              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+
+              <button type="submit" class="btn btn-success w-100 mt-1" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>
             </form>
           @endif
           @endif
 
 
-          <form method="POST" action="/item/duplicar"> 
+          <form method="POST" action="/item/duplicar">
             @csrf
             <input type="hidden" name="itemId" value="{{$item->id}}">
-            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>  
+            <button type="submit" class="btn btn-info w-100 mt-1" onclick="return confirm('Tem certeza que deseja duplicar?');"> Duplicar </button>
           </form>
-        </td>  
-       
+        </td>
+
       </tr>
       @endforeach
 

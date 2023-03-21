@@ -11,11 +11,16 @@
 <div class="card">
   <div class="card-body">
 <table class="table table-striped">
-  @if($item->status == 'Em Processamento Técnico')
-    @if($item->status != 'Sugestão' && $item->status != 'Em Cotação' && $item->status != 'Negado' && $item->status != 'Em Licitação' && $item->status != 'Em Tombamento' )
-    <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a> 
+  @if(in_array($item->status,['Em Processamento Técnico', 'Tombado', 'Processado']) )
+    <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
     <br><br>
-    @endif
+  @endif
+  @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento', 'Em Processamento Técnico', 'Processado']) )
+    <form method="POST" action="">
+        @csrf
+        @method('delete')
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>
+    </form>
   @endif
   <tbody>
     @if(isset($item->recebido_sau) && $item->status == "Processado")
@@ -257,19 +262,19 @@
       <td scope="row">{{ $item->observacao ?? 'Não cadastrado' }}</td>
     </tr>
     @endif
-         
+
     @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
       <tr>
         <th scope="col">Item está {{ $item->is_active ? 'ativo' : 'desativo' }}</th>
         <td scope="row">
             @if($item->is_active)
-              <button type="button" class="btn btn-danger" onclick="desativarTombo({{$item->tombo}});"> Desativar </button> 
+              <button type="button" class="btn btn-danger" onclick="desativarTombo({{$item->tombo}});"> Desativar </button>
             @else
-            <form method="POST" action="/item/is_active"> 
+            <form method="POST" action="/item/is_active">
                 @csrf
                 <input type="hidden" name="tombo" value="{{$item->tombo}}">
                 <input type="hidden" name="is_active" value="1">
-                <button type="submit" class="btn btn-success" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>  
+                <button type="submit" class="btn btn-success" onclick="return confirm('Tem certeza que deseja ativar?');"> Ativar </button>
               </form>
         @endif
         </td>
