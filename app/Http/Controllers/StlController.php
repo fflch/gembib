@@ -79,7 +79,7 @@ class StlController extends Controller
             $query->whereBetween('created_at', [$from, $to]);
             $query->whereNotNull('created_at');
         });
-        return $itens;
+        return $itens->toBase();
     }
 
     public function index(Request $request){

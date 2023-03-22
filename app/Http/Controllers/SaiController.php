@@ -85,7 +85,7 @@ class SaiController extends Controller
             $query->whereBetween('data_sugestao', [$from, $to]);
             $query->whereNotNull('data_sugestao');
         });
-        return $itens;
+        return $itens->toBase();
     }
 
     public function index(Request $request){

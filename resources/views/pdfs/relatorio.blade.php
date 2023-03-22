@@ -13,7 +13,7 @@
 </table>
 
 <div>
-  <h3><center>{{ $titulo }}</center></h3>
+  <h3><center>{{ $titulo  ?? '' }}</center></h3>
 </div>
 
 <table style='width:100%'>
@@ -27,9 +27,9 @@
       <th>Preço:</th>
     </tr>
   </thead>
-  
+
   <tbody>
-  	@foreach($itens as $item) 
+  	@foreach($itens as $item)
     <tr>
       <td><center>{{$item->tombo}}</td>
       <td>{{$item->autor}}</td>
