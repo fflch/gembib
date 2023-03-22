@@ -85,7 +85,7 @@ class SaiController extends Controller
             $query->whereBetween('data_sugestao', [$from, $to]);
             $query->whereNotNull('data_sugestao');
         });
-        return $itens;
+        return $itens->toBase();
     }
 
     public function index(Request $request){
@@ -96,11 +96,12 @@ class SaiController extends Controller
         }
 
         $query = $this->search()->paginate(15);
+        $quantidades = $this->search()->get();
 
         return view('sai.index',[
             'campos'        => $this->campos,
             'query'         => $query,
-            'quantidades'   => Util::quantidades($query),
+            'quantidades'   => Util::quantidades($quantidades),
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,
             'tipo_aquisicao'=> $this->tipo_aquisicao,
