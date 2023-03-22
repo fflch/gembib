@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <br><button type="submit" class="btn btn-success mr-2" name="buscar" value="buscar">Buscar</button>
+    <br><button type="submit" class="btn btn-success mr-2" id="buscar" name="buscar" value="buscar">Buscar</button>
 
     <a class="btn btn-info" href="/excel?status={{ request()->status }}
       &procedencia={{ request()->procedencia }}
