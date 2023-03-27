@@ -15,15 +15,15 @@
     </thead>
     <tbody>
       <tr align="center">
-        <td>{{ $quantidades['sugestao'] }}</td>
-        <td>{{ $quantidades['cotacao'] }}</td>
-        <td>{{ $quantidades['negado'] }}</td>
-        <td>{{ $quantidades['licitacao'] }}</td>
-        <td>{{ $quantidades['tombamento'] }}</td>
-        <td>{{ $quantidades['tombado'] }}</td>
-        <td>{{ $quantidades['processamento'] }}</td>
-        <td>{{ $quantidades['processado'] }}</td>
-        <td>{{ $query->total() }}</td>
+        <td>{{ $quantidades->sugestao }}</td>
+        <td>{{ $quantidades->cotacao }}</td>
+        <td>{{ $quantidades->negado }}</td>
+        <td>{{ $quantidades->licitacao }}</td>
+        <td>{{ $quantidades->tombamento }}</td>
+        <td>{{ $quantidades->tombado }}</td>
+        <td>{{ $quantidades->processamento }}</td>
+        <td>{{ $quantidades->processado }}</td>
+        <td>{{ $quantidades->total }}</td>
       </tr>
     </tbody>
   </table>

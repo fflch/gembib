@@ -96,12 +96,11 @@ class SaiController extends Controller
         }
 
         $query = $this->search()->paginate(15);
-        $quantidades = $this->search()->get();
 
         return view('sai.index',[
             'campos'        => $this->campos,
             'query'         => $query,
-            'quantidades'   => Util::quantidades($quantidades),
+            'quantidades'   => Util::quantidades($request),
             'procedencia'   => $this->procedencia,
             'tipo_material' => $this->tipo_material,
             'tipo_aquisicao'=> $this->tipo_aquisicao,

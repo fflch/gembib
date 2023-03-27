@@ -2,15 +2,15 @@
 
 
 namespace App\Utils;
-use App\Item;
+use App\Models\Item;
 use App\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 
 class Util {
-   
+
     public static function limita_caracteres($texto, $limite, $quebra = true){
         $tamanho = strlen($texto);
         if($tamanho <= $limite){ // Verifica se o tamanho do texto é menor ou igual ao limite
@@ -27,25 +27,76 @@ class Util {
         return $texto_utf8; // Retorna o valor formatado
     }
 
-    public static function quantidades($itens){
-        $quantidades = [];
+    public static function quantidades(Request $request){
 
-        $quantidades['sugestao'] = $itens->where('status', 'Sugestão')->count();
+        $totals = DB::table('itens')
+            ->selectRaw('count(*) as total')
+            ->selectRaw("count(case when status = 'Sugestão' then 1 end) as sugestao")
+            ->selectRaw("count(case when status = 'Em Cotação' then 1 end) as cotacao")
+            ->selectRaw("count(case when status = 'Em Licitação' then 1 end) as licitacao")
+            ->selectRaw("count(case when status = 'Em Tombamento' then 1 end) as tombamento")
+            ->selectRaw("count(case when status = 'Negado' then 1 end) as negado")
+            ->selectRaw("count(case when status = 'Tombado' then 1 end) as tombado")
+            ->selectRaw("count(case when status = 'Em Processamento Técnico' then 1 end) as processamento")
+            ->selectRaw("count(case when status = 'Processado' then 1 end) as processado");
 
-        $quantidades['cotacao'] = $itens->where('status', 'Em Cotação')->count();
+        if($request->has('campos')) {
+            $campos = Item::campos;
+            unset($campos['todos_campos']);
+            foreach($request->campos as $key => $value) {
+                $totals->when(!is_null($value) && !is_null($request->search[$key]),
+                    function($query) use ($request, $campos, $key, $value) {
+                        if($value == 'todos_campos'){
+                            foreach($campos as $chave => $campo) {
+                                $query->orWhere($chave, 'LIKE', '%' . $request->search[$key] . '%');
+                            }
+                        }
+                        else {
+                            $query->where($value,'LIKE', '%'.$request->search[$key].'%');
+                        }
+                    }
+                );
+            }
+        }
 
-        $quantidades['licitacao'] = $itens->where('status', 'Em Licitação')->count();
+        $totals->when($request->status, function($query) use ($request) {
+            $query->where('status', '=', $request->status);
+        });
 
-        $quantidades['tombamento'] = $itens->where('status', 'Em Tombamento')->count();
+        $totals->when($request->procedencia, function($query) use ($request) {
+            $query->where('procedencia', '=', $request->procedencia);
+        });
 
-        $quantidades['negado'] = $itens->where('status', 'Negado')->count();
+        $totals->when($request->tipo_material, function($query) use ($request) {
+            $query->where('tipo_material', '=', $request->tipo_material);
+        });
 
-        $quantidades['tombado'] = $itens->where('status', 'Tombado')->count();
+        $totals->when($request->tipo_aquisicao, function($query) use ($request) {
+            $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
+        });
 
-        $quantidades['processamento'] = $itens->where('status', 'Em Processamento Técnico')->count();
+        $totals->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim)->format('Y-m-d');
+            $query->whereBetween('data_processamento', [$from, $to]);
+            $query->whereNotNull('data_processamento');
+        });
 
-        $quantidades['processado'] = $itens->where('status', 'Processado')->count();
-        return $quantidades;
+        $totals->when(($request->data_tombamento_inicio) && ($request->data_tombamento_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_tombamento_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim)->format('Y-m-d');
+            $query->whereBetween('data_tombamento', [$from, $to]);
+            $query->whereNotNull('data_tombamento');
+        });
+
+        $totals->when(($request->data_aquisicao_inicio) && ($request->data_aquisicao_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_fim)->format('Y-m-d');
+            $query->whereBetween('created_at', [$from, $to]);
+            $query->whereNotNull('created_at');
+        });
+
+        return $totals->first();
     }
 
 }
