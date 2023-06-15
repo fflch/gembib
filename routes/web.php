@@ -18,7 +18,8 @@ Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
 
 /* excel */
-Route::get('/excel', [ItemController::class, 'excel']);
+Route::get('/excelSTL', [StlController::class, 'excel']);
+Route::get('/excelSAI', [SaiController::class, 'excel']);
 
 /* rota item */
 Route::resource('/item', ItemController::class);

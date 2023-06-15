@@ -62,8 +62,8 @@ class SaiController extends Controller
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
-            $query->whereBetween('data_processamento', [$from, $to]);
-            $query->whereNotNull('data_processamento');
+            $query->whereBetween('data_processado', [$from, $to]);
+            $query->whereNotNull('data_processado');
         });
 
         $itens->when(($request->data_tombamento_inicio) && ($request->data_tombamento_fim), function($query) use ($request) {
@@ -95,6 +95,10 @@ class SaiController extends Controller
             return $this->reportItens();
         }
 
+        if($request->excel == 'excel'){
+            return $this->excel();
+        }
+
         $query = $this->search()->paginate(15);
 
         return view('sai.index',[
@@ -122,5 +126,17 @@ class SaiController extends Controller
         return $pdf->download('relatorio.pdf',[
             'itens' => $itens,
         ]);
+    }
+
+    public function excel(){
+        $query = $this->search();
+        $q = clone $query;
+        if($q->count() > 10000){
+            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo,
+            limite de 10000 registros excedido");
+            return redirect('/sai');
+        }
+        $export = new FastExcel($query->get());
+        return $export->download(date("YmdHi").'gembib.xlsx');
     }
 }

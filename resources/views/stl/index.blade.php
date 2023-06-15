@@ -91,18 +91,8 @@
     
     <br><button type="submit" class="btn btn-success mr-2" id="buscar" name="buscar" value="buscar">Buscar</button>
 
-    <a class="btn btn-info" href="/excel?status={{ request()->status }}
-    &procedencia={{ request()->procedencia }}
-    &tipo_material={{ request()->tipo_material }}
-    &tipo_aquisicao={{ request()->tipo_aquisicao }}
-    &busca={{ request()->busca }}
-    &data_sugestao_inicio={{ request()->data_sugestao_inicio }}
-    &data_sugestao_fim={{ request()->data_sugestao_fim }}
-    &data_tombamento_inicio={{ request()->data_tombamento_inicio }}
-    &data_tombamento_fim={{ request()->data_tombamento_fim }}
-    &data_processamento_inicio={{ request()->data_processamento_inicio }}
-    &data_processamento_fim={{ request()->data_processamento_fim }}">
-    <i class="fas fa-file-excel"></i> Exportar busca em excel</a>
+    <button name="excel" type="submit" class="btn btn-info" id="excel" value="excel">Exportar busca em excel</button>
+    
     <button name="relatorio" type="submit" class="btn btn-warning" name = "relatorio" value="relatorio"> Gerar Relatório </button>
   </div>
 </form>
