@@ -94,8 +94,8 @@ class ItemController extends Controller
         if (!empty($request->data_processamento_inicio) && !empty($request->data_processamento_fim)) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
-            $query->whereBetween('data_processamento', [$from, $to]);
-            $query->whereNotNull('data_processamento');
+            $query->whereBetween('data_processado', [$from, $to]);
+            $query->whereNotNull('data_processado');
         }
 
         if (!empty($request->data_tombamento_inicio) && !empty($request->data_tombamento_fim)) {

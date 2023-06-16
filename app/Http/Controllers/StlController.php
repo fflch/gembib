@@ -62,8 +62,8 @@ class StlController extends Controller
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim)->format('Y-m-d');
-            $query->whereBetween('data_processamento', [$from, $to]);
-            $query->whereNotNull('data_processamento');
+            $query->whereBetween('data_processado', [$from, $to]);
+            $query->whereNotNull('data_processado');
         });
 
         $itens->when(($request->data_tombamento_inicio) && ($request->data_tombamento_fim), function($query) use ($request) {
@@ -83,10 +83,15 @@ class StlController extends Controller
     }
 
     public function index(Request $request){
+        
         $this->authorize('stl');
 
         if($request->relatorio == 'relatorio'){
             return $this->reportItens();
+        }
+
+        if($request->excel == 'excel'){
+            return $this->excel();
         }
 
         $query = $this->search()->paginate(15);
@@ -107,14 +112,26 @@ class StlController extends Controller
         $itens = $query->get();
         $total = $query->sum('preco');
 
-        $pdf = PDF::loadView('pdfs.relatorio', compact('itens','total'));
+        $pdf = PDF::loadView('pdfs.relatorioSTL', compact('itens','total'));
         $pdf->output();
         $dom_pdf = $pdf->getDomPDF();
 
         $canvas = $dom_pdf ->get_canvas();
         $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-        return $pdf->download('relatorio.pdf',[
+        return $pdf->download('relatorioSTL.pdf',[
             'itens' => $itens,
         ]);
+    }
+
+    public function excel(){
+        $query = $this->search();
+        $q = clone $query;
+        if($q->count() > 10000){
+            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo,
+            limite de 10000 registros excedido");
+            return redirect('/stl');
+        }
+        $export = new FastExcel($query->get());
+        return $export->download(date("YmdHi").'gembib.xlsx');
     }
 }
