@@ -22,7 +22,7 @@ class StlController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado')->orderByRaw('-tombo DESC');
+        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado')->where('is_active','=',1)->orderByRaw('-tombo DESC');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -62,6 +62,13 @@ class StlController extends Controller
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim)->format('Y-m-d');
+            $query->whereBetween('data_processamento', [$from, $to]);
+            $query->whereNotNull('data_processamento');
+        });
+
+        $itens->when(($request->data_processado_inicio) && ($request->data_processado_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_processado_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_processado_fim)->format('Y-m-d');
             $query->whereBetween('data_processado', [$from, $to]);
             $query->whereNotNull('data_processado');
         });

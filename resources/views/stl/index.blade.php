@@ -39,7 +39,7 @@
 
     <div class="row justify-content-md-left">
       <div class="col col-lg-2">
-        <label for="">Data Processamento</label>
+        <label for="">Data Processamento [Status: Em Processamento Técnico]</label>
       </div>
       <div class="col-md-lg-2">
         <input type="text" data-mask="00/00/0000" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
@@ -47,8 +47,22 @@
       <div class="col col-lg-2">
         <input type="text" data-mask="00/00/0000" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
       </div>
-     </div>
-     <br><br>
+    </div>
+    <br>
+
+    <div class="row justify-content-md-left">
+      <div class="col col-lg-2">
+        <label for="">Data Processado [Status: Processado]</label>
+      </div>
+      <div class="col-md-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processado_inicio" class="datepicker" value="{{ Request()->data_processado_inicio }}"> <b>-</b>
+      </div>
+      <div class="col col-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processado_fim" class="datepicker" value="{{ Request()->data_processado_fim }}">
+      </div>
+    </div>
+    <br>
+    
      <div class="row">
        <div class="col-sm form-group">
          <select name="status" class="btn btn-success mr-2">
