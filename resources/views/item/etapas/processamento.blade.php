@@ -25,6 +25,7 @@
             <button type="submit" name="etiqueta_lombada" class="btn btn-success" onclick="return confirm('Alterar a etiqueta de lombada?')"> Atualizar Lombada </button>
         </form>
         <span>
+        @endif
     </div>
 </div>
 
@@ -35,4 +36,3 @@
     <button type="submit" name="processar_processamento" class="btn btn-info" value="Em Tombamento" onclick="return confirm('Mudar status para Em Tombamento?')">Dar entrada/devolver ao Tombamento</button>
     <br><br>
 </form>
-@endif
