@@ -23,7 +23,8 @@
       <th>Autor:</th>
       <th>Título:</th>
       <th>Status:</th>
-      <th>Data de Processamento Técnico:</th>
+      <th>Data de de Envio para Processamento Técnico:</th>
+      <th>Data de Finalização do Processamento Técnico:</th>
     </tr>
   </thead>
 
@@ -34,6 +35,7 @@
       <td>{{$item->autor}}</td>
       <td>{{$item->titulo}}</td>
       <td>{{$item->status}}</td>
+      <td>{{$item->data_processamento}}</td>
       <td>{{$item->data_processado}}</td>
     </tr>
     @endforeach

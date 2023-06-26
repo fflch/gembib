@@ -53,6 +53,12 @@
       <td scope="col">{{ $item->data_processamento ?? 'Não cadastrado' }}</td>
     </tr>
     @endif
+    @if(!empty($item->data_processado))
+    <tr>
+      <th scope="col">Data em que foi processado:</th>
+      <td scope="col">{{ $item->data_processado ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
     @if(!empty($item->cod_impressao))
     <tr>
       <th scope="col">Código de impressão:</th>
