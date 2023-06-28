@@ -22,7 +22,7 @@ class StlController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado')->where('is_active','=',1)->orderByRaw('-tombo DESC');
+        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_processamento')->where('is_active','=',1)->orderByRaw('-tombo DESC');
 
         if($request->has('campos')) {
             $campos = Item::campos;
