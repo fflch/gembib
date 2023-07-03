@@ -30,13 +30,25 @@ class StlController extends Controller
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
+                        $string = explode(' ', $request->search[$key]);
+                        $string_reverse = array_reverse($string);
+                        $string = implode('%',$string);
+                        $string_reverse = implode('%', $string_reverse);
+
                         if($value == 'todos_campos'){
                             foreach($campos as $chave => $campo) {
-                                $query->orWhere($chave, 'LIKE', '%' . $request->search[$key] . '%');
+                                if($chave == 'titulo'){
+                                    $query->where($chave, 'LIKE', '%' . $string . '%');
+                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');
+                                }
+                                else{
+                                    $query->orWhere($chave, 'LIKE', '%' . $string . '%');
+                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');                                }
                             }
                         }
                         else {
-                            $query->where($value,'LIKE', '%'.$request->search[$key].'%');
+                            $query->where($value,'LIKE', '%'.$string.'%');
+                            $query->orWhere($value,'LIKE', '%' . $string_reverse . '%');
                         }
                     }
                 );
