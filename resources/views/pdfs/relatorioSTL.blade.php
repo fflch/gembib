@@ -16,7 +16,7 @@
   <h3><center>{{ $titulo  ?? '' }}</center></h3>
 </div>
 
-<table style='width:100%'>
+<table style='width:80%'>
   <thead>
     <tr>
       <th>Tombo:</th>
