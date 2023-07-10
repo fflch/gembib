@@ -8,8 +8,8 @@
 
   <h4>Relatório de Aquisição</h4><br>
 
-  <label for="titulo">Título do relatório:</label>
-  <input type="text" id="titulo" style="width: 540px" class="form-control" value="{{old('titulo')}}" name="titulo"/>
+  <label for="titulo_relatorio">Título do relatório:</label>
+  <input type="text" id="titulo_relatorio" style="width: 540px" class="form-control" value="{{old('titulo_relatorio')}}" name="titulo_relatorio"/>
   <br>
 
   <div class="row">
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <div class="form-group col-sm-2">
-        <input type="text" name="codigoimpressao" value="{{ request()->codigoimpressao  }}" style="width: 300px" placeholder="Busca por Código de Impressão">
+        <input type="text" name="cod_impressao" value="{{ request()->cod_impressao  }}" style="width: 300px" placeholder="Busca por Código de Impressão">
       </div>
     </div>
 </div>

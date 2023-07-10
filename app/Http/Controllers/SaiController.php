@@ -123,7 +123,7 @@ class SaiController extends Controller
 
         $canvas = $dom_pdf ->get_canvas();
         $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-        return $pdf->download('relatorio.pdf',[
+        return $pdf->download('relatorioSAI.pdf',[
             'itens' => $itens,
         ]);
     }
