@@ -21,7 +21,12 @@ class PedidoController extends Controller
                 $query->where('titulo', 'like', "%$request->titulo%");
             })
             ->when($request->autor, function ($query) use ($request) {
-                $query->where('autor', 'like', "%$request->autor%");
+                $string = explode(' ', $request->autor);
+                $string_reverse = array_reverse($string);
+                $string = implode('%',$string);
+                $string_reverse = implode('%', $string_reverse);
+                $query->where('autor', 'like', '%' . $string . '%');
+                $query->orWhere('autor', 'like', '%' . $string_reverse . '%');
             })
             ->when($request->editora, function ($query) use ($request) {
                 $query->where('editora', 'like', "%$request->editora%");

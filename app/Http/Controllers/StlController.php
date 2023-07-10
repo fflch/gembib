@@ -30,6 +30,7 @@ class StlController extends Controller
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
+                        //string e string_reverse para encontrar autor por "NOME SOBRENOME" ou "SOBRENOME, NOME"
                         $string = explode(' ', $request->search[$key]);
                         $string_reverse = array_reverse($string);
                         $string = implode('%',$string);
@@ -71,6 +72,7 @@ class StlController extends Controller
             $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
         });
 
+        //data_processamento é a data em que entrou no status EM PROCESSAMENTO TÉCNICO
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim)->format('Y-m-d');
@@ -78,6 +80,7 @@ class StlController extends Controller
             $query->whereNotNull('data_processamento');
         });
 
+        //data_processamento é a data em que entrou no status PROCESSADO
         $itens->when(($request->data_processado_inicio) && ($request->data_processado_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processado_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processado_fim)->format('Y-m-d');
