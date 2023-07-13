@@ -19,15 +19,15 @@ class RelatorioController extends Controller
       
     	$request->validate([
           'cod_impressao'  => 'required',
-          'titulo'  => 'required'
+          'titulo_relatorio'  => 'required'
       ]);
-      $titulo = $request->titulo;
+      $titulo_relatorio = $request->titulo_relatorio;
       $itens = Item::where('cod_impressao', $request->cod_impressao)->get();
       
       $soma = DB::table('itens')->select('preco')->where('cod_impressao', $request->cod_impressao)->get();
       $total = $soma->sum('preco');
 
-      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo','total'));
+      $pdf = PDF::loadView('pdfs.relatorio', compact('itens','titulo_relatorio','total'));
       $pdf->output();
       $dom_pdf = $pdf->getDomPDF();
 

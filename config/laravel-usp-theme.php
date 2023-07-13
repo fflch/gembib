@@ -87,13 +87,6 @@ return [
         ],
 
         [
-            'text' => 'Busca (será desativado)',
-            'url'  => '/item',
-            'can'  => 'admin',
-        ],
-
-
-        [
             'text' => 'Etiquetas',
             'url'  => '/etiquetas',
             'can'  => 'sai',

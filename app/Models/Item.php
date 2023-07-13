@@ -24,6 +24,7 @@ class Item extends Model
     ];
 
     const campos = [
+        'todos_campos' => 'Todos os Campos',
         'titulo' => 'Título',
         'autor' => 'Autor',
         'tombo' => 'Tombo',
@@ -31,7 +32,6 @@ class Item extends Model
         'processo' => 'Processo',
         'cod_impressao' => 'Código de Impressão',
         'observacao' => 'Observação',
-        'todos_campos' => 'Todos os Campos',
     ];
 
     const procedencia = [
