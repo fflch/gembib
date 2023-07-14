@@ -13,6 +13,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 class ItemController extends Controller
 {
+    //Esta classe não está sendo utilizada atualmente, ela controla a index de item, que foi descontinuada
     private $status = Item::status;
     private $procedencia = Item::procedencia;
     private $tipo_material = Item::tipo_material;

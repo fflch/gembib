@@ -87,6 +87,7 @@ class ProcessarController extends Controller
         return redirect("/item/{$item->id}");
     }
 
+    //Essa e a função abaixo são as responsáveis por mudanças de status
     public function processarProcessamento(Request $request, Item $item){
         if($request->processar_processamento == 'Em Processamento Técnico'){
             $item->status = 'Em Processamento Técnico';

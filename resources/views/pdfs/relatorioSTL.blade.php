@@ -23,7 +23,7 @@
       <th>Autor:</th>
       <th>Título:</th>
       <th>Status:</th>
-      <th>Data de de Envio para Processamento Técnico:</th>
+      <th>Data de Envio para Processamento Técnico:</th>
       <th>Data de Finalização do Processamento Técnico:</th>
     </tr>
   </thead>

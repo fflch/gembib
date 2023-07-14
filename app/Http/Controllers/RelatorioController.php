@@ -17,7 +17,8 @@ class RelatorioController extends Controller
     public function show(Request $request){
       $this->authorize('ambos');
       
-    	$request->validate([
+      //na relatorio.pdf existem as variáveis titulo e titulo_relatorio. A titulo é utilizada para a pesquisa e a titulo_relatorio dará nome ao relatório criado
+      $request->validate([
           'cod_impressao'  => 'required',
           'titulo_relatorio'  => 'required'
       ]);
