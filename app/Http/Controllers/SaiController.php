@@ -27,6 +27,7 @@ class SaiController extends Controller
         if($request->has('campos')) {
             $campos = Item::campos;
             unset($campos['todos_campos']);
+            //foreach responsável por varrer o select na index do SAI
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
@@ -145,6 +146,7 @@ class SaiController extends Controller
         ]);
     }
 
+    //O excel será criado com todos os campos do Item, caso seja necessário remover algum campo do excel, será necessária a inclusão de um select na criação do $itens na search
     public function excel(){
         $query = $this->search();
         $q = clone $query;
