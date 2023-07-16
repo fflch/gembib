@@ -27,6 +27,7 @@ class SaiController extends Controller
         if($request->has('campos')) {
             $campos = Item::campos;
             unset($campos['todos_campos']);
+            //foreach responsável por varrer o select na index do SAI
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
@@ -71,7 +72,8 @@ class SaiController extends Controller
         $itens->when($request->tipo_aquisicao, function($query) use ($request) {
             $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
         });
-
+        
+        //data_processamento é a data em que entrou no status PROCESSADO
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
@@ -85,13 +87,15 @@ class SaiController extends Controller
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
         });
-
+        
+        //data de aquisição e data de tombamento são a mesma coisa, os setores chamam por nomes diferentes e resultou numa confusão entre os termos
         $itens->when(($request->data_aquisicao_inicio) && ($request->data_aquisicao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_fim);
-            $query->whereBetween('created_at', [$from, $to]);
-            $query->whereNotNull('created_at');
+            $query->whereBetween('data_tombamento', [$from, $to]);
+            $query->whereNotNull('data_tombamento');
         });
+        
         $itens->when(($request->data_sugestao_inicio) && ($request->data_sugestao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
@@ -135,12 +139,14 @@ class SaiController extends Controller
         $dom_pdf = $pdf->getDomPDF();
 
         $canvas = $dom_pdf ->get_canvas();
+        //A função abaixo serve para colocar o marcador de página na relatorioSTL
         $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
         return $pdf->download('relatorioSAI.pdf',[
             'itens' => $itens,
         ]);
     }
 
+    //O excel será criado com todos os campos do Item, caso seja necessário remover algum campo do excel, será necessária a inclusão de um select na criação do $itens na search
     public function excel(){
         $query = $this->search();
         $q = clone $query;

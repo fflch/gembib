@@ -22,11 +22,13 @@ class StlController extends Controller
 
     private function search(){
         $request = request();
+        //selecionei apenas os campos essenciais para carregar na index do STL e para aparecerem no PDF
         $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_processamento')->where('is_active','=',1)->orderByRaw('-tombo DESC');
 
         if($request->has('campos')) {
             $campos = Item::campos;
             unset($campos['todos_campos']);
+            //foreach responsável por varrer o select na index do STL
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
@@ -95,11 +97,12 @@ class StlController extends Controller
             $query->whereNotNull('data_tombamento');
         });
 
+        //data de aquisição e data de tombamento são a mesma coisa, os setores chamam por nomes diferentes e resultou numa confusão entre os termos
         $itens->when(($request->data_aquisicao_inicio) && ($request->data_aquisicao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_fim)->format('Y-m-d');
-            $query->whereBetween('created_at', [$from, $to]);
-            $query->whereNotNull('created_at');
+            $query->whereBetween('data_tombamento', [$from, $to]);
+            $query->whereNotNull('data_tombamento');
         });
         return $itens->toBase();
     }
@@ -139,6 +142,7 @@ class StlController extends Controller
         $dom_pdf = $pdf->getDomPDF();
 
         $canvas = $dom_pdf ->get_canvas();
+        //A função abaixo serve para colocar o marcador de página na relatorioSTL
         $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
         return $pdf->download('relatorioSTL.pdf',[
             'itens' => $itens,
