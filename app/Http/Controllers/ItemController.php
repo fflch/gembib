@@ -221,8 +221,12 @@ class ItemController extends Controller
         $validated = $request->validated();
 
         $validated['alterado_por'] = Auth::user()->codpes;
-        $validated['data_tombamento'] = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_nova)->format('Y-m-d');
-        $validated['data_processamento'] = Carbon::createFromFormat('d/m/Y', $request->data_processamento_novo)->format('Y-m-d');
+        if($request->data_tombamento_nova != null){
+            $validated['data_tombamento'] = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_nova)->format('Y-m-d');
+        }
+        if($request->data_processamento_novo != null){
+            $validated['data_processamento'] = Carbon::createFromFormat('d/m/Y', $request->data_processamento_novo)->format('Y-m-d');
+        }
 
         $item->update($validated);
 
