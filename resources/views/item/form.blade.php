@@ -207,10 +207,20 @@
     <label for="titulo">Escala:</label>
     <input type="text" id="escala" value="{{old('escala', $item->escala)}}" class="form-control" name="escala" placeholder="Digite a escala do mapa"/>
   </div>
-  @if($item->status == 'Em Processamento Técnico')
+  @if($item->status == 'Em Processamento Técnico' || $item->status == 'Tombado')
     <div class="col-sm form-group">
       <label for="tombo">Tombo:</label>
       <input type="text" id="tombo" value="{{old('tombo', $item->tombo)}}" class="form-control" name="tombo"/>
+    </div>
+    <div class="col-sm form-group">
+      <label for="data_tombamento_nova">Data de Tombamento</label>
+      <input type="text" data-mask="00/00/0000" name="data_tombamento_nova" class="datepicker" value="{{old('data_tombamento_nova', $item->data_tombamento)}}"/>
+    </div>
+  @endif
+  @if($item->status == 'Em Processamento Técnico')
+  <div class="col-sm form-group">
+      <label for="data_processamento_novo">Data de Processamento</label>
+      <input type="text" data-mask="00/00/0000" name="data_processamento_novo" class="datepicker" value="{{old('data_processamento_novo', $item->data_processamento)}}"/>
     </div>
   @endif
 </div>
