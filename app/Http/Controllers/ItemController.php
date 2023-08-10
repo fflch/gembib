@@ -22,11 +22,11 @@ class ItemController extends Controller
     private function search(){
         $request = request();
         $query = Item::orderBy('created_at', 'desc');
-        
+
         if(isset($request->titulo)) {
             $query->where('titulo','LIKE', '%'.$request->titulo.'%');
         }
-        
+
         if(isset($request->autor)) {
             $query->where('autor','LIKE', '%'.$request->autor.'%');
         }
@@ -56,9 +56,9 @@ class ItemController extends Controller
                 $q->where('is_active',$request->is_active == '1');
             });
         }
-        
+
         if (!empty($request->status)) {
-            
+
             $query->where(function ($p) use (&$request) {
                 $p->where('status','=',$request->status);
             });
@@ -227,7 +227,6 @@ class ItemController extends Controller
         if($request->data_processamento_novo != null){
             $validated['data_processamento'] = Carbon::createFromFormat('d/m/Y', $request->data_processamento_novo)->format('Y-m-d');
         }
-
         $item->update($validated);
 
         $request->session()->flash('alert-info',"Item atualizado com sucesso");
@@ -279,12 +278,12 @@ class ItemController extends Controller
         $newItem->save();
 
         request()->session()->flash('alert-success','Item clonado com sucesso.');
-    
+
         return redirect("/item/{$newItem->id}");
 
     }
 
-    
+
 
     public function excel(){
         $query = $this->search();
