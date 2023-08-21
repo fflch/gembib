@@ -10,7 +10,8 @@
 
    @include('item.observacao')
 
-<div class="card">
+@if($item->data_processado == null)
+   <div class="card">
     <div class="card-body">
         <h4>Infos sobre a Etiqueta de Lombada </h4>
         @if(empty($item->no_cutter))
@@ -27,7 +28,8 @@
         <span>
         @endif
     </div>
-</div>
+   </div>
+@endif
 
 <br><br>
 <form method="POST" action="/processar_processado/{{$item->id}}">

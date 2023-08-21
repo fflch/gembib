@@ -175,6 +175,8 @@
 
 {{$query->appends(request()->query())->links()}}
 
+@include('item.partials.modal_desativar_tombo')
+
 @endsection
 
 @section('javascripts_bottom')

@@ -218,9 +218,13 @@
     </div>
   @endif
   @if($item->status == 'Em Processamento Técnico')
-  <div class="col-sm form-group">
-      <label for="data_processamento_novo">Data de Processamento</label>
+    <div class="col-sm form-group">
+      <label for="data_processamento_novo">Data de Envio para Processamento</label>
       <input type="text" data-mask="00/00/0000" name="data_processamento_novo" class="datepicker" value="{{old('data_processamento_novo', $item->data_processamento)}}"/>
+    </div>
+    <div class="col-sm form-group">
+      <label for="data_processado_novo">Data de Processado</label>
+      <input type="text" data-mask="00/00/0000" name="data_processado_novo" class="datepicker" value="{{old('data_processado_novo', $item->data_processado)}}">
     </div>
   @endif
 </div>

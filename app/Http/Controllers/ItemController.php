@@ -227,6 +227,10 @@ class ItemController extends Controller
         if($request->data_processamento_novo != null){
             $validated['data_processamento'] = Carbon::createFromFormat('d/m/Y', $request->data_processamento_novo)->format('Y-m-d');
         }
+        if($request->data_processado_novo != null){
+            $validated['data_processado'] = Carbon::createFromFormat('d/m/Y', $request->data_processado_novo)->format('Y-m-d');
+        }
+
         $item->update($validated);
 
         $request->session()->flash('alert-info',"Item atualizado com sucesso");
