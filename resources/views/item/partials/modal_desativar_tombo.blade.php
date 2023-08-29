@@ -30,6 +30,34 @@
 
 @section('javascripts_bottom')
 <script>
+      $(document).ready( function () {
+        let row_select = $("select[name^='campos']").length;
+
+        $("#container").on("click", ".btn-primary", function(e){
+          e.preventDefault();
+          let new_row_select = row_select - 1;
+          $("#pesquisa" + row_select).html( $("#pesquisa" + new_row_select).html() );
+          $("#container").append('<div class="row mb-1" id="pesquisa' + (row_select + 1)+ '"></div>');
+          row_select++;
+        });
+
+        $("#container").on("click", ".btn-danger", function(e){
+          e.preventDefault();
+          if(row_select > 1){
+            $("#pesquisa" + (row_select - 1)).remove();
+            $("#pesquisa" + row_select).attr('id', 'pesquisa' + (row_select - 1));
+            row_select--;
+          }
+        });
+        $("input[name^='search']").keypress(function (e) {
+          var key = e.which;
+          if(key == 13)  // the enter key code
+            {
+              $('#buscar').click();
+              return false;  
+            }
+          });   
+      });
       function desativarTombo(tombo){
         $('#desativarTomboModal').modal('show');
         $("#desativarTomboModalTitle").text('Desativar Tombo N°'+tombo);
