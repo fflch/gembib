@@ -70,8 +70,9 @@ class ItemRequest extends FormRequest
             'pedido_por'       => '',
             'data_processamento'  => 'date',
             'data_sau'         => 'date',
-            'data_tombamento_nova' => 'nullable|date',
-            'data_processamento_novo' => 'nullable|date',
+            'data_tombamento_nova' => 'nullable|date_format:"d/m/Y"',
+            'data_processamento_novo' => 'nullable|date_format:"d/m/Y"',
+            'data_processado_novo' => 'nullable|date_format:"d/m/Y"',
         ];
     }
 
