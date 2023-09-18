@@ -139,13 +139,11 @@ class ItemController extends Controller
     }
 
     public function index(Request $request){
-        
+
         $this->authorize('ambos');
         $query = $this->search();
         $quantidades = $this->quantidades($query);
         $itens = $query->paginate(10);
-        dd('o telefone tocou novamente');
-
 
         return view('item/index', [
             'itens'          => $itens,
@@ -184,9 +182,6 @@ class ItemController extends Controller
 
     public function show(Request $request, Item $item){
         $this->authorize('ambos');
-        if($request->imprimir_item == 'imprimir_item'){
-            return $this->imprimir_item();
-        }
         $area = Area::where('codigo', $item->capes)->first();
         return view('item/show', compact('item', 'area'));
     }
@@ -324,7 +319,7 @@ class ItemController extends Controller
 
     }
 
-    public function imprimir_item(Request $request, Item $item) {
+    public function imprimir(Item $item) {
         $pdf = PDF::loadView('pdfs.imprimir_item', compact('item'));
         $pdf->output();
         $dom_pdf = $pdf->getDomPDF();
