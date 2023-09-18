@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Utils\Util;
+use PDF;
 use App\Http\Requests\ItemRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class ItemController extends Controller
 {
-    //Esta classe não está sendo utilizada atualmente, ela controla a index de item, que foi descontinuada
     private $status = Item::status;
     private $procedencia = Item::procedencia;
     private $tipo_material = Item::tipo_material;
@@ -139,6 +139,7 @@ class ItemController extends Controller
     }
 
     public function index(Request $request){
+
         $this->authorize('ambos');
         $query = $this->search();
         $quantidades = $this->quantidades($query);
@@ -316,5 +317,18 @@ class ItemController extends Controller
         #return para o method da etiqueta
         return redirect("/item/{$item->id}");
 
+    }
+
+    public function imprimir(Item $item) {
+        $pdf = PDF::loadView('pdfs.imprimir_item', compact('item'));
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+
+        $canvas = $dom_pdf ->get_canvas();
+        //A função abaixo serve para colocar o marcador de página na relatorioSTL
+        $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        return $pdf->download('imprimir_item.pdf',[
+            'item' => $item,
+        ]);
     }
 }

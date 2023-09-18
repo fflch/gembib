@@ -15,6 +15,8 @@
     <a href="/item/{{ $item->id }}/edit" class="btn btn-success">Editar</a>
     <br><br>
   @endif
+    <a href="/item/{{ $item->id }}/imprimir" class="btn btn-warning">Gerar PDF</a>
+    <br><br>
   @if(in_array($item->status, ['Em Tombamento', 'Sugestão', 'Em Cotação', 'Negado', 'Em Licitação', 'Em Tombamento', 'Em Processamento Técnico', 'Processado']) )
     <form method="POST" action="">
         @csrf
@@ -22,6 +24,7 @@
         <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>
     </form>
   @endif
+  <br><br>
   <tbody>
     @if(isset($item->recebido_sau) && $item->status == "Processado")
     <tr>
