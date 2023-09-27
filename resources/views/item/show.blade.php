@@ -62,6 +62,36 @@
       <td scope="col">{{ $item->data_processado ?? 'Não cadastrado' }}</td>
     </tr>
     @endif
+    @if(!empty($item->tradutor))
+    <tr>
+      <th scope="col">Tradutor:</th>
+      <td scope="col">{{ $item->tradutor ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
+    @if(!empty($item->preco_editora))
+    <tr>
+      <th scope="col">Preço na Editora:</th>
+      <td scope="col">{{ $item->preco_editora ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
+    @if(!empty($item->area))
+    <tr>
+      <th scope="col">Área:</th>
+      <td scope="col">{{ $item->area ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
+    @if(!empty($item->volume))
+    <tr>
+      <th scope="col">Volume:</th>
+      <td scope="col">{{ $item->volume ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
+    @if(!empty($item->local))
+    <tr>
+      <th scope="col">Local de publicação:</th>
+      <td scope="col">{{ $item->local ?? 'Não cadastrado' }}</td>
+    </tr>
+    @endif
     @if(!empty($item->cod_impressao))
     <tr>
       <th scope="col">Código de impressão:</th>
