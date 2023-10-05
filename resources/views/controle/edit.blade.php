@@ -11,8 +11,8 @@
     
     @include('controle.form')
 
-    <center><button type="submit" class="btn btn-info" value="editar" onclick="return confirm('Deseja editar o registro?');">Editar</button></center>
-        
+    <a href="/controle/" class="btn btn-success" onclick="">Voltar</a>
+    <button type="submit" class="btn btn-info" value="editar" onclick="return confirm('Deseja editar o registro?');">Editar</button>
 </form>	
 
 @endsection

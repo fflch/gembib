@@ -11,7 +11,7 @@ class ControleController extends Controller
 {
     private function search(){
         $request = request();
-        $query = Controle::orderByDesc('id');
+        $query = Controle::orderByDesc('inicio')->orderByDesc('fim');
         
         if (!empty($request->busca_inicio) && !empty($request->busca_fim)) {
             $from = Carbon::createFromFormat('d/m/Y', $request->busca_inicio)->format('Y-m-d');
@@ -25,8 +25,7 @@ class ControleController extends Controller
     public function index(Controle $controle)
     {
         $this->authorize('ambos');    
-        $query = $this->search();  
-
+        $query = $this->search(); 
         $registros = $query->paginate(12);
 
         return view('controle/index', ['registros' => $registros, 'controle' =>$controle,  'query' => $query]);
@@ -64,6 +63,15 @@ class ControleController extends Controller
         $controle->update($request->validated());
 
         $request->session()->flash('alert-info',"Registro {$controle->inicio} - {$controle->fim} atualizado com sucesso!");
+
+        return redirect("/controle");
+    }
+    public function destroy(Controle $controle){
+        $this->authorize('ambos');
+
+        $controle->delete();
+
+        request()->session()->flash('alert-info','Registro excluído com sucesso.');
 
         return redirect("/controle");
     }

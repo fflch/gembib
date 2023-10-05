@@ -25,46 +25,7 @@
       <div class="row mb-1" id="pesquisa{{ count(request()->campos ?? ['']) }}"></div>
     </div>
 
-    <div class="row justify-content-md-left">
-      <div class="col col-lg-2">
-        <label for="">Data de Tombamento</label>
-      </div>
-      <div class="col-md-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_aquisicao_inicio" class="datepicker" value="{{ Request()->data_aquisicao_inicio }}"> <b>-</b>
-      </div>
-      <div class="col col-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_aquisicao_fim" class="datepicker" value="{{ Request()->data_aquisicao_fim }}">
-      </div>
-    </div>
-    <br>
-
-    <div class="row justify-content-md-left">
-      <div class="col col-lg-2">
-        <label for="">Data Processamento [Status: Em Processamento Técnico]</label>
-      </div>
-      <div class="col-md-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
-      </div>
-      <div class="col col-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
-      </div>
-    </div>
-    <br>
-
-    <div class="row justify-content-md-left">
-      <div class="col col-lg-2">
-        <label for="">Data Processado [Status: Processado]</label>
-      </div>
-      <div class="col-md-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_processado_inicio" class="datepicker" value="{{ Request()->data_processado_inicio }}"> <b>-</b>
-      </div>
-      <div class="col col-lg-2">
-        <input type="text" data-mask="00/00/0000" name="data_processado_fim" class="datepicker" value="{{ Request()->data_processado_fim }}">
-      </div>
-    </div>
-    <br>
-    
-     <div class="row">
+    <div class="row">
        <div class="col-sm form-group">
          <select name="status" class="btn btn-success mr-2">
            <option value="" selected="">Selecionar status</option>
@@ -103,6 +64,45 @@
          </select>
        </div>
     </div>
+
+    <div class="row justify-content-md-left">
+      <div class="col col-lg-2">
+        <label for="">Data de Tombamento</label>
+      </div>
+      <div class="col-md-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_aquisicao_inicio" class="datepicker" value="{{ Request()->data_aquisicao_inicio }}"> <b>-</b>
+      </div>
+      <div class="col col-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_aquisicao_fim" class="datepicker" value="{{ Request()->data_aquisicao_fim }}">
+      </div>
+    </div>
+    <br>
+
+    <div class="row justify-content-md-left">
+      <div class="col col-lg-2">
+        <label for="">Data Processamento (Entrada)</label>
+      </div>
+      <div class="col-md-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processamento_inicio" class="datepicker" value="{{ Request()->data_processamento_inicio }}"> <b>-</b>
+      </div>
+      <div class="col col-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processamento_fim" class="datepicker" value="{{ Request()->data_processamento_fim }}">
+      </div>
+    </div>
+    <br>
+
+    <div class="row justify-content-md-left">
+      <div class="col col-lg-2">
+        <label for="">Data Processado (Saída))</label>
+      </div>
+      <div class="col-md-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processado_inicio" class="datepicker" value="{{ Request()->data_processado_inicio }}"> <b>-</b>
+      </div>
+      <div class="col col-lg-2">
+        <input type="text" data-mask="00/00/0000" name="data_processado_fim" class="datepicker" value="{{ Request()->data_processado_fim }}">
+      </div>
+    </div>
+    <br>
     
     <br><button type="submit" class="btn btn-success mr-2" id="buscar" name="buscar" value="buscar">Buscar</button>
 

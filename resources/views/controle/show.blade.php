@@ -27,7 +27,7 @@
         <th scope="col">Serviços Técnicos</th>
         <th scope="col">Remoções do Acervo</th>
         <th scope="col">Outro tipo de material</th>
-        <th scope="col">Editar</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -42,7 +42,14 @@
         <td> {{ $c->servicos_tecnicos ?? '' }} </td>
         <td> {{ $c->remocoes_acervo ?? '' }} </td>
         <td> {{ $c->outro_material ?? '' }} </td>
-        <td><a href="/controle/{{$c->id}}/edit" class="btn btn-success" onclick="return confirm('Deseja editar esse registro?');">Editar</a></td>  
+        <td><a href="/controle/{{$c->id}}/edit" class="btn btn-success w-100" onclick="">Ver</a>
+          <form method="POST" action="/controle/{{$c->id}}/destroy"> 
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Tem certeza que deseja excluir?');"> Excluir </button>  
+          </form>
+        </td>  
+
       </tr>
     @endforeach
     </tbody>     
