@@ -62,6 +62,7 @@ Route::get('/controle/index', [ControleController::class, 'show']);
 Route::post('/controle', [ControleController::class, 'store']);
 Route::get('/controle/{controle}/edit', [ControleController::class, 'edit']);
 Route::patch('/controle/{controle}', [ControleController::class, 'update']);
+Route::delete('/controle/{controle}/destroy', [ControleController::class, 'destroy']);
 
 Route::get('/controle/pdf', [ControleController::class, 'geraPDF']);
 

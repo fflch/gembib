@@ -54,6 +54,6 @@ class SugestaoController extends Controller
 
         $request->session()->flash('alert-info', 'Sugestão enviada com sucesso');
 
-        return redirect('/');
+        return redirect("/item/{$item->id}");
     }
 }
