@@ -15,11 +15,12 @@ class Area extends Model
         "Filosofia",
         "Geografia",
         "História",
-        "Letras Modernas",
-        "Letras Clássicas",
+        "Letras Clássicas e Vernáculas",
         "Letras Orientais",
         "Sociologia",
-        "Teoria Literária",
+        "Teoria Literária & Liter. Comparada",
         "Literatura Comparada",
+        "Linguística",
+        "Ciência Política",
     ];
 }
