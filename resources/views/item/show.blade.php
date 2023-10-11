@@ -38,7 +38,7 @@
       <td scope="row">{{ $item->tombo ?? 'Ainda não tombado' }}</td>
     </tr>
     @endif
-    @if(!empty($item->data_tombamento))
+    @if(!empty($item->data_tombamento && $item->status != "Sugestão"))
     <tr>
       <th scope="col">Data do tombamento:</th>
       <td scope="col">{{ $item->data_tombamento ?? 'Não cadastrado' }}</td>

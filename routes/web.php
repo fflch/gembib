@@ -16,6 +16,7 @@ Route::get('/', [ItemController::class, 'indexPublic'])->name('home');
 /* rotas de sugestão */
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
+Route::get('/sugestao/pesquisa', [SugestaoController::class, 'index']);
 
 /* excel */
 Route::get('/excelSTL', [StlController::class, 'excel']);

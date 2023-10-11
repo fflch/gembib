@@ -58,6 +58,19 @@ $stl = [
     ],
 ];
 
+$sugestao = [
+    [
+        'text' => 'Pesquisa',
+        'url'  => '/sugestao/pesquisa',
+        'can'  => 'logado',
+    ],
+    [
+        'text' => 'Criar Sugestão',
+        'url'  => '/sugestao',
+        'can'  => 'logado',
+    ],
+];
+
 
 return [
     'title' => '',
@@ -70,7 +83,7 @@ return [
     'menu' => [
         [
             'text' => 'Sugestão',
-            'url'  => '/sugestao',
+            'submenu'  => $sugestao,
             'can'  => 'logado'
         ],
 
