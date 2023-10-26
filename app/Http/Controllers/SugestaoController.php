@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Utils\Util;
 use Mail;
 use App\Mail\email_sugestao;
+use DB;
+use PDF;
+
 
 class SugestaoController extends Controller
 {    
@@ -30,7 +33,7 @@ class SugestaoController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao')->where('status','=','sugestão')->orderByRaw('-tombo DESC');
+        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao')->where('status','=','sugestão');
 
         if($request->has('campos')) {
             $campos = Item::campos;
@@ -42,7 +45,7 @@ class SugestaoController extends Controller
                         $string_reverse = array_reverse($string);
                         $string = implode('%',$string);
                         $string_reverse = implode('%', $string_reverse);
-
+                        
                         if($value == 'todos_campos'){
                             foreach($campos as $chave => $campo) {
                                 if($chave == 'titulo'){
@@ -51,38 +54,18 @@ class SugestaoController extends Controller
                                 }
                                 else{
                                     $query->orWhere($chave, 'LIKE', '%' . $string . '%');
-                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');                                }
+                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');
+                                }
                             }
-                        }
-                        if($value == 'tombo'){
-                            $query->where($value,'=', $string);
-                            $query->orWhere($value,'=', $string_reverse);
                         }
                         else {
                             $query->where($value,'LIKE', '%'.$string.'%');
                             $query->orWhere($value,'LIKE', '%' . $string_reverse . '%');
                         }
                     }
-                );
+                )->where('status','=','sugestão');
             }
         }
-
-        $itens->when($request->status, function($query) use ($request) {
-            $query->where('status', '=', $request->status);
-        });
-
-        $itens->when($request->procedencia, function($query) use ($request) {
-            $query->where('procedencia', '=', $request->procedencia);
-        });
-
-        $itens->when($request->tipo_material, function($query) use ($request) {
-            $query->where('tipo_material', '=', $request->tipo_material);
-        });
-
-        $itens->when($request->tipo_aquisicao, function($query) use ($request) {
-            $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
-        });
-
         $itens->when(($request->data_sugestao_inicio) && ($request->data_sugestao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio)->format('Y-m-d');
             $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim)->format('Y-m-d');
