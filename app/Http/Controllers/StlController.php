@@ -46,12 +46,9 @@ class StlController extends Controller
                                 }
                                 else{
                                     $query->orWhere($chave, 'LIKE', '%' . $string . '%');
-                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');                                }
+                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');
+                                }
                             }
-                        }
-                        if($value == 'tombo'){
-                            $query->where($value,'=', $string);
-                            $query->orWhere($value,'=', $string_reverse);
                         }
                         else {
                             $query->where($value,'LIKE', '%'.$string.'%');
