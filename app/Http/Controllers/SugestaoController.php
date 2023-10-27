@@ -4,21 +4,94 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Area;
+use Carbon\Carbon;
+use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Utils\Util;
 use Mail;
 use App\Mail\email_sugestao;
+use DB;
+use PDF;
+use Illuminate\Support\Str;
+
 
 class SugestaoController extends Controller
-{    
+{
     private $area = Area::area;
+    private $campos = Item::campos;
+    private $status = Item::status;
+    private $procedencia = Item::procedencia;
+    private $tipo_material = Item::tipo_material;
+    private $tipo_aquisicao = Item::tipo_aquisicao;
 
-    public function sugestaoForm()
-    {
+    public function sugestaoForm(){
         $this->authorize('logado');
         return view('sugestao/form', [
             'area'  => $this->area,
+        ]);
+    }
+
+    private function search(){
+        $request = request();
+        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao');
+
+        if($request->has('campos') && $request->has('search')) {
+            $campos = Item::campos;
+            unset($campos['todos_campos']);
+            foreach($request->campos as $key => $value) {
+                $itens->when(!is_null($value) && !is_null($request->search[$key]),
+                    function($query) use ($request, $campos, $key, $value) {
+                        if($value == 'todos_campos'){
+                            foreach($campos as $chave => $campo) {
+                                $query->orWhere($chave, 'LIKE', '%' . $request->search[$key] . '%');
+                                if($chave == 'autor' && Str::contains($request->search[$key], ' ')) {
+                                    $search_reverse = Util::reverse_string($request->search[$key]);
+                                    $query->orWhere($chave, 'LIKE', '%' . $search_reverse . '%');
+                                }
+                            }
+                        }
+                        elseif($value == 'autor') {
+                            $query->where($value, 'LIKE', '%' . $request->search[$key] . '%');
+                            if(Str::contains($request->search[$key], ' ')) {
+                                $search_reverse = Util::reverse_string($request->search[$key]);
+                                $query->orWhere($value, 'LIKE', '%' . $search_reverse . '%');
+                            }
+                        }
+                        else {
+                            $query->where($value,'LIKE', '%'. $request->search[$key] .'%');
+                        }
+                    }
+                );
+            }
+        }
+        $itens->when(($request->data_sugestao_inicio) && ($request->data_sugestao_fim), function($query) use ($request) {
+            $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio)->format('Y-m-d');
+            $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim)->format('Y-m-d');
+            $query->whereBetween('data_sugestao', [$from, $to]);
+            $query->whereNotNull('data_sugestao');
+        });
+
+        return $itens->where('status', 'Sugestão')->toBase();
+    }
+
+    public function index(Request $request){
+
+        $this->authorize('ambos');
+
+        if($request->relatorio == 'relatorio'){
+            return $this->reportItens();
+        }
+
+        if($request->excel == 'excel'){
+            return $this->excel();
+        }
+
+        $query = $this->search()->paginate(15);
+
+        return view('sugestao.index',[
+            'campos'        => $this->campos,
+            'query'         => $query,
         ]);
     }
 

@@ -99,4 +99,7 @@ class Util {
         return $totals->first();
     }
 
+    public static function reverse_string(string $string) {
+        return implode('%', array_reverse(explode(' ', $string)));
+    }
 }
