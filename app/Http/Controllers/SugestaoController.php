@@ -18,7 +18,7 @@ use PDF;
 class SugestaoController extends Controller
 {    
     private $area = Area::area;
-    private $campos = Item::campos;
+    private $campos = Item::campos_sugestao;
     private $status = Item::status;
     private $procedencia = Item::procedencia;
     private $tipo_material = Item::tipo_material;
