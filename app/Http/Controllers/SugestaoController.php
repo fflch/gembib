@@ -13,10 +13,11 @@ use Mail;
 use App\Mail\email_sugestao;
 use DB;
 use PDF;
+use Illuminate\Support\Str;
 
 
 class SugestaoController extends Controller
-{    
+{
     private $area = Area::area;
     private $campos = Item::campos_sugestao;
     private $status = Item::status;
@@ -33,37 +34,35 @@ class SugestaoController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao')->where('status','=','sugestão');
+        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao');
 
-        if($request->has('campos')) {
+        if($request->has('campos') && $request->has('search')) {
             $campos = Item::campos;
             unset($campos['todos_campos']);
             foreach($request->campos as $key => $value) {
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
-                        $string = explode(' ', $request->search[$key]);
-                        $string_reverse = array_reverse($string);
-                        $string = implode('%',$string);
-                        $string_reverse = implode('%', $string_reverse);
-                        
                         if($value == 'todos_campos'){
                             foreach($campos as $chave => $campo) {
-                                if($chave == 'titulo'){
-                                    $query->where($chave, 'LIKE', '%' . $string . '%');
-                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');
-                                }
-                                else{
-                                    $query->orWhere($chave, 'LIKE', '%' . $string . '%');
-                                    $query->orWhere($chave, 'LIKE', '%' . $string_reverse . '%');
+                                $query->orWhere($chave, 'LIKE', '%' . $request->search[$key] . '%');
+                                if($chave == 'autor' && Str::contains($request->search[$key], ' ')) {
+                                    $search_reverse = Util::reverse_string($request->search[$key]);
+                                    $query->orWhere($chave, 'LIKE', '%' . $search_reverse . '%');
                                 }
                             }
                         }
+                        elseif($value == 'autor') {
+                            $query->where($value, 'LIKE', '%' . $request->search[$key] . '%');
+                            if(Str::contains($request->search[$key], ' ')) {
+                                $search_reverse = Util::reverse_string($request->search[$key]);
+                                $query->orWhere($value, 'LIKE', '%' . $search_reverse . '%');
+                            }
+                        }
                         else {
-                            $query->where($value,'LIKE', '%'.$string.'%');
-                            $query->orWhere($value,'LIKE', '%' . $string_reverse . '%');
+                            $query->where($value,'LIKE', '%'. $request->search[$key] .'%');
                         }
                     }
-                )->where('status','=','sugestão');
+                );
             }
         }
         $itens->when(($request->data_sugestao_inicio) && ($request->data_sugestao_fim), function($query) use ($request) {
@@ -72,11 +71,12 @@ class SugestaoController extends Controller
             $query->whereBetween('data_sugestao', [$from, $to]);
             $query->whereNotNull('data_sugestao');
         });
-        return $itens->toBase();
+
+        return $itens->where('status', 'Sugestão')->toBase();
     }
-    
+
     public function index(Request $request){
-        
+
         $this->authorize('ambos');
 
         if($request->relatorio == 'relatorio'){
@@ -92,11 +92,6 @@ class SugestaoController extends Controller
         return view('sugestao.index',[
             'campos'        => $this->campos,
             'query'         => $query,
-            'quantidades'   => Util::quantidades($request),
-            'procedencia'   => $this->procedencia,
-            'tipo_material' => $this->tipo_material,
-            'tipo_aquisicao'=> $this->tipo_aquisicao,
-            'status'        => $this->status
         ]);
     }
 
