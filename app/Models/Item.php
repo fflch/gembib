@@ -26,11 +26,20 @@ class Item extends Model
     const campos = [
         'todos_campos' => 'Todos os Campos',
         'titulo' => 'Título',
+        'ano' => 'Ano',
         'autor' => 'Autor',
         'tombo' => 'Tombo',
         'verba' => 'Verba',
         'processo' => 'Processo',
         'cod_impressao' => 'Código de Impressão',
+        'observacao' => 'Observação',
+    ];
+
+    const campos_sugestao = [
+        'todos_campos' => 'Todos os Campos',
+        'ano' => 'Ano',
+        'titulo' => 'Título',
+        'autor' => 'Autor',
         'observacao' => 'Observação',
     ];
 
