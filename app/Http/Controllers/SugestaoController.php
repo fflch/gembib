@@ -39,7 +39,7 @@ class SugestaoController extends Controller
                 $itens->when(!is_null($value) && !is_null($request->search[$key]),
                     function($query) use ($request, $campos, $key, $value) {
                         if($value == 'todos_campos'){
-                            if(array_key_first($campos) == 'ano') {
+                            if(array_key_first($campos) == 'autor') {
                                 array_reverse($campos);
                             }
                             $first_key = array_key_first($campos);
