@@ -92,11 +92,16 @@ class SugestaoController extends Controller
         return view('sugestao.index',[
             'campos'        => $this->campos,
             'query'         => $query,
+            'quantidades'   => Util::quantidades($request),
+            'procedencia'   => $this->procedencia,
+            'tipo_material' => $this->tipo_material,
+            'tipo_aquisicao'=> $this->tipo_aquisicao,
+            'status'        => $this->status
         ]);
     }
 
-    public function sugestao(Request $request)
-    {
+    public function sugestao(Request $request){
+
         $this->authorize('logado');
         $request->validate([
             'titulo'  => 'required',
