@@ -52,9 +52,10 @@ class Item extends Model
         "Livro",
         "Mapas",
         "Material Especial",
-        "Memorial",  
+        "Memorial",
         "Multimeios",
         "Obra rara",
+        "Obra especial",
         "Periódico",
         "CD/DVD",
         "Tese",
@@ -106,7 +107,7 @@ class Item extends Model
         "FFLCH",
         "RUSP",
         "PROAP",
-        "Outras"        
+        "Outras"
     ];
 
     const moeda = [
@@ -123,13 +124,13 @@ class Item extends Model
         'verba' => 'Verba',
         'processo' => 'Processo'
     ];
-    
+
     public function setPrecoAttribute($value){
         if($value){
             $this->attributes['preco'] = str_replace(',','.',$value);
         }
     }
-    
+
     public function getPrecoAttribute($value){
         return number_format($value, 2, ',', '');
     }
