@@ -22,11 +22,11 @@ class ChangePrioridadeFieldToIntegerInItens extends Migration
         DB::statement(" UPDATE itens SET updated_at='2021-11-16 15:00:00' WHERE updated_at='0000-00-00 00:00:00' ");
         DB::statement(" UPDATE itens SET data_sugestao='2021-11-16' WHERE data_sugestao='0000-00-00' ");
         DB::statement(" UPDATE itens SET data_tombamento='2021-11-16' WHERE data_tombamento='0000-00-00' ");
-        
-        
+
+
 
         Schema::table('itens', function (Blueprint $table) {
-            $table->integer('prioridade')->change();
+            $table->integer('prioridade')->nullable()->change();
         });
     }
 
