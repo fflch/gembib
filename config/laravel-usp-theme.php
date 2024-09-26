@@ -2,20 +2,7 @@
 
 $right_menu = [
     [
-        'text'   => '<i class="fas fa-users"></i>',
-        'title'  => 'Pessoas',
-        'target' => '_blank',
-        'url'    => config('app.url') . '/users',
-        'align'  => 'right',
-        'can'    => 'admin',
-    ],
-    [
-        'text'   => '<i class="fas fa-user-secret"></i>',
-        'title'  => 'Login As',
-        'target' => '_blank',
-        'url'    => config('app.url') . '/loginas',
-        'align'  => 'right',
-        'can'    => 'admin',
+        'key' => 'senhaunica-socialite',
     ],
     [
         'text'   => '<i class="fas fa-cog"></i>',
@@ -90,13 +77,13 @@ return [
         [
             'text' => 'Aquisição',
             'submenu'  => $sai,
-            'can'  => 'logado'
+            'can'  => 'sai'
         ],
 
         [
             'text' => 'Processamento Técnico',
             'submenu'  => $stl,
-            'can'  => 'logado'
+            'can'  => 'stl'
         ],
 
         [
