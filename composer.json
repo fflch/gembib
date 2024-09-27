@@ -11,7 +11,7 @@
         "php": "^8.3",
         "barryvdh/laravel-dompdf": "^2.1.0",
         "doctrine/dbal": "^3.0",
-        "fflch/phppimaco": "1.4.8",
+        "fflch/phppimaco": "1.4.9",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.5",
