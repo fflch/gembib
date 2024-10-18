@@ -30,13 +30,6 @@ Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_up
 Route::delete('/item/etiqueta_update/{item}', [ItemController::class, 'destroy']);
 Route::get('/item/{item}/imprimir', [ItemController::class, 'imprimir']);
 
-/* rota resource pedido */
-Route::get('/pedido/create', [PedidoController::class, 'create'])
-    ->name('pedido.create');
-Route::post('/pedido/email', [PedidoController::class, 'email_pedido']);
-Route::post('/pedido/item/{item}', [PedidoController::class, 'pedidoItem'])
-    ->name('pedidos.item');
-
 /* rotas para processar */
 Route::get('/processar', [ProcessarController::class, 'processarIndex']);
 Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processarSugestao']);
@@ -76,3 +69,12 @@ Route::get('/sai', [SaiController::class, 'index']);
 # rotas para STL
 Route::get('/stl', [StlController::class, 'index']);
 Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
+
+#user quem faz a requisição
+Route::get('prioridades/justificativa/{item}', [ItemController::class, 'prioridadeJustificativa'])
+->middleware('auth');
+Route::put('prioridade/{item}', [ItemController::class, 'pedirPrioridade']);
+
+#sai/stl quem controla
+Route::get('prioridades', [ItemController::class, 'prioridadeView']);
+Route::put('processado/{item}', [ItemController::class, 'aceitarProcessamentoItem']);

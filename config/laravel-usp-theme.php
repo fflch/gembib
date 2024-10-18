@@ -92,9 +92,9 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Pedir Prioridade',
-            'url'  => '/pedido/create',
-            'can'  => 'logado',
+            'text' => 'Items em Prioridade',
+            'url' => '/prioridades',
+            'can' => 'sai',
         ],
     ]
 ];

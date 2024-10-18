@@ -14,6 +14,7 @@ use App\Mail\email_sugestao;
 use DB;
 use PDF;
 use Illuminate\Support\Str;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 
 class SugestaoController extends Controller
@@ -30,7 +31,7 @@ class SugestaoController extends Controller
 
     private function search(){
         $request = request();
-        $itens = Item::select('id','autor','tombo','titulo','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao')->where('status', 'Sugestão');
+        $itens = Item::select('id','autor','tombo','titulo','volume','parte','preco','editora','status','ano','procedencia','sugerido_por','is_active','data_processado','data_sugestao')->where('status', 'Sugestão');
 
         if($request->has('campos') && $request->has('search')) {
             $campos = $this->campos;
@@ -97,6 +98,35 @@ class SugestaoController extends Controller
             'campos'        => $this->campos,
             'query'         => $query,
         ]);
+    }
+//métodos adicionados, pois o export pra pdf e excel não estavam funcionando
+    private function reportItens() {
+        $query = $this->search();
+        $itens = $query->get();
+        $total = $query->sum('preco');
+
+        $pdf = PDF::loadView('pdfs.relatorio', compact('itens','total'));
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+
+        $canvas = $dom_pdf ->get_canvas();
+        //A função abaixo serve para colocar o marcador de página na relatorioSTL
+        $canvas->page_text(0, 0, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        return $pdf->download('relatorioSAI.pdf',[
+            'itens' => $itens,
+        ]);
+    }
+
+    public function excel(){
+        $query = $this->search();
+        $q = clone $query;
+        if($q->count() > 10000){
+            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo,
+            limite de 10000 registros excedido");
+            return redirect('/sai');
+        }
+        $export = new FastExcel($query->get());
+        return $export->download(date("YmdHi").'gembib.xlsx');
     }
 
     public function sugestao(Request $request)

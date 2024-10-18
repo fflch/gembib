@@ -11,6 +11,9 @@ use App\Utils\Util;
 use PDF;
 use App\Http\Requests\ItemRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\mail_prioridade;
+use App\Mail\mail_processado;
 
 class ItemController extends Controller
 {
@@ -21,7 +24,12 @@ class ItemController extends Controller
 
     private function search(){
         $request = request();
-        $query = Item::orderBy('created_at', 'desc');
+        $query = Item::orderBy('created_at', 'desc')
+        ->where('is_active',1)
+        ->where('titulo','LIKE',"%".$request->search."%")
+        ->orWhere('autor','LIKE','%'.$request->search.'%')
+        ->orWhere('tombo',$request->search)
+        ->orWhere('cod_impressao','like','%'.$request->search.'%');
 
         if(isset($request->titulo)) {
             $query->where('titulo','LIKE', '%'.$request->titulo.'%');
@@ -109,33 +117,82 @@ class ItemController extends Controller
         return $query;
     }
 
-    private function quantidades($query){
+    private function quantidades($busca){
         $quantidades = [];
 
-        $q = clone $query;
-        $quantidades['sugestao'] = $q->where('status', 'Sugestão')->count();
-
-        $q = clone $query;
-        $quantidades['cotacao'] = $q->where('status', 'Em Cotação')->count();
-
-        $q = clone $query;
-        $quantidades['licitacao'] = $q->where('status', 'Em Licitação')->count();
-
-        $q = clone $query;
-        $quantidades['tombamento'] = $q->where('status', 'Em Tombamento')->count();
-
-        $q = clone $query;
-        $quantidades['negado'] = $q->where('status', 'Negado')->count();
-
-        $q = clone $query;
-        $quantidades['tombado'] = $q->where('status', 'Tombado')->count();
-
-        $q = clone $query;
+        $q = clone $busca->toBase()->get();
         $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
 
-        $q = clone $query;
-        $quantidades['processado'] = $q->where('status', 'Processado')->count();
         return $quantidades;
+    }
+
+    public function indexPublic(Request $request){
+        $query = Item::orderBy('created_at', 'desc');
+
+        if (!empty($request->search)) {
+            $query->where('status','Em Processamento Técnico')->where(function ($q) use (&$request) {
+                $q->where('titulo','LIKE', '%' . $request->search . '%')
+                  ->orWhere('autor','LIKE', '%' . $request->search . '%')
+                  ->orwhere('tombo','LIKE', '%' . $request->search . '%')
+                  ->orwhere('cod_impressao','LIKE', '%' . $request->search . '%');
+            });
+        }
+        $quantidades = $this->quantidades($query);
+        $itens = $query->paginate(10);
+    	return view('index',[
+            'quantidades' => $quantidades,
+            'itens' => $itens,
+        ]);
+    }
+
+    public function prioridadeJustificativa(Item $item){
+        $this->authorize('user');
+        $item = Item::where('id',$item->id)->first();
+        return view('item.prioridades.justificativa', ['item' => $item]);
+    }
+    
+    public function pedirPrioridade(Item $item, Request $request){
+        $this->authorize('user');
+        $item->justificativa_processamento = $request->justificativa_processamento;
+        $item->pedido_usuario = Auth::user()->email; //email de quem pediu a prioridade
+        $item->prioridade_processamento = 1;
+        $item->save();
+        if($item->pedido_usuario){
+            Mail::queue(new mail_prioridade($item));
+        }
+        request()->session()->flash('alert-info','Prioridade pedida');
+        return redirect("/");
+    }
+    
+    public function prioridadeView(Request $request){
+        $this->authorize('ambos');
+
+        $itens = Item::where('prioridade_processamento',1)
+        ->where('status','Em Processamento Técnico')
+        ->toBase();
+
+        $itens->when(!$request->busca, function($itens){
+            return $itens->where('prioridade_processamento',1)
+            ->where('status','Em Processamento Técnico');
+        });
+
+        $itens->when($request->busca, function($itens) use ($request){
+            return $itens->where('titulo','like','%'.$request->busca.'%')
+            ->orwhere('autor','like','%'.$request->busca.'%')
+            ->orwhere('isbn',$request->busca)
+            ->where('status','Em Processamento Técnico');
+        });
+        
+
+        return view('item.prioridades.index', ['itens' => $itens->paginate(5)]);
+    }
+
+    public function aceitarProcessamentoItem(Request $request, Item $item){
+        $item->status = "Processado";
+        $item->update();
+        Mail::queue(new mail_processado($item));
+        request()->session()->flash('alert-info',"Status do item de tombo $item->tombo mudado para PROCESSADO");
+        return redirect('/prioridades');
     }
 
     public function index(Request $request){
@@ -154,25 +211,6 @@ class ItemController extends Controller
             'tipo_aquisicao' => $this->tipo_aquisicao,
             'query'          => $query
             ]);
-    }
-
-    public function indexPublic(Request $request){
-        $query = Item::orderBy('created_at', 'desc');
-
-        if (!empty($request->search)) {
-            $query->where('is_active', 1)->where(function ($q) use (&$request) {
-                $q->where('titulo','LIKE', '%' . $request->search . '%')
-                  ->orWhere('autor','LIKE', '%' . $request->search . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->search . '%')
-                  ->orwhere('cod_impressao','LIKE', '%' . $request->search . '%');
-            });
-        }
-        $quantidades = $this->quantidades($query);
-        $itens = $query->paginate(10);
-    	return view('index',[
-            'quantidades' => $quantidades,
-            'itens' => $itens
-        ]);
     }
 
     public function create(){
