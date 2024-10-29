@@ -1,4 +1,4 @@
-<table style='width:100%; padding:1px; border: 0px solid #000'>
+<table style='width:100%; padding:2px; margin:{{$margem}}; border: 0px solid #000'>
     <tr>
         <td style='width:60%;'>
             <span style='font-size: 9px'>

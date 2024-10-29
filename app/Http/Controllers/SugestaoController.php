@@ -158,9 +158,8 @@ class SugestaoController extends Controller
         $item->status = "Sugestão";
         $item->save();
         Mail::queue(new email_sugestao($item));
-
-        $request->session()->flash('alert-info', 'Sugestão enviada com sucesso');
-
-        return redirect("/item/{$item->id}");
+        
+        request()->session()->flash('alert-info','A sugestão foi cadastrada com sucesso. Aguarde a verificação dos administradores do sistema.');
+        return redirect('/');
     }
 }

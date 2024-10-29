@@ -9,7 +9,7 @@
             @csrf
             <div class="row">
                 <div class="col-11">
-                    <input name="busca" class="form-control" type="text" value="{{request()->busca}}" placeholder="Pesquisar por título, autor ou isbn completo">
+                    <input name="busca" class="form-control" type="text" value="{{request()->busca}}" placeholder="Pesquisar por título ou nome do autor">
                 </div>
                 <div class="col-1" style="margin-left:-2%;">
                     <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
@@ -29,10 +29,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-5">
-                        <p><b>Título: </b>{{$item->titulo}}</p>
+                        <p><b>Título: </b><a href="/item/{{$item->id}}">{{$item->titulo}}</a></p>
                         <p><b>Autor: </b>{{$item->autor}}</p>
-                        <p><b>Ano: </b>{{$item->ano}}</p>
-                        <p><b>ISBN: </b>{{$item->isbn}}</p>
+                        <p><b>Ano de publicação: </b>{{$item->ano}}</p>
+                        <p><b>Data da sugestão: </b>{{date('d/m/Y',strtotime($item->data_sugestao))}}</p>
                         <p><b>Requisitado por: </b>{{$item->pedido_usuario}}</p>
                     </div>
                     <div class="col-1">
@@ -43,8 +43,7 @@
                             <p style="text-align:justify"><b>Justificativa: </b>{{$item->justificativa_processamento}}</p>
                         </div>
                     </div>
-                    <hr />
-                    <form method="post" action="processado/{{$item->id}}">
+                    <form method="post" action="processado/{{$item->id}}" style="margin-top:12px;">
                         @csrf
                         @method("put")
                         <button type="submit" class="btn btn-success" style="width:100%;">Processar e avisar usuário</button>

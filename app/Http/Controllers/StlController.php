@@ -56,6 +56,9 @@ class StlController extends Controller
                         }
                     }
                 );
+                if(!$request->search[$key] && $value){
+                    request()->session()->flash('alert-danger','Insira um valor no campo de pesquisa!');
+                }
             }
         }
 

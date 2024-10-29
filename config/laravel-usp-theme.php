@@ -94,7 +94,7 @@ return [
         [
             'text' => 'Items em Prioridade',
             'url' => '/prioridades',
-            'can' => 'sai',
+            'can' => 'ambos',
         ],
     ]
 ];

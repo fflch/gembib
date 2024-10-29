@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Item;
 use App\Models\Area;
 use Illuminate\Http\Request;
@@ -10,139 +11,34 @@ use Carbon\Carbon;
 use App\Utils\Util;
 use PDF;
 use App\Http\Requests\ItemRequest;
+use App\Http\Requests\JustificativaRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\mail_prioridade;
 use App\Mail\mail_processado;
+use Illuminate\Support\Facades\Gate;
 
 class ItemController extends Controller
 {
-    private $status = Item::status;
-    private $procedencia = Item::procedencia;
-    private $tipo_material = Item::tipo_material;
-    private $tipo_aquisicao = Item::tipo_aquisicao;
-
-    private function search(){
+    public function index(){
         $request = request();
-        $query = Item::orderBy('created_at', 'desc')
-        ->where('is_active',1)
-        ->where('titulo','LIKE',"%".$request->search."%")
-        ->orWhere('autor','LIKE','%'.$request->search.'%')
-        ->orWhere('tombo',$request->search)
-        ->orWhere('cod_impressao','like','%'.$request->search.'%');
-
-        if(isset($request->titulo)) {
-            $query->where('titulo','LIKE', '%'.$request->titulo.'%');
-        }
-
-        if(isset($request->autor)) {
-            $query->where('autor','LIKE', '%'.$request->autor.'%');
-        }
-
-        if(isset($request->tombo)) {
-            $query->where('tombo',$request->tombo);
-        }
-
-        if(isset($request->observacao)) {
-            $query->where('observacao','LIKE', '%'.$request->observacao.'%');
-        }
-
-        if(isset($request->verba)) {
-            $query->where('verba',$request->verba);
-        }
-
-        if(isset($request->processo)) {
-            $query->where('processo',$request->processo);
-        }
-
-        if(isset($request->codigoimpressao)) {
-            $query->where('cod_impressao',$request->codigoimpressao);
-        }
-
-        if(isset($request->is_active)) {
-            $query->where(function ($q) use (&$request) {
-                $q->where('is_active',$request->is_active == '1');
-            });
-        }
-
-        if (!empty($request->status)) {
-
-            $query->where(function ($p) use (&$request) {
-                $p->where('status','=',$request->status);
-            });
-        }
-
-        if (!empty($request->procedencia)) {
-            $query->where(function ($s) use (&$request) {
-                $s->where('procedencia','=',$request->procedencia)
-                  ->orwhere('procedencia','=',$request->procedencia);
-            });
-        }
-
-        if (!empty($request->tipo_material)) {
-            $query->where(function ($t) use (&$request) {
-                $t->where('tipo_material','=',$request->tipo_material)
-                  ->orwhere('tipo_material','=',$request->tipo_material);
-            });
-        }
-
-        if (!empty($request->tipo_aquisicao)) {
-            $query->where(function ($a) use (&$request) {
-                $a->where('tipo_aquisicao','=',$request->tipo_aquisicao)
-                  ->orwhere('tipo_aquisicao','=',$request->tipo_aquisicao);
-            });
-        }
-
-        if (!empty($request->data_sugestao_inicio) && !empty($request->data_sugestao_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
-            $query->whereBetween('data_sugestao', [$from, $to]);
-            $query->whereNotNull('data_sugestao');
-        }
-
-        if (!empty($request->data_processamento_inicio) && !empty($request->data_processamento_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_processamento_fim);
-            $query->whereBetween('data_processado', [$from, $to]);
-            $query->whereNotNull('data_processado');
-        }
-
-        if (!empty($request->data_tombamento_inicio) && !empty($request->data_tombamento_fim)) {
-            $from =  Carbon::createFromFormat('d/m/Y', $request->data_tombamento_inicio);
-            $to = Carbon::createFromFormat('d/m/Y', $request->data_tombamento_fim);
-            $query->whereBetween('data_tombamento', [$from, $to]);
-            $query->whereNotNull('data_tombamento');
-        }
-
-        return $query;
-    }
-
-    private function quantidades($busca){
-        $quantidades = [];
-
-        $q = clone $busca->toBase()->get();
-        $quantidades['processamento'] = $q->where('status', 'Em Processamento Técnico')->count();
-
-        return $quantidades;
-    }
-
-    public function indexPublic(Request $request){
-        $query = Item::orderBy('created_at', 'desc');
-
-        if (!empty($request->search)) {
-            $query->where('status','Em Processamento Técnico')->where(function ($q) use (&$request) {
+        if (!is_null($request->search)) {
+            $query = Item::where('status','Em Processamento Técnico')->where(function ($q) use (&$request) {
                 $q->where('titulo','LIKE', '%' . $request->search . '%')
                   ->orWhere('autor','LIKE', '%' . $request->search . '%')
-                  ->orwhere('tombo','LIKE', '%' . $request->search . '%')
+                  ->orwhere('tombo', $request->search)
                   ->orwhere('cod_impressao','LIKE', '%' . $request->search . '%');
             });
+            return view('index', [
+                'itens' => $query->paginate(10), 
+                'request'=>$request
+            ]);//view com query
+        }else{
+            return view('index', [
+                'itens' => [],
+                'request'=>$request
+            ]); //somente a view
         }
-        $quantidades = $this->quantidades($query);
-        $itens = $query->paginate(10);
-    	return view('index',[
-            'quantidades' => $quantidades,
-            'itens' => $itens,
-        ]);
     }
 
     public function prioridadeJustificativa(Item $item){
@@ -151,7 +47,7 @@ class ItemController extends Controller
         return view('item.prioridades.justificativa', ['item' => $item]);
     }
     
-    public function pedirPrioridade(Item $item, Request $request){
+    public function pedirPrioridade(Item $item, JustificativaRequest $request){
         $this->authorize('user');
         $item->justificativa_processamento = $request->justificativa_processamento;
         $item->pedido_usuario = Auth::user()->email; //email de quem pediu a prioridade
@@ -164,53 +60,30 @@ class ItemController extends Controller
         return redirect("/");
     }
     
-    public function prioridadeView(Request $request){
+    public function viewPrioridade(Request $request){
         $this->authorize('ambos');
 
-        $itens = Item::where('prioridade_processamento',1)
-        ->where('status','Em Processamento Técnico')
-        ->toBase();
+        $itens = Item::where('prioridade_processamento',1)->toBase();
 
-        $itens->when(!$request->busca, function($itens){
-            return $itens->where('prioridade_processamento',1)
-            ->where('status','Em Processamento Técnico');
-        });
-
-        $itens->when($request->busca, function($itens) use ($request){
-            return $itens->where('titulo','like','%'.$request->busca.'%')
-            ->orwhere('autor','like','%'.$request->busca.'%')
-            ->orwhere('isbn',$request->busca)
-            ->where('status','Em Processamento Técnico');
+        $itens->when($request->busca, function($query) use ($request){
+            $query->where(function ($q) use ($request){
+                $q->where('titulo','like',"%$request->busca%")
+                ->orwhere('autor','like',"%$request->busca%")
+                ->where('status','Em Processamento Técnico');
+            });
         });
         
-
         return view('item.prioridades.index', ['itens' => $itens->paginate(5)]);
     }
-
+    
     public function aceitarProcessamentoItem(Request $request, Item $item){
+        $this->authorize('ambos');
         $item->status = "Processado";
+        $item->prioridade_processamento = 0;
         $item->update();
         Mail::queue(new mail_processado($item));
         request()->session()->flash('alert-info',"Status do item de tombo $item->tombo mudado para PROCESSADO");
         return redirect('/prioridades');
-    }
-
-    public function index(Request $request){
-
-        $this->authorize('ambos');
-        $query = $this->search();
-        $quantidades = $this->quantidades($query);
-        $itens = $query->paginate(10);
-
-        return view('item/index', [
-            'itens'          => $itens,
-            'status'         => $this->status,
-            'quantidades'    => $quantidades,
-            'procedencia'    => $this->procedencia,
-            'tipo_material'  => $this->tipo_material,
-            'tipo_aquisicao' => $this->tipo_aquisicao,
-            'query'          => $query
-            ]);
     }
 
     public function create(){
@@ -218,12 +91,12 @@ class ItemController extends Controller
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Request $request, Item $item){
-        $this->authorize('ambos');
-        $area = Area::where('codigo', $item->capes)->first();
-        return view('item/show', compact('item', 'area'));
+    public function show(Item $item, User $user){
+            $this->authorize('ambos');
+            $area = Area::where('codigo', $item->capes)->first();
+            return view('item/show', compact('item', 'area'));    
     }
-
+    
     public function store(ItemRequest $request){
         $this->authorize('ambos');
 
@@ -276,7 +149,6 @@ class ItemController extends Controller
 
     }
 
-
     public function destroy(Item $item){
         $this->authorize('ambos');
         if($item->tombo == NULL ){
@@ -285,7 +157,7 @@ class ItemController extends Controller
         }else{
             request()->session()->flash('alert-danger','Não é possível excluir um item que possua Tombo.');
         }
-        return redirect("/");
+        return redirect("/sai");
     }
 
     public function set_is_active(Request $request){
@@ -325,20 +197,6 @@ class ItemController extends Controller
 
     }
 
-
-
-    public function excel(){
-        $query = $this->search();
-        $q = clone $query;
-        if($q->count() > 10000){
-            request()->session()->flash('alert-danger',"Não foi possível baixar o arquivo,
-            limite de 10000 registros excedido");
-            return redirect('/item');
-        }
-        $export = new FastExcel($query->get());
-        return $export->download(date("YmdHi").'gembib.xlsx');
-    }
-
     public function etiqueta_update(Request $request, Item $item){
         $this->authorize('ambos');
 
@@ -352,6 +210,7 @@ class ItemController extends Controller
         }
 
         #return para o method da etiqueta
+        request()->session()->flash('alert-success','Etiqueta de Lombada atualizada');
         return redirect("/item/{$item->id}");
 
     }

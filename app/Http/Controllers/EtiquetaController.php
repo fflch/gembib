@@ -10,9 +10,9 @@ use App\Models\Item;
 
 class EtiquetaController extends Controller
 {
-    public function form(){
+    public function form(Item $itens){
         $this->authorize('logado');
-        return view('etiquetas');
+        return view('etiquetas',['itens'=>$itens]);
     }
 
     public function impressao(Request $request, $codimpressao){
@@ -62,6 +62,7 @@ class EtiquetaController extends Controller
             $request->validate([
                 'tombo_inicio'  => 'required|integer',
                 'tombo_fim'   => 'required|integer|gte:tombo_inicio',
+                'margem' => 'nullable|integer',
             ]);
             $itens = Item::whereBetween('tombo', [$request->tombo_inicio, $request->tombo_fim])->get();
         }
@@ -84,7 +85,7 @@ class EtiquetaController extends Controller
     }
 
     private function etiquetasTombo($itens){
-        $pimaco = new Pimaco('A4256');
+        $pimaco = new Pimaco(request()->etiquetaPimaco);
 
         foreach($itens as $item){
             $tag = new Tag();
@@ -96,9 +97,9 @@ class EtiquetaController extends Controller
             $barcode->setWidth(1);
 
             $limiteCaracteres = 10;
-
+            $margem = request()->margem;
             $codigo = $barcode->render();
-            $tag->p(view('pdfs.etiquetas', compact ( 'codigo','limiteCaracteres','item')));
+            $tag->p(view('pdfs.etiquetas', compact ( 'codigo','limiteCaracteres','item', 'margem')));
             $pimaco->addTag($tag);
 
 
@@ -110,13 +111,14 @@ class EtiquetaController extends Controller
 
     private function etiquetasLombada($itens){
 
-        $pimaco = new Pimaco('A4256');
+        $pimaco = new Pimaco(request()->etiquetaPimaco);
 
         foreach($itens as $item){
             $tag = new Tag();
             $tag->setBorder(0);
             $tag->setSize(2);
-            $tag->p(view('pdfs.etiquetas_lombada', compact ('item')));
+            $margem = request()->margem;
+            $tag->p(view('pdfs.etiquetas_lombada', compact ('item', 'margem')));
             $pimaco->addTag($tag);
         }
         $pimaco->output();

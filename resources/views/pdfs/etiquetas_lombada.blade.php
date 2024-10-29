@@ -1,7 +1,7 @@
-<table style='width:100%; padding:1px; border: 0px solid #000'>
+<table style='width:100%; padding:2px; margin:{{$margem}}; border: 0px solid #000'>
     <tr>
         <td style='width:60%;'>
-            <span style='font-size: 9px'>
+            <span style='font-size:9px'>
             <b>No. Classificação: </b>{{ $item->no_classificacao }}<br>
             <b>No. Cutter: </b>{{ $item->no_cutter }}<br>
             <b>Exemplar: </b>{{ $item->exemplar }}<br>

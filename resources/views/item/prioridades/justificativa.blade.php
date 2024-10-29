@@ -1,6 +1,6 @@
 @extends('laravel-usp-theme::master')
 @section("content")
-
+@include('flash')
 <div class="container">
     <div class="row">
         <div class="col-12">
