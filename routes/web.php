@@ -7,7 +7,6 @@ use App\Http\Controllers\ProcessarController;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
-use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\SaiController;
 use App\Http\Controllers\StlController;
 
@@ -28,6 +27,15 @@ Route::post('/item/duplicar', [ItemController::class, 'duplicar']);
 Route::post('/item/etiqueta_update/{item}', [ItemController::class, 'etiqueta_update']);
 Route::delete('/item/etiqueta_update/{item}', [ItemController::class, 'destroy']);
 Route::get('/item/{item}/imprimir', [ItemController::class, 'imprimir']);
+
+/* rotas para processar */
+Route::post('/processar_sugestao/{item}', [ProcessarController::class, 'processarSugestao']);
+Route::post('/processar_cotacao/{item}', [ProcessarController::class, 'processarCotacao']);
+Route::post('/processar_licitacao/{item}', [ProcessarController::class, 'processarLicitacao']);
+Route::post('/processar_tombamento/{item}', [ProcessarController::class, 'processarTombamento']);
+Route::post('/processar_processamento/{item}', [ProcessarController::class, 'processarProcessamento']);
+Route::post('/processar_processado/{item}', [ProcessarController::class, 'processarProcessado']);
+Route::post('/processar_acervo/{item}', [ProcessarController::class, 'processarAcervo']);
 
 /* Etiquetas */
 Route::get('/etiquetas/{codimpressao}', [EtiquetaController::class, 'impressao']);

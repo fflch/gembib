@@ -99,7 +99,7 @@ class SugestaoController extends Controller
             'query'         => $query,
         ]);
     }
-//métodos adicionados, pois o export pra pdf e excel não estavam funcionando
+
     private function reportItens() {
         $query = $this->search();
         $itens = $query->get();
@@ -158,7 +158,7 @@ class SugestaoController extends Controller
         $item->status = "Sugestão";
         $item->save();
         Mail::queue(new email_sugestao($item));
-        
+
         request()->session()->flash('alert-info','A sugestão foi cadastrada com sucesso. Aguarde a verificação dos administradores do sistema.');
         return redirect('/');
     }

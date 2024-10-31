@@ -30,7 +30,6 @@ class mail_processado extends Mailable
     {
         return new Envelope(
             subject: 'O Item "' . $this->item->titulo . '" foi Processado.',
-            from: env('EMAIL_PRIORIDADE'),
             to: $this->item->pedido_usuario,
         );
     }
@@ -42,7 +41,7 @@ class mail_processado extends Mailable
     {
         return new Content(
             view: 'emails.email_processado',
-            with: ['item' => $this->item, 'user' => (auth()->user())],
+            with: ['item' => $this->item],
         );
     }
 

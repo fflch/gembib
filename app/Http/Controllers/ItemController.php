@@ -20,62 +20,54 @@ use Illuminate\Support\Facades\Gate;
 
 class ItemController extends Controller
 {
-    public function index(){
-        $request = request();
-        if (!is_null($request->search)) {
+    public function index(Request $request){
+        if ($request->search) {
             $query = Item::where('status','Em Processamento Técnico')->where(function ($q) use (&$request) {
                 $q->where('titulo','LIKE', '%' . $request->search . '%')
                   ->orWhere('autor','LIKE', '%' . $request->search . '%')
                   ->orwhere('tombo', $request->search)
                   ->orwhere('cod_impressao','LIKE', '%' . $request->search . '%');
             });
-            return view('index', [
-                'itens' => $query->paginate(10), 
-                'request'=>$request
-            ]);//view com query
-        }else{
-            return view('index', [
-                'itens' => [],
-                'request'=>$request
-            ]); //somente a view
         }
+        return view('index', [
+            'itens' => $request->search ? $query->paginate(10) : [],
+            'request'=> $request
+        ]);
     }
 
     public function prioridadeJustificativa(Item $item){
         $this->authorize('user');
-        $item = Item::where('id',$item->id)->first();
         return view('item.prioridades.justificativa', ['item' => $item]);
     }
-    
+
     public function pedirPrioridade(Item $item, JustificativaRequest $request){
         $this->authorize('user');
-        $item->justificativa_processamento = $request->justificativa_processamento;
-        $item->pedido_usuario = Auth::user()->email; //email de quem pediu a prioridade
-        $item->prioridade_processamento = 1;
-        $item->save();
-        if($item->pedido_usuario){
-            Mail::queue(new mail_prioridade($item));
-        }
+        $item->update($request->validated() + [
+            'pedido_usuario' => Auth::user()->email,
+            'prioridade_processamento' => 1
+        ]);
+        Mail::queue(new mail_prioridade($item));
         request()->session()->flash('alert-info','Prioridade pedida');
         return redirect("/");
     }
-    
+
     public function viewPrioridade(Request $request){
         $this->authorize('ambos');
 
-        $itens = Item::where('prioridade_processamento',1)->toBase();
+        $itens = Item::where('prioridade_processamento',1)
+            ->where('status','Em Processamento Técnico')
+            ->toBase();
 
         $itens->when($request->busca, function($query) use ($request){
             $query->where(function ($q) use ($request){
                 $q->where('titulo','like',"%$request->busca%")
-                ->orwhere('autor','like',"%$request->busca%")
-                ->where('status','Em Processamento Técnico');
+                ->orwhere('autor','like',"%$request->busca%");
             });
         });
-        
+
         return view('item.prioridades.index', ['itens' => $itens->paginate(5)]);
     }
-    
+
     public function aceitarProcessamentoItem(Request $request, Item $item){
         $this->authorize('ambos');
         $item->status = "Processado";
@@ -91,12 +83,12 @@ class ItemController extends Controller
         return view('item/create')->with('item', new Item);
     }
 
-    public function show(Item $item, User $user){
-            $this->authorize('ambos');
-            $area = Area::where('codigo', $item->capes)->first();
-            return view('item/show', compact('item', 'area'));    
+    public function show(Item $item){
+        $this->authorize('ambos');
+        $area = Area::where('codigo', $item->capes)->first();
+        return view('item/show', compact('item', 'area'));
     }
-    
+
     public function store(ItemRequest $request){
         $this->authorize('ambos');
 

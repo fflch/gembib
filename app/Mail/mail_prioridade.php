@@ -21,6 +21,7 @@ class mail_prioridade extends Mailable
     public function __construct(Item $item)
     {
         $this->item = $item;
+
     }
 
     /**
@@ -30,7 +31,6 @@ class mail_prioridade extends Mailable
     {
         return new Envelope(
             subject: 'Pedido de prioridade do Item "'.$this->item->titulo.'"',
-            from: 'stlfflch@noreply',
             to: env('EMAIL_PRIORIDADE'),
         );
     }

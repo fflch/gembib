@@ -12,7 +12,7 @@ class EtiquetaController extends Controller
 {
     public function form(Item $itens){
         $this->authorize('logado');
-        return view('etiquetas',['itens'=>$itens]);
+        return view('etiquetas', ['itens' => $itens]);
     }
 
     public function impressao(Request $request, $codimpressao){
