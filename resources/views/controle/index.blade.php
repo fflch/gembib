@@ -10,8 +10,10 @@
     
 
 @if(!isset($controle->id))
-<div>
-    <center><button type="submit" class="btn btn-success" value="enviar">Enviar</button></center>
+<div class="row justify-content-center" style="margin-top:12px;">
+    <div class="col-3">
+        <button type="submit" class="btn btn-success" value="enviar" style="width:100%;">Enviar</button>
+    </div>
 </div>
 <br>
 @endif

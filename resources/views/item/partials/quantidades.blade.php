@@ -1,3 +1,4 @@
+
 <div class="card">
   <table class="table table-striped">
     <thead>
@@ -15,7 +16,7 @@
     </thead>
     <tbody>
       <tr align="center">
-        <td>{{ $quantidades->sugestao }}</td>
+      <td>{{ $quantidades->sugestao }}</td>
         <td>{{ $quantidades->cotacao }}</td>
         <td>{{ $quantidades->negado }}</td>
         <td>{{ $quantidades->licitacao }}</td>

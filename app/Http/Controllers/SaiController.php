@@ -54,6 +54,9 @@ class SaiController extends Controller
                         }
                     }
                 );
+                if(!$request->search[$key] && $value){
+                    request()->session()->flash('alert-danger','Insira um valor no campo de pesquisa!');
+                }
             }
         }
 
@@ -72,7 +75,7 @@ class SaiController extends Controller
         $itens->when($request->tipo_aquisicao, function($query) use ($request) {
             $query->where('tipo_aquisicao', '=', $request->tipo_aquisicao);
         });
-        
+
         //data_processamento é a data em que entrou no status PROCESSADO
         $itens->when(($request->data_processamento_inicio) && ($request->data_processamento_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_processamento_inicio);
@@ -87,7 +90,7 @@ class SaiController extends Controller
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
         });
-        
+
         //data de aquisição e data de tombamento são a mesma coisa, os setores chamam por nomes diferentes e resultou numa confusão entre os termos
         $itens->when(($request->data_aquisicao_inicio) && ($request->data_aquisicao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_aquisicao_inicio);
@@ -95,7 +98,7 @@ class SaiController extends Controller
             $query->whereBetween('data_tombamento', [$from, $to]);
             $query->whereNotNull('data_tombamento');
         });
-        
+
         $itens->when(($request->data_sugestao_inicio) && ($request->data_sugestao_fim), function($query) use ($request) {
             $from =  Carbon::createFromFormat('d/m/Y', $request->data_sugestao_inicio);
             $to = Carbon::createFromFormat('d/m/Y', $request->data_sugestao_fim);
