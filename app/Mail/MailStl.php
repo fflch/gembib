@@ -9,19 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Item;
-use Illuminate\Support\Facades\Auth;
 
-class mail_prioridade extends Mailable
+class MailStl extends Mailable
 {
     use Queueable, SerializesModels;
     private $item;
     /**
      * Create a new message instance.
      */
-    public function __construct(Item $item)
+    public function __construct($item)
     {
         $this->item = $item;
-
     }
 
     /**
@@ -30,7 +28,7 @@ class mail_prioridade extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Pedido de prioridade do Item "'.$this->item->titulo.'"',
+            subject: 'GEMBIB: Há itens com pedido de prioridade no processamento',
             to: env('EMAIL_PRIORIDADE'),
         );
     }
@@ -42,7 +40,7 @@ class mail_prioridade extends Mailable
     {
         return new Content(
             view: 'emails.email_prioridade',
-            with: ['item' => $this->item], //nome de quem mandou e está logado
+            with: ['item' => $this->item ],
         );
     }
 

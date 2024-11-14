@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JustificativaRequest extends FormRequest
+class PedidoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,16 +21,7 @@ class JustificativaRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'justificativa_processamento' => 'required|max:500',
-        ];
+        $rules = [];
         return $rules;
-    }
-
-    public function messages(){
-        return [
-            'justificativa_processamento.required' => 'Insira uma justificativa.',
-            'justificativa_processamento.max' => 'Máximo de 500 caracteres.',
-        ];
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
-
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
+use App\Console\Commands\MailStl;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -16,3 +18,5 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Schedule::command('app:send-mail-stl')->dailyAt('08:00')->runInBackground();

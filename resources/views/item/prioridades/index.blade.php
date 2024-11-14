@@ -31,17 +31,11 @@
                     <div class="col-5">
                         <p><b>Título: </b><a href="/item/{{$item->id}}">{{$item->titulo}}</a></p>
                         <p><b>Autor: </b>{{$item->autor}}</p>
+                        <p><b>Tombo: </b>{{$item->tombo}}</p>
                         <p><b>Ano de publicação: </b>{{$item->ano}}</p>
                         <p><b>Data da sugestão: </b>{{date('d/m/Y',strtotime($item->data_sugestao))}}</p>
                         <p><b>Requisitado por: </b>{{$item->pedido_usuario}}</p>
                     </div>
-                    <div class="col-1">
-                        <div style="width:1px; height:200px; background-color:RGB(0,0,0,0.2); display:grid;">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <p style="text-align:justify"><b>Justificativa: </b>{{$item->justificativa_processamento}}</p>
-                        </div>
                     </div>
                     <form method="post" action="processado/{{$item->id}}" style="margin-top:12px;">
                         @csrf
