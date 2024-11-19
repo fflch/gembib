@@ -11,7 +11,7 @@ Consulte nosso acervo público na busca abaixo:
 <form method="get">
 <div class="row">
     <div class=" col-sm input-group">
-    <input type="text" class="form-control" name="search" value="{{ request()->search }}" placeholder="Buscar por títutlo, autor, tombo ou código de impressão">
+    <input type="text" class="form-control" name="search" value="{{ request()->search }}" placeholder="Buscar por título, autor, tombo ou código de impressão">
 
     <span class="input-group-btn">
         <button type="submit" class="btn btn-success"> Buscar </button>
@@ -51,9 +51,13 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <td>{{ $item->autor }}</td>
       @if(!$item->prioridade_processamento)
       <td>
-        <a href="prioridades/justificativa/{{$item->id}}" class="btn btn-primary" name="prioridade">
-          Pedir prioridade
-        </a>
+        <form method="post" action="prioridade/{{$item->id}}">
+          @csrf
+          @method("put")
+          <button type="submit" class="btn btn-primary" name="prioridade">
+            Pedir prioridade
+          </button>
+        </form>
       </td>
       @else
       <td><p class="text-info" style="margin:2px;">Prioridade pedida</p></td>

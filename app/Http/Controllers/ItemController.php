@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use App\Utils\Util;
 use PDF;
 use App\Http\Requests\ItemRequest;
-use App\Http\Requests\JustificativaRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\mail_prioridade;
@@ -35,19 +34,12 @@ class ItemController extends Controller
         ]);
     }
 
-    public function prioridadeJustificativa(Item $item){
+    public function pedidoPrioridade(Item $item){
         $this->authorize('user');
-        return view('item.prioridades.justificativa', ['item' => $item]);
-    }
-
-    public function pedirPrioridade(Item $item, JustificativaRequest $request){
-        $this->authorize('user');
-        $item->update($request->validated() + [
-            'pedido_usuario' => Auth::user()->email,
-            'prioridade_processamento' => 1
-        ]);
-        Mail::queue(new mail_prioridade($item));
-        request()->session()->flash('alert-info','Prioridade pedida');
+        $item->pedido_usuario = Auth::user()->email;
+        $item->prioridade_processamento = 1;
+        $item->save();
+        request()->session()->flash('alert-info','A prioridade no processamento do livro foi pedida. Aguarde até os administradores do sistema aprovarem seu pedido.');
         return redirect("/");
     }
 

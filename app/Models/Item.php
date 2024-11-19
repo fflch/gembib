@@ -181,8 +181,8 @@ class Item extends Model
 
     public static function etiquetaOptions(){
         return[
-            '6182',
             'A4256',
+            '6182',
             '3080',
             '3081',
             '3082',
@@ -282,6 +282,4 @@ class Item extends Model
             'BOOP100x40',
         ];
     }
-
 }
-
