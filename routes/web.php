@@ -68,8 +68,6 @@ Route::get('/stl', [StlController::class, 'index']);
 Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
 
 #o user quem faz a requisição
-Route::get('prioridades/{item}', [ItemController::class, 'pedidoPrioridadeView'])
-->middleware('auth');
 Route::put('prioridade/{item}', [ItemController::class, 'pedidoPrioridade']);
 
 #sai/stl quem controla

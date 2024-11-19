@@ -1,8 +1,5 @@
-
-@foreach($item as $i)
-
-O item de título "<b>{{$i->titulo}}</b>" e tombo "<b>{{$i->tombo}}</b>" teve um pedido de prioridade no processamento feito por <b>{{$i->pedido_usuario}}</b>
-
+@foreach($itens as $item)
+O item de título "<b>{{$item->titulo}}</b>" e tombo "<b>{{$item->tombo}}</b>" teve um pedido de prioridade no processamento feito por <b>{{$item->pedido_usuario}}</b>
 <br />
 @endforeach
 <br/>

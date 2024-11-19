@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
-use App\Console\Commands\MailStl;
+use App\Console\Commands\SendMailPrioridade;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -19,4 +19,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Schedule::command('app:send-mail-stl')->dailyAt('08:00')->runInBackground();
+Schedule::command('send:mail-prioridade')->dailyAt('08:00')->runInBackground();
