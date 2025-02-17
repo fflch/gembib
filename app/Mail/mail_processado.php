@@ -29,8 +29,8 @@ class mail_processado extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'O Item "' . $this->item->titulo . '" foi Processado.',
-            to: $this->item->pedido_usuario,
+            subject: 'GEMBIB: O Item "' . $this->item->titulo . '" foi Processado.',
+            to: [$this->item->pedido_usuario, env('EMAIL_PRIORIDADE')],
         );
     }
 

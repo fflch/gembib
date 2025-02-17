@@ -34,7 +34,7 @@
                         <p><b>Tombo: </b>{{$item->tombo}}</p>
                         <p><b>Ano de publicação: </b>{{$item->ano}}</p>
                         <p><b>Data da sugestão: </b>{{date('d/m/Y',strtotime($item->data_sugestao))}}</p>
-                        <p><b>Requisitado por: </b>{{$item->pedido_usuario}}</p>
+                        <p><b>Requisitado por: </b>{{$item->pedido_usuario}}, {{\Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario)}}</p>
                     </div>
                     </div>
                     <form method="post" action="processado/{{$item->id}}" style="margin-top:12px;">

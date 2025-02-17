@@ -1,5 +1,5 @@
 @foreach($itens as $item)
-O item de título "<b>{{$item->titulo}}</b>" e tombo "<b>{{$item->tombo}}</b>" teve um pedido de prioridade no processamento feito por <b>{{$item->pedido_usuario}}</b>
+O item de título "<b>{{$item->titulo ?? ''}}</b>" e tombo "<b>{{$item->tombo ?? ''}}</b>" teve um pedido de prioridade no processamento feito por <b>{{$item->pedido_usuario ?? ''}}, {{\Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario) ?? ''}}</b> em <b>{{ date("d/m/Y", strtotime( '-1 days' ) ) }}</b>
 <br />
 @endforeach
 <br/>
