@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\mail_prioridade;
 use App\Mail\mail_processado;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -34,13 +35,17 @@ class ItemController extends Controller
         ]);
     }
 
-    public function pedidoPrioridade(Item $item){
+    public function pedidoPrioridade(Request $request){
         $this->authorize('user');
-        $item->pedido_usuario = Auth::user()->email;
-        $item->prioridade_processamento = 1;
-        $item->save();
-        request()->session()->flash('alert-info','A prioridade no processamento do livro foi pedida. Aguarde até os administradores do sistema aprovarem seu pedido.');
-        return redirect("/");
+        $itensSelecionados = $request->input('prioridade', []);
+
+        Item::whereIn('id', $itensSelecionados)->update([
+            'prioridade_processamento' => 1,
+            'pedido_usuario' => Auth::user()->email
+        ]);
+
+        Mail::queue(new mail_processado(Item::whereIn('id', $itensSelecionados)->first()));
+        return redirect()->back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
     }
 
     public function viewPrioridade(Request $request){
@@ -48,27 +53,13 @@ class ItemController extends Controller
 
         $itens = Item::where('prioridade_processamento',1)
             ->where('status','Em Processamento Técnico')
-            ->toBase();
+            ->toBase()
+            ->get()
+            ->toArray();
 
-        $itens->when($request->busca, function($query) use ($request){
-            $query->where(function ($q) use ($request){
-                $q->where('titulo','like',"%$request->busca%")
-                ->orwhere('autor','like',"%$request->busca%");
-            });
-        });
-
-        return view('item.prioridades.index', ['itens' => $itens->paginate(5)]);
+        return view('item.prioridades.index', ['itens' => $itens]);
     }
 
-    public function aceitarProcessamentoItem(Request $request, Item $item){
-        $this->authorize('ambos');
-        $item->status = "Processado";
-        $item->prioridade_processamento = 0;
-        $item->update();
-        Mail::queue(new mail_processado($item));
-        request()->session()->flash('alert-info',"Status do item de tombo $item->tombo mudado para PROCESSADO");
-        return redirect('/prioridades');
-    }
 
     public function create(){
         $this->authorize('ambos');

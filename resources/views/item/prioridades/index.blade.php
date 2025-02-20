@@ -20,7 +20,7 @@
 </div>
 <div class="row justify-content-center" style="margin-top:8px;">
     <div class="col-md-8">
-        {{ $itens->appends(request()->query())->links() }}
+        {{-- {{ $itens->appends(request()->query())->links() }} --}}
         <div class="card">
             <div class="card-header">
                 <b>Itens com pedido de prioridade</b>
@@ -28,20 +28,20 @@
             @forelse($itens as $item)
             <div class="card-body">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-8">
                         <p><b>Título: </b><a href="/item/{{$item->id}}">{{$item->titulo}}</a></p>
                         <p><b>Autor: </b>{{$item->autor}}</p>
                         <p><b>Tombo: </b>{{$item->tombo}}</p>
                         <p><b>Ano de publicação: </b>{{$item->ano}}</p>
                         <p><b>Data da sugestão: </b>{{date('d/m/Y',strtotime($item->data_sugestao))}}</p>
-                        <p><b>Requisitado por: </b>{{$item->pedido_usuario}}, {{\Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario)}}</p>
+                        @php
+                            $codpes = \Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario);
+                        @endphp
+                        <p><b>Requisitado por:</b>
+                            {{\Uspdev\Replicado\Pessoa::dump($codpes)['nompes']}} - {{\Uspdev\Replicado\Pessoa::email($codpes)}}, {{$codpes}}
+                        </p>
                     </div>
                     </div>
-                    <form method="post" action="processado/{{$item->id}}" style="margin-top:12px;">
-                        @csrf
-                        @method("put")
-                        <button type="submit" class="btn btn-success" style="width:100%;">Processar e avisar usuário</button>
-                    </form>
                 </div>
                 <hr />
                 @empty

@@ -18,7 +18,7 @@ class mail_processado extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Item $item)
+    public function __construct($item)
     {
         $this->item = $item;
     }
@@ -29,8 +29,8 @@ class mail_processado extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'GEMBIB: O Item "' . $this->item->titulo . '" foi Processado.',
-            to: [$this->item->pedido_usuario, env('EMAIL_PRIORIDADE')],
+            subject: 'GEMBIB: Solicitação de processamento de item(ns)',
+            to: $this->item->pedido_usuario,
         );
     }
 
