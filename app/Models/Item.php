@@ -13,6 +13,7 @@ class Item extends Model
     protected $guarded = ['id'];
 
     const status = [
+        "Inativo",
         "Sugestão",
         "Em Cotação",
         "Negado",

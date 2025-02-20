@@ -10,6 +10,6 @@
 <br/>
 @endforeach
     
-Aceite em: <a href="https://gembib.fflch.usp.br/prioridades" target="_blank">https://gembib.fflch.usp.br/prioridades</a>
+Veja-os em: <a href="https://gembib.fflch.usp.br/prioridades" target="_blank">https://gembib.fflch.usp.br/prioridades</a>
 <br /> <br /> <br />
 E-Mail automático. Não responder.

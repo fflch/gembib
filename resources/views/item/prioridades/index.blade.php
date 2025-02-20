@@ -32,11 +32,11 @@
                         <p><b>Título: </b><a href="/item/{{$item->id}}">{{$item->titulo}}</a></p>
                         <p><b>Autor: </b>{{$item->autor}}</p>
                         <p><b>Tombo: </b>{{$item->tombo}}</p>
-                        <p><b>Ano de publicação: </b>{{$item->ano}}</p>
-                        <p><b>Data da sugestão: </b>{{date('d/m/Y',strtotime($item->data_sugestao))}}</p>
                         @php
+                            $newData = \Carbon\Carbon::parse($item->updated_at)->subDays(1);
                             $codpes = \Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario);
                         @endphp
+                        <p><b>Data do Pedido: </b>{{date('d/m/Y', strtotime($newData))}}</p>
                         <p><b>Requisitado por:</b>
                             {{\Uspdev\Replicado\Pessoa::dump($codpes)['nompes']}} - {{\Uspdev\Replicado\Pessoa::email($codpes)}}, {{$codpes}}
                         </p>

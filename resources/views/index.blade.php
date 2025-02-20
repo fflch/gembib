@@ -23,7 +23,7 @@ Consulte nosso acervo público na busca abaixo:
 
 Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 
-@if($itens)
+@if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
 <table class="table table-striped">
   <thead>
@@ -35,7 +35,6 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <th scope="col">Prioridade</th>
     </tr>
   </thead>
-@endif
   
   <tbody>
     <form method="post" action="/pedido-prioridade">
@@ -68,8 +67,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
     Pedir prioridade
   </button>
 </form>
-
-
+  @endif
 @if($request->search && $itens->count() == 0)
 <div class="alert alert-info">A busca não retornou resultados</div>
 @endif

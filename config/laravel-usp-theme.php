@@ -92,7 +92,7 @@ return [
             'can'  => 'sai',
         ],
         [
-            'text' => 'Items em Prioridade',
+            'text' => 'Itens em Prioridade',
             'url' => '/prioridades',
             'can' => 'ambos',
         ],

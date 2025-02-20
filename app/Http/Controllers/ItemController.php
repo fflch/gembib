@@ -54,8 +54,7 @@ class ItemController extends Controller
         $itens = Item::where('prioridade_processamento',1)
             ->where('status','Em Processamento Técnico')
             ->toBase()
-            ->get()
-            ->toArray();
+            ->get();
 
         return view('item.prioridades.index', ['itens' => $itens]);
     }
@@ -137,18 +136,18 @@ class ItemController extends Controller
 
     public function set_is_active(Request $request){
         $this->authorize('ambos');
+        
         $request->validate([
             'is_active' => 'required|bool',
             'tombo' => 'required',
         ]);
-
         if(!$request->is_active){//se for para desativar, setar is_active para 0/false
             $request->validate(['motivo_desativamento' => 'required|max:500']);
-            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento]);
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento, 'status' => 'Inativo']);
             request()->session()->flash('alert-success','Item desativado com sucesso.');
         }else{
-            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => ""]);
-            request()->session()->flash('alert-success','Item ativado com sucesso.');
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => "", 'status' => 'Tombado']);
+            request()->session()->flash('alert-success','Item reativado com sucesso.');
         }
         return back();
 
