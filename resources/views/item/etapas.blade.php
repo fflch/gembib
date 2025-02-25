@@ -25,6 +25,10 @@
 </div>
 <div>
     @switch($item->status)
+        @case('Inativo')
+            
+        @break
+
         @case('Sugestão')
             @include('item.etapas.sugestao')
         @break

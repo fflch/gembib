@@ -110,12 +110,9 @@ class ProcessarController extends Controller
 
     public function processarProcessado(Request $request, Item $item){
         if($request->processar_processado == 'Processado'){
-
             $item->status = $request->processar_processado;
             $item->observacao = $request->observacao;
-            if($item->data_processado == NULL){
-                $item->data_processado = Carbon::now();
-            }
+            $item->data_processado = Carbon::now();
             $item->alterado_por = Auth::user()->codpes;
             $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
@@ -128,7 +125,7 @@ class ProcessarController extends Controller
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         } else {
             $item->status = $request->processar_processado;
-            $item->update();
+            $item->save();
             $request->session()->flash('alert-info', "Status do item mudado para: {$item->status}");
         }
         return redirect("/item/{$item->id}");

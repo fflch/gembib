@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\mail_prioridade;
 use App\Mail\mail_processado;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -34,41 +35,40 @@ class ItemController extends Controller
         ]);
     }
 
-    public function pedidoPrioridade(Item $item){
+    public function pedidoPrioridade(Request $request){
         $this->authorize('user');
-        $item->pedido_usuario = Auth::user()->email;
-        $item->prioridade_processamento = 1;
-        $item->save();
-        request()->session()->flash('alert-info','A prioridade no processamento do livro foi pedida. Aguarde até os administradores do sistema aprovarem seu pedido.');
-        return redirect("/");
+        $itensSelecionados = $request->input('prioridade', []);
+
+        if($itensSelecionados){
+            Item::whereIn('id', $itensSelecionados)->update([
+                'prioridade_processamento' => 1,
+                'pedido_usuario' => Auth::user()->email
+            ]);
+
+            Mail::to(Auth::user()->email)->queue(new mail_processado());
+            return back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
+        }
+        return back()->with('alert-danger','Nenhum item foi escolhido para solicitação de prioridade.');
     }
 
     public function viewPrioridade(Request $request){
         $this->authorize('ambos');
 
-        $itens = Item::where('prioridade_processamento',1)
+        $itens = Item::join('users', 'users.email', '=', 'itens.pedido_usuario')
             ->where('status','Em Processamento Técnico')
-            ->toBase();
+            ->toBase()
+            ->get();
+       // dd($itens);
 
-        $itens->when($request->busca, function($query) use ($request){
-            $query->where(function ($q) use ($request){
-                $q->where('titulo','like',"%$request->busca%")
-                ->orwhere('autor','like',"%$request->busca%");
-            });
-        });
 
-        return view('item.prioridades.index', ['itens' => $itens->paginate(5)]);
+        #$itens = Item::where('prioridade_processamento',1)
+        #    ->where('status','Em Processamento Técnico')
+        #    ->toBase()
+        #    ->get();
+
+        return view('item.prioridades.index', ['itens' => $itens]);
     }
 
-    public function aceitarProcessamentoItem(Request $request, Item $item){
-        $this->authorize('ambos');
-        $item->status = "Processado";
-        $item->prioridade_processamento = 0;
-        $item->update();
-        Mail::queue(new mail_processado($item));
-        request()->session()->flash('alert-info',"Status do item de tombo $item->tombo mudado para PROCESSADO");
-        return redirect('/prioridades');
-    }
 
     public function create(){
         $this->authorize('ambos');
@@ -146,18 +146,18 @@ class ItemController extends Controller
 
     public function set_is_active(Request $request){
         $this->authorize('ambos');
+
         $request->validate([
             'is_active' => 'required|bool',
             'tombo' => 'required',
         ]);
-
         if(!$request->is_active){//se for para desativar, setar is_active para 0/false
             $request->validate(['motivo_desativamento' => 'required|max:500']);
-            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento]);
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => $request->motivo_desativamento, 'status' => 'Inativo']);
             request()->session()->flash('alert-success','Item desativado com sucesso.');
         }else{
-            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => ""]);
-            request()->session()->flash('alert-success','Item ativado com sucesso.');
+            $item = Item::where('tombo', $request->tombo)->update(['is_active' => $request->is_active, 'motivo_desativamento' => "", 'status' => 'Tombado']);
+            request()->session()->flash('alert-success','Item reativado com sucesso.');
         }
         return back();
 

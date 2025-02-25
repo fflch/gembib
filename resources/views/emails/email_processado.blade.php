@@ -1,4 +1,4 @@
-O item de título <b>{{$item->titulo}}</b> e tombo <b>{{$item->tombo}}</b> teve seu status mudado para <b>{{$item->status}}</b>
+Recebemos sua solicitação de prioridade no processamento no sistema GEMBIB. Entraremos em contato quando o item estiver disponível para retirada.
 <br />
 <br />
-E-mail automático. Não responder.
+E-mail automático. Favor não responder.

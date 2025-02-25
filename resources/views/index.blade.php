@@ -23,7 +23,7 @@ Consulte nosso acervo público na busca abaixo:
 
 Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 
-@if($itens)
+@if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
 <table class="table table-striped">
   <thead>
@@ -35,9 +35,11 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <th scope="col">Prioridade</th>
     </tr>
   </thead>
-@endif
   
   <tbody>
+    <form method="post" action="/pedido-prioridade">
+      @csrf
+      @method('PUT')
     @foreach($itens as $item)
     <tr>
       <td>{{ $item->status }}</td>
@@ -51,13 +53,8 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <td>{{ $item->autor }}</td>
       @if(!$item->prioridade_processamento)
       <td>
-        <form method="post" action="prioridade/{{$item->id}}">
-          @csrf
-          @method("put")
-          <button type="submit" class="btn btn-primary" name="prioridade">
-            Pedir prioridade
-          </button>
-        </form>
+        <input type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}"/>
+        <label for="item_{{$item->id}}">Selecionar item</label>
       </td>
       @else
       <td><p class="text-info" style="margin:2px;">Prioridade pedida</p></td>
@@ -66,9 +63,13 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
     @endforeach    
   </tbody>
 </table>
-
+  <button type="submit" class="btn btn-primary" style="margin:10px;">
+    Pedir prioridade
+  </button>
+</form>
+  @endif
 @if($request->search && $itens->count() == 0)
-  <div class="alert alert-info">A busca não retornou resultados</div>
+<div class="alert alert-info">A busca não retornou resultados</div>
 @endif
 
 @if($itens)

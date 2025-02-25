@@ -302,7 +302,7 @@
     </tr>
     @endif
 
-    @if(in_array($item->status, ['Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
+    @if(in_array($item->status, ['Inativo','Sugestão', 'Negado', 'Em Licitação', 'Tombado', 'Em Processamento Técnico', 'Processado']) )
       <tr>
         <th scope="col">Item está {{ $item->is_active ? 'ativo' : 'desativo' }}</th>
         <td scope="row">
