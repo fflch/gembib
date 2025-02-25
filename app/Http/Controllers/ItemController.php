@@ -39,22 +39,32 @@ class ItemController extends Controller
         $this->authorize('user');
         $itensSelecionados = $request->input('prioridade', []);
 
-        Item::whereIn('id', $itensSelecionados)->update([
-            'prioridade_processamento' => 1,
-            'pedido_usuario' => Auth::user()->email
-        ]);
+        if($itensSelecionados){
+            Item::whereIn('id', $itensSelecionados)->update([
+                'prioridade_processamento' => 1,
+                'pedido_usuario' => Auth::user()->email
+            ]);
 
-        Mail::queue(new mail_processado(Item::whereIn('id', $itensSelecionados)->first()));
-        return redirect()->back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
+            Mail::to(Auth::user()->email)->queue(new mail_processado());
+            return back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
+        }
+        return back()->with('alert-danger','Nenhum item foi escolhido para solicitação de prioridade.');
     }
 
     public function viewPrioridade(Request $request){
         $this->authorize('ambos');
 
-        $itens = Item::where('prioridade_processamento',1)
+        $itens = Item::join('users', 'users.email', '=', 'itens.pedido_usuario')
             ->where('status','Em Processamento Técnico')
             ->toBase()
             ->get();
+       // dd($itens);
+
+
+        #$itens = Item::where('prioridade_processamento',1)
+        #    ->where('status','Em Processamento Técnico')
+        #    ->toBase()
+        #    ->get();
 
         return view('item.prioridades.index', ['itens' => $itens]);
     }
@@ -136,7 +146,7 @@ class ItemController extends Controller
 
     public function set_is_active(Request $request){
         $this->authorize('ambos');
-        
+
         $request->validate([
             'is_active' => 'required|bool',
             'tombo' => 'required',

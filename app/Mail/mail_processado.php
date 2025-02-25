@@ -14,15 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class mail_processado extends Mailable
 {
     use Queueable, SerializesModels;
-    private $item;
-    /**
-     * Create a new message instance.
-     */
-    public function __construct($item)
-    {
-        $this->item = $item;
-    }
-
     /**
      * Get the message envelope.
      */
@@ -30,7 +21,6 @@ class mail_processado extends Mailable
     {
         return new Envelope(
             subject: 'GEMBIB: Solicitação de processamento de item(ns)',
-            to: $this->item->pedido_usuario,
         );
     }
 
@@ -41,7 +31,6 @@ class mail_processado extends Mailable
     {
         return new Content(
             view: 'emails.email_processado',
-            with: ['item' => $this->item],
         );
     }
 

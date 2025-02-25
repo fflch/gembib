@@ -34,11 +34,10 @@
                         <p><b>Tombo: </b>{{$item->tombo}}</p>
                         @php
                             $newData = \Carbon\Carbon::parse($item->updated_at)->subDays(1);
-                            $codpes = \Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario);
                         @endphp
                         <p><b>Data do Pedido: </b>{{date('d/m/Y', strtotime($newData))}}</p>
                         <p><b>Requisitado por:</b>
-                            {{\Uspdev\Replicado\Pessoa::dump($codpes)['nompes']}} - {{\Uspdev\Replicado\Pessoa::email($codpes)}}, {{$codpes}}
+                        {{ $item->name}} - {{ $item->email }}, {{ $item->codpes }}
                         </p>
                     </div>
                     </div>

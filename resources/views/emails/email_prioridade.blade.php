@@ -1,15 +1,12 @@
-@foreach($itens as $item)
-    
-@php
-    $codpes = \Uspdev\Replicado\Pessoa::obterCodpesPorEmail($item->pedido_usuario);
-@endphp
-
+O usuário {{ $user->name }} ({{ $user->email }}/NUSP {{ $user->codpes }}), em {{ date("d/m/Y", strtotime( '-1 days' ) ) }} solicitou prioridade de processamento no(s) título(s) abaixo:
+<br />
+<b>Tombo - Título</b>
 <p>
-    O item de título "<b>{{$item->titulo ?? ''}}</b>" e tombo "<b>{{$item->tombo ?? ''}}</b>" teve um pedido de prioridade no processamento feito por {{\Uspdev\Replicado\Pessoa::dump($codpes)['nompes']}} - {{\Uspdev\Replicado\Pessoa::email($codpes)}}, {{$codpes}} em {{ date("d/m/Y", strtotime( '-1 days' ) ) }}
-</p>
-<br/>
+@foreach($itens as $item)
+{{ $item->tombo ?? 'Sem tombo' }} - {{ $item->titulo ?? 'Sem título' }} <br />
 @endforeach
-    
+</p>
+
 Veja-os em: <a href="https://gembib.fflch.usp.br/prioridades" target="_blank">https://gembib.fflch.usp.br/prioridades</a>
 <br /> <br /> <br />
 E-Mail automático. Não responder.

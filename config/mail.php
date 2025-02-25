@@ -84,7 +84,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', env('EMAIL_AUTOMATICO')),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply.sistemas@usp.br'),
         'name' => env('MAIL_FROM_NAME', 'Serviço Técnico de Livros'),
     ],
 
