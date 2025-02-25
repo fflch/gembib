@@ -9,8 +9,17 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
 use App\Http\Controllers\SaiController;
 use App\Http\Controllers\StlController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 Route::get('/',[ItemController::class,'index']);
+
+Route::post('/response', function(Request $request){
+    $var = session()->get('prioridadesSelecionadas', []);
+    session()->put('prioridadesSelecionadas', $var);
+    return response()->json($var);
+})->name("index");
+
 /* rotas de sugestão */
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
@@ -68,7 +77,29 @@ Route::get('/stl', [StlController::class, 'index']);
 Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
 
 #o user quem faz a requisição
-Route::put('/pedido-prioridade', [ItemController::class, 'pedidoPrioridade'])->middleware('auth');
+Route::put('/pedido-prioridade', [ItemController::class, 'pedidoPrioridade'])->name('pedidoPrioridade')->middleware('auth');
+
+Route::post('/salvar-prioridades', function (Request $request) {
+    // IDs de todos os checkboxes da página atual
+    $pageIds = $request->input('page_ids', []);
+    // IDs que foram selecionados na página atual
+    $selectedIds = $request->input('selected_ids', []);
+
+    // Recupera os itens já salvos na sessão (de outras páginas)
+    $sessao = session()->get('prioridadesSelecionadas', []);
+
+    // Remove da sessão os IDs que pertencem à página atual
+    $sessao = array_filter($sessao, function ($id) use ($pageIds) {
+        return !in_array($id, $pageIds);
+    });
+
+    //adiciona os IDs selecionados na página atual
+    $novosSelecionados = array_merge($sessao, $selectedIds);
+    $novosSelecionados = array_unique($novosSelecionados);
+    // Salva na sessão
+    session()->put('prioridadesSelecionadas', $novosSelecionados);
+    return response()->json(['status' => 'success']);
+})->name('salvarPrioridades');
 
 #sai/stl quem controla
 Route::get('prioridades', [ItemController::class, 'viewPrioridade']);

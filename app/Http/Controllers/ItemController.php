@@ -37,18 +37,18 @@ class ItemController extends Controller
 
     public function pedidoPrioridade(Request $request){
         $this->authorize('user');
-        $itensSelecionados = $request->input('prioridade', []);
-
-        if($itensSelecionados){
+        #$itensSelecionados = $request->input('prioridade', []);
+        $itensSelecionados = session()->get('prioridadesSelecionadas', []);
+        if(!empty($itensSelecionados)){
             Item::whereIn('id', $itensSelecionados)->update([
                 'prioridade_processamento' => 1,
                 'pedido_usuario' => Auth::user()->email
             ]);
-
             Mail::to(Auth::user()->email)->queue(new mail_processado());
-            return back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
         }
-        return back()->with('alert-danger','Nenhum item foi escolhido para solicitação de prioridade.');
+        session()->forget('prioridadesSelecionadas');
+        return back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
+        #return back()->with('alert-danger','Nenhum item foi escolhido para solicitação de prioridade.');
     }
 
     public function viewPrioridade(Request $request){

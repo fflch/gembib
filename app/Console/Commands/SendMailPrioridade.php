@@ -29,15 +29,15 @@ class SendMailPrioridade extends Command
      */
     public function handle()
     {
-        $itens = Item::select('id', 'titulo', 'tombo', 'pedido_usuario')
+        $itens = Item::join('users', 'users.email', '=', 'itens.pedido_usuario')
+            ->select('itens.id', 'itens.titulo', 'itens.tombo', 'itens.pedido_usuario','users.name','users.codpes')
             ->where('prioridade_processamento',1)
             ->where('email_enviado',0)
             ->get();
-
         if($itens->isNotEmpty()){
             DB::transaction(function() use ($itens) {
                 Item::whereIn('id', $itens->pluck('id'))->update(['email_enviado' => true]);
-                Mail::queue(new mail_prioridade($itens));
+                Mail::queue(new mail_prioridade($itens->toarray())); //toArray() resolve o problema de Serialização (perde os dados do user)
             });
         }
     }
