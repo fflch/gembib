@@ -25,6 +25,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 
 @if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
+<div class="alert alert-info" id="info" style="display:block;">Para solicitar uma prioridade no processamento de um livro, selecione o item desejado na <b>checkbox</b> à direita.</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -53,7 +54,12 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <td>{{ $item->autor }}</td>
       @if(!$item->prioridade_processamento)
       <td>
-        <input type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}"/>
+        @php
+
+        $selecionados = session()->get('prioridadesSelecionadas',[]);
+
+        @endphp
+        <input class="checkbox-prioridade" type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}" style="width:17px; height:17px;" {{ in_array($item->id, $selecionados) ? 'checked' : '' }}>
         <label for="item_{{$item->id}}">Selecionar item</label>
       </td>
       @else
@@ -63,7 +69,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
     @endforeach    
   </tbody>
 </table>
-  <button type="submit" class="btn btn-primary" style="margin:10px;">
+  <button type="submit" class="btn btn-primary" style="margin:10px; display:none;" id="submit">
     Pedir prioridade
   </button>
 </form>
@@ -75,5 +81,85 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 @if($itens)
 {{ $itens->appends(request()->query())->links() }}
 @endif
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  let checkboxes = document.querySelectorAll('input[name="prioridade[]"]');
+  let button = document.getElementById('submit');
+  let info = document.getElementById('info');
+  function atualizarVisibilidadeBotao() {
+    fetch("{{ route('index') }}")
+    .then(response => response.json())
+    .then(data => {
+        checkboxes.forEach(checkbox => {
+          if (data.includes(checkbox.value)) {
+            checkbox.checked = true;
+          } else {
+            checkbox.checked = false;
+          }
+        });
+
+        // Se houver pelo menos um item selecionado, exibe o botão
+        if (data.length > 0) {
+          button.style.display = "flex";
+          info.style.display = 'none';
+        } else {
+          info.style.display = 'block';
+          button.style.display = "none";
+        }
+      })
+      .catch(error => console.error("Erro ao buscar seleções:", error));
+  }
+
+  // Chama a função ao carregar a página para definir a visibilidade do botão
+  atualizarVisibilidadeBotao();
+
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function () {
+      let selecionadosNaPagina = Array.from(document.querySelectorAll('input[name="prioridade[]"]:checked')).map(el => el.value);
+      let allPageCheckboxes = Array.from(document.querySelectorAll('input[name="prioridade[]"]')).map(el => el.value);
+
+        fetch("{{ route('salvarPrioridades') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({ 
+                page_ids: allPageCheckboxes, 
+                selected_ids: selecionadosNaPagina 
+            })
+        })
+      .then(response => response.json())
+      .then(data => {
+        // Após atualizar a sessão, atualiza também a visibilidade do botão
+        atualizarVisibilidadeBotao();
+      })
+        .catch(error => console.error("Erro ao atualizar a sessão:", error));
+    });
+});
+
+    // Atualizar os itens no banco ao clicar no botão de envio
+    document.getElementById("submit").addEventListener("click", function () {
+        fetch("{{ route('pedidoPrioridade') }}", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.status === 'success') {
+                window.location.reload(); // Recarregar para refletir as atualizações
+            }
+        })
+        .catch(error => console.error("Erro ao atualizar:", error));
+    });
+});
+</script>
 
 @endsection('content')

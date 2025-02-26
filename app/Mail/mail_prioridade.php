@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class mail_prioridade extends Mailable
 {
     use Queueable, SerializesModels;
-    private $itens;
+    public $itens;
     /**
      * Create a new message instance.
      */
@@ -34,19 +34,15 @@ class mail_prioridade extends Mailable
             to: env('EMAIL_PRIORIDADE'),
         );
     }
-
     /**
      * Get the message content definition.
      */
     public function content(): Content
     {
-        $user = User::select(['codpes', 'name', 'email'])
-            ->where('email', $this->itens->pluck('pedido_usuario')[0])->first();
         return new Content(
             view: 'emails.email_prioridade',
             with: [
                 'itens' => $this->itens,
-                'user'  => $user
             ],
         );
     }
