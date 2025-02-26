@@ -25,7 +25,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 
 @if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
-<div class="alert alert-info" id="info" style="display:block;">Para solicitar um processamento de um livro, selecione o item desejado na <b>checkbox</b> à direita.</div>
+<div class="alert alert-info" id="info" style="display:block;">Para solicitar uma prioridade no processamento de um livro, selecione o item desejado na <b>checkbox</b> à direita.</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -59,7 +59,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
         $selecionados = session()->get('prioridadesSelecionadas',[]);
 
         @endphp
-        <input class="checkbox-prioridade" type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}" {{ in_array($item->id, $selecionados) ? 'checked' : '' }}>
+        <input class="checkbox-prioridade" type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}" style="width:17px; height:17px;" {{ in_array($item->id, $selecionados) ? 'checked' : '' }}>
         <label for="item_{{$item->id}}">Selecionar item</label>
       </td>
       @else
@@ -69,7 +69,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
     @endforeach    
   </tbody>
 </table>
-  <button type="submit" class="btn btn-primary" style="margin:10px; visibility:hidden;" id="submit">
+  <button type="submit" class="btn btn-primary" style="margin:10px; display:none;" id="submit">
     Pedir prioridade
   </button>
 </form>
@@ -85,53 +85,41 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  let checkboxes = document.getElementsByClassName('checkbox-prioridade');
+  let checkboxes = document.querySelectorAll('input[name="prioridade[]"]');
   let button = document.getElementById('submit');
-  let checkboxesSelecionadas = Array.from(document.querySelectorAll('input[name="prioridade[]"]:checked')).map(el => el.value);
-
-  function hideBtn(){
-    fetch("{{route('index') }}", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        },
-      })
-
+  let info = document.getElementById('info');
+  function atualizarVisibilidadeBotao() {
+    fetch("{{ route('index') }}")
     .then(response => response.json())
     .then(data => {
-      checkboxesSelecionadas.forEach(e => {
-        button.style = 'visibility: visible; margin: 10px;';
-      });
-      //for(let o = 0; o < checkboxesSelecionadas.length; o++){
-      //  button.style = 'visibility: visible; margin: 10px';
-      //}
-    })
-    .catch(error => console.error(error))
-//verificar a lógica do loop abaixo. (Apagar para testar)
-    for(let i = 0; i < checkboxes.length ; i++){
-      checkboxes[i].addEventListener('click', function(){
-        if(checkboxesSelecionadas && checkboxes[i].checked){
-          button.style = "visibility: visible; margin: 10px;";
-        }else{
-          button.style = "visibility: hidden; margin: 10px";
-        }
-      });
-    }
-  }
-    hideBtn();
-
-  document.querySelectorAll('.checkbox-prioridade').forEach(checkbox => {
-    checkbox.addEventListener("change", function () {
-        let allPageCheckboxes = Array.from(document.querySelectorAll('input[name="prioridade[]"]')).map(el => el.value);
-        let teste = document.getElementById('info');
-        // Lista de apenas os checkboxes marcados na página atual
-        let selecionadosNaPagina = [];
-        document.querySelectorAll('input[name="prioridade[]"]:checked').forEach(el => {
-            selecionadosNaPagina.push(el.value);
+        checkboxes.forEach(checkbox => {
+          if (data.includes(checkbox.value)) {
+            checkbox.checked = true;
+          } else {
+            checkbox.checked = false;
+          }
         });
 
-        // Envia para o backend tanto os IDs da página atual quanto os selecionados
+        // Se houver pelo menos um item selecionado, exibe o botão
+        if (data.length > 0) {
+          button.style.display = "flex";
+          info.style.display = 'none';
+        } else {
+          info.style.display = 'block';
+          button.style.display = "none";
+        }
+      })
+      .catch(error => console.error("Erro ao buscar seleções:", error));
+  }
+
+  // Chama a função ao carregar a página para definir a visibilidade do botão
+  atualizarVisibilidadeBotao();
+
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function () {
+      let selecionadosNaPagina = Array.from(document.querySelectorAll('input[name="prioridade[]"]:checked')).map(el => el.value);
+      let allPageCheckboxes = Array.from(document.querySelectorAll('input[name="prioridade[]"]')).map(el => el.value);
+
         fetch("{{ route('salvarPrioridades') }}", {
             method: "POST",
             headers: {
@@ -143,14 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 selected_ids: selecionadosNaPagina 
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            selecionadosNaPagina.forEach(e => {
-              if(selecionadosNaPagina)
-              teste.style = "display:none";
-            });
-        })
-        //.then(data => console.log("Sessão atualizada:", data))
+      .then(response => response.json())
+      .then(data => {
+        // Após atualizar a sessão, atualiza também a visibilidade do botão
+        atualizarVisibilidadeBotao();
+      })
         .catch(error => console.error("Erro ao atualizar a sessão:", error));
     });
 });

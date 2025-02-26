@@ -33,6 +33,7 @@ class SendMailPrioridade extends Command
             ->select('itens.id', 'itens.titulo', 'itens.tombo', 'itens.pedido_usuario','users.name','users.codpes')
             ->where('prioridade_processamento',1)
             ->where('email_enviado',0)
+            ->orderBy('users.codpes')
             ->get();
         if($itens->isNotEmpty()){
             DB::transaction(function() use ($itens) {

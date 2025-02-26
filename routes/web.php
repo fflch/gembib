@@ -14,9 +14,9 @@ use Illuminate\Http\Request;
 
 Route::get('/',[ItemController::class,'index']);
 
-Route::post('/response', function(Request $request){
+Route::get('/response', function(Request $request){
     $var = session()->get('prioridadesSelecionadas', []);
-    session()->put('prioridadesSelecionadas', $var);
+    #session()->put('prioridadesSelecionadas', $var);
     return response()->json($var);
 })->name("index");
 
