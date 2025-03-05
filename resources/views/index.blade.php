@@ -5,7 +5,7 @@
 
 <h3>Sistema para Gestão de Material Bibliográfico</h3>
 
-Consulte nosso acervo público na busca abaixo: 
+Consulte nosso acervo público na busca abaixo:
 <br><br>
 
 <form method="get">
@@ -25,6 +25,7 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 
 @if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
+<div class="alert alert-info" id="info" style="display:block;">Para solicitar uma prioridade no processamento de um livro, click no botão <b>Solicitar</b> à direita.</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -35,11 +36,8 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
       <th scope="col">Prioridade</th>
     </tr>
   </thead>
-  
+
   <tbody>
-    <form method="post" action="/pedido-prioridade">
-      @csrf
-      @method('PUT')
     @foreach($itens as $item)
     <tr>
       <td>{{ $item->status }}</td>
@@ -51,23 +49,23 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
         {{ $item->titulo }}
       </th>
       <td>{{ $item->autor }}</td>
-      @if(!$item->prioridade_processamento)
       <td>
-        <input type="checkbox" name="prioridade[]" value="{{ $item->id }}" id="item_{{$item->id}}"/>
-        <label for="item_{{$item->id}}">Selecionar item</label>
+        @can('logado')
+        <button
+          type="button"
+          name="prioridade"
+          data-id="{{ $item->id }}"
+          class="btn {{ $item->prioridade_processamento ? 'btn-secondary' : 'btn-primary' }}"
+          @disabled($item->prioridade_processamento)>
+          {{ $item->prioridade_processamento ? 'Solicitado' : 'Solicitar' }}
+        </button>
+        @endcan
       </td>
-      @else
-      <td><p class="text-info" style="margin:2px;">Prioridade pedida</p></td>
-      @endif
     </tr>
-    @endforeach    
+    @endforeach
   </tbody>
 </table>
-  <button type="submit" class="btn btn-primary" style="margin:10px;">
-    Pedir prioridade
-  </button>
-</form>
-  @endif
+@endif
 @if($request->search && $itens->count() == 0)
 <div class="alert alert-info">A busca não retornou resultados</div>
 @endif
@@ -75,5 +73,37 @@ Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('log
 @if($itens)
 {{ $itens->appends(request()->query())->links() }}
 @endif
-
 @endsection('content')
+
+@section('javascripts_bottom')
+  <script>
+    $(document).ready(function(){
+
+      $(".btn-primary").on("click", function(e) {
+        e.preventDefault();
+        let button = $(this);
+        let email = "{{ Auth::user()->email }}";
+
+        $.ajax({
+          url:"{{ route('salvarPrioridade') }}",
+          type: "POST",
+          dataType: "json",
+          data: {
+            _token: "{{ csrf_token() }}",
+            item: $(this).data("id"),
+            email: email
+          },
+          success: function(data) {
+            button.text("Solicitado").removeClass("btn-primary").addClass("btn-secondary");
+            button.prop("disabled", true);
+          },
+          error: function() {
+            button.text("Solicitar").removeClass("btn-secondary").addClass("btn-primary");
+            alert("Algo deu errado!");
+          },
+        });
+      });
+
+    });
+  </script>
+@endsection

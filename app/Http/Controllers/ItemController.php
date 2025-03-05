@@ -35,22 +35,6 @@ class ItemController extends Controller
         ]);
     }
 
-    public function pedidoPrioridade(Request $request){
-        $this->authorize('user');
-        $itensSelecionados = $request->input('prioridade', []);
-
-        if($itensSelecionados){
-            Item::whereIn('id', $itensSelecionados)->update([
-                'prioridade_processamento' => 1,
-                'pedido_usuario' => Auth::user()->email
-            ]);
-
-            Mail::to(Auth::user()->email)->queue(new mail_processado());
-            return back()->with('alert-info','Recebemos o seu pedido de solicitação. Entraremos em contato quando o item estiver disponível.');
-        }
-        return back()->with('alert-danger','Nenhum item foi escolhido para solicitação de prioridade.');
-    }
-
     public function viewPrioridade(Request $request){
         $this->authorize('ambos');
 
@@ -58,13 +42,6 @@ class ItemController extends Controller
             ->where('status','Em Processamento Técnico')
             ->toBase()
             ->get();
-       // dd($itens);
-
-
-        #$itens = Item::where('prioridade_processamento',1)
-        #    ->where('status','Em Processamento Técnico')
-        #    ->toBase()
-        #    ->get();
 
         return view('item.prioridades.index', ['itens' => $itens]);
     }

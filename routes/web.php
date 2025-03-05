@@ -9,8 +9,18 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
 use App\Http\Controllers\SaiController;
 use App\Http\Controllers\StlController;
+use App\Http\Controllers\PrioridadeController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 Route::get('/',[ItemController::class,'index']);
+
+Route::get('/response', function(Request $request){
+    $var = session()->get('prioridadesSelecionadas', []);
+    #session()->put('prioridadesSelecionadas', $var);
+    return response()->json($var);
+})->name("index");
+
 /* rotas de sugestão */
 Route::get('/sugestao', [SugestaoController::class, 'sugestaoForm']);
 Route::post('/sugestao', [SugestaoController::class, 'sugestao']);
@@ -67,8 +77,7 @@ Route::get('/sai', [SaiController::class, 'index']);
 Route::get('/stl', [StlController::class, 'index']);
 Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
 
-#o user quem faz a requisição
-Route::put('/pedido-prioridade', [ItemController::class, 'pedidoPrioridade'])->middleware('auth');
+Route::post('/salvar-prioridade', PrioridadeController::class)->name('salvarPrioridade');
 
 #sai/stl quem controla
 Route::get('prioridades', [ItemController::class, 'viewPrioridade']);
