@@ -35,10 +35,11 @@ class SendMailPrioridade extends Command
             ->where('email_enviado',0)
             ->orderBy('users.codpes')
             ->get();
-        if($itens->isNotEmpty()){
+
+        if($itens->isNotEmpty()) {
             DB::transaction(function() use ($itens) {
                 Item::whereIn('id', $itens->pluck('id'))->update(['email_enviado' => true]);
-                Mail::queue(new mail_prioridade($itens->toarray())); //toArray() resolve o problema de Serialização (perde os dados do user)
+                Mail::queue(new mail_prioridade($itens->toArray()));
             });
         }
     }

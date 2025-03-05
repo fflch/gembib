@@ -9,6 +9,7 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\ControleController;
 use App\Http\Controllers\SaiController;
 use App\Http\Controllers\StlController;
+use App\Http\Controllers\PrioridadeController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -76,30 +77,7 @@ Route::get('/sai', [SaiController::class, 'index']);
 Route::get('/stl', [StlController::class, 'index']);
 Route::get('/stl/relatorio', [StlController::class, 'relatorio']);
 
-#o user quem faz a requisição
-Route::put('/pedido-prioridade', [ItemController::class, 'pedidoPrioridade'])->name('pedidoPrioridade')->middleware('auth');
-
-Route::post('/salvar-prioridades', function (Request $request) {
-    // IDs de todos os checkboxes da página atual
-    $pageIds = $request->input('page_ids', []);
-    // IDs que foram selecionados na página atual
-    $selectedIds = $request->input('selected_ids', []);
-
-    // Recupera os itens já salvos na sessão (de outras páginas)
-    $sessao = session()->get('prioridadesSelecionadas', []);
-
-    // Remove da sessão os IDs que pertencem à página atual
-    $sessao = array_filter($sessao, function ($id) use ($pageIds) {
-        return !in_array($id, $pageIds);
-    });
-
-    //adiciona os IDs selecionados na página atual
-    $novosSelecionados = array_merge($sessao, $selectedIds);
-    $novosSelecionados = array_unique($novosSelecionados);
-    // Salva na sessão
-    session()->put('prioridadesSelecionadas', $novosSelecionados);
-    return response()->json(['status' => 'success']);
-})->name('salvarPrioridades');
+Route::post('/salvar-prioridade', PrioridadeController::class)->name('salvarPrioridade');
 
 #sai/stl quem controla
 Route::get('prioridades', [ItemController::class, 'viewPrioridade']);

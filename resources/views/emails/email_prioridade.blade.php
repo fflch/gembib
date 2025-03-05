@@ -1,6 +1,7 @@
 @foreach($itens as $item)
 
-<p>O item de título <b>{{ $item['titulo'] ?? 'Sem título' }}</b> - <b>{{ $item['tombo'] ?? 'Sem tombo' }}</b> teve um pedido de prioridade feito por <b>{{ $item['name'] }}</b> ( {{ $item['codpes'] }} - {{$item['pedido_usuario']}} ) em {{ date("d/m/Y", strtotime( '-1 days' ) ) }}<br />
+<p
+O item de título <b>{{ $item['titulo'] ?? 'Sem título' }}</b> - <b>{{ $item['tombo'] ?? 'Sem tombo' }}</b> teve um pedido de prioridade feito por <b>{{ $item['name'] }}</b> ( {{ $item['codpes'] }} - {{ $item['pedido_usuario'] }} ) em {{ date("d/m/Y", strtotime("-1 days")) }}<br />
 </p>
 @endforeach
 

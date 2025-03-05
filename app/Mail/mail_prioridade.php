@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Auth;
 class mail_prioridade extends Mailable
 {
     use Queueable, SerializesModels;
-    public $itens;
+    private $itens;
     /**
      * Create a new message instance.
      */
-    public function __construct($itens)
+    public function __construct(Array $itens)
     {
         $this->itens = $itens;
     }
