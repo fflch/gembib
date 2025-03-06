@@ -21,7 +21,7 @@ Consulte nosso acervo público na busca abaixo:
 </div>
 </form><br>
 
-Para fazer sugestões de compra, acesse o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
+Para fazer sugestões de compra, por favor, acesse o sistema com sua <a href="{{ route('login') }}">Senha Única</a> da Universidade de São Paulo.
 
 @if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
