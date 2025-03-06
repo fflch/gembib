@@ -25,7 +25,8 @@ Para fazer sugestões de compra, por favor, acesse o sistema com sua <a href="{{
 
 @if($itens && $itens->count() > 0)
 {{ $itens->appends(request()->query())->links() }}
-<div class="alert alert-info" id="info" style="display:block;">Para solicitar uma prioridade no processamento de um livro, click no botão <b>Solicitar</b> à direita.</div>
+<div class="alert alert-info" id="info" style="display:block;">Para solicitar uma prioridade no processamento de um livro, @if(Auth::user()) clique no botão <b>Solicitar</b> à direita. @else é necessário estar <a href="/login"><b>logado</b></a> no sistema. @endif</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -33,7 +34,11 @@ Para fazer sugestões de compra, por favor, acesse o sistema com sua <a href="{{
       <th scope="col">Tombo</th>
       <th scope="col">Título</th>
       <th scope="col">Autor</th>
-      <th scope="col">Prioridade</th>
+      <th scope="col">
+        @if(Auth::user())
+        Prioridade
+        @endif
+      </th>
     </tr>
   </thead>
 
@@ -82,7 +87,7 @@ Para fazer sugestões de compra, por favor, acesse o sistema com sua <a href="{{
       $(".btn-primary").on("click", function(e) {
         e.preventDefault();
         let button = $(this);
-        let email = "{{ Auth::user()->email }}";
+        let email = "{{ Auth::user()->email ?? '' }}";
 
         $.ajax({
           url:"{{ route('salvarPrioridade') }}",
