@@ -85,6 +85,7 @@ Para fazer sugestões de compra, por favor, acesse o sistema com sua <a href="{{
     $(document).ready(function(){
 
       $(".btn-primary").on("click", function(e) {
+        $(this).text('Solicitando...');
         e.preventDefault();
         let button = $(this);
         let email = "{{ Auth::user()->email ?? '' }}";
