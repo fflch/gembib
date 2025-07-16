@@ -35,13 +35,13 @@ class ItemController extends Controller
         ]);
     }
 
-    public function viewPrioridade(Request $request){
+    public function viewPrioridade(){
         $this->authorize('ambos');
 
-        $itens = Item::join('users', 'users.email', '=', 'itens.pedido_usuario')
-            ->where('status','Em Processamento Técnico')
-            ->toBase()
-            ->get();
+        $itens = User::join('itens', 'users.email','itens.pedido_usuario')
+        ->where('itens.status','Em Processamento Técnico')
+        ->toBase()
+        ->get();
 
         return view('item.prioridades.index', ['itens' => $itens]);
     }
