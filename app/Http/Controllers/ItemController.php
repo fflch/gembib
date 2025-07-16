@@ -40,6 +40,7 @@ class ItemController extends Controller
 
         $itens = User::join('itens', 'users.email','itens.pedido_usuario')
         ->where('itens.status','Em Processamento Técnico')
+        ->toBase()
         ->get();
 
         return view('item.prioridades.index', ['itens' => $itens]);
