@@ -1,0 +1,32 @@
+services:
+  gembib:
+    image: gembib
+    container_name: gembib
+    ports:
+      - "8000:80"
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    networks:
+      - gembib-network
+
+  mariadb:
+    image: mariadb:11
+    container_name: gembib_mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: gembib
+      MYSQL_USER: gembib
+      MYSQL_PASSWORD: gembib
+      MYSQL_ROOT_PASSWORD: gembib
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - gembib-network
+
+networks:
+  gembib-network:
+
+volumes:
+  mariadb_data:
