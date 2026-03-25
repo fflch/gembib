@@ -10,6 +10,8 @@ services:
       - mariadb
     networks:
       - gembib-network
+    volumes:
+      - ./:/var/www/html
 
   mariadb:
     image: mariadb:11

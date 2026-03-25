@@ -2,7 +2,14 @@ Criando imagem:
 
     docker build --no-cache -t gembib .
 
-docker compose up -d --build
+
+docker compose up
+
+docker compose exec -u root gembib bash
+composer install
+chown -R www-data:www-data storage bootstrap/cache
+
+
 
 
 docker compose down -v
