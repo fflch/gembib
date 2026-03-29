@@ -5,7 +5,7 @@
 
 <h3>Sistema para Gestão de Material Bibliográfico</h3>
 
-Consulte nosso acervo público na busca abaixo:
+Consulte nosso acervo público na busca abaixo XXXXXXXx:
 <br><br>
 
 <form method="get">
