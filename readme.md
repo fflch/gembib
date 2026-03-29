@@ -2,15 +2,16 @@ Criando imagem:
 
     docker build --no-cache -t gembib .
 
+Ambiente dev:
 
-docker compose up
+    cp .env.example .env
+    docker compose up
+    docker compose exec -u root gembib bash
+    git config --global --add safe.directory /var/www/html
+    composer install
+    chown -R www-data:www-data /var/www/html/storage/logs
+    php artisan key:generate
 
-docker compose exec -u root gembib bash
-composer install
-
-chown -R www-data:www-data storage bootstrap/cache
-chmod -R 775 storage bootstrap/cache
-git config --global --add safe.directory /var/www/html
 
 
 
