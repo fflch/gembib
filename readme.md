@@ -5,11 +5,15 @@ Criando imagem:
 Ambiente dev:
 
     cp .env.example .env
+    export UID=$(id -u)
+    export GID=$(id -g)
     docker compose up
+
     docker compose exec -u root gembib bash
     git config --global --add safe.directory /var/www/html
     composer install
-    chown -R www-data:www-data /var/www/html/storage/logs
+    chown -R www-data:www-data storage bootstrap/cache
+    chmod -R 775 storage bootstrap/cache
     php artisan key:generate
 
 
