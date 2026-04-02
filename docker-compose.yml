@@ -1,6 +1,6 @@
 services:
   gembib:
-    image: gembib
+    build: .
     container_name: gembib
     ports:
       - "8000:80"
