@@ -1,26 +1,17 @@
 services:
   gembib:
     image: gembib
-    user: "${UID:-1000}:${GID:-1000}"
     container_name: gembib
     ports:
       - "8000:80"
-    env_file:
-      - .env
     depends_on:
       - mariadb
     networks:
       - gembib-network
     volumes:
       - ./:/var/www/html
-      # evita problema de permissão (isolado do host)
       - storage_data:/var/www/html/storage
       - cache_data:/var/www/html/bootstrap/cache
-    command: >
-      bash -c "
-        mkdir -p storage bootstrap/cache &&
-        chmod -R 775 storage bootstrap/cache
-      "
 
   mariadb:
     image: mariadb:11

@@ -4,32 +4,17 @@ Criando imagem:
 
 Ambiente dev:
 
-    cp .env.example .env
-    export UID=$(id -u)
-    export GID=$(id -g)
     docker compose up
 
+Comandos do laravel dentro do container:
+
+    cp .env.example .env
+    docker exec -u root -it gembib composer install
+    docker exec -u root -it gembib php artisan key:generate
+    docker exec -u root -it gembib php artisan migrate
+
+Acessando os containers via ssh:
+
     docker compose exec -u root gembib bash
-    git config --global --add safe.directory /var/www/html
-    composer install
-    chown -R www-data:www-data storage bootstrap/cache
-    chmod -R 775 storage bootstrap/cache
-    php artisan key:generate
+    docker compose exec -u root mariadb bash
 
-
-
-
-
-docker compose down -v
-
-docker compose exec mariadb bash
-
-mariadb -ugembib -pgembib
-
-docker compose exec mariadb mariadb -u gembib -pgembib
-
-
-docker compose exec gembib bash
-
-
-docker compose exec -u root gembib bash
